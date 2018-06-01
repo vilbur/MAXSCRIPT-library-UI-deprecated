@@ -21,9 +21,10 @@ struct Control_v
 	 */
 	function addControl =
 	(
-		this.roll.addControl this.type this.id this.title
+		messagebox "message" beep:false;
+		--this.roll.addControl this.type this.id this.title
 		
-		this.addEvents()
+		--this.addEvents()
 	),
 	/** Add events to UI 
 	 */

@@ -4,27 +4,38 @@
  */
 struct Rollout_v
 (
+	self = this,
 	id,
 	title,
-	_rollout,
-	controls = #("Button1", "Button2"),
+	roll,
+	--Controls = List(),
+	Controls = #(),
 	
-	--function id =
-	--(
-	--	
-	--),
 	
+	/** Set roll property 
+	 */
+	function new id title =
+	(
+		this.id	= id
+		this.title	= title
+		
+		this.roll = rolloutCreator this.id this.title
+		
+		return self
+	),
+	/** Create rollout 
+	 *	
+	 */
     function create =
 	(
 		id = this.id
 		try(DestroyDialog id)catch() -- must be above rollout definition
 
-		this._rollout = rolloutCreator this.id this.title
-		this._rollout.begin()
+		this.roll.begin()
 		
 		this.addControls()
 		
-		CreateDialog (this._rollout.end())
+		CreateDialog (this.roll.end())
 		
 --        rollout id this.title
 --        (  
@@ -45,16 +56,18 @@ struct Rollout_v
         --CreateDialog id;  
 	),
 	function addControls =
-	(
-		this._rollout.addControl #button #myButton "My Button TEST"
-		this._rollout.addHandler #myButton #pressed filter:on codeStr:"MessageBox @Isn't this cool@ title:@Wow@"
-		
+	(		
+		--this.roll.addControl #button #myButton "My Button TEST"
+		--this.roll.addHandler #myButton #pressed filter:on codeStr:"MessageBox @Isn't this cool@ title:@Wow@"
+		for _Control in this.Controls do
+			_Control.addControl()
 	),
 	/**  Add control
 	 */
 	function control type id title =
 	(
-		messagebox "Rollout.add()";
+		_Control = Control_v roll:this.roll type:type id:id title:title
+		append this.Controls _Control
 	),
 	function test =
 	(

@@ -1,7 +1,4 @@
-# Template for Maxscript project    
-* Contains basic file hierarchy    
-* Test script macro    
+# UI  
+* OOP library for create UI  
 
-
-## Quick start    
-Drag ___UITest.mcr__ to 3Ds Max  
+  
