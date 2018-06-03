@@ -36,22 +36,6 @@ struct Rollout_v
 		this.addControls()
 		
 		CreateDialog (this.roll.end())
-		
---        rollout id this.title
---        (  
---			--controls = this.controls
---			--for _button in controls do
---			--(
---			--	 Button _button
---			--
---			--)
---			function testFn =
---			(
---				messagebox "testFn";
---			),
---			testFn()
---			
---        )
         
         --CreateDialog id;  
 	),
@@ -67,7 +51,10 @@ struct Rollout_v
 	function control type id title =
 	(
 		_Control = Control_v roll:this.roll type:type id:id title:title
+		
 		append this.Controls _Control
+		
+		return _Control
 	),
 	function test =
 	(
