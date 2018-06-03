@@ -8,8 +8,7 @@ struct Rollout_v
 	id,
 	title,
 	roll,
-	--Controls = List(),
-	Controls = #(),
+ 	Controls = #(),
 	
 	
 	/** Set roll property 
@@ -33,18 +32,12 @@ struct Rollout_v
 
 		this.roll.begin()
 		
-		this.addControls()
+		this._addControls()
 		
 		CreateDialog (this.roll.end())
         
-        --CreateDialog id;  
-	),
-	function addControls =
-	(		
-		--this.roll.addControl #button #myButton "My Button TEST"
-		--this.roll.addHandler #myButton #pressed filter:on codeStr:"MessageBox @Isn't this cool@ title:@Wow@"
-		for _Control in this.Controls do
-			_Control.addControl()
+		this.roll = this.roll.def
+		
 	),
 	/**  Add control
 	 */
@@ -56,6 +49,16 @@ struct Rollout_v
 		
 		return _Control
 	),
+	/**  
+	 */
+	function _addControls =
+	(		
+		--this.roll.addControl #button #myButton "My Button TEST"
+		--this.roll.addHandler #myButton #pressed filter:on codeStr:"MessageBox @Isn't this cool@ title:@Wow@"
+		for _Control in this.Controls do
+			_Control._addControl()
+	),
+
 	function test =
 	(
 		messagebox "UI.test()"

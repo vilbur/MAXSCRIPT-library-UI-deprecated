@@ -10,27 +10,25 @@ struct Control_v
 	id,
 	title,
 
-	/**  Bind event to control
+	/**  Bind Event to control
 	 */
 	function bind type code params =
 	(
 		event	= Event_v roll:this.roll control:id type:type code:code params:params
+		
 		this.events.setVal type event
 	),
 	/** Add control to UI 
 	 */
-	function addControl =
+	function _addControl =
 	(
-		--messagebox "message" beep:false;
-		--this.roll.addControl this.type this.id this.title
-		this.roll.addControl this.type this.id this.title
+		this.roll.addControl this.type this.id this.title paramStr:"width: 128"
 		
-		--this.roll[this.id].text = "128"
-		this.addEvents()
+		this._addEvents()
 	),
 	/** Add events to UI 
 	 */
-	function addEvents =
+	function _addEvents =
 	(
 		for event in this.events.values do
 			event.add()
