@@ -4,12 +4,14 @@
  */
 struct Rollout_v
 (
-	self = this,
+	self	= this,
+	--test_prop	= "Test value",
+	--_Control	= Control_v parent_roll:this,
+	--control	= this._Control.control,
 	id,
 	title,
 	roll,
- 	Controls = #(),
-	
+ 	_Controls	= #(),
 	
 	/** Set roll property 
 	 */
@@ -39,42 +41,28 @@ struct Rollout_v
 		this.roll = this.roll.def
 		
 	),
-	/**  Add control of any type
-	 *  @param	string	type	Type of control
-	 *  @param	string	caption	Caption of control
-	 *  @return	[Control](../../Control)
+	/** Controls
 	 */
-	function control type caption id =
+	function controls =
 	(
-		_Control = Control_v roll:this.roll type:type id:id caption:caption
+		Controls_new 	= Controls_v parent_roll:this
 		
-		append this.Controls _Control
+		append this._Controls Controls_new
 		
-		return _Control
-	),
-	/** Add button control
-	 *  @param	string	caption	Caption of control
-	 *  @return	[Control](../../Control)
-	 */
-	function button caption id =
-	(
-		return this.control #button caption id
+		return Controls_new
 	),
 	
 	/**  Add controls on rollout creation
 	 */
 	function _addControls =
 	(		
-		for _Control in this.Controls do
-			_Control._addControl()
+		for _Controls in this._Controls do
+			_Controls._addControls()
 	),
 
 	function test =
 	(
-		messagebox "UI.test()"
+		messagebox "Rollout_v.test()"
 	)
 	
 )
-
---method()
-
