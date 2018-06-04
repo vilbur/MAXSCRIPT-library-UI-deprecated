@@ -15,7 +15,7 @@ struct Controls_v
 	(
 		--messagebox "message" beep:false;
 		
-		Control_new = Control_v type:type caption:caption id:id 
+		Control_new = Control_v parent_roll:parent_roll type:type caption:caption id:id 
 		
 		append _Control Control_new
 		
@@ -27,14 +27,14 @@ struct Controls_v
 	(
 		for Control in this._Control do
 			--print Control
-			this._addControl Control
+			Control._addControl parent_roll
 	),
-	/** Add control to UI 
-	 */
-	function _addControl Control =
-	(
-		this.parent_roll.roll.addControl Control.type Control.id Control.caption paramStr:"width: 128"		
-	),
+	--/** Add control to UI 
+	-- */
+	--function _addControl Control =
+	--(
+	--	this.parent_roll.roll.addControl Control.type Control.id Control.caption paramStr:"width: 128"		
+	--),
 	
 	function test =
 	(

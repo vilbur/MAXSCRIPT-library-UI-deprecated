@@ -12,10 +12,11 @@ struct Events_v
 		event	= Event_v type:"pressed" code:code params:params
 		
 		this.events.setVal #pressed event
-		
 	),
-	function _add =
+	function _add parent_control =
 	(
+		this.parent_control = parent_control
+		
 		for event in this.events.values do
 			this._addHandler event
 	),

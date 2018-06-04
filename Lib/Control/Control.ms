@@ -5,7 +5,7 @@ struct Control_v
 (
 	self	= this,
 	Events	= Events_v parent_control:this,
-	--parent_roll,
+	parent_roll,
 	type,
 	id,
 	caption,
@@ -31,21 +31,21 @@ struct Control_v
 	--	
 	--	return this
 	--),
-	--/** Add control to UI 
-	-- */
-	--function _addControl =
-	--(
-	--	this.parent_roll.roll.addControl this.type this.id this.caption paramStr:"width: 128"
-	--	
-	--	--this.Events._add()
-	--),
-	/** Add events to UI 
+	/** Add control to UI 
 	 */
-	function _addEvents =
+	function _addControl parent_roll =
 	(
-		for event in this.events.values do
-			event._add()
+		parent_roll.roll.addControl this.type this.id this.caption paramStr:"width: 128"
+		
+		this.Events._add this
 	),
+	--/** Add events to UI 
+	-- */
+	--function _addEvents =
+	--(
+	--	for event in this.events.values do
+	--		event._add()
+	--),
 	function test =
 	(
 		messagebox "Control_v.test()"
