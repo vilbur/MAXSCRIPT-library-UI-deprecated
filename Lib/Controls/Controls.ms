@@ -4,8 +4,14 @@ struct Controls_v
 (
 	self = this,
 	parent_roll,
-	groupbox,
+	groupbox	= false, -- store caption of groupbox
+	--_Groupbox	= Groupbox_v(),
+	Layout	= Layout_v(),
+	_Groupbox,
 	_Control	= #(),
+	
+	pos,
+	pos_groupbox,
 	
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
@@ -14,8 +20,6 @@ struct Controls_v
 	 */
 	function control type caption id =
 	(
-		--messagebox "message" beep:false;
-		
 		Control_new = Control_v parent_roll:parent_roll type:type caption:caption id:id 
 		
 		append _Control Control_new
@@ -23,26 +27,48 @@ struct Controls_v
 		return Control_new
 	),
 	/** Add controls
-	 */
+	 */ 
 	function _addControls pos =
 	(
+		pos = this.setGroupbox pos
+		this.nextControlPos pos
+
 		for Control in this._Control do
-		--(
-			pos = Control._addControl parent_roll pos
-			--if( pos[2]  ) then
-				
-		--)
-		this.addGroupbox pos
+			this.nextControlPos (Control._addControl parent_roll this.pos)
+
+		this.addGroupbox()
 		
-		return pos
+		return this.pos
+	),
+
+	/** Set groupbox
+	 */
+	function setGroupbox pos =
+	(
+		if( this.groupbox==false ) then
+			return pos
+		
+		_Groupbox = Groupbox_v caption:this.groupbox pos:pos
+			
+		--if this.groupbox!=false then y = pos[2]+16 else y = pos[2]
+		return (_Groupbox._getControlsPosition())
+	),
+	/** Next control pos
+	 */
+	function nextControlPos pos =
+	(
+		print ( "---pos" );
+		print ( pos ); 
+		this.pos = pos
+		--this.pos = [pos[1], pos[2]]
+		--this.pos = [pos[1] + this.Layout.padding, pos[2]]
 	),
 	/** Add groupbox
 	 */
-	function addGroupbox pos =
+	function addGroupbox =
 	(
-		--messagebox (pos as string ) beep:false;
-		if( groupbox!=false ) then
-			this.parent_roll.roll.addControl #groupbox #groupbox "groupbox" paramStr:("pos:" + pos as string )
+		if( this.groupbox!=false ) then
+			_Groupbox._add parent_roll this.pos
 	),
 	--/** Add control to UI 
 	-- */

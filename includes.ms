@@ -1,6 +1,8 @@
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/List/List.ms" );
 
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Layout/Layout.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/types/groupbox.ms" ); 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Control/Events/Event/Event.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Control/Events/Events.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Control/Control.ms" );

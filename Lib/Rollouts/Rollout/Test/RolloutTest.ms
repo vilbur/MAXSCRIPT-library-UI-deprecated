@@ -33,7 +33,7 @@ controls_B.control #button "Control B2" #control_B2
 
 --_rollout.testProp() 
 
---controls_1.test()
+--controls_1.test() 
 
 /* CREATE ROLLOUT */
-_rollout.create() this
+_rollout.create() 
