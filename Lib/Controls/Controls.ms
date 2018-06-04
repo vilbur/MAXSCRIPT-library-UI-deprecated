@@ -4,6 +4,7 @@ struct Controls_v
 (
 	self = this,
 	parent_roll,
+	groupbox,
 	_Control	= #(),
 	
 	/**  Add control of any type
@@ -23,11 +24,25 @@ struct Controls_v
 	),
 	/** Add controls
 	 */
-	function _addControls =
+	function _addControls pos =
 	(
 		for Control in this._Control do
-			--print Control
-			Control._addControl parent_roll
+		--(
+			pos = Control._addControl parent_roll pos
+			--if( pos[2]  ) then
+				
+		--)
+		this.addGroupbox pos
+		
+		return pos
+	),
+	/** Add groupbox
+	 */
+	function addGroupbox pos =
+	(
+		--messagebox (pos as string ) beep:false;
+		if( groupbox!=false ) then
+			this.parent_roll.roll.addControl #groupbox #groupbox "groupbox" paramStr:("pos:" + pos as string )
 	),
 	--/** Add control to UI 
 	-- */

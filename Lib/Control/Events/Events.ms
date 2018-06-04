@@ -21,7 +21,8 @@ struct Events_v
 			this._addHandler event
 	),
 	
-	/** Add handler
+	/** Add handleri
+	  
 	 */
 	function _addHandler event =
 	(
