@@ -1,24 +1,24 @@
-filein ( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" );
-
-clearListener();
-
-/* CREATE ROLLOUT */
-roll = rolloutCreator "myRollout" "My Rollout"
-roll.begin()
-
-
-/* ADD CONTROLS */
-
-/* button */
-_Button = Control_v roll:roll type:#button id:#test_button title:"Test control"
-_Button.bind #pressed "MessageBox @Button pressed@" "";
-_Button.addControl();
-
-/* checkbox */
-_Checkbox = Control_v roll:roll type:#checkbox id:#test_cbx title:"Test checkbox"
-_Checkbox.bind #changed "MessageBox (val as string)" "val";
-_Checkbox.addControl();
-
-
-/* CREATE DIALOG */
-createDialog (roll.end())
+--filein ( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" );
+--
+--clearListener();
+--
+--/* CREATE ROLLOUT */
+--roll = rolloutCreator "myRollout" "My Rollout"
+--roll.begin()
+--
+--
+--/* ADD CONTROLS */
+--
+--/* button */
+--_Button = Control_v roll:roll type:#button id:#test_button caption:"Test control"
+----_Button.bind #pressed "MessageBox @Button pressed@" "";
+--_Button._addControl();
+----
+----/* checkbox */
+----_Checkbox = Control_v roll:roll type:#checkbox id:#test_cbx title:"Test checkbox"
+----_Checkbox.bind #changed "MessageBox (val as string)" "val";
+----_Checkbox.addControl();
+--
+--
+--/* CREATE DIALOG */
+--createDialog (roll.end())

@@ -9,8 +9,16 @@ struct Event_v
 	type,
 	code,
 	params,
-	
-	function add =
+	events	= List(),
+
+	function pressed code =
+	(
+		
+		--this.roll.addhandler this.control #pressed codeStr:code_str
+		--paramStr:this.params
+		
+	),
+	function _add =
 	(
 		this.roll.addhandler this.control this.type codeStr:this.code paramStr:this.params
 	)

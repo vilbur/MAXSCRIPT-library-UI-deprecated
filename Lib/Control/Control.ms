@@ -5,11 +5,17 @@ struct Control_v
 (
 	self	= this,
 	events	= List(),
+	--event = Event_v control:this,
 	roll,
 	type,
 	id,
-	title,
+	caption,
 
+
+	function pressed code params =
+	(
+		this.bind #pressed code params 
+	),
 	/**  Bind Event to control
 	 */
 	function bind type code params =
@@ -22,7 +28,7 @@ struct Control_v
 	 */
 	function _addControl =
 	(
-		this.roll.addControl this.type this.id this.title paramStr:"width: 128"
+		this.roll.addControl this.type this.id this.caption paramStr:"width: 128"
 		
 		this._addEvents()
 	),
@@ -31,7 +37,7 @@ struct Control_v
 	function _addEvents =
 	(
 		for event in this.events.values do
-			event.add()
+			event._add()
 	)
 	
 )
