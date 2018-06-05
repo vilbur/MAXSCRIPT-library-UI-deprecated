@@ -8,40 +8,38 @@ struct ControlBox_v
 	id,
 	groupbox,
 	pos,
-	--pos_controls,
-	--Layout	= Layout_v(),
 
-	--col_px	= 24,
-	--padding	= 2,
-	--width 	= 4,
-	
+	/** Set parent roll
+	 */
+	function setNewControlBox _parent_roll =
+	(
+		parent_roll = _parent_roll
+		
+		parent_roll.Layout.setNewBoxPosition groupbox
+		
+		return this
+	),	
 	/** Add groupbox
 	 */
 	function _addGroupBox =
 	(
-		--this.pos_controls = _pos_controls
-		--this._ControlBox = ControlBox_v caption:this.groupbox pos:pos
-		--print (this._paramsString pos_controls)
 		if( groupbox!=false ) then
-			parent_roll.roll.addControl #groupbox #groupbox groupbox paramStr:(parent_roll.Layout._getGroupboxParams())
-			--paramStr:"pos:[0,28]"
-			--parent_roll.roll.addControl #groupbox #groupbox groupbox paramStr:"width:512"
-
-		--paramStr:(this._paramsString pos_controls)
+		(
+			parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(parent_roll.Layout._getGroupboxParams())
+			print ( "ControlBox_v._addGroupBox()=" + groupbox as string )
+		)
 		
-		--paramStr:("pos:" + this.pos_groupbox as string + " width:" + pos[1] as string + " height:" + (pos[2] - this.pos_groupbox[2] +32 ) as string  )
+		parent_roll.Layout.setNextBoxPosition()
 	),
-
-	/** Set parent roll
+	
+	/** Get id
 	 */
-	function setParentRoll _parent_roll =
+	function getId =
 	(
-		parent_roll = _parent_roll
-		
-		parent_roll.Layout.setInitPos groupbox
-		
-		return this
+		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace groupbox "_";
 	),
+	
+
 
 	function test =
 	(
