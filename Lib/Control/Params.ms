@@ -26,11 +26,11 @@ struct Params_v
 	function join =
 	(
 		params = ""
+
+		for k=1 to List.keys.count do
+			params = params + " " + List.keys[k] +":"+ List.values[k] as string
 		
-		for k in List.keys do
-			params += List.keys[k] +":"+ List.values[k] as string
-		
-		return ""
+		return params
 	),
 	
 	function test =

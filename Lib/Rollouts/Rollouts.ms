@@ -5,7 +5,7 @@
  */
 struct Rollouts_v
 (
-	rollouts = List(),
+	rollouts = List_v(),
 
 	function test =
 	(

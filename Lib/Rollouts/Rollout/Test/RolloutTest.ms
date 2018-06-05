@@ -32,7 +32,7 @@ controls_B.control #button "Control B3" #control_B3
 --controls_2 = _rollout.controls() -- get new container for controls
 --controls_2.control #button  "Control C1" #control_C1
 
---_rollout.testProp() A
+--_rollout.testProp() 
 
 --controls_1.test() 
 

@@ -15,35 +15,24 @@ struct Layout_v
 	 */
 	function setInitPos =
 	(
-		--print ( "setInitPos=" + pos as string )
-		
 		if( pos==undefined ) then
 			pos = pos_init
 		else
 			pos	= [pos_init[1], pos[2] + col_px]
-		
-		--pos_init	= pos
 	),
 	/** Next control pos
 	 */
 	function _getGroupboxParams =
 	(
-		_width	= (pos_init[1] - pos[1] ) as string 
-		_height	= (pos_init[2] - pos[2] + col_px + padding ) as string 
-		print ( "pos:" + pos as string )
-		print ( "width:" + _width as string )
-		print ( "height:" + _height as string )
-		
-		--return "pos:"+pos as string +"width:" + _width + " height:" + _height
-		
-		
-		
-		--pos = [ pos_init[1], pos[2] += col_px ]
-		--return "pos:"+pos as string +" width: 128"
-		--return ( "pos:"+pos as string )
-		--return "height: 256 pos:[288,56]"
+		print ( "pos_init=" + pos_init as string )
+		print ( "pos=" + pos as string )
+		 
+		Params	= Params_v()
 
-		return "height: 256"
+		Params.add #width	(pos[1] - pos_init[1] )
+		Params.add #height (pos[2] - pos_init[2] + col_px + padding )
+
+		return Params.join()
 	),	
 	/** Next control pos
 	  * @param	2point	pos	Position of previous control

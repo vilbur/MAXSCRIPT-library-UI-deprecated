@@ -4,7 +4,7 @@
 struct Events_v 
 (
 	self	= this,
-	events	= List(),
+	events	= List_v(),
 	parent_control,
 
 	function pressed code params =
