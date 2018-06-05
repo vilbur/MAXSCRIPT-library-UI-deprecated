@@ -38,7 +38,7 @@ struct ControlBox_v
 	(
 		parent_roll = _parent_roll
 		
-		parent_roll.Layout.setInitPos() 
+		parent_roll.Layout.setInitPos groupbox
 		
 		return this
 	),

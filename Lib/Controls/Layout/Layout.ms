@@ -9,28 +9,33 @@ struct Layout_v
 	pos,
 	
 	roll_width	= 164,
-	padding_box	= 12,
+	padding_box	= 16,
 	
 	/** Set init pos
 	 */
-	function setInitPos =
+	function setInitPos groupbox =
 	(
+		padding_groupbox = 0
+		
+		if( groupbox != false ) then
+			padding_groupbox = padding_box
+		
 		if( pos==undefined ) then
-			pos = pos_init
+			pos = [ pos_init[1], pos_init[2] + padding_groupbox ]
 		else
-			pos	= [pos_init[1], pos[2] + col_px]
+			pos = [ pos_init[1], pos[2]     + padding_groupbox + col_px ]
 	),
 	/** Next control pos
 	 */
 	function _getGroupboxParams =
 	(
-		print ( "pos_init=" + pos_init as string )
-		print ( "pos=" + pos as string )
-		 
 		Params	= Params_v()
+		--print ( "pos_init=" + pos_init as string )
+		--print ( "pos=" + pos as string )
 
+		Params.add #pos	[pos_init[1], pos[2] - padding_box]
 		Params.add #width	(pos[1] - pos_init[1] )
-		Params.add #height (pos[2] - pos_init[2] + col_px + padding )
+		Params.add #height (pos[2] - pos_init[2] + padding )
 
 		return Params.join()
 	),	
@@ -55,3 +60,9 @@ struct Layout_v
 		messagebox "Layout_v.test()"
 	)
 )
+
+Viewport
+Window
+×
+×
+×

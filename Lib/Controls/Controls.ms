@@ -32,8 +32,6 @@ struct Controls_v
 	(
 		--print "Controls_v._addControls()";
 		--print ( "parent_roll.Layout.pos=" + parent_roll.Layout.pos as string )
-		
-		
 		this.setControlBox()
 		--this.nextControlPos pos
 		
