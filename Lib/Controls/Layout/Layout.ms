@@ -19,44 +19,35 @@ struct Layout_v
 		
 		else
 			pos = pos_box = [ pos_box[1], pos[2] ]
-			
-		--if( pos==undefined and groupbox != false ) then
-		--	after_groupbox_offset = padding_box
-		--else 
-		--	after_groupbox_offset = padding_box
-		--
-		--
+	
 		if( groupbox!=undefined ) then
 			pos[2] += padding_box
-		--
-		--else
-		--	pos = [ pos_box[1], pos[2] + col_px + after_groupbox_offset]
-
 	),
 	/** Set next box position
 	 */
-	function setNextBoxPosition =
+	function setNextBoxPosition groupbox =
 	(
-		pos = pos_box = [ pos_box[1], pos[2] + col_px ]
+		y = pos[2] + col_px
+		
+		if( groupbox!=undefined ) then -- Set offset of new box after groupbox
+			y += 8 
+		
+		pos = pos_box = [ pos_box[1], y ]
 	),
 	
 	/** Next control pos
 	 */
 	function _getGroupboxParams =
 	(
-		print ( "pos_box=" + pos_box as string )
-		print ( "pos=" + pos as string )
+		--print ( "pos_box=" + pos_box as string )
+		--print ( "pos=" + pos as string )
 		Params	= Params_v()
 		
 		Params.add #pos	[pos_box[1], pos_box[2] - padding_box]
 		Params.add #width	(pos[1] - pos_box[1] )
 		Params.add #height (pos[2] - pos_box[2] + col_px + padding_box + padding)
-		--Params.add #height 64
-		
-		--print ( "Params.List=" + Params.List as string )
 		print ( "Params.join()=" + Params.join()as string )
 		
-		--return ""
 		return Params.join()
 	),	
 	/** Next control pos

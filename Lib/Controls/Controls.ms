@@ -58,7 +58,7 @@ struct Controls_v
 	 */
 	function setNextBoxPosition =
 	(
-		parent_roll.Layout.setNextBoxPosition()
+		parent_roll.Layout.setNextBoxPosition groupbox
 	),
 	--/** Next control pos
 	-- */
