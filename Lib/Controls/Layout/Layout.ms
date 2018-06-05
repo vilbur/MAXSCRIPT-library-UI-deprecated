@@ -18,10 +18,13 @@ struct Layout_v
 			pos = pos_box
 		
 		else
-			pos = pos_box = [ pos_box[1], pos[2] ] -- any other control box in rollout
+		(
+			pos = pos_box = [ pos_box[1] - padding, pos[2] ] -- any other control box in rollout
+		)
 	
 		if( groupbox!=undefined ) then -- move controls in groupbox lower
 			pos[2] += padding_box
+
 	),
 	/** Set next box position
 	 */
@@ -32,7 +35,8 @@ struct Layout_v
 		if( groupbox!=undefined ) then -- Set offset of new box after groupbox
 			y += 8 
 		
-		pos = pos_box = [ pos_box[1], y ]
+		--pos = pos_box = [ pos_box[1], y ]
+		pos = [ pos_box[1], y ]
 	),
 	
 	/** Next control pos
@@ -43,8 +47,8 @@ struct Layout_v
 		--print ( "pos=" + pos as string )
 		Params	= Params_v()
 		
-		Params.add #pos	[pos_box[1], pos_box[2] - padding_box]
-		Params.add #width	(pos[1] - pos_box[1] )
+		Params.add #pos	[pos_box[1] - padding, pos_box[2] - padding_box]
+		Params.add #width	(pos[1] - pos_box[1] + padding*2 )
 		Params.add #height (pos[2] - pos_box[2] + col_size + padding_box + padding)
 		print ( "Params.join()=" + Params.join()as string )
 		
@@ -57,9 +61,12 @@ struct Layout_v
 	 */
 	function _getControlsParams col =
 	(
+		print ( "pos_box=" + pos_box as string )
 		if( pos[1] > 164 ) then
-			pos = [ pos_box[1], pos[2] + col_size ]
+			pos = [ pos_box[1] - padding, pos[2] + col_size ]
 		
+		pos[1] += padding
+
 		width	= col * col_size
 		str_width	= "width:"+ width as string
 		str_pos	= "pos:"  + pos   as string
@@ -73,7 +80,8 @@ struct Layout_v
 	 */
 	function _getRollWidth =
 	(
-		return  roll_width * col_size
+		return  (roll_width * (col_size + padding))
+		--return  (roll_width * col_size) as integer    
 	),
 	
 	
