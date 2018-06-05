@@ -13,8 +13,8 @@ _rollout = (Rollout_v()).new "test_rollout" "Test Rollout"
 --_rollout.roll.butto n_1.enabled  = false
 --_rollout.roll.button_1.width 128
 
-controls_A = _rollout.controls() -- get new container for controls
---controls_A = _rollout.controls groupbox:"groupbox A" -- get new container for controls
+--controls_A = _rollout.controls() -- get new container for controls
+controls_A = _rollout.controls groupbox:"groupbox A" -- get new container for controls
 
 /*------ Control to var ------*/
 control_A1 = controls_A.control #button "Control A1" #control_A1

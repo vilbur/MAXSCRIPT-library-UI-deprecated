@@ -39,7 +39,6 @@ struct Controls_v
 	 */
 	function setNewControlBox =
 	(
-		--ControlBox = (ControlBox_v groupbox:groupbox).setNewControlBox parent_roll
 		ControlBox.setNewControlBox parent_roll groupbox
 	),
 	/** Set new box position
@@ -60,19 +59,6 @@ struct Controls_v
 	(
 		parent_roll.Layout.setNextBoxPosition groupbox
 	),
-	--/** Next control pos
-	-- */
-	--function nextControlPos pos =
-	--(
-	--	this.pos = [pos[1] + this.Layout.padding, pos[2]]
-	--),
-	--/** Add groupbox
-	-- */
-	--function addGroupbox =
-	--(
-	--	if( groupbox!=false ) then
-	--		ControlBox._addGroupBox()
-	--),
 	
 	function test =
 	(

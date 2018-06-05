@@ -33,7 +33,7 @@ struct Rollout_v
 		
 		this._addControls()
 		
-		CreateDialog (this.roll.end()) width:288
+		CreateDialog (this.roll.end()) width:(Layout._getRollWidth())
         
 		this.roll = this.roll.def
 	),

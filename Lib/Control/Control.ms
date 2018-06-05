@@ -17,7 +17,7 @@ struct Control_v
 	 */
 	function _addControl parent_roll =
 	(
-		parent_roll.roll.addControl this.type this.id this.caption paramStr:(parent_roll.Layout.nextControlPos col)
+		parent_roll.roll.addControl this.type this.id this.caption paramStr:(parent_roll.Layout._getControlsParams col)
 		
 		this.Events._add this
 	),
