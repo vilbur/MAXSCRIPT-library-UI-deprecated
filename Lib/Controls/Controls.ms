@@ -6,8 +6,8 @@ struct Controls_v
 	parent_roll,
 	groupbox	= false, -- store caption of groupbox
 	--_Groupbox	= Groupbox_v(),
-	Layout	= Layout_v(),
-	_Groupbox,
+	--Layout	= Layout_v(),
+	ControlBox,
 	_Control	= #(),
 	
 	pos,
@@ -31,42 +31,42 @@ struct Controls_v
 	function _addControls =
 	(
 		print "Controls_v._addControls()";
-		--pos = this.setGroupbox pos
+		print ( "parent_roll.Layout.pos=" + parent_roll.Layout.pos as string )
+		
+		
+		this.setControlBox()
 		--this.nextControlPos pos
-
+		
 		for Control in this._Control do
 			Control._addControl parent_roll
 			--this.nextControlPos (Control._addControl parent_roll this.pos)
 
-		--this.addGroupbox()
+		--parent_roll.Layout.controlsBoxPos groupbox
+		
+		this.addGroupbox()
 		
 		--return this.pos
 	),
 
 	/** Set groupbox
 	 */
-	function setGroupbox pos =
+	function setControlBox =
 	(
-		if( this.groupbox==false ) then
-			return pos
-		
-		_Groupbox = Groupbox_v caption:this.groupbox pos:pos
-			
-		--if this.groupbox!=false then y = pos[2]+16 else y = pos[2]
-		return (_Groupbox._getControlsPosition())
+		--if( this.groupbox!=false ) then
+		ControlBox = (ControlBox_v groupbox:groupbox).setParentRoll parent_roll
 	),
-	/** Next control pos
-	 */
-	function nextControlPos pos =
-	(
-		this.pos = [pos[1] + this.Layout.padding, pos[2]]
-	),
+	--/** Next control pos
+	-- */
+	--function nextControlPos pos =
+	--(
+	--	this.pos = [pos[1] + this.Layout.padding, pos[2]]
+	--),
 	/** Add groupbox
 	 */
 	function addGroupbox =
 	(
-		if( this.groupbox!=false ) then
-			_Groupbox._add parent_roll this.pos
+		if( groupbox!=false ) then
+			ControlBox._addGroupBox
 	),
 	
 	function test =

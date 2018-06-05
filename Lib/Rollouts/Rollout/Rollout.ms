@@ -11,7 +11,7 @@ struct Rollout_v
 	id,
 	title,
 	roll,
- 	_Controls	= #(),
+ 	ControlBoxes	= #(),
 	Layout	= Layout_v(),
 	--pos	= (Layout_v()).pos,
 	/** Set roll property 
@@ -48,7 +48,7 @@ struct Rollout_v
 	(
 		Controls_new 	= Controls_v parent_roll:this groupbox:groupbox
 
-		append this._Controls Controls_new
+		append this.ControlBoxes Controls_new
 
 		return Controls_new
 	),
@@ -58,12 +58,12 @@ struct Rollout_v
 	function _addControls =
 	(
 		print "Rollout_v._addControls()";
-		for Controls in this._Controls do
+		for Controls in this.ControlBoxes do
 			Controls._addControls()
 			--this.Layout.controlsBoxPos( Controls._addControls this.Layout.pos ) Controls.groupbox
 			
-		--for i = 1 to this._Controls.count do
-			--this.Layout.nextControlPos ( this._Controls[i]._addControls this.Layout.pos ) i
+		--for i = 1 to this.ControlBoxes.count do
+			--this.Layout.nextControlPos ( this.ControlBoxes[i]._addControls this.Layout.pos ) i
 	),
 	
 	function test =
