@@ -2,7 +2,6 @@
  */
 struct Params_v
 (
-	self	= this,
 	List	= List_v(),
 	
 	/** Add

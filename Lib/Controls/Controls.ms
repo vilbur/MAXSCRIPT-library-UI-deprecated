@@ -24,19 +24,17 @@ struct Controls_v
 	 */ 
 	function _addControls =
 	(
-		--ControlBox.setNewControlBox parent_roll groupbox
 		this.setNewControlBox()
 		this.setNewBoxPosition()
 		
 		for Control in this._Control do
 			Control._addControl parent_roll
 		
-		--ControlBox.addGroupBox()
 		this.addGroupbox()
 		this.setNextBoxPosition()
 	),
 
-	private
+	--private
 	/** Set groupbox
 	 */
 	function setNewControlBox =

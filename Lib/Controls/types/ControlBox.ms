@@ -6,7 +6,7 @@ struct ControlBox_v
 	parent_roll,
 	id,
 	groupbox,
-	pos,
+	--pos,
 
 	/** Set parent roll
 	 */
@@ -21,7 +21,7 @@ struct ControlBox_v
 	 */
 	function addGroupBox =
 	(
-		if( groupbox!=false ) then
+		if( groupbox!=undefined ) then
 			parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(parent_roll.Layout._getGroupboxParams())
 	),
 	

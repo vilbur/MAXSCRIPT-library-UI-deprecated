@@ -14,8 +14,8 @@ struct List_v
 		--format ">> %\n" i
 		if i>0 then
 		(
-			keys[i]	=str
-			values[i]	=val
+			keys[i]	= str
+			values[i]	= val
 		)
 		else
 		(

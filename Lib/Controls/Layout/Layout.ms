@@ -8,7 +8,7 @@ struct Layout_v
 	pos,
 	
 	roll_width	= 164,
-	padding_box	= 16,
+	padding_box	= 24,
 
 	/** Set init pos
 	 */
@@ -26,8 +26,8 @@ struct Layout_v
 		--	after_groupbox_offset = padding_box
 		--
 		--
-		--if( pos==undefined ) then
-		--	pos = pos_box
+		if( groupbox!=undefined ) then
+			pos[2] += padding_box
 		--
 		--else
 		--	pos = [ pos_box[1], pos[2] + col_px + after_groupbox_offset]
@@ -40,29 +40,23 @@ struct Layout_v
 		pos = pos_box = [ pos_box[1], pos[2] + col_px ]
 	),
 	
-	/** Get after groupbox offset
-	 */
-	function getAfterGroupboxOffset groupbox =
-	(
-		
-		if( groupbox != undefined ) then
-			return 32
-			--return padding_box as integer
-		
-		else if( pos==undefined  ) then
-			return 16
-	),
-	
 	/** Next control pos
 	 */
 	function _getGroupboxParams =
 	(
+		print ( "pos_box=" + pos_box as string )
+		print ( "pos=" + pos as string )
 		Params	= Params_v()
-
-		Params.add #pos	[pos_box[1], pos[2] - padding_box]
+		
+		Params.add #pos	[pos_box[1], pos_box[2] - padding_box]
 		Params.add #width	(pos[1] - pos_box[1] )
-		Params.add #height (pos[2] - pos_box[2] + padding )
+		Params.add #height (pos[2] - pos_box[2] + col_px + padding_box + padding)
+		--Params.add #height 64
+		
+		--print ( "Params.List=" + Params.List as string )
 		print ( "Params.join()=" + Params.join()as string )
+		
+		--return ""
 		return Params.join()
 	),	
 	/** Next control pos

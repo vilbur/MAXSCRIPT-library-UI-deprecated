@@ -19,7 +19,7 @@ struct Rollout_v
 		
 		this.roll = rolloutCreator this.id this.title
 		
-		return self
+		return this
 	),
 	/** Create rollout 
 	 *	
@@ -36,11 +36,10 @@ struct Rollout_v
 		CreateDialog (this.roll.end()) width:288
         
 		this.roll = this.roll.def
-
 	),
 	/** Controls
 	 */
-	function controls groupbox:false =
+	function controls groupbox:undefined =
 	(
 		Controls_new 	= Controls_v parent_roll:this groupbox:groupbox
 
@@ -53,7 +52,7 @@ struct Rollout_v
 	*/
 	function _addControls =
 	(
-		print "Rollout_v._addControls()";
+		--print "Rollout_v._addControls()";
 		for Controls in this.ControlBoxes do
 			Controls._addControls()
 			--this.Layout.controlsBoxPos( Controls._addControls this.Layout.pos ) Controls.groupbox
