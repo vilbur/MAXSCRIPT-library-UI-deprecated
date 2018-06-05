@@ -28,17 +28,19 @@ struct Controls_v
 	),
 	/** Add controls
 	 */ 
-	function _addControls pos =
+	function _addControls =
 	(
-		pos = this.setGroupbox pos
-		this.nextControlPos pos
+		print "Controls_v._addControls()";
+		--pos = this.setGroupbox pos
+		--this.nextControlPos pos
 
 		for Control in this._Control do
-			this.nextControlPos (Control._addControl parent_roll this.pos)
+			Control._addControl parent_roll
+			--this.nextControlPos (Control._addControl parent_roll this.pos)
 
-		this.addGroupbox()
+		--this.addGroupbox()
 		
-		return this.pos
+		--return this.pos
 	),
 
 	/** Set groupbox

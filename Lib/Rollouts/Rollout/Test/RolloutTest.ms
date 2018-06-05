@@ -21,16 +21,16 @@ control_A1.Events.pressed "MessageBox @Control A1 pressed@" ""
 /*------ Control in chain ------*/
 (controls_A.control #button "Control A2" #control_A2).Events.pressed "MessageBox @Control A2 pressed@" ""
 
-controls_B = _rollout.controls groupbox:"Test groupbox" -- get new groupbox for controls
-controls_B.control #button "Control B1" #control_B1
-controls_B.control #button "Control B2" #control_B2
+--controls_B = _rollout.controls groupbox:"Test groupbox" -- get new groupbox for controls
+--controls_B.control #button "Control B1" #control_B1
+--controls_B.control #button "Control B2" #control_B2
 --controls_B.control #button "Control B3" #control_B3
-
---groupbox_1 = _rollout.controls groupbox:"Groupbox 1" -- get new container for controls
---groupbox_1.button "Button Group"
 --
-controls_2 = _rollout.controls() -- get new container for controls
-controls_2.control #button  "Control C1" #control_C1
+----groupbox_1 = _rollout.controls groupbox:"Groupbox 1" -- get new container for controls
+----groupbox_1.button "Button Group"
+----
+--controls_2 = _rollout.controls() -- get new container for controls
+--controls_2.control #button  "Control C1" #control_C1
 
 --_rollout.testProp() A
 

@@ -57,8 +57,10 @@ struct Rollout_v
 	*/
 	function _addControls =
 	(
+		print "Rollout_v._addControls()";
 		for Controls in this._Controls do
-			this.Layout.controlsBoxPos( Controls._addControls this.Layout.pos ) Controls.groupbox
+			Controls._addControls()
+			--this.Layout.controlsBoxPos( Controls._addControls this.Layout.pos ) Controls.groupbox
 			
 		--for i = 1 to this._Controls.count do
 			--this.Layout.nextControlPos ( this._Controls[i]._addControls this.Layout.pos ) i
