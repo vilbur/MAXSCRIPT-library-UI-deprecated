@@ -4,16 +4,12 @@
  */
 struct Rollout_v
 (
-	self	= this,
-	--test_prop	= "Test value",
-	--_Control	= Control_v parent_roll:this,
-	--control	= this._Control.control,
 	id,
 	title,
 	roll,
  	ControlBoxes	= #(),
 	Layout	= Layout_v(),
-	--pos	= (Layout_v()).pos,
+
 	/** Set roll property 
 	 */
 	function new id title =

@@ -3,7 +3,6 @@
  */
 struct Control_v 
 (
-	self	= this,
 	Events	= Events_v parent_control:this,
 	Params	= Params_v(),
 	Layout,

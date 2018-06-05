@@ -2,7 +2,6 @@
  */
 struct Layout_v
 (
-	self = this,
 	col_px	= 24,
 	padding	= 4,
 	pos_box	= [0,4],

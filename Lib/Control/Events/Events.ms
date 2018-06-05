@@ -3,7 +3,6 @@
  */
 struct Events_v 
 (
-	self	= this,
 	events	= List_v(),
 	parent_control,
 
