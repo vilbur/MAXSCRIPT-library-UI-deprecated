@@ -30,8 +30,8 @@ struct Controls_v
 	 */ 
 	function _addControls =
 	(
-		print "Controls_v._addControls()";
-		print ( "parent_roll.Layout.pos=" + parent_roll.Layout.pos as string )
+		--print "Controls_v._addControls()";
+		--print ( "parent_roll.Layout.pos=" + parent_roll.Layout.pos as string )
 		
 		
 		this.setControlBox()
@@ -43,8 +43,10 @@ struct Controls_v
 
 		--parent_roll.Layout.controlsBoxPos groupbox
 		
-		this.addGroupbox()
-		
+		--this.addGroupbox()
+		ControlBox._addGroupBox()
+		--ControlBox._addGroupBox()
+
 		--return this.pos
 	),
 
@@ -61,13 +63,13 @@ struct Controls_v
 	--(
 	--	this.pos = [pos[1] + this.Layout.padding, pos[2]]
 	--),
-	/** Add groupbox
-	 */
-	function addGroupbox =
-	(
-		if( groupbox!=false ) then
-			ControlBox._addGroupBox
-	),
+	--/** Add groupbox
+	-- */
+	--function addGroupbox =
+	--(
+	--	if( groupbox!=false ) then
+	--		ControlBox._addGroupBox()
+	--),
 	
 	function test =
 	(
