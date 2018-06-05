@@ -9,9 +9,10 @@ struct Groupbox_v
 	caption,
 	pos,
 	--pos_controls,
-	
-	col_px	= 24,
-	padding	= 2,
+	Layout	= Layout_v(),
+
+	--col_px	= 24,
+	--padding	= 2,
 	--width 	= 4,
 	
 	/** Add groupbox
@@ -35,11 +36,8 @@ struct Groupbox_v
 	 */
 	function _paramsString pos_controls =
 	(
-		--return ""
-		print pos; 
-		print pos_controls; 
-		_width	= (pos_controls[1] - pos[1] + padding * 2 ) as string 
-		_height	= (pos_controls[2] - pos[2] + col_px + padding) as string 
+		_width	= (pos_controls[1] - pos[1] ) as string 
+		_height	= (pos_controls[2] - pos[2] + this.Layout.col_px + this.Layout.padding ) as string 
 		
 		return "pos:"+pos as string +"width:" + _width + " height:" + _height
 	),

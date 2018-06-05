@@ -57,11 +57,7 @@ struct Controls_v
 	 */
 	function nextControlPos pos =
 	(
-		print ( "---pos" );
-		print ( pos ); 
-		this.pos = pos
-		--this.pos = [pos[1], pos[2]]
-		--this.pos = [pos[1] + this.Layout.padding, pos[2]]
+		this.pos = [pos[1] + this.Layout.padding, pos[2]]
 	),
 	/** Add groupbox
 	 */
@@ -70,12 +66,6 @@ struct Controls_v
 		if( this.groupbox!=false ) then
 			_Groupbox._add parent_roll this.pos
 	),
-	--/** Add control to UI 
-	-- */
-	--function _addControl Control =
-	--(
-	--	this.parent_roll.roll.addControl Control.type Control.id Control.caption paramStr:"width: 128"		
-	--),
 	
 	function test =
 	(

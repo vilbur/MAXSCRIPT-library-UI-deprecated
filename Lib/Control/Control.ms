@@ -18,8 +18,6 @@ struct Control_v
 	 */
 	function _addControl parent_roll pos =
 	(
-		print ( "pos" );
-		print ( pos  );
 		width = this._getWidth()
 		
 		parent_roll.roll.addControl this.type this.id this.caption paramStr:("width: "+width as string +" pos:" + pos as string )

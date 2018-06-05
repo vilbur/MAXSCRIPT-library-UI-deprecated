@@ -12,7 +12,8 @@ struct Rollout_v
 	title,
 	roll,
  	_Controls	= #(),
-	pos = [0,0],
+	Layout	= Layout_v(),
+	--pos	= (Layout_v()).pos,
 	/** Set roll property 
 	 */
 	function new id title =
@@ -39,40 +40,28 @@ struct Rollout_v
 		CreateDialog (this.roll.end()) width:288
         
 		this.roll = this.roll.def
-		
+
 	),
 	/** Controls
 	 */
 	function controls groupbox:false =
 	(
 		Controls_new 	= Controls_v parent_roll:this groupbox:groupbox
-		
+
 		append this._Controls Controls_new
-		
+
 		return Controls_new
 	),
-	
-	/**  Add controls on rollout creation
-	 */
-	function _addControls =
-	(		
-		--for _Controls in this._Controls do
-			--this.setPosition ( _Controls._addControls this.pos )
-			--pos = _Controls._addControls [0, pos[2]+24]
-			
-		for i = 1 to this._Controls.count do
-			this.setPosition ( this._Controls[i]._addControls this.pos ) i
 
-	),
-	/** Get position
-	 */
-	function setPosition pos index =
+	/**  Add controls on rollout creation
+	*/
+	function _addControls =
 	(
-		x	= 0
-		y = 24
-		--if index>1 then y = pos[2]+24 else y = 0
-	
-		this.pos = [x, y]
+		for Controls in this._Controls do
+			this.Layout.controlsBoxPos( Controls._addControls this.Layout.pos ) Controls.groupbox
+			
+		--for i = 1 to this._Controls.count do
+			--this.Layout.nextControlPos ( this._Controls[i]._addControls this.Layout.pos ) i
 	),
 	
 	function test =
