@@ -67,9 +67,9 @@ struct Layout_v
 	  * @param	int	width	Width of current control
 	  *
 	 */
-	function _getControlsParams col =
+	function _getControlsParams Params col =
 	(
-		Params	= Params_v()
+		--Params	= Params_v()
 		--print ( "pos_box=" + pos_box as string )
 		this.trySetNewControlsRow()
 		
