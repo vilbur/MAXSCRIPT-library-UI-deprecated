@@ -2,9 +2,10 @@
  */
 struct Layout_v
 (
-	col_size	= 24,
-	padding	= 4,
-	pos_box	= [0,4],
+	col_size	= 32,
+	padding	= 2,
+	margin	= 0,
+	pos_box	= [margin*2,4],
 	pos,
 	
 	roll_width	= 8,
@@ -18,9 +19,7 @@ struct Layout_v
 			pos = pos_box
 		
 		else
-		(
-			pos = pos_box = [ pos_box[1] - padding, pos[2] ] -- any other control box in rollout
-		)
+			pos = pos_box = [ pos_box[1], pos[2] ] -- any other control box in rollout
 	
 		if( groupbox!=undefined ) then -- move controls in groupbox lower
 			pos[2] += padding_box
@@ -39,7 +38,7 @@ struct Layout_v
 		pos = [ pos_box[1], y ]
 	),
 	
-	/** Next control pos
+	/** Get params string of Controls box
 	 */
 	function _getGroupboxParams =
 	(
@@ -47,9 +46,9 @@ struct Layout_v
 		--print ( "pos=" + pos as string )
 		Params	= Params_v()
 		
-		Params.add #pos	[pos_box[1] - padding, pos_box[2] - padding_box]
-		Params.add #width	(pos[1] - pos_box[1] + padding*2 )
-		Params.add #height (pos[2] - pos_box[2] + col_size + padding_box + padding)
+		Params.add #pos	[pos_box[1] - margin, pos_box[2] - padding_box]
+		Params.add #width	(pos[1] - pos_box[1] )
+		Params.add #height (pos[2] - pos_box[2] + col_size + padding_box)
 		print ( "Params.join()=" + Params.join()as string )
 		
 		return Params.join()
@@ -61,26 +60,40 @@ struct Layout_v
 	 */
 	function _getControlsParams col =
 	(
+		Params	= Params_v()
 		print ( "pos_box=" + pos_box as string )
-		if( pos[1] > 164 ) then
-			pos = [ pos_box[1] - padding, pos[2] + col_size ]
+		this.trySetNewControlsRow()
 		
-		pos[1] += padding
-
 		width	= col * col_size
-		str_width	= "width:"+ width as string
-		str_pos	= "pos:"  + pos   as string
 		
-		pos_x	= pos[1] + width 
-		pos	= [ pos_x, pos[2] ]
 		
-		return str_width + " " + str_pos
+		Params.add #pos	[ pos[1] + padding, pos[2] ]
+		Params.add #width	(width - padding*2)
+		Params.add #height (col_size - padding*2)
+
+		this.setNewControlPosition width
+		
+		return Params.join()
+	),
+	/** Try set new controls row
+	 */
+	function trySetNewControlsRow =
+	(
+		if( pos[1] > 164 ) then
+			pos = [ pos_box[1], pos[2] + col_size ]
+	),
+	/** Set new control position
+	 */
+	function setNewControlPosition with_last =
+	(
+		--pos_x	= pos[1] + with_last 
+		pos	= [ pos[1] + with_last, pos[2] ]
 	),
 	/** _get roll width
 	 */
 	function _getRollWidth =
 	(
-		return  (roll_width * (col_size + padding))
+		return (roll_width * col_size)
 		--return  (roll_width * col_size) as integer    
 	),
 	
@@ -90,9 +103,3 @@ struct Layout_v
 		messagebox "Layout_v.test()"
 	)
 )
-
-Viewport
-Window
-×
-×
-×
