@@ -41,6 +41,8 @@ struct Control_v
 	function _addControl parent_roll =
 	(
 		--print ( _col );
+		print ("------" + caption)
+
 		parent_roll.roll.addControl this.type this.id this.caption paramStr:(parent_roll.Layout._getControlsParams _Params _col)
 		
 		this.Events._add this

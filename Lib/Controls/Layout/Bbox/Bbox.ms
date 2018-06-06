@@ -17,7 +17,7 @@ struct Bbox_v
 		--print ( "pos[1]=" + pos[1] as string )
 		--print ( "_width=" + _width as string )
 		--print ( "bbox_width=" + bbox_width as string )
-		print (  bbox_width > width );
+		--print (  bbox_width > width );
 		if( bbox_width > width ) then
 			width = bbox_width as integer
 			

@@ -71,9 +71,10 @@ struct Layout_v
 	(
 		--Params	= Params_v()
 		--print ( "pos_box=" + pos_box as string )
-		this.trySetNewControlsRow()
-		
 		width	= col * _grid
+
+		this.trySetNewControlsRow width
+		
 		
 		Params.add #pos	[ pos[1] + padding, pos[2] ]
 		Params.add #width	(width - padding*2)
@@ -86,9 +87,9 @@ struct Layout_v
 	),
 	/** Try set new controls row
 	 */
-	function trySetNewControlsRow =
+	function trySetNewControlsRow width =
 	(
-		if( pos[1] > 164 ) then
+		if( (pos[1] + width) > this._getRollWidth() ) then
 			pos = [ pos_box[1], pos[2] + _grid ]
 	),
 	/** Set new control position
