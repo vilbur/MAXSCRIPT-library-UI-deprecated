@@ -3,9 +3,9 @@
 struct Layout_v
 (
 	Bbox,
-	col_size	= 32,
-	padding	= 2, -- padding between controls
-	margin	= 0,
+	_grid	= 32,	-- width and height of _grid
+	padding	= 2,	-- padding between controls
+	margin	= 2,
 	pos_box	= [margin*2,4],
 	pos,
 	
@@ -35,7 +35,7 @@ struct Layout_v
 	 */
 	function setNextBoxPosition groupbox =
 	(
-		y = pos[2] + col_size
+		y = pos[2] + _grid
 		
 		if( groupbox!=undefined ) then -- Set offset of new box after groupbox
 			y += 8 
@@ -53,8 +53,8 @@ struct Layout_v
 		Params	= Params_v()
 		print ( "Bbox.width=" + Bbox.width as string )
 		Params.add #pos	[pos_box[1] - margin, pos_box[2] - padding_box]
-		Params.add #width	Bbox.width
-		Params.add #height (pos[2] - pos_box[2] + col_size + padding_box)
+		Params.add #width	( Bbox.width + margin )
+		Params.add #height (pos[2] - pos_box[2] + _grid + padding_box)
 		--print ( "Params.join()=" + Params.join()as string )
 		
 		return Params.join()
@@ -73,11 +73,11 @@ struct Layout_v
 		--print ( "pos_box=" + pos_box as string )
 		this.trySetNewControlsRow()
 		
-		width	= col * col_size
+		width	= col * _grid
 		
 		Params.add #pos	[ pos[1] + padding, pos[2] ]
 		Params.add #width	(width - padding*2)
-		Params.add #height (col_size - padding*2)
+		Params.add #height (_grid - padding*2)
 		
 		Bbox.add Params
 		this.setNewControlPosition width
@@ -89,13 +89,12 @@ struct Layout_v
 	function trySetNewControlsRow =
 	(
 		if( pos[1] > 164 ) then
-			pos = [ pos_box[1], pos[2] + col_size ]
+			pos = [ pos_box[1], pos[2] + _grid ]
 	),
 	/** Set new control position
 	 */
 	function setNewControlPosition with_last =
 	(
-		--pos_x	= pos[1] + with_last 
 		pos	= [ pos[1] + with_last, pos[2] ]
 	),
 	/*---------------------------------------
@@ -105,10 +104,8 @@ struct Layout_v
 	 */
 	function _getRollWidth =
 	(
-		return (roll_width * col_size)
-		--return  (roll_width * col_size) as integer    
+		return (roll_width * _grid) + margin*4
 	),
-	
 	
 	function test =
 	(
