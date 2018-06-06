@@ -7,6 +7,9 @@ struct Controls_v
 	ControlBox	= ControlBox_v(),
 	_Control	= #(),
 	
+	/*---------------------------------------
+		DEFINITION CONTROLS
+	-----------------------------------------*/
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
 	 *  @param	string	caption	Caption of control
@@ -20,6 +23,19 @@ struct Controls_v
 		
 		return Control_new
 	),
+	/** Button
+	 */
+	function button caption id:undefined =
+	(
+		if( id==undefined ) then
+			id = this.getId caption 
+		
+		this.control #button caption id
+	),
+	
+	/*---------------------------------------
+		ADDING CONTROLS
+	-----------------------------------------*/
 	/** Add controls
 	 */ 
 	function _addControls =
@@ -59,7 +75,15 @@ struct Controls_v
 	(
 		parent_roll.Layout.setNextBoxPosition groupbox
 	),
-	
+	/*---------------------------------------
+		HELPERS
+	-----------------------------------------*/
+	/** Get id
+	 */
+	function getId caption =
+	(
+		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace caption "_";
+	),
 	function test =
 	(
 		messagebox "UI.test()"

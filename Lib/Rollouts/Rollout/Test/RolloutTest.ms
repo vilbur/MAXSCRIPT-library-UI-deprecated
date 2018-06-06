@@ -17,17 +17,17 @@ _rollout = (Rollout_v()).new "test_rollout" "Test Rollout"
 --controls_A = _rollout.controls groupbox:"groupbox A" -- get new container for controls
 --
 /*------ Control to var ------*/
---control_A1 = controls_A.control #button "Control A1" #control_A1
---control_A1.Events.pressed "MessageBox @Control A1 pressed@" ""
+control_A1 = controls_A.control #button "Control A1" #control_A1
+control_A1.Events.pressed "MessageBox @Control A1 pressed@" ""
 /*------ Control in chain ------*/
---(controls_A.control #button "Control A2" #control_A2).Events.pressed "MessageBox @Control A2 pressed@" ""
+(controls_A.control #button "Control A2" #control_A2).Events.pressed "MessageBox @Control A2 pressed@" ""
 
 controls_B = _rollout.controls()-- get new groupbox for controls
 --controls_B = _rollout.controls groupbox:"groupbox B" -- get new groupbox for controls
-controls_B.control #button "Control B1" #control_B1
-(controls_B.control #button "Disabled B2" #control_B2).params " enabled: false, border: false"
-(controls_B.control #button "Control B3" #control_B3).col 2
-(controls_B.control #button "Control B4" #control_B4).col 6
+controls_B.button "Control B1"
+(controls_B.button "Disabled B2").params " enabled: false, border: false"
+(controls_B.button "Control B3" ).col 2
+(controls_B.button "Control B4" ).col 6
 --
 ----groupbox_1 = _rollout.controls groupbox:"Groupbox 1" -- get new container for controls
 ----groupbox_1.button "Button Group"
