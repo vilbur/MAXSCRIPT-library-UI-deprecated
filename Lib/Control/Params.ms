@@ -4,13 +4,19 @@ struct Params_v
 (
 	List	= List_v(),
 	
-	/** Add
+	/** Add value
 	 */
 	function add param value =
 	(
 		List.setVal param value
 		
 		return this
+	),
+	/** Get value
+	 */
+	function get param =
+	(
+		return (List.getVal param)
 	),
 	/** Remove
 	 */

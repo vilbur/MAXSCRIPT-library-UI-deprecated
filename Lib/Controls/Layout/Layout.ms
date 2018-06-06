@@ -2,19 +2,24 @@
  */
 struct Layout_v
 (
+	Bbox,
 	col_size	= 32,
-	padding	= 2,
+	padding	= 2, -- padding between controls
 	margin	= 0,
 	pos_box	= [margin*2,4],
 	pos,
 	
-	roll_width	= 8,
+	roll_width	= 8, -- columns width of rollout
 	padding_box	= 16,
 
+	/*---------------------------------------
+		CONTROLS BOX
+	-----------------------------------------*/
 	/** Set init pos
 	 */
 	function setNewBoxPosition groupbox =
 	(
+		
 		if( pos == undefined ) then -- first control box in rollout
 			pos = pos_box
 		
@@ -23,7 +28,8 @@ struct Layout_v
 	
 		if( groupbox!=undefined ) then -- move controls in groupbox lower
 			pos[2] += padding_box
-
+		
+		Bbox = Bbox_v()
 	),
 	/** Set next box position
 	 */
@@ -45,14 +51,17 @@ struct Layout_v
 		--print ( "pos_box=" + pos_box as string )
 		--print ( "pos=" + pos as string )
 		Params	= Params_v()
-		
+		print ( "Bbox.width=" + Bbox.width as string )
 		Params.add #pos	[pos_box[1] - margin, pos_box[2] - padding_box]
-		Params.add #width	(pos[1] - pos_box[1] )
+		Params.add #width	Bbox.width
 		Params.add #height (pos[2] - pos_box[2] + col_size + padding_box)
-		print ( "Params.join()=" + Params.join()as string )
+		--print ( "Params.join()=" + Params.join()as string )
 		
 		return Params.join()
-	),	
+	),
+	/*---------------------------------------
+		CONTROLS
+	-----------------------------------------*/
 	/** Next control pos
 	  * @param	2point	pos	Position of previous control
 	  * @param	int	width	Width of current control
@@ -61,16 +70,16 @@ struct Layout_v
 	function _getControlsParams col =
 	(
 		Params	= Params_v()
-		print ( "pos_box=" + pos_box as string )
+		--print ( "pos_box=" + pos_box as string )
 		this.trySetNewControlsRow()
 		
 		width	= col * col_size
 		
-		
 		Params.add #pos	[ pos[1] + padding, pos[2] ]
 		Params.add #width	(width - padding*2)
 		Params.add #height (col_size - padding*2)
-
+		
+		Bbox.add Params
 		this.setNewControlPosition width
 		
 		return Params.join()
@@ -89,6 +98,9 @@ struct Layout_v
 		--pos_x	= pos[1] + with_last 
 		pos	= [ pos[1] + with_last, pos[2] ]
 	),
+	/*---------------------------------------
+		ROLLOUT
+	-----------------------------------------*/
 	/** _get roll width
 	 */
 	function _getRollWidth =

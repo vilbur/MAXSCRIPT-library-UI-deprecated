@@ -2,6 +2,7 @@
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/List/List.ms" );
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Control/Params.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Layout/Bbox/Bbox.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Layout/Layout.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/types/ControlBox.ms" ); 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Control/Events/Event/Event.ms" );
