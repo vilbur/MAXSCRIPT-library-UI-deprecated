@@ -5,32 +5,86 @@ struct Floater_v
 	self	= this,
 	title,
 	
-	Rollouts	= #(),
+	floater,
+	Rollouts	= List_v(),
 	
-	/**  
-	 */
-	function new _title =
-	(
-		title = _title
-		messagebox "Floater.new()"
-		return this
-	),
+	--/**  
+	-- */
+	--function new _title =
+	--(
+	--	title = _title
+	--	--messagebox "Floater.new()"
+	--	return this
+	--),
 	/** Create
 	 */
-	function create =
+	function create _title =
 	(
+		title	= _title
+		floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
 		
+		--cui.DockDialogBar	VilToolsFloater #cui_dock_right
+		return this
 	),
-	/** Create rollout in floater
+	/** Dock sidebar to window
+	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom
+	  * @return	self
+	 */
+	function dock side =
+	(
+		this.register()
+
+		case of
+		(
+			(side=="left"	or side==#left):	_dock = #cui_dock_left
+			(side=="right"	or side==#right):	_dock = #cui_dock_right
+			(side=="top"	or side==#top):	_dock = #cui_dock_top
+			(side=="bottom"	or side==#bottom):	_dock = #cui_dock_bottom
+			default:	_dock = #cui_floatable
+		)
+
+		cui.DockDialogBar	floater _dock
+		
+		return this
+	),
+	/** Set position of dialog relative 3Ds Max window
+	 */
+	function position x y =
+	(
+		this.unregister()
+		floater.pos = [ (getMAXWindowPos()).x + x, (getMAXWindowPos()).y + y ]
+
+		return this
+	),
+	/** Get\Set rollout in floater
+	  * @example roll "roll_id" "roll title"	// set rollout 
+	  * @example roll "roll_id"	// get rollout
 	  *
-	  * 
+	  * @return	[Rollout](../Rollouts/Rollout)
 	 */
 	function roll id title =
 	(
-		messagebox "Floater.rollout()"
-
+		if( title!="" ) then
+			Rollouts.setVal id ((Rollout_v()).new id title)
+		
+		return Rollouts.getVal id
 	),
-	
+	/** Register dialog bar
+	 */
+	function register =
+	(
+		this.unregister()
+
+		cui.RegisterDialogBar	floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)				
+		--return this
+	),
+	/** Unregister dialog bar
+	 */
+	function unregister =
+	(
+		try(cui.UnRegisterDialogBar floater)catch() --try to unregister if already registered
+		--return this
+	),
 	
 	function test =
 	(
