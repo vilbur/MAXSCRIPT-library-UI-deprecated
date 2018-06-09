@@ -23,12 +23,17 @@ struct Floater_v
 		title	= _title
 		floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
 		
-		--cui.DockDialogBar	VilToolsFloater #cui_dock_right
+		this._addRollouts()
+		
 		return this
 	),
-	/** Dock sidebar to window
-	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom
+	/** Dock\Undock sidebar to window
+	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
 	  * @return	self
+	  *
+	  * @example dock "right"	// dock dialog right
+	  * @example dock #left	// dock dialog left
+	  * @example dock ""	// undock dialog
 	 */
 	function dock side =
 	(
@@ -68,6 +73,13 @@ struct Floater_v
 			Rollouts.setVal id ((Rollout_v()).new id title)
 		
 		return Rollouts.getVal id
+	),
+	/** _add rollouts
+	 */
+	function _addRollouts =
+	(
+		for _rollout in Rollouts.values do
+			addRollout (_rollout.create dialog:false) floater
 	),
 	/** Register dialog bar
 	 */

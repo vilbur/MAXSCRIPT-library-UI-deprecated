@@ -22,21 +22,28 @@ struct Rollout_v
 		return this
 	),
 	/** Create rollout 
-	 *	
+	 * @param	boolean	dialog	If true the dialog is created, if void or false then return RolloutClass E.G.: for adding to floater
+	 * @return	RolloutClass
 	 */
-    function create =
+    function create dialog:true =
 	(
-		id = this.id
+		--id = this.id
 		try(DestroyDialog id)catch() -- must be above rollout definition
 
-		this.roll.begin()
+		roll.begin()
 		
 		this._addControls()
 		
-		CreateDialog (this.roll.end()) width:(Layout._getRollWidth())
-        
-		this.roll = this.roll.def
+		roll.end()
+		
+		roll = roll.def
+		
+		if( dialog==true ) then
+			CreateDialog (roll) width:(Layout._getRollWidth())
+		
+		return roll
 	),
+	
 	/** Controls
 	 */
 	function controls groupbox:undefined =
