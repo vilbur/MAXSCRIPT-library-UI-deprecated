@@ -41,23 +41,49 @@ struct Floater_v
 
 		case of
 		(
-			(side=="left"	or side==#left):	_dock = #cui_dock_left
-			(side=="right"	or side==#right):	_dock = #cui_dock_right
-			(side=="top"	or side==#top):	_dock = #cui_dock_top
-			(side=="bottom"	or side==#bottom):	_dock = #cui_dock_bottom
+			(side == "left"	or side == #left):	_dock = #cui_dock_left
+			(side == "right"	or side == #right):	_dock = #cui_dock_right
+			(side == "top"	or side == #top):	_dock = #cui_dock_top
+			(side == "bottom"	or side == #bottom):	_dock = #cui_dock_bottom
 			default:	_dock = #cui_floatable
 		)
 
-		cui.DockDialogBar	floater _dock
+		cui.DockDialogBar floater _dock
 		
+		if( _dock == #cui_floatable ) then
+			
+		this.unregister()
+
 		return this
 	),
+	/** Undock dialog
+	  * @return	self
+	 */
+	function undock =
+	(
+		return this.dock "undock"
+	),
 	/** Set position of dialog relative 3Ds Max window
+	  * @return	self
 	 */
 	function position x y =
 	(
-		this.unregister()
+		this.undock()
+		--this.unregister()
+		
 		floater.pos = [ (getMAXWindowPos()).x + x, (getMAXWindowPos()).y + y ]
+
+		return this
+	),
+	/** Set size of dialog
+	  * @return	self
+	 */
+	function size width height =
+	(
+		this.undock()
+		--this.unregister()
+		
+		floater.size = [ width, height ]
 
 		return this
 	),
