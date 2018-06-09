@@ -6,7 +6,7 @@ struct Events_v
 	events	= List_v(),
 	parent_control,
 
-	function pressed code params =
+	function pressed code params tooltip:"" =
 	(
 		event	= Event_v type:"pressed" code:code params:params
 		
@@ -19,7 +19,6 @@ struct Events_v
 		for event in this.events.values do
 			this._addHandler event
 	),
-	
 	/** Add handleri
 	  
 	 */
