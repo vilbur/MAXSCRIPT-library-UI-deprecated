@@ -7,24 +7,37 @@ struct Rollout_v
 	id,
 	title,
 	roll,
+	roll_def,
  	ControlBoxes	= #(),
 	Layout	= Layout_v(),
 
+	Subrollouts	= #(),
+	parent_roll,
+	
 	/** Set new rollout
 	  * @param	string	_title	Title of rollout
 	  * @param	string	[_id]	Id of rollout, if void then sanitized title is used E.G.: "Foo Rollout" >>> "foo_rollout"
 	  * @return	self
 	 */
-	function new _title _id =
+	function new _title _id:"" =
 	(
 		title	= _title
-		id	= _id
 		
-		this.setId()
+		this.setId _id
 		
 		this.roll = rolloutCreator id title
 		
 		return this
+	),
+	/** Subrollout
+	 */
+	function subrollout _title _id:"" =
+	(
+		_subrollout = (Rollout_v()).new _title id:_id
+		
+		append Subrollouts _subrollout
+		
+		return _subrollout
 	),
 	/** Create rollout 
 	 * @param	boolean	dialog	If true the dialog is created, if void or false then return RolloutClass E.G.: for adding to floater
@@ -34,10 +47,12 @@ struct Rollout_v
 	(
 		try(DestroyDialog id)catch() -- must be above rollout definition
 
-
 		this._createRollout()
-		--if( dialog==true ) then
-		CreateDialog roll width:(Layout._getRollWidth())
+
+		--CreateDialog (roll.end()) width:(Layout._getRollWidth())
+		CreateDialog (roll_def) width:(Layout._getRollWidth())
+		
+		this._addSubRollouts()
 		
 		return roll
 	),
@@ -49,9 +64,41 @@ struct Rollout_v
 		
 		this._addControls()
 		
+		this._createSubRollouts()
+
 		roll.end()
 		
-		roll = roll.def
+		roll_def = roll.def
+		print ( "roll_def=" + roll_def as string )
+	),
+	/** Create sub rollouts
+	 */
+	function _createSubRollouts =
+	(
+		if( Subrollouts.count>0 ) then
+			for _rollout in Subrollouts do
+				roll.addText ( _rollout._createSubrollout() )
+	),
+	/** Create subrollout
+	 */
+	function _createSubrollout =
+	(
+		this._createRollout()
+		--_rollout.create dialog:false
+		return ("\nsubRollout " + id + " \""+title+"\" height:128 width:"+(Layout._getRollWidth() as string )+" offset:[-14,-6]")
+	),
+	
+	/** Add sub rollouts
+	 */
+	function _addSubRollouts =
+	(
+		add_subrollouts = ""
+		
+		if( Subrollouts.count>0 ) then
+			for _rollout in Subrollouts do
+				add_subrollouts += "\nAddSubRollout " + id + "." + _rollout.id + " " + _rollout.id
+
+		execute add_subrollouts
 	),
 	
 	/** Get Controls for rollout
@@ -79,10 +126,12 @@ struct Rollout_v
 	-----------------------------------------*/
 	/** Set id by title if not defined
 	 */
-	function setId =
+	function setId _id =
 	(
-		if( id=="" ) then
-			id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
+		if( _id=="" ) then
+			_id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
+		
+		id = _id
 	),
 	
 	function test =
