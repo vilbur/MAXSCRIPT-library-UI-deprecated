@@ -34,17 +34,23 @@ clearListener();
 --	createdialog roll_main menu:TopMenu
 --)
 
-Menu = Menu_v title:"TopMenu"
+main_menu = Menu_v title:"TopMenu"
 
-Submenu = Menu.submenu "submenu"
+menu = main_menu.submenu "Menu"
 
-Submenu.item "Test Item 1" id:"test_item1"
-Submenu.item "Test Item 2" id:"test_item2"
+menu.item "Test Item 1" id:"test_item1"
+menu.separator()
+menu.item "Test Item 2"
+menu.separator()
 
-definition = Menu.create()
+submenu = menu.submenu "Submenu"
+submenu.item "Submenu Item 1"
 
-execute definition
-print ( "MENU=" + definition as string )
+--definition = main_menu.create()
+main_menu.create()
+
+--execute definition
+--print ( "MENU=" + definition as string )
 
 rollout roll_main "Menu Test"
 (

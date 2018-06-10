@@ -11,9 +11,22 @@ struct MenuItem_v
 	 */
 	function create =
 	(
-		--print "MenuItem.create()"
-		return "menuItem " + id + " \"" + title + "\"\n"
+		this.setId()
 		
+		if( title=="separator" ) then 
+			return "\nseparator sep"+( (random 1 1000000000) as string )+"\n"
+		
+		return "menuItem " + id + " \"" + title + "\"\n"
+	),
+	/*---------------------------------------
+		HELPERS
+	-----------------------------------------*/
+	/** Get id
+	 */
+	function setId =
+	(
+		if( id=="" ) then
+			id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
 	),
 	function test =
 	(
@@ -36,7 +49,7 @@ struct Menu_v
 	(
 		_submenu =  Menu_v title:_title type:"submenu"
 		
-		append items _submenu
+		this._addItem _submenu
 		
 		return _submenu
 	),
@@ -45,21 +58,35 @@ struct Menu_v
 	function item _title id:"" =
 	(
 		_item =  MenuItem_v title:_title id:id
-		append items _item
+		this._addItem _item
+	),
+	/** Separator
+	 */
+	function separator =
+	(
+		this.item "separator"
 	),
 	/** Create
 	 */
 	function create =
 	(
-		--print "Menu.create()"
 		subitems = ""
 		
 		for item in items do
 			subitems += item.create()
 		
 		definition = this._menuDefinition() + "(\n" + subitems + "\n)"
-
-		return definition 
+		
+		if( type=="RCmenu" ) then 
+			execute definition
+		else
+			return definition 
+	),
+	/** Add item
+	 */
+	function _addItem item =
+	(
+		append items item
 	),
 	/** Is menu
 	 */
@@ -85,15 +112,7 @@ struct Menu_v
 					"+submenu_items_definition+"
 				)"
 	),
-	/*---------------------------------------
-		HELPERS
-	-----------------------------------------*/
-	/** Get id
-	 */
-	function getId caption =
-	(
-		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace caption "_";
-	),
+
 	
 	function test =
 	(
