@@ -19,7 +19,6 @@ struct Layout_v
 	 */
 	function setNewBoxPosition groupbox =
 	(
-		
 		if( pos == undefined ) then -- first control box in rollout
 			pos = pos_box
 		
@@ -106,6 +105,16 @@ struct Layout_v
 	function _getRollWidth =
 	(
 		return (roll_width * _grid) + margin*4
+	),
+	/** _get roll height
+	 */
+	function _getRollHeight =
+	(
+		print ( "_getRollHeight()=" + (Bbox.height + 48) as string )
+		
+		
+		return Bbox.height + 48
+		--return 64
 	),
 	
 	function test =

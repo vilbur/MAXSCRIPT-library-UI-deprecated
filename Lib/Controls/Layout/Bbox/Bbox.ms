@@ -13,14 +13,13 @@ struct Bbox_v
 		pos	= Params.get #pos
 		--_width	= Params.get #width
 		bbox_width	= pos[1] + (Params.get #width)
-		--print "---------------";
-		--print ( "pos[1]=" + pos[1] as string )
-		--print ( "_width=" + _width as string )
-		--print ( "bbox_width=" + bbox_width as string )
-		--print (  bbox_width > width );
+		bbox_height	= pos[1] + (Params.get #height)
+		
 		if( bbox_width > width ) then
 			width = bbox_width as integer
 			
+		if( bbox_height > height ) then
+			height = bbox_height as integer
 	),
 	
 	function test =
