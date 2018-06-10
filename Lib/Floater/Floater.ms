@@ -73,7 +73,6 @@ struct Floater_v
 	function size width height =
 	(
 		this.undock()
-		--this.unregister()
 		
 		floater.size = [ width, height ]
 
@@ -91,7 +90,7 @@ struct Floater_v
 	(
 		if( title!="" ) then
 		(
-			_rollout = (Rollout_v()).new title id
+			_rollout = (Rollout_v()).new title id:id
 			Rollouts.setVal id ( _rollout )
 		)
 		
@@ -112,50 +111,23 @@ struct Floater_v
 	 */
 	function _createMainRollout =
 	(
-		--mainR = this.mainRollout()
+		roll_main	= (Rollout_v()).new "MainRollout"
 		
-		CreateDialog (this.mainRollout()) menu:(Menu.create(this.getId (title+"Menu") ))
+		roll_main.subrollouts = Rollouts.values
+		
+		roll_main.CreateRollDialog()
+		
+		floater = roll_main.roll.def
+	),
 
-		this._addSubRollouts()
-	),
-	/** Main rollout
-	 */
-	function mainRollout =
-	(
-		roll_main = rolloutCreator "mainR" title
-		
-		roll_main.begin()
-		
-		for _rollout in Rollouts.values do
-		(
-			_rollout.create dialog:false
-			roll_main.addText ("subRollout " + _rollout.id + " \""+_rollout.title+"\" height:256 width:"+(_rollout.Layout._getRollWidth() as string )+" offset:[-14,-6]")
-		)
-		
-		return roll_main.end()
-	),
 	/** _add rollouts
 	 */
 	function _addRollouts =
 	(
-		
 		for _rollout in Rollouts.values do
 			addRollout (_rollout.create dialog:false) floater
-			--addSubRollout floater.sub1 (_rollout.create dialog:false) 
 	),
-	/** _add rollouts
-	 */
-	function _addSubRollouts =
-	(
-		subrollouts = ""
-		
-		for _rollout in Rollouts.values do
-		(
-			subrollouts += "AddSubRollout mainR." +_rollout.id+ " " +_rollout.id
-		)
-		execute subrollouts
-	),
-	
+
 	/** Register dialog bar
 	 */
 	function register =
@@ -163,14 +135,12 @@ struct Floater_v
 		this.unregister()
 
 		cui.RegisterDialogBar	floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)				
-		--return this
 	),
 	/** Unregister dialog bar
 	 */
 	function unregister =
 	(
 		try(cui.UnRegisterDialogBar floater)catch() --try to unregister if already registered
-		--return this
 	),
 	/** Sanitize string to id "Foo Bar" >>> ""
 	  * @param	string	_string	E.G.:"Foo Bar"

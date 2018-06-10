@@ -13,10 +13,14 @@ struct Controls_v
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
 	 *  @param	string	caption	Caption of control
+	 * 
 	 *  @return	[Control](../../Control)
 	 */
 	function control type caption id =
 	(
+		if( id==undefined or id=="" ) then
+			id = this.getId caption 
+		
 		Control_new = Control_v parent_roll:parent_roll type:type caption:caption id:id 
 		
 		append _Control Control_new
@@ -27,9 +31,8 @@ struct Controls_v
 	 */
 	function button caption id:undefined =
 	(
-		if( id==undefined ) then
-			id = this.getId caption 
-		
+		--if( id==undefined ) then
+		--	id = this.getId caption 
 		this.control #button caption id
 	),
 	

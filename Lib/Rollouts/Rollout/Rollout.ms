@@ -7,7 +7,7 @@ struct Rollout_v
 	id,
 	title,
 	roll,
-	roll_def,
+	--roll_def,
  	ControlBoxes	= #(),
 	Layout	= Layout_v(),
 
@@ -49,8 +49,8 @@ struct Rollout_v
 
 		this._createRollout()
 
-		--CreateDialog (roll.end()) width:(Layout._getRollWidth())
-		CreateDialog (roll_def) width:(Layout._getRollWidth())
+		--CreateDialog (roll.def) width:(Layout._getRollWidth()) height:512
+		CreateDialog (roll.def) width:320 height:512
 		
 		this._addSubRollouts()
 		
@@ -68,25 +68,35 @@ struct Rollout_v
 
 		roll.end()
 		
-		roll_def = roll.def
-		print ( "roll_def=" + roll_def as string )
+		--roll_def = roll.def
+		--print ( "roll_def=" + roll_def as string )
 	),
 	/** Create sub rollouts
 	 */
 	function _createSubRollouts =
 	(
+		all_subrollouts_height = 512
+		--print ( "Subrollouts.count=" + (Subrollouts.count==0) as string )
 		if( Subrollouts.count>0 ) then
+		(
 			for _rollout in Subrollouts do
-				roll.addText ( _rollout._createSubrollout() )
+				_rollout._createRollout()
+				
+			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( all_subrollouts_height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-11,0]" )
+		)
+
 	),
-	/** Create subrollout
-	 */
-	function _createSubrollout =
-	(
-		this._createRollout()
-		--_rollout.create dialog:false
-		return ("\nsubRollout " + id + " \""+title+"\" height:128 width:"+(Layout._getRollWidth() as string )+" offset:[-14,-6]")
-	),
+	--/** Create subrollout
+	-- */
+	--function _createSubrollout =
+	--(
+	--	this._createRollout()
+	--	--_rollout.create dialog:false
+	--	--return ("\nsubRollout " + id + " \""+title+"\" height:"+(Layout._getRollHeight() as string )+" width:"+(Layout._getRollWidth() as string )+" offset:[-11,0]")
+	--	--return ("\nsubRollout " + id + " \""+title+"\" height:"+(Layout._getRollHeight() as string )+" width:"+(Layout._getRollWidth() as string )+" offset:[-11,0]")
+	--	--return ("\nsubRollout " + id + " \""+title+"\" height:"+(Layout._getRollHeight() as string )+" width:"+(Layout._getRollWidth() as string )+" offset:[-14,-6]")
+	--	--return ("\nsubRollout " + id + " \""+title+"\"  width:"+(Layout._getRollWidth() as string )+" offset:[-14,-6]")
+	--),
 	
 	/** Add sub rollouts
 	 */
@@ -95,10 +105,13 @@ struct Rollout_v
 		add_subrollouts = ""
 		
 		if( Subrollouts.count>0 ) then
+		(
 			for _rollout in Subrollouts do
-				add_subrollouts += "\nAddSubRollout " + id + "." + _rollout.id + " " + _rollout.id
+				add_subrollouts += "\nAddSubRollout " + id + "." + id + "Subrollouts " +  " " + _rollout.id
 
-		execute add_subrollouts
+			execute add_subrollouts
+			
+		)
 	),
 	
 	/** Get Controls for rollout

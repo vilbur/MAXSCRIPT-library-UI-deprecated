@@ -4,11 +4,11 @@ clearListener();
 
 /*------ GET FLOATER CLASS ------*/
 Floater	= Floater_v();
-
-_menu	= Floater.Menu.menu "Menu"
-_menu_2	= Floater.Menu.menu "Menu 2"
-
-_menu.item "Test Item 1" "" id:"test_item1"
+--
+--_menu	= Floater.Menu.menu "Menu"
+--_menu_2	= Floater.Menu.menu "Menu 2"
+--
+--_menu.item "Test Item 1" "" id:"test_item1"
 
 
 /*------ CREATE ROLLOUT ------*/
@@ -28,7 +28,7 @@ _control	= _rollout_controls.control #button "Control A1" #control_A1
 Floater.create "Test floater"
 
 --sleep 2
---Floater.dock #right
+Floater.dock #right
 --sleep 2
 --Floater.dock ""
 --sleep 2
