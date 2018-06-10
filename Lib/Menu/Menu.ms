@@ -1,63 +1,27 @@
-
-/** Menu item_v
- */
-struct MenuItem_v
-(
-	self	= this,
-	id,
-	title,
-	
-	/** Create
-	 */
-	function create =
-	(
-		this.setId()
-		
-		if( title=="separator" ) then 
-			return "\nseparator sep"+( (random 1 1000000000) as string )+"\n"
-		
-		return "menuItem " + id + " \"" + title + "\"\n"
-	),
-	/*---------------------------------------
-		HELPERS
-	-----------------------------------------*/
-	/** Get id
-	 */
-	function setId =
-	(
-		if( id=="" ) then
-			id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
-	),
-	function test =
-	(
-		messagebox "MenuItem_v.test()"
-	)
-)
-
+filein ( getFilenamePath(getSourceFileName()) + "/MenuItem.ms" );
 /** Menu
  */
 struct Menu_v
 (
-	self	= this,
 	type	= "RCmenu",
-	title,
+	name,
 	items	= #(),
 	
 	/** Submenu
 	 */
-	function submenu _title =
+	function menu _name =
 	(
-		_submenu =  Menu_v title:_title type:"submenu"
+		_menu =  Menu_v name:_name type:"submenu"
 		
-		this._addItem _submenu
+		this._addItem _menu
 		
-		return _submenu
+		return _menu
 	),
 	/** Item
 	 */
-	function item _title id:"" =
+	function item _name id:"" =
 	(
-		_item =  MenuItem_v title:_title id:id
+		_item =  MenuItem_v name:_name id:id
 		this._addItem _item
 	),
 	/** Separator
@@ -99,20 +63,10 @@ struct Menu_v
 	function _menuDefinition =
 	(
 		if( type=="submenu" ) then
-			return "subMenu \"" + title + "\""
+			return "subMenu \"" + name + "\""
 		else
-			return "RcMenu " + title
+			return "RcMenu " + name
 	),
-	/** Append to submenu
-	 */
-	function _appendToSubmenu submenu_items_definition =
-	(
-		return "subMenu \""+title+"\"
-				(
-					"+submenu_items_definition+"
-				)"
-	),
-
 	
 	function test =
 	(
