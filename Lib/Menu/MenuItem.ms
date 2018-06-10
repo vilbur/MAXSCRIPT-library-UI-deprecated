@@ -13,9 +13,9 @@ struct MenuItem_v
 		this.setId()
 		
 		if( name=="separator" ) then 
-			return "\nseparator sep"+( (random 1 1000000000) as string )+"\n"
+			return "\nseparator sep"+( (random 1 1000000000) as string )
 		
-		return "menuItem " + id + " \"" + name + "\"\n"
+		return "\nmenuItem " + id + " \"" + name + "\""
 	),
 
 	/** Get id

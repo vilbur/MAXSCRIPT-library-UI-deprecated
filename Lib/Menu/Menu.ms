@@ -1,12 +1,20 @@
-filein ( getFilenamePath(getSourceFileName()) + "/MenuItem.ms" );
 /** Menu
  */
 struct Menu_v
 (
+	self	= this,
 	type	= "RCmenu",
 	name,
 	items	= #(),
 	
+	/** New
+	 */
+	function new _name =
+	(
+		this.name = _name
+		
+		return self
+	),
 	/** Submenu
 	 */
 	function menu _name =
@@ -39,10 +47,11 @@ struct Menu_v
 		for item in items do
 			subitems += item.create()
 		
-		definition = this._menuDefinition() + "(\n" + subitems + "\n)"
+		definition = this._menuDefinition() + "\n(\n" + subitems + "\n)"
 		
 		if( type=="RCmenu" ) then 
-			execute definition
+			return execute definition
+			
 		else
 			return definition 
 	),
@@ -63,7 +72,7 @@ struct Menu_v
 	function _menuDefinition =
 	(
 		if( type=="submenu" ) then
-			return "subMenu \"" + name + "\""
+			return "\nsubMenu \"" + name + "\""
 		else
 			return "RcMenu " + name
 	),

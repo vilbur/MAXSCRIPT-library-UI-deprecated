@@ -7,31 +7,21 @@ struct Floater_v
 	
 	floater,
 	Rollouts	= List_v(),
+	Menu	= Menu_v name:"RolloutMenu",
 	
 	fn createMenu = 
 	(
-
-		RCmenu TopMenu
-		(
-			subMenu "File"
-			(
-				menuItem m1_1 "Open..."
-				menuItem m1_2 "Save"
-				separator sep1
-				menuItem m1_3 "Exit"
-			)
-			
-			subMenu "Edit"
-			(
-				menuItem m2_1 "Copy"
-				menuItem m2_2 "Cut"
-				menuItem m2_3 "Paste"
-			)
-		)
+		main_menu = Menu.new "MainMenu"
+		
+		/* DEFINE MENU */
+		menu	= main_menu.menu "Menu"
+		menu_2	= main_menu.menu "Menu 2"
+		
+		menu.item "Test Item 1" id:"test_item1"
 		
 	),
 	
-	/** Main rollout
+	/** Main rolloutá
 	 */
 	function mainRollout =
 	(
@@ -55,7 +45,7 @@ struct Floater_v
 
 		mainR = this.mainRollout()
 	
-		createDialog mainR menu:(this.createMenu())
+		createDialog mainR menu:MainMenu
 
 		this._addSubRollouts()
 		--this._addRollouts()
