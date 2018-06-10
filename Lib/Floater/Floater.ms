@@ -7,18 +7,19 @@ struct Floater_v
 	
 	floater,
 	Rollouts	= List_v(),
-	_Menu	= Menu_v name:"RolloutMenu",
+	Menu	= Menu_v(),
+	--Menu	= Menu_v name:"RolloutMenu",
 	
-	fn createMenu = 
-	(
-		print "Floater_v.createMenu()"
-		/* DEFINE MENU */
-		menu	= _Menu.menu "Menu"
-		menu_2	= _Menu.menu "Menu 2"
-		
-		menu.item "Test Item 1" id:"test_item1"
-		
-	),
+	--fn createMenu = 
+	--(
+	--	print "Floater_v.createMenu()"
+	--	/* DEFINE MENU */
+	--	_menu	= Menu.menu "Menu"
+	--	_menu_2	= Menu.menu "Menu 2"
+	--	
+	--	_menu.item "Test Item 1" id:"test_item1"
+	--	
+	--),
 	
 	/** Main rollout
 	 */
@@ -41,15 +42,7 @@ struct Floater_v
 		title	= _title
 		--floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
 		mainR = this.mainRollout()
-	
-	
-		--createDialog mainR menu:(Menu.create())
-		
-		this.createMenu()
-		--Menu.create()
-		--createDialog mainR menu:RolloutMenu
-		createDialog mainR menu:(_Menu.create())
-		--createDialog mainR 
+		createDialog mainR menu:(Menu.create(this.getId (title+"Menu") ))
 
 		this._addSubRollouts()
 		--this._addRollouts()
@@ -176,7 +169,14 @@ struct Floater_v
 		try(cui.UnRegisterDialogBar floater)catch() --try to unregister if already registered
 		--return this
 	),
-	
+	/** Sanitize string to id "Foo Bar" >>> ""
+	  * @param	string	_string	E.G.:"Foo Bar"
+	  * @return	string	Sanitized string	E.G.:"foo_bar"
+	  */
+	function getId _string =
+	(
+		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower _string ) "_";
+	),
 	function test =
 	(
 		messagebox "Floater.test()"

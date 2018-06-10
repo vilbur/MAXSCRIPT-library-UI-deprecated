@@ -7,14 +7,14 @@ struct Menu_v
 	name,
 	items	= #(),
 	
-	/** New
-	 */
-	function new _name =
-	(
-		this.name = _name
-		
-		return self
-	),
+	--/** New
+	-- */
+	--function new _name =
+	--(
+	--	this.name = _name
+	--	
+	--	return self
+	--),
 	/** Submenu
 	 */
 	function menu _name =
@@ -39,14 +39,18 @@ struct Menu_v
 		this.item "separator"
 	),
 	/** Create
+	  * @param	string	_name	Name of main menu, empty if submenu is created
+	  * @return	RcMenu class|string	Return RcMenu for 'CreateDialog menu:RcMenu' or definition of submenu
 	 */
-	function create =
+	function create _name =
 	(
-		print "Menu_v.create()"
-		subitems = ""
+		if( _name!="" ) then
+			name	= _name
+		
+		subitems	= ""
 		
 		for item in items do
-			subitems += item.create()
+			subitems += item.create ""
 		
 		definition = this._menuDefinition() + "\n(\n" + subitems + "\n)"
 		
@@ -62,12 +66,6 @@ struct Menu_v
 	function _addItem item =
 	(
 		append items item
-	),
-	/** Is menu
-	 */
-	function isMenu _item =
-	(
-		return  matchPattern ( classOf _item as string) pattern:"#Struct:Menu*" 
 	),
 	/** Get menu definition
 	 */

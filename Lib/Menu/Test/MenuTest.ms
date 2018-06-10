@@ -7,31 +7,27 @@ clearListener();
 function menuTest =
 (
 	/* DEFINE MAIN MENU */
-	--main_menu = Menu_v name:"MainMenu" -- create menu with construct
-	main_menu = (Menu_v()).new "MainMenu" -- create menu with method
+	Menu = Menu_v() 
 	
 	/* DEFINE MENU */
-	menu	= main_menu.menu "Menu"
-	menu_2	= main_menu.menu "Menu 2"
+	_menu	= Menu.menu "Menu"
+	_menu_2	= Menu.menu "Menu 2"
 	
-	menu.item "Test Item 1" id:"test_item1"
-	menu.separator()f
-	menu.item "Test Item 2"
-	menu.separator()
+	_menu.item "Test Item 1" id:"test_item1"
+	_menu.separator()f
+	_menu.item "Test Item 2"
+	_menu.separator()
 	
 	/* DEFINE SUBMENU */
-	submenu = menu.menu "Submenu"
+	submenu = _menu.menu "Submenu"
 	submenu.item "Submenu Item 1"
-	
-	/* CREATE MENU */
-	MainMenu = main_menu.create()
 	
 	/* define rollout for menu */
 	rollout roll_main "Menu Test"
 	(
 		
 	)
-	createdialog roll_main menu:(main_menu.create())
+	CreateDialog roll_main menu:(Menu.create "MainMenu")
 )
 
 

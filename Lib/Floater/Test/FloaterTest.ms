@@ -5,6 +5,11 @@ clearListener();
 /*------ GET FLOATER CLASS ------*/
 Floater	= Floater_v();
 
+_menu	= Floater.Menu.menu "Menu"
+_menu_2	= Floater.Menu.menu "Menu 2"
+
+_menu.item "Test Item 1" id:"test_item1"
+
 
 /*------ CREATE ROLLOUT ------*/
 _rollout = Floater.roll "Test Rollout" ""

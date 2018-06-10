@@ -7,8 +7,10 @@ struct MenuItem_v
 	name,
 	
 	/** Create
+	  * @param	string	void	Empty parameter, must be present because method definition should match with Menu_v.create
+	  * @return string Definition of menu item
 	 */
-	function create =
+	function create void =
 	(
 		this.setId()
 		
