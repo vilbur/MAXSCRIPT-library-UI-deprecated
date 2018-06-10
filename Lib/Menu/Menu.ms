@@ -42,6 +42,7 @@ struct Menu_v
 	 */
 	function create =
 	(
+		print "Menu_v.create()"
 		subitems = ""
 		
 		for item in items do
@@ -49,10 +50,11 @@ struct Menu_v
 		
 		definition = this._menuDefinition() + "\n(\n" + subitems + "\n)"
 		
-		if( type=="RCmenu" ) then 
-			return execute definition
+		if( type=="RCmenu" ) then (
+			print ( "definition=" + definition as string )
+			return (execute definition)
 			
-		else
+		)else
 			return definition 
 	),
 	/** Add item

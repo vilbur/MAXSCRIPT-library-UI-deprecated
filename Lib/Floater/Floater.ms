@@ -7,31 +7,29 @@ struct Floater_v
 	
 	floater,
 	Rollouts	= List_v(),
-	Menu	= Menu_v name:"RolloutMenu",
+	_Menu	= Menu_v name:"RolloutMenu",
 	
 	fn createMenu = 
 	(
-		main_menu = Menu.new "MainMenu"
-		
+		print "Floater_v.createMenu()"
 		/* DEFINE MENU */
-		menu	= main_menu.menu "Menu"
-		menu_2	= main_menu.menu "Menu 2"
+		menu	= _Menu.menu "Menu"
+		menu_2	= _Menu.menu "Menu 2"
 		
 		menu.item "Test Item 1" id:"test_item1"
 		
 	),
 	
-	/** Main rolloutá
+	/** Main rollout
 	 */
 	function mainRollout =
 	(
-
 		roll_main = rolloutCreator "mainR" title
 		
 		roll_main.begin()
 		
 		for _rollout in Rollouts.values do
-			roll_main.addText ("subRollout " + _rollout.id + " \""+_rollout.title+"\" height:256 width:256")
+			roll_main.addText ("subRollout " + _rollout.id + " \""+_rollout.title+"\" height:256 width:256 offset:[-14,-6]")
 		
 		return roll_main.end()
 	),
@@ -42,10 +40,16 @@ struct Floater_v
 	(
 		title	= _title
 		--floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
-
 		mainR = this.mainRollout()
 	
-		createDialog mainR menu:MainMenu
+	
+		--createDialog mainR menu:(Menu.create())
+		
+		this.createMenu()
+		--Menu.create()
+		--createDialog mainR menu:RolloutMenu
+		createDialog mainR menu:(_Menu.create())
+		--createDialog mainR 
 
 		this._addSubRollouts()
 		--this._addRollouts()
