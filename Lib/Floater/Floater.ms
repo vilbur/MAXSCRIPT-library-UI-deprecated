@@ -8,6 +8,8 @@ struct Floater_v
 	floater,
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
+	--dialog_type	= "floater" -- 
+	
 	--Menu	= Menu_v name:"RolloutMenu",
 	
 	--fn createMenu = 
@@ -40,12 +42,10 @@ struct Floater_v
 	function create _title =
 	(
 		title	= _title
-		--floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
-		mainR = this.mainRollout()
-		createDialog mainR menu:(Menu.create(this.getId (title+"Menu") ))
 
-		this._addSubRollouts()
-		--this._addRollouts()
+
+		this._createRollout()
+
 		
 		return this
 	),
@@ -110,14 +110,13 @@ struct Floater_v
 		return this
 	),
 	/** Get\Set rollout in floater
-	  *	
-	  *
+	  * @param	string	title	Title of rollout
+	  * @param	string	id	Id of roullout, if empty then sanitized title is used
+	  * @return	[Rollout](../Rollouts/Rollout)
 	  *
 	  * @example roll "roll title" "roll_id" 	// set rollout 
 	  * @example roll "" "roll_id"	// get rollout
-	  *
-	  * @return	[Rollout](../Rollouts/Rollout)
-	 */
+	  */
 	function roll title id  =
 	(
 		if( title!="" ) then
@@ -128,6 +127,27 @@ struct Floater_v
 		
 		return Rollouts.getVal id
 	),
+	/** Create floater
+	  * Floater can`t has Menu
+	  * Rollouts are added as rollouts
+	 */
+	function _createFloater =
+	(
+		floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
+		this._addRollouts()
+	),
+	/** Create rollout
+	  * Rollout can has Menu
+	  * Rollouts are added as subrollouts
+	 */
+	function _createRollout =
+	(
+		mainR = this.mainRollout()
+		createDialog mainR menu:(Menu.create(this.getId (title+"Menu") ))
+
+		this._addSubRollouts()
+	),
+
 	/** _add rollouts
 	 */
 	function _addRollouts =
