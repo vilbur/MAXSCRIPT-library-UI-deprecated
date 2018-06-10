@@ -17,7 +17,7 @@ struct Menu_v
 		
 		return _menu
 	),
-	/** Item
+	/** Add item to menu
 	  * @param	string	title	Title of item
 	  * @param	string	command	Command of item
 	  * @param	string	[id]	Id of item, if empoty, then sanitized title is used
@@ -25,7 +25,6 @@ struct Menu_v
 	function item title command id:"" =
 	(
 		_item =  MenuItem_v title:title command:command id:id
-		--_item.command =  "messagebox \"MENU ITEM\"" 
 		this._addItem _item
 	),
 	/** Set separator item

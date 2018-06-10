@@ -30,10 +30,21 @@ struct Rollout_v
 	 * @param	boolean	dialog	If true the dialog is created, if void or false then return RolloutClass E.G.: for adding to floater
 	 * @return	RolloutClass
 	 */
-    function create dialog:true =
+    function CreateRollDialog =
 	(
 		try(DestroyDialog id)catch() -- must be above rollout definition
 
+
+		this._createRollout()
+		--if( dialog==true ) then
+		CreateDialog roll width:(Layout._getRollWidth())
+		
+		return roll
+	),
+	/** Create rollout
+	 */
+	function _createRollout =
+	(
 		roll.begin()
 		
 		this._addControls()
@@ -41,11 +52,6 @@ struct Rollout_v
 		roll.end()
 		
 		roll = roll.def
-		
-		if( dialog==true ) then
-			CreateDialog (roll) width:(Layout._getRollWidth())
-		
-		return roll
 	),
 	
 	/** Get Controls for rollout

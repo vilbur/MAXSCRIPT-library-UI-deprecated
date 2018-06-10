@@ -24,7 +24,7 @@ struct MenuItem_v
 	 */
 	function _getCommandDefinition =
 	(
-		if( title=="separator" ) then 
+		if( title=="separator" or command=="" ) then 
 			return ""
 		
 		return "\n	on "+id+" picked do " + command  

@@ -9,27 +9,13 @@ struct Floater_v
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
 	
-	/** Main rollout
-	 */
-	function mainRollout =
-	(
-		roll_main = rolloutCreator "mainR" title
-		
-		roll_main.begin()
-		
-		for _rollout in Rollouts.values do
-			roll_main.addText ("subRollout " + _rollout.id + " \""+_rollout.title+"\" height:256 width:256 offset:[-14,-6]")
-		
-		return roll_main.end()
-	),
-	
 	/** Create
 	 */
 	function create _title =
 	(
 		title	= _title
 
-		this._createRollout()
+		this._createMainRollout()
 		
 		return this
 	),
@@ -124,14 +110,30 @@ struct Floater_v
 	  * Rollout can has Menu
 	  * Rollouts are added as subrollouts
 	 */
-	function _createRollout =
+	function _createMainRollout =
 	(
-		mainR = this.mainRollout()
-		createDialog mainR menu:(Menu.create(this.getId (title+"Menu") ))
+		--mainR = this.mainRollout()
+		
+		CreateDialog (this.mainRollout()) menu:(Menu.create(this.getId (title+"Menu") ))
 
 		this._addSubRollouts()
 	),
-
+	/** Main rollout
+	 */
+	function mainRollout =
+	(
+		roll_main = rolloutCreator "mainR" title
+		
+		roll_main.begin()
+		
+		for _rollout in Rollouts.values do
+		(
+			_rollout.create dialog:false
+			roll_main.addText ("subRollout " + _rollout.id + " \""+_rollout.title+"\" height:256 width:"+(_rollout.Layout._getRollWidth() as string )+" offset:[-14,-6]")
+		)
+		
+		return roll_main.end()
+	),
 	/** _add rollouts
 	 */
 	function _addRollouts =
@@ -145,15 +147,12 @@ struct Floater_v
 	 */
 	function _addSubRollouts =
 	(
-		--subrollouts = "AddSubRollout mainR.sub1 sub1"
 		subrollouts = ""
 		
 		for _rollout in Rollouts.values do
 		(
-			_rollout.create dialog:false
 			subrollouts += "AddSubRollout mainR." +_rollout.id+ " " +_rollout.id
 		)
-			--addSubRollout floater.sub1 (_rollout.create dialog:false) 
 		execute subrollouts
 	),
 	
