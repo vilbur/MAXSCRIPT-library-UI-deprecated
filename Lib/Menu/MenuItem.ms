@@ -4,7 +4,8 @@
 struct MenuItem_v
 (
 	id,
-	name,
+	title,
+	command,
 	
 	/** Create
 	  * @param	string	void	Empty parameter, must be present because method definition should match with Menu_v.create
@@ -14,18 +15,26 @@ struct MenuItem_v
 	(
 		this.setId()
 		
-		if( name=="separator" ) then 
-			return "\nseparator sep"+( (random 1 1000000000) as string )
+		if( title=="separator" ) then 
+			return "\n	separator sep"+( (random 1 1000000000) as string )
 		
-		return "\nmenuItem " + id + " \"" + name + "\""
+		return "\n	menuItem " + id + " \"" + title + "\""
 	),
-
+	/** Get command definition 
+	 */
+	function _getCommandDefinition =
+	(
+		if( title=="separator" ) then 
+			return ""
+		
+		return "\n	on "+id+" picked do " + command  
+	),
 	/** Get id
 	 */
 	function setId =
 	(
 		if( id=="" ) then
-			id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower name ) "_";
+			id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
 	),
 	function test =
 	(

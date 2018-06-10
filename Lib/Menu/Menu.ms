@@ -7,14 +7,6 @@ struct Menu_v
 	name,
 	items	= #(),
 	
-	--/** New
-	-- */
-	--function new _name =
-	--(
-	--	this.name = _name
-	--	
-	--	return self
-	--),
 	/** Submenu
 	 */
 	function menu _name =
@@ -26,17 +18,21 @@ struct Menu_v
 		return _menu
 	),
 	/** Item
+	  * @param	string	title	Title of item
+	  * @param	string	command	Command of item
+	  * @param	string	[id]	Id of item, if empoty, then sanitized title is used
 	 */
-	function item _name id:"" =
+	function item title command id:"" =
 	(
-		_item =  MenuItem_v name:_name id:id
+		_item =  MenuItem_v title:title command:command id:id
+		--_item.command =  "messagebox \"MENU ITEM\"" 
 		this._addItem _item
 	),
-	/** Separator
+	/** Set separator item
 	 */
 	function separator =
 	(
-		this.item "separator"
+		this.item "separator" ""
 	),
 	/** Create
 	  * @param	string	_name	Name of main menu, empty if submenu is created
@@ -44,22 +40,23 @@ struct Menu_v
 	 */
 	function create _name =
 	(
+		this.setName _name
+		
+		subitems	= this._getDefinitionsOfMenuItems()
+		commands	= this._getAllCommandsDefinitions()
+		definition 	= this._menuDefinition() + "\n(\n" + subitems + commands + "\n)"
+		
+		if( type=="RCmenu" ) then
+			return (execute definition)
+		else
+			return definition
+	),
+	/** Set name
+	 */
+	function setName _name =
+	(
 		if( _name!="" ) then
 			name	= _name
-		
-		subitems	= ""
-		
-		for item in items do
-			subitems += item.create ""
-		
-		definition = this._menuDefinition() + "\n(\n" + subitems + "\n)"
-		
-		if( type=="RCmenu" ) then (
-			print ( "definition=" + definition as string )
-			return (execute definition)
-			
-		)else
-			return definition 
 	),
 	/** Add item
 	 */
@@ -77,6 +74,40 @@ struct Menu_v
 			return "RcMenu " + name
 	),
 	
+	/** Get definitions of items
+	 */
+	function _getDefinitionsOfMenuItems =
+	(
+		definition	= ""
+		
+		for item in items do
+			definition += item.create ""
+			
+		return definition
+	),
+	/** Get all commands definitions in RcMenu
+	 */
+	function _getAllCommandsDefinitions =
+	(
+		commands	= ""
+		
+		if( type!="submenu" ) then
+			commands	= this._getCommandDefinition()
+		
+		return commands
+	),
+	/** Get commands definition of items in menu
+	 */
+	function _getCommandDefinition =
+	(
+		commands	= ""
+	
+		for item in items do
+			commands += item._getCommandDefinition()
+			
+		return commands
+	),
+
 	function test =
 	(
 		messagebox "Menu.test()"

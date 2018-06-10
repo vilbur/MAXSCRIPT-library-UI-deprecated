@@ -8,20 +8,6 @@ struct Floater_v
 	floater,
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
-	--dialog_type	= "floater" -- 
-	
-	--Menu	= Menu_v name:"RolloutMenu",
-	
-	--fn createMenu = 
-	--(
-	--	print "Floater_v.createMenu()"
-	--	/* DEFINE MENU */
-	--	_menu	= Menu.menu "Menu"
-	--	_menu_2	= Menu.menu "Menu 2"
-	--	
-	--	_menu.item "Test Item 1" id:"test_item1"
-	--	
-	--),
 	
 	/** Main rollout
 	 */
@@ -43,9 +29,7 @@ struct Floater_v
 	(
 		title	= _title
 
-
 		this._createRollout()
-
 		
 		return this
 	),
