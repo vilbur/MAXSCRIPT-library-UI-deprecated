@@ -3,7 +3,7 @@ filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" );
 clearListener();
 
 /* ROLLOUT DEFINITION */
-_rollout = (Rollout_v()).new "test_rollout" "Test Rollout"
+_rollout = (Rollout_v()).new "Test Rollout" "optionable_id"
 
 /* MODIFY CONTROLS */
 --_rollout.roll.button_1.text = "XXX"

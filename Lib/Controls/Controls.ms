@@ -82,8 +82,9 @@ struct Controls_v
 	 */
 	function getId caption =
 	(
-		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace caption "_";
+		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower caption ) "_";
 	),
+	
 	function test =
 	(
 		messagebox "UI.test()"

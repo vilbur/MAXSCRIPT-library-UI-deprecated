@@ -10,14 +10,19 @@ struct Rollout_v
  	ControlBoxes	= #(),
 	Layout	= Layout_v(),
 
-	/** Set roll property 
+	/** Set new rollout
+	  * @param	string	_title	Title of rollout
+	  * @param	string	[_id]	Id of rollout, if void then sanitized title is used E.G.: "Foo Rollout" >>> "foo_rollout"
+	  * @return	self
 	 */
-	function new id title =
+	function new _title _id =
 	(
-		this.id	= id
-		this.title	= title
+		title	= _title
+		id	= _id
 		
-		this.roll = rolloutCreator this.id this.title
+		this.setId()
+		
+		this.roll = rolloutCreator id title
 		
 		return this
 	),
@@ -27,7 +32,6 @@ struct Rollout_v
 	 */
     function create dialog:true =
 	(
-		--id = this.id
 		try(DestroyDialog id)catch() -- must be above rollout definition
 
 		roll.begin()
@@ -44,7 +48,9 @@ struct Rollout_v
 		return roll
 	),
 	
-	/** Controls
+	/** Get Controls for rollout
+	  * @param	string	[groupbox]	Title of group box
+	  * @return [Controls](../../Controls)
 	 */
 	function controls groupbox:undefined =
 	(
@@ -59,8 +65,18 @@ struct Rollout_v
 	*/
 	function _addControls =
 	(
-		for Controls in this.ControlBoxes do
+		for Controls in ControlBoxes do
 			Controls._addControls()
+	),
+	/*---------------------------------------
+		HELPERS
+	-----------------------------------------*/
+	/** Set id by title if not defined
+	 */
+	function setId =
+	(
+		if( id=="" ) then
+			id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
 	),
 	
 	function test =

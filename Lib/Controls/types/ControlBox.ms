@@ -29,7 +29,7 @@ struct ControlBox_v
 	 */
 	function getId =
 	(
-		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace groupbox "_";
+		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower groupbox ) "_";
 	),
 
 	function test =

@@ -8,25 +8,65 @@ struct Floater_v
 	floater,
 	Rollouts	= List_v(),
 	
-	--/**  
-	-- */
-	--function new _title =
-	--(
-	--	title = _title
-	--	--messagebox "Floater.new()"
-	--	return this
-	--),
+fn createMenu = 
+(
+rcMenu rcTest
+(
+menuItem miItem1 "Item 1"
+menuItem miItem2 "Item 2"
+seperator menuSep01
+menuItem miItem3 "Item 3"
+
+on miItem1 picked do (print "item 1 picked...")
+on miItem2 picked do (print "item 2 picked...")
+on miItem3 picked do (print "item 3 picked...")
+) -- end of rcTest rcmenu
+),
+	
+	/** Main rollout
+	 */
+	function mainRollout =
+	(
+
+		rci = rolloutCreator "mainR" "mainR"
+		
+		rci.begin()
+		
+		for _rollout in Rollouts.values do
+			rci.addText ("subRollout " + _rollout.id + " \""+_rollout.title+"\" height:256")
+			--messagebox id beep:false;
+		
+		return rci.end()
+	),
+	
 	/** Create
 	 */
 	function create _title =
 	(
 		title	= _title
-		floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
+		--floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
+
+
+		mainR = this.mainRollout()
+	
+		createDialog mainR menu:(this.createMenu())
 		
-		this._addRollouts()
+			
+		--roll_sub = rolloutCreator "sub1" "Sub 1"
+		--roll_sub.begin()
+		--roll_sub.addControl #button #myButton "My Button"
+		--roll_sub.end()
+		--roll_sub = roll_sub.def
+
+		
+		--test = "AddSubRollout mainR.sub1 sub1"
+		--execute test
+		this._addSubRollouts()
+		--this._addRollouts()
 		
 		return this
 	),
+
 	/** Dock\Undock sidebar to window
 	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
 	  * @return	self
@@ -51,8 +91,7 @@ struct Floater_v
 		cui.DockDialogBar floater _dock
 		
 		if( _dock == #cui_floatable ) then
-			
-		this.unregister()
+			this.unregister()
 
 		return this
 	),
@@ -88,15 +127,21 @@ struct Floater_v
 		return this
 	),
 	/** Get\Set rollout in floater
-	  * @example roll "roll_id" "roll title"	// set rollout 
-	  * @example roll "roll_id"	// get rollout
+	  *	
+	  *
+	  *
+	  * @example roll "roll title" "roll_id" 	// set rollout 
+	  * @example roll "" "roll_id"	// get rollout
 	  *
 	  * @return	[Rollout](../Rollouts/Rollout)
 	 */
-	function roll id title =
+	function roll title id  =
 	(
 		if( title!="" ) then
-			Rollouts.setVal id ((Rollout_v()).new id title)
+		(
+			_rollout = (Rollout_v()).new title id
+			Rollouts.setVal id ( _rollout )
+		)
 		
 		return Rollouts.getVal id
 	),
@@ -104,9 +149,27 @@ struct Floater_v
 	 */
 	function _addRollouts =
 	(
+		
 		for _rollout in Rollouts.values do
 			addRollout (_rollout.create dialog:false) floater
+			--addSubRollout floater.sub1 (_rollout.create dialog:false) 
 	),
+	/** _add rollouts
+	 */
+	function _addSubRollouts =
+	(
+		--subrollouts = "AddSubRollout mainR.sub1 sub1"
+		subrollouts = ""
+		
+		for _rollout in Rollouts.values do
+		(
+			_rollout.create dialog:false
+			subrollouts += "AddSubRollout mainR." +_rollout.id+ " " +_rollout.id
+		)
+			--addSubRollout floater.sub1 (_rollout.create dialog:false) 
+		execute subrollouts
+	),
+	
 	/** Register dialog bar
 	 */
 	function register =
