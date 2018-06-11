@@ -19,7 +19,7 @@ struct Rollout_v
 	  * @param	string	[_id]	Id of rollout, if void then sanitized title is used E.G.: "Foo Rollout" >>> "foo_rollout"
 	  * @return	self
 	 */
-	function new _title _id:"" =
+	function new _title _id:"" height:0 =
 	(
 		title	= _title
 		
@@ -43,14 +43,15 @@ struct Rollout_v
 	 * @param	boolean	dialog	If true the dialog is created, if void or false then return RolloutClass E.G.: for adding to floater
 	 * @return	RolloutClass
 	 */
-    function CreateRollDialog =
+    function CreateRollDialog height:512 =
 	(
 		try(DestroyDialog id)catch() -- must be above rollout definition
 
 		this._createRollout()
 
-		--CreateDialog (roll.def) width:(Layout._getRollWidth()) height:512
-		CreateDialog (roll.def) width:320 height:512
+		--CreateDialog (roll.def) width:(Layout._getRollWidth()-6) 
+		CreateDialog (roll.def) width:(Layout._getRollWidth()-6) height:height
+		--CreateDialog (roll.def) width:320 height:512
 		
 		this._addSubRollouts()
 		
@@ -76,13 +77,14 @@ struct Rollout_v
 	function _createSubRollouts =
 	(
 		all_subrollouts_height = 512
-		--print ( "Subrollouts.count=" + (Subrollouts.count==0) as string )
-		if( Subrollouts.count>0 ) then
+		print ( "Subrollouts.count=" + Subrollouts.count as string )
+		
+		if( Subrollouts.count>0 ) then 
 		(
 			for _rollout in Subrollouts do
 				_rollout._createRollout()
 				
-			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( all_subrollouts_height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-11,0]" )
+			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( all_subrollouts_height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
 		)
 
 	),

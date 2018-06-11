@@ -104,7 +104,7 @@ struct Layout_v
 	 */
 	function _getRollWidth =
 	(
-		return (roll_width * _grid) + margin*4 + 16
+		return (roll_width * _grid) + margin*4 + 14
 	),
 	/** _get roll height
 	 */

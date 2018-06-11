@@ -11,11 +11,11 @@ struct Floater_v
 	
 	/** Create
 	 */
-	function create _title =
+	function create _title height:512 =
 	(
 		title	= _title
 
-		this._createMainRollout()
+		this._createMainRollout height:height
 		
 		return this
 	),
@@ -90,7 +90,9 @@ struct Floater_v
 	(
 		if( title!="" ) then
 		(
-			_rollout = (Rollout_v()).new title id:id
+			print ( "roll=" + title as string )
+			_rollout	= (Rollout_v()).new title id:id
+			id	= _rollout.id
 			Rollouts.setVal id ( _rollout )
 		)
 		
@@ -109,15 +111,18 @@ struct Floater_v
 	  * Rollout can has Menu
 	  * Rollouts are added as subrollouts
 	 */
-	function _createMainRollout =
+	function _createMainRollout height:512 =
 	(
-		roll_main	= (Rollout_v()).new "MainRollout"
+		roll_main	= (Rollout_v()).new title
 		
 		roll_main.subrollouts = Rollouts.values
 		
-		roll_main.CreateRollDialog()
+		roll_main.CreateRollDialog height:height
 		
 		floater = roll_main.roll.def
+		
+		--this.register()
+
 	),
 
 	/** _add rollouts

@@ -10,13 +10,17 @@ Floater	= Floater_v();
 --
 --_menu.item "Test Item 1" "" id:"test_item1"
 
-
 /*------ CREATE ROLLOUT ------*/
-_rollout = Floater.roll "Test Rollout" ""
-_rollout_controls	= _rollout.controls groupbox:"groupbox A" -- get new container for controls
-_control	= _rollout_controls.control #button "Control A1" #control_A1
---rollout_A.Events.pressed "MessageBox @Control A1 pressed@" ""
 
+for r in #("A", "B", "C") do
+(
+	print ( "r=" + r as string )
+	_rollout	= Floater.roll ("Controls "+r) ""
+	_controls	= _rollout.controls groupbox:("groupbox "+r) -- get new container for controls
+	
+	for i = 1 to 10 do
+		_controls.button (("Control "+r) + i as string )	
+)
 
 
 /*------ CREATE ROLLOUT ------*/
@@ -25,10 +29,12 @@ _control	= _rollout_controls.control #button "Control A1" #control_A1
 
 
 /*------ CREATE FLOATER DIALOG ------*/
-Floater.create "Test floater"
+Floater.create "Test floater" height:920
+
+
 
 --sleep 2
-Floater.dock #right
+--Floater.dock #right
 --sleep 2
 --Floater.dock ""
 --sleep 2
@@ -37,3 +43,5 @@ Floater.dock #right
 --Floater.size 512 512
  
  
+
+--messagebox (SetDialogSize test_floater as string )
