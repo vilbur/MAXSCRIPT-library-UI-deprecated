@@ -4,9 +4,11 @@
  */
 struct Rollout_v
 (
+	self=this,
 	id,
 	title,
 	roll,
+	_height,
 	--roll_def,
  	ControlBoxes	= #(),
 	Layout	= Layout_v(),
@@ -43,20 +45,31 @@ struct Rollout_v
 	 * @param	boolean	dialog	If true the dialog is created, if void or false then return RolloutClass E.G.: for adding to floater
 	 * @return	RolloutClass
 	 */
-    function CreateRollDialog height:512 =
+    function CreateRollDialog height:undefined =
 	(
+		_height	= height
+
 		try(DestroyDialog id)catch() -- must be above rollout definition
 
 		this._createRollout()
 
 		--CreateDialog (roll.def) width:(Layout._getRollWidth()-6) 
-		CreateDialog (roll.def) width:(Layout._getRollWidth()-6) height:height
+		CreateDialog (roll.def) width:(Layout._getRollWidth()-6)
+		--height:height
 		--CreateDialog (roll.def) width:320 height:512
 		
 		this._addSubRollouts()
 		
 		return roll
 	),
+	--callback = "messagebox \"Test\" ",
+	/** Callback
+	 */
+	function callback =
+	(
+		messagebox "callback";
+	),
+	
 	/** Create rollout
 	 */
 	function _createRollout =
@@ -67,6 +80,10 @@ struct Rollout_v
 		
 		this._createSubRollouts()
 
+		--roll.addText("on "+id+" rolledUp val do ( execute ("+callback+") )")
+		--roll.addText("on "+id+" rolledUp val do ( callbackTest() )")
+		--roll.addText("on "+id+" rolledUp val do (\""+self as string +".callback()\")")
+
 		roll.end()
 		
 		--roll_def = roll.def
@@ -76,7 +93,9 @@ struct Rollout_v
 	 */
 	function _createSubRollouts =
 	(
-		all_subrollouts_height = 512
+		if( _height==undefined ) then
+			_height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
+		
 		print ( "Subrollouts.count=" + Subrollouts.count as string )
 		
 		if( Subrollouts.count>0 ) then 
@@ -84,7 +103,8 @@ struct Rollout_v
 			for _rollout in Subrollouts do
 				_rollout._createRollout()
 				
-			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( all_subrollouts_height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
+			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( _height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
+			--roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
 		)
 
 	),

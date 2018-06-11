@@ -3,19 +3,22 @@
 struct Floater_v
 (
 	self	= this,
+	--id,
 	title,
+	_height,
 	
 	floater,
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
-	
+	size_init, -- size of dialog after creation
 	/** Create
 	 */
-	function create _title height:512 =
+	function create height:undefined =
 	(
-		title	= _title
+		--title	= _title
+		_height	= height
 
-		this._createMainRollout height:height
+		this._createMainRollout()
 		
 		return this
 	),
@@ -90,7 +93,6 @@ struct Floater_v
 	(
 		if( title!="" ) then
 		(
-			print ( "roll=" + title as string )
 			_rollout	= (Rollout_v()).new title id:id
 			id	= _rollout.id
 			Rollouts.setVal id ( _rollout )
@@ -111,18 +113,26 @@ struct Floater_v
 	  * Rollout can has Menu
 	  * Rollouts are added as subrollouts
 	 */
-	function _createMainRollout height:512 =
+	function _createMainRollout =
 	(
+		this.unregister()
+
+		--messagebox (_height as string )  beep:false;
 		roll_main	= (Rollout_v()).new title
 		
 		roll_main.subrollouts = Rollouts.values
 		
-		roll_main.CreateRollDialog height:height
+		roll_main.CreateRollDialog height:_height
+		
 		
 		floater = roll_main.roll.def
-		
-		--this.register()
+				
+		size_init = GetDialogSize floater
+		size_init = [size_init[1]+8, size_init[2]]
+		--messagebox (GetDialogSize floater as string )
 
+		this.register()
+		
 	),
 
 	/** _add rollouts
@@ -139,7 +149,8 @@ struct Floater_v
 	(
 		this.unregister()
 
-		cui.RegisterDialogBar	floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)				
+		--cui.RegisterDialogBar	floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) 
+		cui.RegisterDialogBar	floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
 	),
 	/** Unregister dialog bar
 	 */

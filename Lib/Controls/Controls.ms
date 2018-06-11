@@ -3,7 +3,7 @@
 struct Controls_v
 (
 	parent_roll,
-	groupbox, -- store caption of groupbox
+	groupbox, -- caption of groupbox
 	ControlBox	= ControlBox_v(),
 	_Control	= #(),
 	
@@ -21,7 +21,7 @@ struct Controls_v
 		if( id==undefined or id=="" ) then
 			id = this.getId caption 
 		
-		Control_new = Control_v parent_roll:parent_roll type:type caption:caption id:id 
+		Control_new = (Control_v parent_roll:parent_roll type:type caption:caption id:id).init() 
 		
 		append _Control Control_new
 		

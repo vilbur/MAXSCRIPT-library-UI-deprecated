@@ -3,7 +3,8 @@ clearListener();
 
 
 /*------ GET FLOATER CLASS ------*/
-Floater	= Floater_v();
+Floater	= Floater_v title:"Test floater"
+--Floater	= (Floater_v()).new
 --
 --_menu	= Floater.Menu.menu "Menu"
 --_menu_2	= Floater.Menu.menu "Menu 2"
@@ -12,14 +13,24 @@ Floater	= Floater_v();
 
 /*------ CREATE ROLLOUT ------*/
 
-for r in #("A", "B", "C") do
+for r in #("A", "B", "C", "D") do
 (
-	print ( "r=" + r as string )
-	_rollout	= Floater.roll ("Controls "+r) ""
+	
+	roll_name	= "Controls"+r
+	execute ("global "+roll_name)
+	_rollout	= Floater.roll roll_name ""
 	_controls	= _rollout.controls groupbox:("groupbox "+r) -- get new container for controls
 	
-	for i = 1 to 10 do
-		_controls.button (("Control "+r) + i as string )	
+	for c = 1 to 5 do
+	(
+		button_name	= "Button"	+r+c as string 
+		checkbox_name	= "Checkbox"	+r+c as string 
+
+		cbx = _controls.control #checkbox checkbox_name ""
+	
+		(_controls.button button_name).Events.pressed ("print "+cbx.path+".state") ""
+
+	)
 )
 
 
@@ -29,7 +40,9 @@ for r in #("A", "B", "C") do
 
 
 /*------ CREATE FLOATER DIALOG ------*/
-Floater.create "Test floater" height:920
+Floater.create()
+--Floater.create "Test floater2" 
+--Floater.create "Test floater" height:320
 
 
 
@@ -42,6 +55,7 @@ Floater.create "Test floater" height:920
 --sleep 2
 --Floater.size 512 512
  
- 
+
 
 --messagebox (SetDialogSize test_floater as string )
+

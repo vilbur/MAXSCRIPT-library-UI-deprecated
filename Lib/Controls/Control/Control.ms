@@ -7,11 +7,20 @@ struct Control_v
 	Layout,
 	parent_roll,
 	type,
-	id,
 	caption,
+	id,
+	path, -- full path to control id E.G.: "foo_rollout.bar_control"
 
 	_col 	= 4,
 	
+	/** Init object
+	 */
+	function init =
+	(
+		this.path = parent_roll.id +"."+id
+		
+		return this
+	),
 	/** Set params for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
@@ -40,13 +49,12 @@ struct Control_v
 	 */
 	function _addControl parent_roll =
 	(
-		--print ( _col );
-		print ("------" + caption)
-
+		--print ( "path=" + path as string )
 		parent_roll.roll.addControl this.type this.id this.caption paramStr:(parent_roll.Layout._getControlsParams _Params _col)
 		
 		this.Events._add this
 	),
+	
 	/** Get width
 	 */
 	function _getWidth =
