@@ -1,62 +1,71 @@
-/* Import sub substructs */
-
-/** Rollout
- */
+/** Craete Rollout
+  * Rollout has genrated global variable by id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
+  *
+  * @property	string	title	Title of rollout
+  * @property	string	id	Id of rollout, if not defined then sanitized title is used E.G.: title="Foo Rollout" >>> id="foo_rollout"
+  * @property	int	height	Height of tollout
+  *
+  */
 struct Rollout_v
 (
-	self=this,
-	id,
-	title,
-	roll,
-	_height,
-	--roll_def,
- 	ControlBoxes	= #(),
+	/* dependency */
 	Layout	= Layout_v(),
+	Ini	= false,
 
+	/* config */
+	title,
+	id,
+	
+	/* options */
+	height,
+
+	/* lists */
+ 	ControlBoxes	= #(),
 	Subrollouts	= #(),
+	
+	/* store rollout and parent rollout */
+	roll,
 	parent_roll,
 	
 	/** Set new rollout
-	  * @param	string	_title	Title of rollout
+	  * @param	string	title	Title of rollout
 	  * @param	string	[_id]	Id of rollout, if void then sanitized title is used E.G.: "Foo Rollout" >>> "foo_rollout"
 	  * @return	self
 	 */
-	function new _title _id:"" height:0 =
+	function new title id:"" height:0 =
 	(
-		title	= _title
+		this.title	= title
 		
-		this.setId _id
+		this._setId id
 		
-		roll = rolloutCreator id title
+		this._setRolloutGlobalVariable()
+		
+		this._setRoll()
 		
 		return this
 	),
 	/** Subrollout
 	 */
-	function subrollout _title _id:"" =
+	function subrollout title id:"" =
 	(
-		_subrollout = (Rollout_v()).new _title id:_id
+		_subrollout = (Rollout_v()).new title id:id
 		
 		append Subrollouts _subrollout
 		
 		return _subrollout
 	),
-	/** Create rollout 
-	 * @param	boolean	dialog	If true the dialog is created, if void or false then return RolloutClass E.G.: for adding to floater
+	/** Create rollout dialog
 	 * @return	RolloutClass
 	 */
     function CreateRollDialog height:undefined =
 	(
-		_height	= height
+		this.height	= height
 
 		try(DestroyDialog id)catch() -- must be above rollout definition
 
 		this._createRollout()
 
-		--CreateDialog (roll.def) width:(Layout._getRollWidth()-6) 
 		CreateDialog (roll.def) width:(Layout._getRollWidth()-6)
-		--height:height
-		--CreateDialog (roll.def) width:320 height:512
 		
 		this._addSubRollouts()
 		
@@ -66,6 +75,12 @@ struct Rollout_v
 	/*---------------------------------------
 		CONTROLS 
 	-----------------------------------------*/
+	/** Create new roll with rolloutCreator()
+	 */
+	function _setRoll =
+	(
+		roll = rolloutCreator id title
+	),
 	/** Get Controls for rollout
 	  * @param	string	[groupbox]	Title of group box
 	  * @return [Controls](../../Controls)
@@ -79,6 +94,17 @@ struct Rollout_v
 		return Controls_new
 	),
 
+	/*---------------------------------------
+		PRIVATE
+	-----------------------------------------*/
+	/** Set rollout global variable
+	  * Global variable is id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
+	  */
+	function _setRolloutGlobalVariable =
+	(
+		execute ( "global rollout_"+this.id )
+	),
+
 	/** Create rollout
 	 */
 	function _createRollout =
@@ -89,7 +115,8 @@ struct Rollout_v
 		
 		this._createSubRollouts()
 
-		--roll.addText("on "+id+" rolledUp val do ( execute ("+callback+") )")
+		roll.addText( "function test = ( (Ini_v()).test() )" )
+		--roll.addText("function test = (messagebox @Test@)")
 		--roll.addText("on "+id+" rolledUp val do ( callbackTest() )")
 		--roll.addText("on "+id+" rolledUp val do (\""+self as string +".callback()\")")
 
@@ -102,34 +129,20 @@ struct Rollout_v
 	 */
 	function _createSubRollouts =
 	(
-		if( _height==undefined ) then
-			_height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
+		if( height==undefined ) then
+			height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
 		
-		print ( "Subrollouts.count=" + Subrollouts.count as string )
-		
+		--print ( "Subrollouts.count=" + Subrollouts.count as string )
 		if( Subrollouts.count>0 ) then 
 		(
 			for _rollout in Subrollouts do
 				_rollout._createRollout()
 				
-			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( _height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
+			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
 			--roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
 		)
 
 	),
-
-
-	--/** Create subrollout
-	-- */
-	--function _createSubrollout =
-	--(
-	--	this._createRollout()
-	--	--_rollout.create dialog:false
-	--	--return ("\nsubRollout " + id + " \""+title+"\" height:"+(Layout._getRollHeight() as string )+" width:"+(Layout._getRollWidth() as string )+" offset:[-11,0]")
-	--	--return ("\nsubRollout " + id + " \""+title+"\" height:"+(Layout._getRollHeight() as string )+" width:"+(Layout._getRollWidth() as string )+" offset:[-11,0]")
-	--	--return ("\nsubRollout " + id + " \""+title+"\" height:"+(Layout._getRollHeight() as string )+" width:"+(Layout._getRollWidth() as string )+" offset:[-14,-6]")
-	--	--return ("\nsubRollout " + id + " \""+title+"\"  width:"+(Layout._getRollWidth() as string )+" offset:[-14,-6]")
-	--),
 	
 	/** Add sub rollouts
 	 */
@@ -143,7 +156,6 @@ struct Rollout_v
 				add_subrollouts += "\nAddSubRollout " + id + "." + id + "Subrollouts " +  " " + _rollout.id
 
 			execute add_subrollouts
-			
 		)
 	),
 	/**  Add controls on rollout creation
@@ -158,7 +170,7 @@ struct Rollout_v
 	-----------------------------------------*/
 	/** Set id by title if not defined
 	 */
-	function setId _id =
+	function _setId _id =
 	(
 		if( _id=="" ) then
 			_id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";

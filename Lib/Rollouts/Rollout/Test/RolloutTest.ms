@@ -15,9 +15,9 @@ function createSingleRollout =
 	--
 	/*------ Control to var ------*/
 	control_A1	= controls_A.control #button "Control A1" #control_A1
-	--control_A1.Events.pressed "MessageBox @Control A1 pressed@" ""
+	--control_A1.pressed "MessageBox @Control A1 pressed@" ""
 	--/*------ Control in chain ------*/
-	--(controls_A.control #button "Control A2" #control_A2).Events.pressed "MessageBox @Control A2 pressed@" ""
+	--(controls_A.control #button "Control A2" #control_A2).pressed "MessageBox @Control A2 pressed@" ""
 	--
 	--/* ========= CONTROLS B ========= */
 	----controls_B	= _rollout.controls()-- get new groupbox for controls
@@ -47,19 +47,20 @@ function crateSubrollouts =
 	subroll_A	= _rollout.subrollout "Subrollout A"
 	subcontrols_A	= subroll_A.controls() -- get new container for controls
 	
-	(subcontrols_A.control #button "Control A2" #control_A2).Events.pressed "MessageBox @Control A2 pressed@" ""
+	(subcontrols_A.control #button "Control A2" #control_A2).pressed "MessageBox @Control A2 pressed@"
 	
 	--/* ========= CONTROLS B ========= */
 	--controls_B	= _rollout.controls()-- get new groupbox for controls
 	subroll_B	= _rollout.subrollout "Subrollout B"
 	subcontrols_B	= subroll_B.controls groupbox:"groupbox B" -- get new groupbox for controls
-	subcontrols_B.button "Control B1" id:#control_b1	-- id is optionable
+	subcontrols_B.button "Control B1" id:#control_b1 -- id is optionable
 	(subcontrols_B.button "Disabled B2").params " enabled: false, border: false"
-	((subcontrols_B.button "Control B3" ).col 2).Events.pressed "MessageBox @Control B3 pressed@" ""
+	((subcontrols_B.button "Control B3" ).col 2).pressed "MessageBox @Control B3 pressed@"
 	(subcontrols_B.button "Control B4" ).col 6
 	
 	/* CREATE ROLLOUT */
-	_rollout.CreateRollDialog() 
+	--_rollout.CreateRollDialog() 
+	_rollout.CreateRollDialog height:320
 )
 
 

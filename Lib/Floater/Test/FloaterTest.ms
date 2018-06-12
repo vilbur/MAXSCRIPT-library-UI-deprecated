@@ -3,8 +3,8 @@ clearListener();
 
 
 /*------ GET FLOATER CLASS ------*/
-Floater	= Floater_v title:"Test floater"
---Floater	= (Floater_v()).new
+--Floater	= Floater_v title:"Test floater"
+Floater	= (Floater_v()).new "Test Floater"
 --
 --_menu	= Floater.Menu.menu "Menu"
 --_menu_2	= Floater.Menu.menu "Menu 2"
@@ -17,7 +17,7 @@ for r in #("A", "B", "C", "D") do
 (
 	
 	roll_name	= "Controls"+r
-	execute ("global "+roll_name)
+	--execute ("global "+roll_name)
 	_rollout	= Floater.roll roll_name ""
 	_controls	= _rollout.controls groupbox:("groupbox "+r) -- get new container for controls
 	
@@ -28,7 +28,7 @@ for r in #("A", "B", "C", "D") do
 
 		cbx = _controls.control #checkbox checkbox_name ""
 	
-		(_controls.button button_name).Events.pressed ("print "+cbx.path+".state") ""
+		(_controls.button button_name).pressed ("print "+cbx.path+".state")
 
 	)
 )

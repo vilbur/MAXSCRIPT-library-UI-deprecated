@@ -24,6 +24,12 @@ struct Events_v
 	  */
 	function changed callback tooltip:"" =
 	(
+		--callback = "messagebox @"+parent_control.path+"@;" + callback
+		--callback = "messagebox @"+parent_control.path+"@;" + callback
+		callback = parent_control.parent_roll.id + ".save @"+parent_control.path+"@ val;" + callback
+		
+		--"messagebox @"+parent_control.path+"@;" + callback
+		
 		this._setEvent (Event_v type:"changed" code:callback params:"val")
 		
 		parent_control --return 
