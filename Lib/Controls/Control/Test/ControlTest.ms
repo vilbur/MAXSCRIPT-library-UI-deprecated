@@ -6,8 +6,7 @@ clearListener();
 	ROLLOUT DEFINITION
 -----------------------------------------*/
 _rollout	= (Rollout_v()).new "Test Rollout"
---id:"optionable_id"
-_rollout.ini = getFilenamePath(getSourceFileName()) + "ControlTest.ini"
+_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 
 _controls_1	= _rollout.controls()
 --_controls_1	= _rollout.controls()
@@ -51,4 +50,4 @@ _controls_1.add _Checkbox_D
 /*---------------------------------------
 	 CREATE DIALOG 
 -----------------------------------------*/
-_rollout.CreateRollDialog() 
+_rollout.CreateRollDialog()

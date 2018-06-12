@@ -15,6 +15,8 @@ struct Controls_v
 	 */
 	function control type caption id add:true =
 	(
+		print ( "----- control =" + type as string )
+		
 		if( id==undefined or id=="" ) then
 			id = this.getId caption 
 		
@@ -23,7 +25,7 @@ struct Controls_v
 		if( add==true ) then
 			this.add Control_new
 		
-		return Control_new
+		Control_new --return
 	),
 	/** Add control to rollout
 	 */

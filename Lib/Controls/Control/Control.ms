@@ -20,7 +20,7 @@ struct Control_v
 	/* access */ 
 	path, -- full path to control id E.G.: "foo_rollout.bar_control"
 	
-	/* Extend methods */
+	/*------ EXTENDED METHODS ------*/
 	pressed = Events.pressed,
 	changed = Events.changed,
 	
@@ -29,9 +29,12 @@ struct Control_v
 	function init =
 	(
 		this.path = parent_roll.id +"."+id
-		--print ( "path=" + this.path as string )
+
+		this.Events._bindDefaultEvent()
+		
 		return this
 	),
+
 	/** Set params for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
@@ -60,7 +63,7 @@ struct Control_v
 	 */
 	function _addControl =
 	(
-		--print ( "path=" + path as string )
+		print ( "----- _addControl =" + type as string )
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout._getControlsParams _Params _col)
 		
 		Events._addHandlers this

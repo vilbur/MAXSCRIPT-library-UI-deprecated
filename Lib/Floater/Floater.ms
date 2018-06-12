@@ -194,7 +194,7 @@ struct Floater_v
 	function _setIni =
 	(
 		ini = getFilenamePath(getSourceFileName()) + "\\" + id + ".ini"
-		--print ( "ini=" + ini as string )
+		print ( "ini=" + ini as string )
 	), 
 	
 	function test =

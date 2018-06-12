@@ -5,7 +5,7 @@ struct Event_v
 (
 	type,
 	code,
-	params,
+	params ="",
 
 	function test =
 	(

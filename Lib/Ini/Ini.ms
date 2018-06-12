@@ -1,5 +1,7 @@
-/** Ini
- */
+/** Save Load ini settings
+  *
+  *
+  */
 struct Ini_v
 (
 	ini,
@@ -9,7 +11,8 @@ struct Ini_v
 	function save section key value =
 	--function save =
 	(
-		messagebox( "Ini.save() \nini=" + ini + " \nsection=" + section + " \nkey=" + key + " \nvalue=" + value)
+		setINISetting ini section key (value as string )
+		print( "Ini.save() \nini=" + ini + " \nsection=" + section + " \nkey=" + key + " \nvalue=" + value)
 		--messagebox ("Ini.save() \nini=" + ini )
 	),
 	

@@ -162,15 +162,15 @@ struct Rollout_v
 			execute add_subrollouts
 		)
 	),
-	/** Add save to ini function to rollout
+	/** Add saveIni() function to rollout
 	  * This function is called before user callback
-	  *
+	  * saveIni() function 
 	  *
 	  */
 	function _addSaveIniFunction =
 	(
-		print ( "title=" + title as string )
-		print ( "ini=" + ini as string )
+		--print ( "title=" + title as string )
+		print ( "_addSaveIniFunction() ini=" + ini as string )
 		if( ini != false ) then  
 			roll.addText( "function saveIni _section _key _value = ( (Ini_v ini:@"+ini+"@).save _section _key _value )" )
 	),
