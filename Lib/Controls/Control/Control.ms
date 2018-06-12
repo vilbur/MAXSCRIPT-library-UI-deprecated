@@ -29,7 +29,7 @@ struct Control_v
 	function init =
 	(
 		this.path = parent_roll.id +"."+id
-		print ( "path=" + this.path as string )
+		--print ( "path=" + this.path as string )
 		return this
 	),
 	/** Set params for control

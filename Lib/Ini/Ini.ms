@@ -2,13 +2,15 @@
  */
 struct Ini_v
 (
-	self	= this,
+	ini,
 	
 	/** Ini save control state
 	 */
-	function save control_id value =
+	function save section key value =
+	--function save =
 	(
-		messagebox "Ini.save() " + control_id + " value="+value
+		messagebox( "Ini.save() \nini=" + ini + " \nsection=" + section + " \nkey=" + key + " \nvalue=" + value)
+		--messagebox ("Ini.save() \nini=" + ini )
 	),
 	
 	function test =

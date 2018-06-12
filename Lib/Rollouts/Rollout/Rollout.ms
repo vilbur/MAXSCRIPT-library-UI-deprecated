@@ -5,12 +5,13 @@
   * @property	string	id	Id of rollout, if not defined then sanitized title is used E.G.: title="Foo Rollout" >>> id="foo_rollout"
   * @property	int	height	Height of tollout
   *
+  * @property	string	ini	Path to ini where state of UI is saved, if false then ini state is not saved
+  *
   */
 struct Rollout_v
 (
 	/* dependency */
 	Layout	= Layout_v(),
-	Ini	= false,
 
 	/* config */
 	title,
@@ -18,6 +19,7 @@ struct Rollout_v
 	
 	/* options */
 	height,
+	ini = false,
 
 	/* lists */
  	ControlBoxes	= #(),
@@ -115,15 +117,19 @@ struct Rollout_v
 		
 		this._createSubRollouts()
 
-		roll.addText( "function test = ( (Ini_v()).test() )" )
-		--roll.addText("function test = (messagebox @Test@)")
-		--roll.addText("on "+id+" rolledUp val do ( callbackTest() )")
-		--roll.addText("on "+id+" rolledUp val do (\""+self as string +".callback()\")")
+		this._addSaveIniFunction()
 
 		roll.end()
-		
-		--roll_def = roll.def
-		--print ( "roll_def=" + roll_def as string )
+	),
+	/*---------------------------------------
+		ROLLOUT DEFINITION
+	-----------------------------------------*/
+	/**  Add controls on rollout creation
+	*/
+	function _addControls =
+	(
+		for Controls in ControlBoxes do
+			Controls._addControls()
 	),
 	/** Create sub rollouts
 	 */
@@ -141,9 +147,7 @@ struct Rollout_v
 			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
 			--roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
 		)
-
 	),
-	
 	/** Add sub rollouts
 	 */
 	function _addSubRollouts =
@@ -158,13 +162,19 @@ struct Rollout_v
 			execute add_subrollouts
 		)
 	),
-	/**  Add controls on rollout creation
-	*/
-	function _addControls =
+	/** Add save to ini function to rollout
+	  * This function is called before user callback
+	  *
+	  *
+	  */
+	function _addSaveIniFunction =
 	(
-		for Controls in ControlBoxes do
-			Controls._addControls()
+		print ( "title=" + title as string )
+		print ( "ini=" + ini as string )
+		if( ini != false ) then  
+			roll.addText( "function saveIni _section _key _value = ( (Ini_v ini:@"+ini+"@).save _section _key _value )" )
 	),
+
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------*/

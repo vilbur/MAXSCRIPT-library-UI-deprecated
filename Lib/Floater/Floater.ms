@@ -58,9 +58,10 @@ struct Floater_v
 	  */
 	function roll title id  =
 	(
-		if( title!="" ) then
+		if( title!="" ) then -- GET will be removed probably in future
 		(
-			_rollout	= (Rollout_v()).new title id:id ini:ini
+			--print ( "roll() ini=" + ini as string )
+			_rollout	= (Rollout_v ini:ini ).new title id:id
 			id	= _rollout.id
 			Rollouts.setVal id ( _rollout )
 		)
@@ -193,6 +194,7 @@ struct Floater_v
 	function _setIni =
 	(
 		ini = getFilenamePath(getSourceFileName()) + "\\" + id + ".ini"
+		--print ( "ini=" + ini as string )
 	), 
 	
 	function test =
