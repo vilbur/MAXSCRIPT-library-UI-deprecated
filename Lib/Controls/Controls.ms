@@ -7,9 +7,6 @@ struct Controls_v
 	ControlBox	= ControlBox_v(),
 	_Control	= #(),
 	
-	/*---------------------------------------
-		DEFINITION CONTROLS
-	-----------------------------------------*/
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
 	 *  @param	string	caption	Caption of control
@@ -27,15 +24,21 @@ struct Controls_v
 		
 		return Control_new
 	),
-	/** Button
+	/*---------------------------------------
+		CONTROLS TYPES
+	-----------------------------------------*/
+	/** Add Button
 	 */
 	function button caption id:undefined =
 	(
-		--if( id==undefined ) then
-		--	id = this.getId caption 
 		this.control #button caption id
 	),
-	
+	/** Add Checkbox
+	 */
+	function checkbox caption id:undefined =
+	(
+		this.control #checkbox caption id
+	),
 	/*---------------------------------------
 		ADDING CONTROLS
 	-----------------------------------------*/

@@ -8,13 +8,23 @@ _controls	= _rollout.controls()
 
 /* ADD CONTROLS */
 
-/* button */
-_Button	= _controls.control #button "Control A1" #control_A1
-_Button.Events.pressed "MessageBox @_Button pressed@"
+/*------ BUTTON ------*/
 
-/* button */
-_Checkbox	= _controls.control #checkbox "Checkbox A1" #checkbox_A1
-_Checkbox.Events.changed "MessageBox (val as string)"
+_Button_1 = _controls.control #button "Button 1" #control_1	-- add control via control method
+_Button_1.Events.pressed "MessageBox @Button pressed@"	-- add event via Events class
+
+_Button_2 = _controls.button "Button 2"	-- add control via direct method
+_Button_2.pressed "MessageBox @Button pressed@"	-- add event via mathod in Control
+
+
+/*------ CHECKBOX ------*/
+
+_Checkbox_1	= _controls.control #checkbox "Checkbox 1" #checkbox_1
+_Checkbox_1.Events.changed "MessageBox (val as string)"
+
+
+_Checkbox_2	= _controls.checkbox "Checkbox 2"
+_Checkbox_2.changed "MessageBox (val as string)"
 
 
 /* CREATE DIALOG */

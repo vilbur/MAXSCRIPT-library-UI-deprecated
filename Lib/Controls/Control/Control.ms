@@ -2,18 +2,27 @@
  */
 struct Control_v 
 (
+	/* dependency */
 	Events	= Events_v parent_control:this,
 	_Params	= Params_v(),
 	Layout,
 	
 	parent_roll,
+	
+	/* config */
 	type,
 	caption,
 	id,
 	
-	path, -- full path to control id E.G.: "foo_rollout.bar_control"
-
+	/* options */
 	_col 	= 4,
+	
+	/* access */ 
+	path, -- full path to control id E.G.: "foo_rollout.bar_control"
+	
+	/* Extend methods */
+	pressed = Events.pressed,
+	changed = Events.changed,
 	
 	/** Init object
 	 */
