@@ -1,24 +1,21 @@
---filein ( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" );
---
---clearListener();
---
---/* CREATE ROLLOUT */
---roll = rolloutCreator "myRollout" "My Rollout"
---roll.begin()
---
---
---/* ADD CONTROLS */
---
---/* button */
---_Button = Control_v roll:roll type:#button id:#test_button caption:"Test control"
-----_Button.bind #pressed "MessageBox @Button pressed@" "";
---_Button._addControl();
-----
-----/* checkbox */
-----_Checkbox = Control_v roll:roll type:#checkbox id:#test_cbx title:"Test checkbox"
-----_Checkbox.bind #changed "MessageBox (val as string)" "val";
-----_Checkbox.addControl();
---
---
---/* CREATE DIALOG */
---createDialog (roll.end())
+filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" );
+clearListener();
+
+/* ROLLOUT DEFINITION */
+_rollout	= (Rollout_v()).new "Test Rollout" id:"optionable_id"
+_controls	= _rollout.controls()
+
+
+/* ADD CONTROLS */
+
+/* button */
+_Button	= _controls.control #button "Control A1" #control_A1
+_Button.Events.pressed "MessageBox @_Button pressed@"
+
+/* button */
+_Checkbox	= _controls.control #checkbox "Checkbox A1" #checkbox_A1
+_Checkbox.Events.changed "MessageBox (val as string)"
+
+
+/* CREATE DIALOG */
+_rollout.CreateRollDialog() 

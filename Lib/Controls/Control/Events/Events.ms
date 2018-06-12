@@ -3,28 +3,54 @@
  */
 struct Events_v 
 (
-	events	= List_v(),
+	Events	= List_v(),
 	parent_control,
 
-	function pressed code params tooltip:"" =
+	/** Bind pressed event
+	  * @param	string	callback	Code executed on event
+	  * @param	callback	tooltip	Tooltip for control
+	 */
+	function pressed callback tooltip:"" =
 	(
-		event	= Event_v type:"pressed" code:code params:params
-		
-		this.events.setVal #pressed event
+		this._setEvent (Event_v type:"pressed" code:callback)
 	),
-	function _add parent_control =
+	/** Bind changed event
+	  * Value of control is passed to control as variable "val" 
+	  *
+	  * @param	string	callback	Code executed on event
+	  * @param	callback	tooltip	Tooltip for control
+	  */
+	function changed callback tooltip:"" =
+	(
+		this._setEvent (Event_v type:"changed" code:callback params:"val")
+	),
+	
+	/** Set Event to Events
+	 */
+	function _setEvent Event =
+	(
+		this.Events.setVal Event.type Event
+	),
+	
+	/**  
+	 */
+	function _addHandlers parent_control =
 	(
 		this.parent_control = parent_control
 		
-		for event in this.events.values do
+		for event in this.Events.values do
 			this._addHandler event
 	),
-	/** Add handleri
+	/** Add event handler
 	  
 	 */
-	function _addHandler event =
+	function _addHandler Event =
 	(
-		this.parent_control.parent_roll.roll.addhandler this.parent_control.id event.type codeStr:event.code
+		if( Event.type=="pressed" ) then
+			parent_control.parent_roll.roll.addhandler	parent_control.id Event.type codeStr:Event.code
+		
+		else
+			parent_control.parent_roll.roll.addhandler	parent_control.id Event.type codeStr:Event.code  paramStr:Event.params
 	),
 	
 	function test =

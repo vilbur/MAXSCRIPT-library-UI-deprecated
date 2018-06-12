@@ -27,7 +27,7 @@ struct Rollout_v
 		
 		this.setId _id
 		
-		this.roll = rolloutCreator id title
+		roll = rolloutCreator id title
 		
 		return this
 	),

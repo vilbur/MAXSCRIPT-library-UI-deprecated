@@ -5,10 +5,12 @@ struct Control_v
 	Events	= Events_v parent_control:this,
 	_Params	= Params_v(),
 	Layout,
+	
 	parent_roll,
 	type,
 	caption,
 	id,
+	
 	path, -- full path to control id E.G.: "foo_rollout.bar_control"
 
 	_col 	= 4,
@@ -47,12 +49,12 @@ struct Control_v
 	),
 	/** Add control to UI 
 	 */
-	function _addControl parent_roll =
+	function _addControl =
 	(
 		--print ( "path=" + path as string )
-		parent_roll.roll.addControl this.type this.id this.caption paramStr:(parent_roll.Layout._getControlsParams _Params _col)
+		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout._getControlsParams _Params _col)
 		
-		this.Events._add this
+		Events._addHandlers this
 	),
 	
 	/** Get width

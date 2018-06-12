@@ -47,7 +47,7 @@ struct Controls_v
 		this.setNewBoxPosition()
 		
 		for Control in this._Control do
-			Control._addControl parent_roll
+			Control._addControl()
 		
 		this.addGroupbox()
 		this.setNextBoxPosition()
