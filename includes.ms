@@ -1,6 +1,6 @@
-
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/List/List.ms" );
 
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Ini/Ini.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Menu/MenuItem.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Menu/Menu.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Tooltip/Tooltip.ms" );

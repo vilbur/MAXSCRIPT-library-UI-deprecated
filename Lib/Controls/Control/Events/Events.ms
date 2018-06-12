@@ -13,6 +13,8 @@ struct Events_v
 	function pressed callback tooltip:"" =
 	(
 		this._setEvent (Event_v type:"pressed" code:callback)
+		
+		parent_control --return 
 	),
 	/** Bind changed event
 	  * Value of control is passed to control as variable "val" 
@@ -23,6 +25,8 @@ struct Events_v
 	function changed callback tooltip:"" =
 	(
 		this._setEvent (Event_v type:"changed" code:callback params:"val")
+		
+		parent_control --return 
 	),
 	
 	/** Set Event to Events

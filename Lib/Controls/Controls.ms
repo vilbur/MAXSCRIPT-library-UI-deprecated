@@ -5,7 +5,7 @@ struct Controls_v
 	parent_roll,
 	groupbox, -- caption of groupbox
 	ControlBox	= ControlBox_v(),
-	_Control	= #(),
+	Controls	= #(),
 	
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
@@ -13,31 +13,39 @@ struct Controls_v
 	 * 
 	 *  @return	[Control](../../Control)
 	 */
-	function control type caption id =
+	function control type caption id add:true =
 	(
 		if( id==undefined or id=="" ) then
 			id = this.getId caption 
 		
 		Control_new = (Control_v parent_roll:parent_roll type:type caption:caption id:id).init() 
 		
-		append _Control Control_new
+		if( add==true ) then
+			this.add Control_new
 		
 		return Control_new
 	),
+	/** Add control to rollout
+	 */
+	function add Control =
+	(
+		append Controls Control
+	),
+	
 	/*---------------------------------------
 		CONTROLS TYPES
 	-----------------------------------------*/
 	/** Add Button
 	 */
-	function button caption id:undefined =
+	function button caption id:undefined add:true =
 	(
-		this.control #button caption id
+		this.control #button caption id add:add
 	),
 	/** Add Checkbox
 	 */
-	function checkbox caption id:undefined =
+	function checkbox caption id:undefined add:true =
 	(
-		this.control #checkbox caption id
+		this.control #checkbox caption id add:add
 	),
 	/*---------------------------------------
 		ADDING CONTROLS
@@ -49,7 +57,7 @@ struct Controls_v
 		this.setNewControlBox()
 		this.setNewBoxPosition()
 		
-		for Control in this._Control do
+		for Control in this.Controls do
 			Control._addControl()
 		
 		this.addGroupbox()

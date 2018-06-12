@@ -62,14 +62,23 @@ struct Rollout_v
 		
 		return roll
 	),
-	--callback = "messagebox \"Test\" ",
-	/** Callback
+
+	/*---------------------------------------
+		CONTROLS 
+	-----------------------------------------*/
+	/** Get Controls for rollout
+	  * @param	string	[groupbox]	Title of group box
+	  * @return [Controls](../../Controls)
 	 */
-	function callback =
+	function controls groupbox:undefined =
 	(
-		messagebox "callback";
+		Controls_new 	= Controls_v parent_roll:this groupbox:groupbox
+
+		append this.ControlBoxes Controls_new
+
+		return Controls_new
 	),
-	
+
 	/** Create rollout
 	 */
 	function _createRollout =
@@ -108,6 +117,8 @@ struct Rollout_v
 		)
 
 	),
+
+
 	--/** Create subrollout
 	-- */
 	--function _createSubrollout =
@@ -135,20 +146,6 @@ struct Rollout_v
 			
 		)
 	),
-	
-	/** Get Controls for rollout
-	  * @param	string	[groupbox]	Title of group box
-	  * @return [Controls](../../Controls)
-	 */
-	function controls groupbox:undefined =
-	(
-		Controls_new 	= Controls_v parent_roll:this groupbox:groupbox
-
-		append this.ControlBoxes Controls_new
-
-		return Controls_new
-	),
-
 	/**  Add controls on rollout creation
 	*/
 	function _addControls =
