@@ -16,7 +16,6 @@ struct Events_v
 		if( parent_control.type == #checkbox ) then
 		(
 			section_key	= filterString parent_control.path "."
-			--print ( "changed=" + parent_control.parent_roll.id as string )
 			
 			save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
 			
@@ -72,7 +71,6 @@ struct Events_v
 	 */
 	function _addHandlers parent_control =
 	(
-		--print ( "_addHandlers=" + parent_control.type as string )
 		this.parent_control = parent_control
 		
 		for event_type in event_types do
@@ -83,11 +81,8 @@ struct Events_v
 	 */
 	function _addHandler Event =
 	(
-		--print ( "_addHandler=" + Event as string )
 		if( Event!=undefined ) then
 			parent_control.parent_roll.roll.addhandler  parent_control.id Event.type codeStr:Event.code  paramStr:Event.params 
-			--paramStr:Event.params
-			
 	),
 	/*---------------------------------------
 		MERGE EVENTS
@@ -96,7 +91,6 @@ struct Events_v
 	 */
 	function _getEvents event_type =
 	(
-		--print ( "_getEvents=" + event_type as string )
 		Event_default	= Events_default.getVal	event_type
 		Event	= Events.getVal	event_type
 	
@@ -118,10 +112,10 @@ struct Events_v
 	function _getEventProperty Event_default Event property =
 	(
 		if( Event_default!=undefined ) then
-			getProperty Event_default property
+			getProperty Event_default property --return
 			
 		else
-			getProperty Event property
+			getProperty Event property --return
 	),
 	/** Get code str
 	 */

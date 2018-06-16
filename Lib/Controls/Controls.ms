@@ -13,14 +13,14 @@ struct Controls_v
 	 * 
 	 *  @return	[Control](../../Control)
 	 */
-	function control type caption id add:true =
+	function control type caption id value:undefined add:true =
 	(
 		print ( "----- control =" + type as string )
 		
 		if( id==undefined or id=="" ) then
 			id = this.getId caption 
 		
-		Control_new = (Control_v parent_roll:parent_roll type:type caption:caption id:id).init() 
+		Control_new = (Control_v parent_roll:parent_roll type:type caption:caption id:id value:value ).init() 
 		
 		if( add==true ) then
 			this.add Control_new
@@ -45,9 +45,14 @@ struct Controls_v
 	),
 	/** Add Checkbox
 	 */
-	function checkbox caption id:undefined add:true =
+	function checkbox caption id:undefined add:true checked:undefined =
 	(
-		this.control #checkbox caption id add:add
+		this.control #checkbox caption id value:checked add:add
+		
+		--_checkbox	= this.control #checkbox caption id add:add
+		--_checkbox.param #checked true
+		--print ( "_checkbox=" + _checkbox as string )
+		--_checkbox --return
 	),
 	/*---------------------------------------
 		ADDING CONTROLS

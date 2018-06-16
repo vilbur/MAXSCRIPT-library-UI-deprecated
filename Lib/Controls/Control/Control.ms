@@ -13,6 +13,7 @@ struct Control_v
 	type,
 	caption,
 	id,
+	value,
 	
 	/* options */
 	_col 	= 4,
@@ -30,11 +31,20 @@ struct Control_v
 	(
 		this.path = parent_roll.id +"."+id
 
+		this._setValue()
+		
 		this.Events._bindDefaultEvent()
 		
 		return this
 	),
-
+	/** Param
+	 */
+	function param key value =
+	(
+		_Params.add key value
+		
+		this --return
+	),
 	/** Set params for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
@@ -59,11 +69,40 @@ struct Control_v
 		
 		return this
 	),
+
+
+	/** _set value
+	 */
+	function _setValue =
+	(
+		if( value==undefined ) then
+			this._getValueFromIni()
+		
+		key = #value
+		
+		if( value!=undefined and value!=""  ) then
+		(
+			if( type == #checkbox ) then
+				key = #checked
+			
+			this.param key value
+			
+		) else
+			this._getValueFromIni()
+			
+	),
+	/** Get value from ini
+	 */
+	function _getValueFromIni =
+	(
+		value = (Ini_v ini:(parent_roll.ini)).load parent_roll.id id
+		
+		
+	),
 	/** Add control to UI 
 	 */
 	function _addControl =
 	(
-		print ( "----- _addControl =" + type as string )
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout._getControlsParams _Params _col)
 		
 		Events._addHandlers this

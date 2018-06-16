@@ -170,7 +170,7 @@ struct Rollout_v
 	function _addSaveIniFunction =
 	(
 		--print ( "title=" + title as string )
-		print ( "_addSaveIniFunction() ini=" + ini as string )
+		--print ( "_addSaveIniFunction() ini=" + ini as string )
 		if( ini != false ) then  
 			roll.addText( "function saveIni _section _key _value = ( (Ini_v ini:@"+ini+"@).save _section _key _value )" )
 	),

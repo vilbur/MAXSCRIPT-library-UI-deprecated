@@ -9,8 +9,21 @@ filein ( getFilenamePath(getSourceFileName()) + "/includes.ms" );
  */
 struct UI_v
 (
-	Rollouts = Rollouts_v(),
+	Floater	= (Floater_v()).new "Test Floater",
+	Content	= Content_v(),
+	
+	/** Load content
+	 */
+	function loadContent =
+	(
+		Content.autoLoadRollouts()
+		
+		Content.setControlsToUI Floater
+		
+		Floater.create()
 
+	),
+	
 	function test =
 	(
 		messagebox "UI.test()"

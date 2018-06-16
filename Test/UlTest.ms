@@ -28,18 +28,19 @@ clearListener();
  
 filein ( getFilenamePath(getSourceFileName()) + "/../UI.ms" );
 
+
 UI 	= UI_v();
 --UI.test();
 
 /* Create ui floater */
---UI.create();
+UI.loadContent();
 
 
 --UI.roll "newRollout"
 
-UI.Rollouts.new "newRollout"
+--UI.Rollouts.new "newRollout"
 
-print ( UI.Rollouts.get "newRollout" );
+--print ( UI.Rollouts.get "newRollout" );
 --UI.Rollouts.test()
 
 
