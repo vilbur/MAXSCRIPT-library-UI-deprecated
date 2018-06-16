@@ -1,5 +1,7 @@
 --filein ( (getThisScriptFilename()) + "/../../lib/UI.ms")
---
+
+filein ( getFilenamePath(getSourceFileName()) + "/../UI.ms" );
+
 clearListener();
 
 --function UIRollTest =
@@ -24,9 +26,12 @@ clearListener();
 --
 --UIRollTest()
 
+--__TEST_GLOBAL = "JUPIII"
 
- 
-filein ( getFilenamePath(getSourceFileName()) + "/../UI.ms" );
+--test = filein ( @"C:\Users\vilbur\AppData\Local\Autodesk\3dsMax\2016 - 64bit\ENU\scripts\vilbur\test.ms" );
+
+--print ( "test=" + test as string ) 
+--filein ( getFilenamePath(getSourceFileName()) + "/../UI.ms" );
 
 
 UI 	= UI_v();

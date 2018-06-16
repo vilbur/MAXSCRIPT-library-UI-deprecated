@@ -3,7 +3,7 @@
 
 --filein ( (getThisScriptFilename()) + "/../Lib/Rollouts/Rollouts.ms" );
 
-filein ( getFilenamePath(getSourceFileName()) + "/includes.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/includes.ms" )
 
 /** Ui
  */

@@ -1,5 +1,10 @@
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/List/List.ms" );
 
+
+
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/MacroFile/Macro/Macro.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/MacroFile/MacroFile.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/Rollout.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Content.ms" );
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Ini/Ini.ms" );
