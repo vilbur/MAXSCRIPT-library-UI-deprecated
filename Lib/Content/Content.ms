@@ -43,6 +43,7 @@ struct Macro_Content_v
 struct MacroFile_Content_v
 (
 	Macro_Content,
+	name,
 	file,
 	_macros	= #(),
 
@@ -52,6 +53,8 @@ struct MacroFile_Content_v
 	(
 		this._parseMacrosInFile (this._getFileContent file_path)
 
+		name	= getFilenameFile file_path
+		
 		Macro_Content = undefined
 		
 		this --return
@@ -141,7 +144,7 @@ struct Rollout_Content_v
 (
 	name,
 	dir,
-	ControlBoxes	= #(),
+	MacroFiles	= #(),
 	--_macros	= #(),
 
 	/** Load
@@ -174,9 +177,9 @@ struct Rollout_Content_v
 
 		if( macro_files.count > 0 ) then
 			for macro_file in macro_files do
-				append ControlBoxes ( (MacroFile_Content_v()).load macro_file )
+				append MacroFiles ( (MacroFile_Content_v()).load macro_file )
 
-		print ( "ControlBoxes=" + ControlBoxes as string )
+		print ( "MacroFiles=" + MacroFiles as string )
 
 		this --return
 	),
@@ -205,23 +208,31 @@ struct Content_v
 	 */
 	function setControlsToUI Floater =
 	(
-			for r in #("A", "B", "C", "D") do
+		print ( "-------------Rollouts=" + Rollouts as string )
+		
+		
+			for r=1 to Rollouts.count do
 			(
-				roll_name	= "Controls"+r
-				--execute ("global "+roll_name)
+				_rollout_content	= Rollouts[r]
+				roll_name	= _rollout_content.name
 				_rollout	= Floater.roll roll_name ""
-				_controls	= _rollout.controls groupbox:("groupbox "+r) -- get new container for controls
+				print ( "roll_name=" + roll_name as string )
 				
-				for c = 1 to 5 do
+				print ( "MacroFiles=" + _rollout_content.MacroFiles as string )
+				print ( "MacroFiles.count=" + _rollout_content.MacroFiles.count as string )
+				
+				for f=1 to _rollout_content.MacroFiles.count do
 				(
-					button_name	= "Button"	+r+c as string 
-					checkbox_name	= "Checkbox"	+r+c as string 
-			
-					cbx = _controls.control #checkbox checkbox_name ""
+					MacroFile = _rollout_content.MacroFiles[f]
+					print ( "MacroFile.name=" + MacroFile.name as string )
+					_controls	= _rollout.controls groupbox:( MacroFile.name ) -- get new container for controls
+					
+					button_name	= "Button"	+ r as string	+ f as string
+					
+					(_controls.button button_name).pressed ("print @HURAA@")
 				
-					(_controls.button button_name).pressed ("print "+cbx.path+".state")
-			
 				)
+	
 			)
 
 	),
