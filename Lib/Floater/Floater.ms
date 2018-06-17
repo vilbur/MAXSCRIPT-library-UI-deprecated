@@ -3,17 +3,12 @@
  */
 struct Globals_v
 (
-	floater,
-	function init =
-	(
-		if( __TEST_GLOBAL==undefined ) then
-			global __TEST_GLOBAL = this
-			--execute ("global __TEST_GLOBAL = "+self )
-	)
+	floater
 )
 
---if( __TEST_GLOBAL==undefined ) then
-	--global __TEST_GLOBAL = Globals_v
+if( __GLOBAL__v==undefined ) then
+	global __GLOBAL__v = Globals_v()
+
 /** Floater
   *
   *
@@ -43,8 +38,6 @@ struct Floater_v
 	 */
 	function new _title =
 	(
-		--__TEST_GLOBAL = this
-
 		this.title = _title
 		
 		this._setIdGlobal()
@@ -205,16 +198,9 @@ struct Floater_v
 	function _setIdGlobal =
 	(
 		id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
-		--print (  "global "+id +" = " +this )
-		--global GLOBAL_TEST = this
-		
-		--execute ("global __TEST_GLOBAL = (Globals_v())")
-		(Globals_v()).init()
---		
-		--setProperty __TEST_GLOBAL "floater" this
-		__TEST_GLOBAL.floater = this
-		--execute ( "global "+id +" = __TEST_GLOBAL" )
-		
+
+		__GLOBAL__v.floater = this
+		execute ( "global "+id  )
 	),
 	/** _set ini
 	 */

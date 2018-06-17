@@ -12,8 +12,10 @@ struct MacroFile_Content_v
 	 */
 	function load file_path =
 	(
-		
 		file	= file_path
+		
+		filein file
+		
 		print ( " getFilenameType file=" +  getFilenameType file as string )
 		if( getFilenameType file == ".mcr" ) then
 		(

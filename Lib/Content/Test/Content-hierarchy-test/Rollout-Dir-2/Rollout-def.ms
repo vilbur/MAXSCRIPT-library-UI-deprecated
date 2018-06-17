@@ -1,12 +1,10 @@
 
 
---__TEST_GLOBAL.button "button_name AAA"
 
---messagebox "Rollout Def !!!"
+	filename = getFilenameFile(getSourceFileName())
 
---__TEST_GLOBAL.test()
+	_rollout	= __GLOBAL__v.floater.roll ("Rollout " +filename ) ""
 
-	_rollout	= __TEST_GLOBAL.floater.roll "roll_name" ""
-	_controls	= _rollout.controls groupbox:("groupbox Rollout") -- get new container for controls
+	_controls	= _rollout.controls groupbox:("Groupbox "+filename) -- get new container for controls
 	
-	_controls.button "button_name"
+	_controls.button "Button from script"

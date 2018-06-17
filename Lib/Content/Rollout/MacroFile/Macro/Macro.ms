@@ -32,13 +32,14 @@ struct Macro_Content_v
 
 		this --return
 	),
-	/** Insert to
+	/** Insert Macro as button to UI
+	  * Button runs macro on preesed
 	 */
 	function insertToUi _controls =
 	(
-		button_name	= buttontext as string
-		(_controls.button button_name).pressed ("print @HURAA@")
 		
+		button_name	= buttontext as string
+		(_controls.button button_name).pressed ("macros.run @"+category+"@ @"+name+"@")
 	),
 	function test =
 	(

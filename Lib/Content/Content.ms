@@ -1,20 +1,28 @@
-
-/** Content
+/** Load content to UI by structure on disk
+  *
+  * @example
+  * 	'Content dir\'          - Main dir
+  * 		'Rollout 1\'        - Every directory is rollout
+  * 			'groupbox.mcr'	- Hole file is Gorupbox & every macro in *.mcr file is buton
+  * 			'custom-ui.ms'	- Each script will be executed on floater creation
+  *
  */
 struct Content_v
 (
 	dir	= getFilenamePath(getSourceFileName()) + "/../../../Content",
 	Rollouts	= #(),
 
-	/** Auto load rollouts
+	/** Load UI structure from dir
 	 */
-	function autoLoadRollouts =
+	function loadTree =
 	(
 		this._loadRolloutsFromFiles()
 		
 		this --return
 	),
+	
 	/** Set controls to
+	  * @param	__[Floater](../Floater)__
 	 */
 	function setControlsToUI Floater =
 	(

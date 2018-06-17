@@ -1,17 +1,17 @@
 
-macroScript "macro-test-A"
-	category:	"macro-test"
-	buttontext: "macro test A"
+macroScript macrotestA
+	category:	"macrotest"
+	buttontext: "Macro test A"
 	toolTip:	""
 	icon:	"#(path, index)"
 (
-	
+	messagebox "Macro Test A\n\nSUCCESS";
 )
-macroScript "macro-test-B"
-	category:	"macro-test"
-	buttontext: "macro test B"
+macroScript macrotestB
+	category:	"macrotest"
+	buttontext: "Macro test B"
 	toolTip:	""
 	icon:	"#(path, index)"
 (
-	
+	messagebox "Macro Test B\n\nSUCCESS";
 )

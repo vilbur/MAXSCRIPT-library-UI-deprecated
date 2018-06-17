@@ -1,4 +1,3 @@
-
 /** Content
  */
 struct Rollout_Content_v
