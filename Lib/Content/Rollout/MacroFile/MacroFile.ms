@@ -6,17 +6,25 @@ struct MacroFile_Content_v
 	Macro,
 	name,
 	file,
-	_macros	= #(),
+	macros	= #(),
 
 	/** File
 	 */
 	function load file_path =
 	(
-		this._parseMacrosInFile (this._getFileContent file_path)
-
-		name	= getFilenameFile file_path
 		
-		Macro_Content = undefined
+		file	= file_path
+		print ( " getFilenameType file=" +  getFilenameType file as string )
+		if( getFilenameType file == ".mcr" ) then
+		(
+			this._parseMacrosInFile (this._getFileContent file_path)
+			
+			name	= getFilenameFile file_path
+			
+			Macro_Content = undefined
+			
+		)
+		
 		
 		this --return
 	),
@@ -26,16 +34,21 @@ struct MacroFile_Content_v
 	(
 		--button_name	= "Button"	+ _controls.parent_roll.id + index as string
 		--(_controls.button button_name).pressed ("print @HURAA@")
-		print ( "_macros=" + _macros as string )
-		print ( "_macros.count=" + _macros.count as string )
-		for m = 1 to _macros.count do
-			--print ( "m=" + m as string )
-			--print ( "_macros[m]=" + _macros[m].name as string )
-			_macros[m].insertToUi _controls
+		print ( "macros=" + macros as string )
+		print ( "macros.count=" + macros.count as string )
 		
+		
+		if( getFilenameType file == ".mcr" ) then
+			for m = 1 to macros.count do
+				macros[m].insertToUi _controls
+		
+		else
+			filein file
+			--print ( "FILE=" + file as string )
+
 		
 	),
-	/** Parse _macros in file
+	/** Parse macros in file
 	 */
 	function _parseMacrosInFile lines =
 	(
@@ -46,7 +59,7 @@ struct MacroFile_Content_v
 			(
 				--print ( "MACRO=" + _line as string )
 				if( Macro!=undefined ) then
-					append _macros Macro
+					append macros Macro
  
 				Macro = (Macro_Content_v()).setName _line
 			)
@@ -54,28 +67,28 @@ struct MacroFile_Content_v
 				Macro.setProp (filterString _line ":") 
 		)
 		
-		append _macros Macro
+		append macros Macro
 
-		print ( "_MACROS=" + _macros as string )
+		print ( "_MACROS=" + macros as string )
 	),
 	/** Get file content
 	 */
 	function _getFileContent _path =
 	(
-		file	= openFile _path mode:"r+"
+		file_opened	= openFile _path mode:"r+"
 		line_cnt	= 0
 		lines	= #() --the array that will hold the lines
 
-		while not eof file do 
+		while not eof file_opened do 
 		(
-			r =  readLine file --read the first line and store as a string it in r
+			r =  readLine file_opened --read the first line and store as a string it in r
 			append lines r --append the first line to lines array
 			line_cnt += 1 --add 1 to the counter
 		)
 
-		seek file 0    -- reset position to beginning
+		seek file_opened 0    -- reset position to beginning
 
-		close file -- closes the file
+		close file_opened -- closes the file
 
 		lines --return
 	),

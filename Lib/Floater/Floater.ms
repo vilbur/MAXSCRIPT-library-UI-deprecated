@@ -1,3 +1,19 @@
+
+/** Globals
+ */
+struct Globals_v
+(
+	floater,
+	function init =
+	(
+		if( __TEST_GLOBAL==undefined ) then
+			global __TEST_GLOBAL = this
+			--execute ("global __TEST_GLOBAL = "+self )
+	)
+)
+
+--if( __TEST_GLOBAL==undefined ) then
+	--global __TEST_GLOBAL = Globals_v
 /** Floater
   *
   *
@@ -6,6 +22,7 @@
   */
 struct Floater_v
 (
+	self	= this,
 	/* dependency */
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
@@ -19,20 +36,20 @@ struct Floater_v
 	ini,
 	
 	/* store */
-	floater,
+	Floater,
 	size_init, -- size of dialog after creation
 	
 	/** New
 	 */
 	function new _title =
 	(
+		--__TEST_GLOBAL = this
+
 		this.title = _title
 		
-		this._setId()
+		this._setIdGlobal()
 		
 		this._setIni()
-
-		execute ( "global "+id )
 
 		this --return
 	),
@@ -40,15 +57,10 @@ struct Floater_v
 	 */
 	function create height:undefined =
 	(
-		--title	= _title
 		_height	= height
 
 		this._createMainRollout()
-		
-		
-		--print "------------"
-		--print ( Content.Rollouts[1].ControlBoxes[1].file )
-		--print ( Content.Rollouts[1].ControlBoxes[1] )
+
 		this --return
 	),
 
@@ -170,12 +182,12 @@ struct Floater_v
 		
 		roll_main.CreateRollDialog height:_height
 		
-		floater = roll_main.roll.def
+		Floater = roll_main.roll.def
 				
-		size_init = GetDialogSize floater
+		size_init = GetDialogSize Floater
 		size_init = [size_init[1]+8, size_init[2]]
 		--messagebox (GetDialogSize floater as string )
-
+		
 		this.register()
 	),
 
@@ -187,11 +199,22 @@ struct Floater_v
 			addRollout (_rollout.create dialog:false) floater
 	),
 
-	/** Sanitize title to id "Foo Bar" >>> "foo_bar"
+	/** Set id of rollout as global variable
+	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
-	function _setId =
+	function _setIdGlobal =
 	(
 		id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
+		--print (  "global "+id +" = " +this )
+		--global GLOBAL_TEST = this
+		
+		--execute ("global __TEST_GLOBAL = (Globals_v())")
+		(Globals_v()).init()
+--		
+		--setProperty __TEST_GLOBAL "floater" this
+		__TEST_GLOBAL.floater = this
+		--execute ( "global "+id +" = __TEST_GLOBAL" )
+		
 	),
 	/** _set ini
 	 */

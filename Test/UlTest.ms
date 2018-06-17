@@ -1,5 +1,3 @@
---filein ( (getThisScriptFilename()) + "/../../lib/UI.ms")
-
 filein ( getFilenamePath(getSourceFileName()) + "/../UI.ms" );
 
 clearListener();
