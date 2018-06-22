@@ -3,7 +3,7 @@
  */
 struct Globals_v
 (
-	floater
+	Floater
 )
 
 if( __GLOBAL__v==undefined ) then
@@ -51,13 +51,27 @@ struct Floater_v
 	function create height:undefined =
 	(
 		_height	= height
+		
+		roll_main	= (Rollout_v()).new title
+		
+		--try(cui.UnRegisterDialogBar test_floater)catch() --try to unregister if already registered
+		--try(DestroyDialog test_floater)catch()	
+		--this.unregister()
+		
+		roll_main.subrollouts = Rollouts.values
+		
+		roll_main.CreateRollDialog height:_height
+		
+		Floater = roll_main.roll.def
+			
+		size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
 
-		this._createMainRollout()
-
+		this.register()
+		
 		this --return
 	),
 
-	/** Get\Set rollout in floater
+	/** Get\Set rollout in Floater
 	  * @param	string	title	Title of rollout
 	  * @param	string	id	Id of roullout, if empty then sanitized title is used
 	  * @return	[Rollout](../Rollouts/Rollout)
@@ -88,7 +102,7 @@ struct Floater_v
 	function dock side =
 	(
 		this.register()
-
+		
 		case of
 		(
 			(side == "left"	or side == #left):	_dock = #cui_dock_left
@@ -97,12 +111,12 @@ struct Floater_v
 			(side == "bottom"	or side == #bottom):	_dock = #cui_dock_bottom
 			default:	_dock = #cui_floatable
 		)
-
-		cui.DockDialogBar floater _dock
+		
+		cui.DockDialogBar Floater _dock
 		
 		if( _dock == #cui_floatable ) then
 			this.unregister()
-
+		
 		this --return
 	),
 	/** Undock dialog
@@ -110,7 +124,17 @@ struct Floater_v
 	 */
 	function undock =
 	(
+		this.unregister()
+
 		this.dock "undock" --return
+	),
+	/** Close
+	 */
+	function close =
+	(
+		this.unregister()
+
+		try(DestroyDialog Floater)catch()
 	),
 	/** Set position of dialog relative 3Ds Max window
 	  * @return	self
@@ -120,7 +144,7 @@ struct Floater_v
 		this.undock()
 		--this.unregister()
 		
-		floater.pos = [ (getMAXWindowPos()).x + x, (getMAXWindowPos()).y + y ]
+		Floater.pos = [ (getMAXWindowPos()).x + x, (getMAXWindowPos()).y + y ]
 
 		this --return
 	),
@@ -131,7 +155,7 @@ struct Floater_v
 	(
 		this.undock()
 		
-		floater.size = [ width, height ]
+		Floater.size = [ width, height ]
 
 		this --return
 	),
@@ -141,47 +165,24 @@ struct Floater_v
 	(
 		this.unregister()
 
-		--cui.RegisterDialogBar	floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) 
-		cui.RegisterDialogBar	floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
+		--cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) 
+		cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
 	),
 	/** Unregister dialog bar
 	 */
 	function unregister =
 	(
-		try(cui.UnRegisterDialogBar floater)catch() --try to unregister if already registered
+		try(cui.UnRegisterDialogBar Floater)catch() --try to unregister if already registered
 	),
 	
-	/** Create floater
+	/** Create Floater
 	  * Floater can`t has Menu
 	  * Rollouts are added as rollouts
 	 */
 	function _createFloater =
 	(
-		floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
+		Floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
 		this._addRollouts()
-	),
-	/** Create rollout
-	  * Rollout can has Menu
-	  * Rollouts are added as subrollouts
-	 */
-	function _createMainRollout =
-	(
-		this.unregister()
-
-		--messagebox (_height as string )  beep:false;
-		roll_main	= (Rollout_v()).new title
-		
-		roll_main.subrollouts = Rollouts.values
-		
-		roll_main.CreateRollDialog height:_height
-		
-		Floater = roll_main.roll.def
-				
-		size_init = GetDialogSize Floater
-		size_init = [size_init[1]+8, size_init[2]]
-		--messagebox (GetDialogSize floater as string )
-		
-		this.register()
 	),
 
 	/** _add rollouts
@@ -189,7 +190,7 @@ struct Floater_v
 	function _addRollouts =
 	(
 		for _rollout in Rollouts.values do
-			addRollout (_rollout.create dialog:false) floater
+			addRollout (_rollout.create dialog:false) Floater
 	),
 
 	/** Set id of rollout as global variable
@@ -199,8 +200,18 @@ struct Floater_v
 	(
 		id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
 
-		__GLOBAL__v.floater = this
-		execute ( "global "+id  )
+		__GLOBAL__v.Floater = this
+		
+		--print ( "----GLOBAL Floater=" + id as string )
+
+		--test_var = "global_test"
+		--execute ( "global "+test_var  )
+		--execute ( "global "+test_var +"="+id )
+
+		--global_test = "changed value"
+		
+		
+		--execute ( "global "+id  )
 	),
 	/** _set ini
 	 */

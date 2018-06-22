@@ -104,7 +104,7 @@ struct Events_v
 		Event_merged 	= Event_v type:(this._getEventProperty Event_default Event "type")
 		Event_merged.params	= this._getEventProperty Event_default Event "params"
 		Event_merged.code	= ( this._getCodeStr Event_default ) + ";" + ( this._getCodeStr Event )
-		print ( "Event_merged=" + Event_merged as string )
+		--print ( "Event_merged=" + Event_merged as string )
 		Event_merged --return
 	),
 	/** Get property from one of ddefined evetts

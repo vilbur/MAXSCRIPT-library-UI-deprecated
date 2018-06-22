@@ -1,5 +1,5 @@
-/** Craete Rollout
-  * Rollout has genrated global variable by id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
+/** Create Rollout
+  * Rollout has generated global variable by id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
   *
   * @property	string	title	Title of rollout
   * @property	string	id	Id of rollout, if not defined then sanitized title is used E.G.: title="Foo Rollout" >>> id="foo_rollout"
@@ -37,7 +37,7 @@ struct Rollout_v
 	function new title id:"" height:0 =
 	(
 		this.title	= title
-		
+
 		this._setId id
 		
 		this._setRolloutGlobalVariable()
@@ -63,7 +63,7 @@ struct Rollout_v
 	(
 		this.height	= height
 
-		try(DestroyDialog id)catch() -- must be above rollout definition
+		--try(DestroyDialog id)catch() -- must be above rollout definition
 
 		this._createRollout()
 
@@ -77,12 +77,6 @@ struct Rollout_v
 	/*---------------------------------------
 		CONTROLS 
 	-----------------------------------------*/
-	/** Create new roll with rolloutCreator()
-	 */
-	function _setRoll =
-	(
-		roll = rolloutCreator id title
-	),
 	/** Get Controls for rollout
 	  * @param	string	[groupbox]	Title of group box
 	  * @return [Controls](../../Controls)
@@ -104,7 +98,9 @@ struct Rollout_v
 	  */
 	function _setRolloutGlobalVariable =
 	(
-		execute ( "global rollout_"+this.id )
+		--if( id==undefined ) then
+		print ("rollout global "+id)
+		execute ( "global "+ id )
 	),
 
 	/** Create rollout
@@ -185,9 +181,19 @@ struct Rollout_v
 		if( _id=="" ) then
 			_id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
 		
-		id = _id
+		--_id = _id_	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"_" ).Replace _id_ "replace"
+		print ( "GLOBAL rollout=" + _id as string )
+
+		--id = _id
+		id = "rollout_"+_id
+
 	),
-	
+	/** Create new roll with rolloutCreator()
+	 */
+	function _setRoll =
+	(
+		roll = rolloutCreator id title
+	),
 	function test =
 	(
 		messagebox "Rollout_v.test()"

@@ -2,8 +2,8 @@ filein ( getFilenamePath(getSourceFileName()) + "/Lib/List/List.ms" );
 
 
 
-filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/MacroFile/Macro/Macro.ms" );
-filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/MacroFile/MacroFile.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/ScriptFile/MacroScript/MacroScript.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/ScriptFile/ScriptFile.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/Rollout.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Content.ms" );
 

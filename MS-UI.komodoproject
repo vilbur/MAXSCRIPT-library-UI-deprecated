@@ -2,5 +2,6 @@
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="ab3125f8-a921-4fca-a0d7-44425bb3a55d" kpf_version="5" name="MS-UI.komodoproject">
 <preference-set idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" id="project" preftype="project">
+  <long id="prefs_version">1</long>
 </preference-set>
 </project>

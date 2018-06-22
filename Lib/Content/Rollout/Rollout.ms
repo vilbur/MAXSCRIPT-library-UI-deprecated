@@ -4,7 +4,7 @@ struct Rollout_Content_v
 (
 	name,
 	dir,
-	MacroFiles	= #(),
+	ScriptFiles	= #(),
 	--_macros	= #(),
 
 	/** Load
@@ -15,7 +15,7 @@ struct Rollout_Content_v
 
 		this.setName (filenameFromPath dir)
 
-		this.setMacroFiles()
+		this._loadMacroFiles()
 
 		this --return
 	),
@@ -23,17 +23,23 @@ struct Rollout_Content_v
 	 */
 	function insertRollout Floater index =
 	(
-		print ( "MacroFiles=" + MacroFiles as string )
 		_rollout = Floater.roll (name) ""
 		
-		for f=1 to MacroFiles.count do
-		(
-			MacroFile = MacroFiles[f]
-			_controls	= _rollout.controls groupbox:( MacroFile.name ) -- get new container for controls
-			
-			MacroFile.insertToUi _controls f
-		)
+		for f=1 to ScriptFiles.count do
+			if( ScriptFiles[f].MacroScripts.count > 0 ) then
+				ScriptFiles[f]._addControls _rollout
 	),
+	--/** Add Group box
+	-- */
+	--function _addGroupBox f =
+	--(
+	--	--MacroFile = ScriptFiles[f]
+	--	--print ( "!!! Rollout_Content_v.MacroFile.file=" + MacroFile.file as string )
+	--	--print ( "!!! Rollout_Content_v.MacroFile.name=" + MacroFile.name as string )
+	--	--_controls	= _rollout.controls groupbox:( MacroFile.name ) -- get new container for controls
+	--	
+	--	MacroFile._addControls _controls f
+	--), 
 	/** Set name "Rollout-1" >> "Rollout 1"
 	 */
 	function setName name =
@@ -45,15 +51,14 @@ struct Rollout_Content_v
 	),
 	/** Set content controls
 	 */
-	function setMacroFiles =
+	function _loadMacroFiles =
 	(
 		macro_files = sort ( join (getFiles (dir + "/*.mcr")) (getFiles (dir + "/*.ms")) )
-		--macro_files = getFiles (dir + "/*.mcr")
-		--macro_files = join #() (getFiles (dir + "/*.mcr"))
+		--macro_files = sort ( getFiles (dir + "/*.mcr")) 
 
 		if( macro_files.count > 0 ) then
 			for macro_file in macro_files do
-				append MacroFiles ( (MacroFile_Content_v()).load macro_file )
+				append ScriptFiles ( (ScriptFile_Content_v()).load macro_file )
 
 		this --return
 	),

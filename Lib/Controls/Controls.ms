@@ -48,54 +48,55 @@ struct Controls_v
 	function checkbox caption id:undefined add:true checked:undefined =
 	(
 		this.control #checkbox caption id value:checked add:add
-		
-		--_checkbox	= this.control #checkbox caption id add:add
-		--_checkbox.param #checked true
-		--print ( "_checkbox=" + _checkbox as string )
-		--_checkbox --return
 	),
 	/*---------------------------------------
 		ADDING CONTROLS
 	-----------------------------------------*/
-	/** Add controls
+	/** Add controls to rollout
 	 */ 
 	function _addControls =
 	(
-		this.setNewControlBox()
-		this.setNewBoxPosition()
+		print "-------Controls_v._addControls"
+		--this.setNewControlBox()
+		--this.setNewBoxPosition()
+		ControlBox.new	parent_roll groupbox	-- Set new groupbox
+		parent_roll.Layout.newControlsBox	groupbox	-- Set position to layout
+
 		
 		for Control in this.Controls do
 			Control._addControl()
 		
-		this.addGroupbox()
-		this.setNextBoxPosition()
+		ControlBox.addGroupBox()	-- Add groupbox control
+		parent_roll.Layout.nextControlsBox groupbox	--
+		--this.addGroupbox()
+		--this.setNextBoxPosition()
 	),
 
 	--private
-	/** Set groupbox
-	 */
-	function setNewControlBox =
-	(
-		ControlBox.setNewControlBox parent_roll groupbox
-	),
-	/** Set new box position
-	 */
-	function setNewBoxPosition =
-	(
-		parent_roll.Layout.setNewBoxPosition groupbox
-	),
-	/** Add groupbox
-	 */
-	function addGroupbox =
-	(
-		ControlBox.addGroupBox()
-	),
-	/** Set next box position
-	 */
-	function setNextBoxPosition =
-	(
-		parent_roll.Layout.setNextBoxPosition groupbox
-	),
+	--/** Set groupbox
+	-- */
+	--function setNewControlBox =
+	--(
+	--	ControlBox.setNewControlBox parent_roll groupbox
+	--),
+	--/** Set new box position
+	-- */
+	--function setNewBoxPosition =
+	--(
+	--	parent_roll.Layout.setNewBoxPosition groupbox
+	--),
+	--/** Set next box position
+	-- */
+	--function setNextBoxPosition =
+	--(
+	--	parent_roll.Layout.setNextBoxPosition groupbox
+	--),
+	--/** Add groupbox
+	-- */
+	--function addGroupbox =
+	--(
+	--	ControlBox.addGroupBox()
+	--),
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------*/

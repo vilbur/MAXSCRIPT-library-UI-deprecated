@@ -10,7 +10,7 @@ struct ControlBox_v
 
 	/** Set parent roll
 	 */
-	function setNewControlBox _parent_roll _groupbox =
+	function new _parent_roll _groupbox =
 	(
 		parent_roll	= _parent_roll
 		groupbox	= _groupbox

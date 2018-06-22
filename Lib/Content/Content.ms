@@ -10,6 +10,7 @@
 struct Content_v
 (
 	dir	= getFilenamePath(getSourceFileName()) + "/../../../Content",
+	subdirs	="*",
 	Rollouts	= #(),
 
 	/** Load UI structure from dir
@@ -36,7 +37,7 @@ struct Content_v
 	 */
 	function _loadRolloutsFromFiles =
 	(
-		_rollout_dirs =  getDirectories( dir + "/*")
+		_rollout_dirs =  getDirectories( dir + "/"+ subdirs)
 
 		for dir in _rollout_dirs do
 			append Rollouts ( (Rollout_Content_v()).load dir )
