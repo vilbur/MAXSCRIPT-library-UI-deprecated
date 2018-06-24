@@ -5,24 +5,24 @@ clearListener();
 /** DEFINE FLOATER  */
 Floater	= (Floater_v()).new "Layout Test"
 
-/** Load content from hierarchy
+/** Load content from file tree
  */
 function loadContentTest =
 (
-	Content = Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-dirs") rollouts:"rollout*"
+	Content	= Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-dirs") match:"rollout-(.*)"
+	Content_nested	= Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-nested-subdirs/*") match:"rollout-(test-.*)"
 
-	Content = Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-nested-subdirs/*") rollouts:"*"
-
-	
 	Content.loadTree()
+	Content_nested.loadTree()
+	
 	Content.setControlsToUI Floater
+	Content_nested.setControlsToUI Floater
 )
 
 /** Add extra rollout
  */
 function addRolloutByCodeTest name =
 (
-	--_rollout = __GLOBAL__v.test_floater name ""
 	_rollout = __GLOBAL__v.Floater.roll name ""
 	_controls	= _rollout.controls groupbox:"Groupbox A" -- get new container for controls
 	_controlsB	= _rollout.controls groupbox:"Groupbox B" -- get new container for controls

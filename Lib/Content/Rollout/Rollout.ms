@@ -1,9 +1,14 @@
-/** Content
+/** Create rollout from dir containing ".ms" & ".mcr"
+ * 
+ * @property	string	dir	Path to rollout dir
+ * @property	string	name	Name of rollout
+ *
  */
 struct Rollout_Content_v
 (
-	name,
 	dir,
+	name,
+	
 	ScriptFiles	= #(),
 	--_macros	= #(),
 
@@ -14,7 +19,7 @@ struct Rollout_Content_v
 		print ( "Rollout_Content_v.load dir=" + dir as string )
 		this.dir	= dir
 
-		this.setName (filenameFromPath dir)
+		this.setName()
 
 		this._loadMacroFiles()
 
@@ -33,12 +38,15 @@ struct Rollout_Content_v
  
 	/** Set name "Rollout-1" >> "Rollout 1"
 	 */
-	function setName name =
+	function setName =
 	(
+		if( name==undefined ) then
+			name = filenameFromPath dir
+		
 		name_Sanitized	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace name ""
 		name_whitespace	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"[-_]+" ).Replace name_Sanitized " "
 
-		this.name = name_whitespace
+		name = name_whitespace
 	),
 	/** Set content controls
 	 */
