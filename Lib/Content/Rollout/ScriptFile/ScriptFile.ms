@@ -26,7 +26,7 @@ struct ScriptFile_Content_v
 			--if( _name!=undefined ) then
 				--messagebox ("_name="+_name as string )
 			
-			_name	= getFilenameFile file
+			--_name	= getFilenameFile file
 			--print ( "_name=" + _name as string )
 			Macro = undefined
 		)
@@ -46,8 +46,8 @@ struct ScriptFile_Content_v
 			for m = 1 to MacroScripts.count do
 				MacroScripts[m]._addControls _controls
 
-		else
-			this._runScriptFile()
+		--else
+			--this._runScriptFile()
 	),
 	/** _run script file
 	 */

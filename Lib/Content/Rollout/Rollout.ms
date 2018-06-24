@@ -11,6 +11,7 @@ struct Rollout_Content_v
 	 */
 	function load dir =
 	(
+		print ( "Rollout_Content_v.load dir=" + dir as string )
 		this.dir	= dir
 
 		this.setName (filenameFromPath dir)
@@ -29,17 +30,7 @@ struct Rollout_Content_v
 			if( ScriptFiles[f].MacroScripts.count > 0 ) then
 				ScriptFiles[f]._addControls _rollout
 	),
-	--/** Add Group box
-	-- */
-	--function _addGroupBox f =
-	--(
-	--	--MacroFile = ScriptFiles[f]
-	--	--print ( "!!! Rollout_Content_v.MacroFile.file=" + MacroFile.file as string )
-	--	--print ( "!!! Rollout_Content_v.MacroFile.name=" + MacroFile.name as string )
-	--	--_controls	= _rollout.controls groupbox:( MacroFile.name ) -- get new container for controls
-	--	
-	--	MacroFile._addControls _controls f
-	--), 
+ 
 	/** Set name "Rollout-1" >> "Rollout 1"
 	 */
 	function setName name =

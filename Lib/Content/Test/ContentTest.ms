@@ -9,9 +9,11 @@ Floater	= (Floater_v()).new "Layout Test"
  */
 function loadContentTest =
 (
-	--Content = Content_v dir:(getFilenamePath(getSourceFileName())+"/Content-hierarchy-test") subdirs:"rollout*"
-	Content = Content_v dir:( getFilenamePath(getSourceFileName()) + "/../../../../../../vilbur" ) subdirs:"_*"
+	Content = Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-dirs") rollouts:"rollout*"
 
+	Content = Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-nested-subdirs/*") rollouts:"*"
+
+	
 	Content.loadTree()
 	Content.setControlsToUI Floater
 )
@@ -31,8 +33,8 @@ function addRolloutByCodeTest name =
 /*---------------------------------------
 	RUN TEST
 -----------------------------------------*/
-addRolloutByCodeTest "Rollout by code 1"
+--addRolloutByCodeTest "Rollout by code 1"
 loadContentTest()
-addRolloutByCodeTest "Rollout by code 2"
+--addRolloutByCodeTest "Rollout by code 2"
 
 Floater.create()
