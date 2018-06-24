@@ -9,11 +9,12 @@ Floater	= (Floater_v()).new "Layout Test"
  */
 function loadContentTest =
 (
-	Content	= Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-dirs") match:"rollout-(.*)$"
-	Content_nested	= Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-nested-subdirs/*") match:"rollout-(test-.*)"
+	current_dir	= getFilenamePath(getSourceFileName())
+	Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
+	Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs/*")	match:"rollout-(test-.*)"	).load()
 
-	Content.loadTree()
-	Content_nested.loadTree()
+	Content.load()
+	Content_nested.load()
 	
 	Content.setControlsToUI Floater
 	Content_nested.setControlsToUI Floater

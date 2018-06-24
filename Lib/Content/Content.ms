@@ -34,7 +34,7 @@ struct Content_v
 	
 	/** Load UI structure from dir
 	 */
-	function loadTree =
+	function load =
 	(
 		this._loadRolloutsFromFiles()
 		
@@ -109,26 +109,25 @@ struct Content_v
 	/** If directory name match to regext
 	 */
 	function _isDirNameMatch _dir =
-	(
-		dir_name = filenameFromPath (trimRight _dir "\\")
-		
-		print ( "_isDirNameMatch=" + dir_name as string )
-		print ( "match=" + (rx.isMatch dir_name match rx_options.IgnoreCase) as string )
-		
-		
-		
-		rx.isMatch dir_name match rx_options.IgnoreCase --return
+	(		
+		rx.isMatch (this._dirName _dir) match rx_options.IgnoreCase --return
 	),	
 	/** If directory name match to regext
 	 */
 	function _getRolloutName _dir =
 	(
-		print ( "_dir=" + _dir as string )
-		match_dirname	= rx.Match _dir match rx_options.IgnoreCase 
+		match_dirname	= rx.Match (this._dirName _dir) match rx_options.IgnoreCase 
 		matches	= for i = 1 to (match_dirname.Groups.count - 1) collect (match_dirname.groups.item[i].value )
-
+		--print ( "_dir=" + _dir as string )
+		--print ( "matches=" + matches as string )
 		matches[1] --return
-	),	
+	),
+	/** _dir name
+	 */
+	function _dirName _dir =
+	(
+		filenameFromPath (trimRight _dir "\\") --return
+	),
 	function test =
 	(
 		messagebox "Content.test()"

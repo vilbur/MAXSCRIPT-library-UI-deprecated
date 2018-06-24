@@ -16,7 +16,7 @@ struct Rollout_Content_v
 	 */
 	function load dir =
 	(
-		print ( "Rollout_Content_v.load dir=" + dir as string )
+		--print ( "Rollout_Content_v.load dir=" + dir as string )
 		this.dir	= dir
 
 		this.setName()
@@ -44,7 +44,7 @@ struct Rollout_Content_v
 			name = filenameFromPath dir
 		
 		name_Sanitized	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace name ""
-		name_whitespace	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"[-_]+" ).Replace name_Sanitized " "
+		name_whitespace	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"[_]+" ).Replace name_Sanitized " "
 
 		name = name_whitespace
 	),
