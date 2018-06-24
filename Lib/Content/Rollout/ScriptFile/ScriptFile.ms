@@ -1,13 +1,21 @@
-
- /** Content macro
- */
+/** Process ".ms" & ".mcr" file
+  *
+  * @property	string	file	Path to file
+  *
+  * Get macroscripts from '.mcr' files
+  * Filein '.ms' files
+  */
 struct ScriptFile_Content_v
 (
-	--Macro,
-	_name,
+	
+	/* public properties */
 	file,
+	
+	/* private properties */
+	_name,
 	MacroScripts	= #(),
 	_MacroScript,	-- store currently parsed Macro file
+	
 	/** File
 	 */
 	function load file_path =
@@ -23,12 +31,6 @@ struct ScriptFile_Content_v
 
 			this._parseMacrosInFile (this._getFileContent file_path)
 
-			--if( _name!=undefined ) then
-				--messagebox ("_name="+_name as string )
-			
-			--_name	= getFilenameFile file
-			--print ( "_name=" + _name as string )
-			Macro = undefined
 		)
 
 		this --return
@@ -37,18 +39,32 @@ struct ScriptFile_Content_v
 	 */
 	function _addControls _rollout =
 	(
-		_controls	= _rollout.controls groupbox:( _name ) -- get new container for controls
-		
 		if( _name==undefined ) then
 			_name	= getFilenameFile file
+		
+		_controls	= _rollout.controls groupbox:( this._getGroupboxName() ) -- get new container for controls
 		
 		if( getFilenameType file == ".mcr" ) then
 			for m = 1 to MacroScripts.count do
 				MacroScripts[m]._addControls _controls
 
-		--else
-			--this._runScriptFile()
+		else
+			this._runScriptFile()
 	),
+	/** Get name of groupbox by file name
+	  * 
+	  * @return	string	Name of groupbox, if file is named "_main.mcr", then return undefined and controls are placed to rollout
+	 */
+	function _getGroupboxName =
+	(
+		filename = getFilenameFile file
+		
+		if not ( matchPattern file pattern:"*_main.mcr" ) then
+			filename
+		else
+			undefined
+	),
+	
 	/** _run script file
 	 */
 	function _runScriptFile =
