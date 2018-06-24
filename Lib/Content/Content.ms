@@ -110,7 +110,14 @@ struct Content_v
 	 */
 	function _isDirNameMatch _dir =
 	(
-		rx.isMatch _dir match rx_options.IgnoreCase --return
+		dir_name = filenameFromPath (trimRight _dir "\\")
+		
+		print ( "_isDirNameMatch=" + dir_name as string )
+		print ( "match=" + (rx.isMatch dir_name match rx_options.IgnoreCase) as string )
+		
+		
+		
+		rx.isMatch dir_name match rx_options.IgnoreCase --return
 	),	
 	/** If directory name match to regext
 	 */

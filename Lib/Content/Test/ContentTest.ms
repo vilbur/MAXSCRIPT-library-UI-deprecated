@@ -9,7 +9,7 @@ Floater	= (Floater_v()).new "Layout Test"
  */
 function loadContentTest =
 (
-	Content	= Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-dirs") match:"rollout-(.*)"
+	Content	= Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-dirs") match:"rollout-(.*)$"
 	Content_nested	= Content_v dir:(getFilenamePath(getSourceFileName())+"/Rollouts-in-nested-subdirs/*") match:"rollout-(test-.*)"
 
 	Content.loadTree()
