@@ -33,7 +33,7 @@ struct Control_v
 		this._setPath()
 		this._setValue()
 
-		--this.Events._bindDefaultEvents()
+		this.Events._bindDefaultEvents()
 
 		return this
 	),
@@ -105,7 +105,7 @@ struct Control_v
 
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col)
 
-		--Events._addHandlers this
+		Events._addHandlers()
 		
 	),
 

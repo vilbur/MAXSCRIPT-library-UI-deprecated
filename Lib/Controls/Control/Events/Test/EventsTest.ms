@@ -17,7 +17,7 @@ _controls_1	= _rollout.controls()
 --_controls	= _rollout.controls groupbox:("groupbox ") -- get new container for controls
 
 
-/*---------------------------------------
+/*---------------------------------------A
 	ADD CONTROLS
 -----------------------------------------*/
 

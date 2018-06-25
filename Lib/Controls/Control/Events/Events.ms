@@ -89,13 +89,15 @@ struct Events_v
 	 */
 	function _getEvents =
 	(
-		Events	= #()
-		parent_control	= _parent_control
+		Events_merged	= #()
+		--parent_control	= _parent_control
 		
 		for event_type in event_types do
-			append Events (this._mergeEvent event_type)
+			append Events_merged (this._mergeEvent event_type)
 		
-		Events --return
+		--Events_merged --return
+		for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
+			
 	),
 	--/** Add event handler
 	--  
@@ -112,9 +114,10 @@ struct Events_v
 	 */
 	function _mergeEvent event_type =
 	(
+		print ( "Events_v._mergeEvent() " + event_type as string )
 		Event_default	= Events_default.getVal	event_type
 		Event	= Events.getVal	event_type
-	
+		
 		if( Event_default!=undefined or Event!=undefined ) then
 			this.mergeEvents Event_default Event
 	),

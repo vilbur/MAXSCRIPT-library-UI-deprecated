@@ -31,12 +31,21 @@ struct ControlEvent_v
 	 */
 	function _bindDefaultEvents =
 	(
+		section_key	= filterString parent_control.path "."
 		
+		save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
+		
+		this.Events._setDefaultEvent (Event_v type:"changed" code:save_to_ini params:"val")
 	),
 	/** _add handlers
 	 */
 	function _addHandlers =
 	(
+		print ( "ControlEvent_v._addHandlers=" + this.Events._getEvents() as string )
+		_Events = this.Events._getEvents()
+		
+		for _Event in _Events do
+			parent_control.parent_roll.roll.addhandler  parent_control.id _Event.type codeStr:_Event.code  paramStr:_Event.params 
 		
 	),
 	function test =

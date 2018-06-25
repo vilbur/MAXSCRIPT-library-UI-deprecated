@@ -24,10 +24,13 @@ struct List_v
 		)
 	),
 
-	fn getVal str=
+	fn getVal str =
 	(
 		local i=findItem keys str
-		if i>0 then return values[i]
+		if i>0 then
+			values[i] --return
+		else
+			undefined --return
 	),
 	
 	fn delete str=
