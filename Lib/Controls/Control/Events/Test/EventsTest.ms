@@ -10,7 +10,9 @@ Floater	= (Floater_v()).new "Test Floater"
 --_rollout	= (Rollout_v()).new "Test Rollout"
 _rollout	= Floater.roll "Events test" ""
 
-_rollout.Events.open "messagebox \"Custom event\""
+_rollout.Events.open "print \"Event: Custom open\""
+_rollout.Events.close "print \"Event: Custom close\""
+
 --_rollout.Events.open "messagebox \\\"Custom event\\\""
 --_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 _rollout.ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"(ms|mscr)$" ).Replace (getSourceFileName()) "ini"
@@ -20,7 +22,7 @@ _controls_1	= _rollout.controls()
 
 
 /*---------------------------------------A
-	ADD CONTROLS
+	ADD CONTROLS 
 -----------------------------------------*/
 
 /*------ add control via control method ------*/
@@ -34,6 +36,7 @@ _Button_A = _controls_1.control #button "Button A" #button_a
 /*------ add control via concrete type of control method ------*/
 _Checkbox_B	= _controls_1.checkbox "Checkbox B" checked:true -- set checkbox checked, override ini setting
 --_Checkbox_B.changed "MessageBox (val as string)"
+
 
 --_Button_B	= _controls_1.button "Button B"
 --_Button_B.pressed "MessageBox (val as string)"

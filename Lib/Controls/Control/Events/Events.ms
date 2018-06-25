@@ -94,7 +94,7 @@ struct Events_v
 		--parent_control	= _parent_control
 		
 		for event_type in event_types do
-			append Events_merged (this._mergeEvent event_type)
+			append Events_merged (this.getEvent event_type)
 		
 		--Events_merged --return
 		for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
@@ -113,7 +113,7 @@ struct Events_v
 	-----------------------------------------*/
 	/** Get events
 	 */
-	function _mergeEvent event_type =
+	function getEvent event_type =
 	(
 		--print ( "Events_v._mergeEvent() " + event_type as string )
 		Event_default	= Events_default.getVal	event_type

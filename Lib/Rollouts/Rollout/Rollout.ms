@@ -121,7 +121,6 @@ struct Rollout_v
 		
 		this._createSubRollouts()
 
-		--this._addHandlers()
 		this.Events._addHandlers()
 
 		this._addSaveIniFunction()
@@ -169,12 +168,7 @@ struct Rollout_v
 			execute add_subrollouts
 		)
 	),
-	--/** _add handlers
-	-- */
-	--function _addHandlers =
-	--(
-	--	this.Events._addHandlers()
-	--),
+
 	/** Add saveIni() function to rollout
 	  * This function is called before user callback
 	  * saveIni() function 
@@ -182,11 +176,15 @@ struct Rollout_v
 	  */
 	function _addSaveIniFunction =
 	(
-		--print ( "title=" + title as string )
-		--print ( "_addSaveIniFunction() ini=" + ini as string )
 		if( ini != false ) then  
 			roll.addText( "function saveIni _section _key _value = ( (Ini_v ini:@"+ini+"@).save _section _key _value )" )
 	),
+	--/** _add function
+	-- */
+	--function _addFunction =
+	--(
+	--	
+	--),
 
 	/*---------------------------------------
 		HELPERS
