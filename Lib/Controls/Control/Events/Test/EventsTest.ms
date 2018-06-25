@@ -10,6 +10,8 @@ Floater	= (Floater_v()).new "Test Floater"
 --_rollout	= (Rollout_v()).new "Test Rollout"
 _rollout	= Floater.roll "Events test" ""
 
+_rollout.Events.open "messagebox \"Custom event\""
+--_rollout.Events.open "messagebox \\\"Custom event\\\""
 --_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 _rollout.ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"(ms|mscr)$" ).Replace (getSourceFileName()) "ini"
 

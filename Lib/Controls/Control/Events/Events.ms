@@ -78,9 +78,10 @@ struct Events_v
 	 */
 	function _setEvent Event =
 	(
+		--print ( "Events_v._setEvent()=" + Event as string )
 		this.Events.setVal Event.type Event
 		
-		parent_control --return 
+		--parent_control --return 
 	),
 	--/*---------------------------------------
 	--	ADDING EVENT HANDLERS
@@ -114,12 +115,14 @@ struct Events_v
 	 */
 	function _mergeEvent event_type =
 	(
-		print ( "Events_v._mergeEvent() " + event_type as string )
+		--print ( "Events_v._mergeEvent() " + event_type as string )
 		Event_default	= Events_default.getVal	event_type
 		Event	= Events.getVal	event_type
 		
 		if( Event_default!=undefined or Event!=undefined ) then
 			this.mergeEvents Event_default Event
+			
+		--print ( "Events_v._mergeEvent() " + event_type as string )
 	),
 	/** Merge events
 	 */
@@ -128,7 +131,7 @@ struct Events_v
 		Event_merged 	= Event_v type:(this._getEventProperty Event_default Event "type")
 		Event_merged.params	= this._getEventProperty Event_default Event "params"
 		Event_merged.code	= ( this._getCodeStr Event_default ) + ";" + ( this._getCodeStr Event )
-		--print ( "Event_merged=" + Event_merged as string )
+		print ( "===Event_merged=" + Event_merged as string )
 		Event_merged --return
 	),
 	/** Get property from one of ddefined evetts

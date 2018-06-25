@@ -32,6 +32,9 @@ struct Rollout_v
 	
 	type	= #rollout, -- nack reference for this.Events._bindDefaultEvent()
 	
+	/*------ EXTENDED METHODS ------*/
+	open	= Events.open,
+	close	= Events.close,
 	/** Set new rollout
 	  * @param	string	title	Title of rollout
 	  * @param	string	[_id]	Id of rollout, if void then sanitized title is used E.G.: "Foo Rollout" >>> "foo_rollout"

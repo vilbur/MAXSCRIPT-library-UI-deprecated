@@ -17,14 +17,22 @@ struct RolloutEvent_v
 	(
 		this.Events._setEvent (Event_v type:"open" code:callback) --return
 	),
-
+	/** Bind pressed event
+	  
+	 */
+	function close callback tooltip:"" =
+	(
+		--this.Events._setEvent (Event_v type:"close" code:callback) --return
+	),
 	/** _bind default event
 	 */
 	function _bindDefaultEvents =
 	(
 		--	section_key	= filterString parent_control.id "."
 			
-			save_to_ini = "messagebox \"Yeees\""
+			save_to_ini = "messagebox (\"Yeees default event\" )"
+			--save_to_ini = "messagebox (\"Yeees default event\" )"
+			--save_to_ini = "messagebox (\\\"Yeees default event\\\" )"
 			
 			this.Events._setDefaultEvent (Event_v type:"open" code:save_to_ini  )
 	),
@@ -32,21 +40,15 @@ struct RolloutEvent_v
 	 */
 	function _addHandlers =
 	(
-		--print ( "RolloutEvent_v._addHandlers=" + this.Events._getEvents() as string )
 		_Events = this.Events._getEvents()
-		print ( "RolloutEvent_v._addHandlers() _Events =" + _Events  as string )
+		--print ( "RolloutEvent_v._addHandlers() _Events =" + _Events  as string )
 		--print ( "parent_control=" + parent_control.roll as string )
+		
+		
 		for _Event in _Events do
-		(
-			callback_string	= "on "+parent_control.id+" rolledUp val do "+_Event.code 
-			
-			print "-----------------------------"
-			--print ( "parent_control.id=" + parent_control.id as string )
-			--print ( "_Event.type =" + _Event.type  as string )
-			--print ( "_Event=" + _Event as string )
-			parent_control.roll.addText callback_string 
-		)
-			--parent_control.parent_roll.roll.addText  parent_control.id _Event.type codeStr:_Event.code 
+		--print ( "RolloutEvent_v._addHandlers() "+parent_control.id+" on "+ _Event.type +" =" + _Event.code  as string )
+			parent_control.roll.addText ("on "+parent_control.id+" rolledUp val do ("+_Event.code + ")" ) 
+
 		
 	),
 	
