@@ -1,15 +1,20 @@
-filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/../../../../../includes.ms" )
 clearListener();
 
 
 /*---------------------------------------
 	ROLLOUT DEFINITION
 -----------------------------------------*/
-_rollout	= (Rollout_v()).new "Test Rollout"
+Floater	= (Floater_v()).new "Test Floater"
+
+--_rollout	= (Rollout_v()).new "Test Rollout"
+_rollout	= Floater.roll "Events test" ""
+
 --_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
+_rollout.ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"(ms|mscr)$" ).Replace (getSourceFileName()) "ini"
 
 _controls_1	= _rollout.controls()
---_controls_1	= _rollout.controls()
+--_controls	= _rollout.controls groupbox:("groupbox ") -- get new container for controls
 
 
 /*---------------------------------------
@@ -18,7 +23,7 @@ _controls_1	= _rollout.controls()
 
 /*------ add control via control method ------*/
 _Checkbox_A = _controls_1.control #checkbox "Checkbox A" #checkbox_a
---_Checkbox_A.Events.changed "MessageBox (val as string)"
+_Checkbox_A.Events.changed "MessageBox (val as string)"
 
 _Button_A = _controls_1.control #button "Button A" #button_a
 --_Button_A.Events.pressed "MessageBox @Button pressed@"
@@ -47,7 +52,7 @@ _Checkbox_B	= _controls_1.checkbox "Checkbox B" checked:true -- set checkbox che
 --_controls_1.add _Checkbox_D
 
 
-/*---------------------------------------A
+/*---------------------------------------
 	 CREATE DIALOG 
 -----------------------------------------*/
-_rollout.CreateRollDialog()
+Floater.create()

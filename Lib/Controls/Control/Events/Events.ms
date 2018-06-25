@@ -21,6 +21,15 @@ struct Events_v
 			
 			this._setDefaultEvent (Event_v type:"changed" code:save_to_ini params:"val")
 		)
+		else if( parent_control.type == #rollout ) then
+		(
+			section_key	= filterString parent_control.id "."
+			
+			save_to_ini = "messagebox \"message\""
+			
+			this._setDefaultEvent (Event_v type:"open" code:save_to_ini  )
+	
+		)
 
 	),
 	/*---------------------------------------
@@ -32,9 +41,7 @@ struct Events_v
 	 */
 	function pressed callback tooltip:"" =
 	(
-		this._setEvent (Event_v type:"pressed" code:callback)
-		
-		parent_control --return 
+		this._setEvent (Event_v type:"pressed" code:callback) --return 
 	),
 	/** Bind changed event
 	  * Value of control is passed to control as variable "val" 
@@ -44,10 +51,17 @@ struct Events_v
 	  */
 	function changed callback tooltip:"" =
 	(
-		this._setEvent (Event_v type:"changed" code:callback params:"val")
-		
-		parent_control --return 
+		this._setEvent (Event_v type:"changed" code:callback params:"val") --return
 	),
+	/** Bind pressed event
+	  * @param	string	callback	Code executed on event
+	  * @param	callback	tooltip	Tooltip for control
+	 */
+	function open callback tooltip:"" =
+	(
+		this._setEvent (Event_v type:"open" code:callback) --return
+	),
+
 	/*---------------------------------------
 		SET EVENTS TO LSIT
 	-----------------------------------------*/
@@ -63,15 +77,17 @@ struct Events_v
 	function _setEvent Event =
 	(
 		this.Events.setVal Event.type Event
+		
+		parent_control --return 
 	),
 	/*---------------------------------------
 		ADDING EVENT HANDLERS
 	-----------------------------------------*/
 	/**  
 	 */
-	function _addHandlers parent_control =
+	function _addHandlers _parent_control =
 	(
-		this.parent_control = parent_control
+		parent_control = _parent_control
 		
 		for event_type in event_types do
 			this._addHandler (this._getEvents event_type)
