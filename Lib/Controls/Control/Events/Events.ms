@@ -1,11 +1,15 @@
 /** Events
+  *
+  * @property	array	event_types	Allowed types of events, E.G.: for button event_types = #("pressed", "changed")
+  *
+  *
  */
 struct Events_v 
 (
 	Events	= List_v(),
 	Events_default	= List_v(),
-	event_types	= #("pressed", "changed"),
-	parent_control,
+	event_types,
+	--parent_control,
 	
 	
 	/** Bind default event called before user defined callback
@@ -13,57 +17,55 @@ struct Events_v
 	function _bindDefaultEvent =
 	(
 
-		if( parent_control.type == #checkbox ) then
-		(
-			section_key	= filterString parent_control.path "."
-			
-			save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
-			
-			this._setDefaultEvent (Event_v type:"changed" code:save_to_ini params:"val")
-		)
-		else if( parent_control.type == #rollout ) then
-		(
-			section_key	= filterString parent_control.id "."
-			
-			save_to_ini = "messagebox \"message\""
-			
-			this._setDefaultEvent (Event_v type:"open" code:save_to_ini  )
-	
-		)
+		--if( parent_control.type == #checkbox ) then
+		--(
+		--	section_key	= filterString parent_control.path "."
+		--	
+		--	save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
+		--	
+		--	this._setDefaultEvent (Event_v type:"changed" code:save_to_ini params:"val")
+		--)
+		--else if( parent_control.type == #rollout ) then
+		--(
+		--	section_key	= filterString parent_control.id "."
+		--	
+		--	save_to_ini = "messagebox \"message\""
+		--	
+		--	this._setDefaultEvent (Event_v type:"open" code:save_to_ini  )
+		--
+		--)
 
 	),
-	/*---------------------------------------
-		EVENT TYPES
-	-----------------------------------------*/
-	/** Bind pressed event
-	  * @param	string	callback	Code executed on event
-	  * @param	callback	tooltip	Tooltip for control
-	 */
-	function pressed callback tooltip:"" =
-	(
-		this._setEvent (Event_v type:"pressed" code:callback) --return 
-	),
-	/** Bind changed event
-	  * Value of control is passed to control as variable "val" 
-	  *
-	  * @param	string	callback	Code executed on event
-	  * @param	callback	tooltip	Tooltip for control
-	  */
-	function changed callback tooltip:"" =
-	(
-		this._setEvent (Event_v type:"changed" code:callback params:"val") --return
-	),
-	/** Bind pressed event
-	  * @param	string	callback	Code executed on event
-	  * @param	callback	tooltip	Tooltip for control
-	 */
-	function open callback tooltip:"" =
-	(
-		this._setEvent (Event_v type:"open" code:callback) --return
-	),
+	--/*---------------------------------------
+	--	EVENT TYPES
+	--	
+	--	PARAMETERS:
+	--		@param	string	callback	Code executed on event
+	--		@param	callback	tooltip	Tooltip for control
+	--
+	-------------------------------------------*/
+	--/** Bind pressed event
+	-- */
+	--function pressed callback tooltip:"" =
+	--(
+	--	this._setEvent (Event_v type:"pressed" code:callback) --return 
+	--),
+	--/** Bind changed event
+	--  * Value of control is passed to control as variable "val" 
+	--  */
+	--function changed callback tooltip:"" =
+	--(
+	--	this._setEvent (Event_v type:"changed" code:callback params:"val") --return
+	--),
+	--/** Bind pressed event
+	-- */
+	--function open callback tooltip:"" =
+	--(
+	--	this._setEvent (Event_v type:"open" code:callback) --return
+	--),
 
 	/*---------------------------------------
-		SET EVENTS TO LSIT
+		SET EVENTS TO LIST
 	-----------------------------------------*/
 	/** Set Event to Events
 	 */
@@ -80,32 +82,35 @@ struct Events_v
 		
 		parent_control --return 
 	),
-	/*---------------------------------------
-		ADDING EVENT HANDLERS
-	-----------------------------------------*/
+	--/*---------------------------------------
+	--	ADDING EVENT HANDLERS
+	-------------------------------------------*/
 	/**  
 	 */
-	function _addHandlers _parent_control =
+	function _getEvents =
 	(
-		parent_control = _parent_control
+		Events	= #()
+		parent_control	= _parent_control
 		
 		for event_type in event_types do
-			this._addHandler (this._getEvents event_type)
+			append Events (this._mergeEvent event_type)
+		
+		Events --return
 	),
-	/** Add event handler
-	  
-	 */
-	function _addHandler Event =
-	(
-		if( Event!=undefined ) then
-			parent_control.parent_roll.roll.addhandler  parent_control.id Event.type codeStr:Event.code  paramStr:Event.params 
-	),
+	--/** Add event handler
+	--  
+	-- */
+	--function _addHandler Event =
+	--(
+	--	if( Event!=undefined ) then
+	--		parent_control.parent_roll.roll.addhandler  parent_control.id Event.type codeStr:Event.code  paramStr:Event.params 
+	--),
 	/*---------------------------------------
 		MERGE EVENTS
 	-----------------------------------------*/
 	/** Get events
 	 */
-	function _getEvents event_type =
+	function _mergeEvent event_type =
 	(
 		Event_default	= Events_default.getVal	event_type
 		Event	= Events.getVal	event_type

@@ -24,7 +24,7 @@ struct Rollout_v
 	/* lists */
  	ControlBoxes	= #(),
 	Subrollouts	= #(),
-	Events	= Events_v parent_control:this,
+	Events	= RolloutEvent_v parent_control:this,
 	
 	/* store rollout and parent rollout */
 	roll,
@@ -47,7 +47,7 @@ struct Rollout_v
 		
 		this._setRoll()
 		
-		this.Events._bindDefaultEvent()
+		this.Events._bindDefaultEvents()
 
 		return this
 	),
@@ -118,7 +118,8 @@ struct Rollout_v
 		
 		this._createSubRollouts()
 
-		this._addHandlers()
+		--this._addHandlers()
+		this.Events._addHandlers()
 
 		this._addSaveIniFunction()
 
@@ -165,12 +166,12 @@ struct Rollout_v
 			execute add_subrollouts
 		)
 	),
-	/** _add handlers
-	 */
-	function _addHandlers =
-	(
-		
-	),
+	--/** _add handlers
+	-- */
+	--function _addHandlers =
+	--(
+	--	this.Events._addHandlers()
+	--),
 	/** Add saveIni() function to rollout
 	  * This function is called before user callback
 	  * saveIni() function 

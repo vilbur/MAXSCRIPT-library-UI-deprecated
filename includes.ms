@@ -1,6 +1,7 @@
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/List/List.ms" );
 
-
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/ControlEvent/ControlEvent.ms" )
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Rollout/RolloutEvent/RolloutEvent.ms" )
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/ScriptFile/MacroScript/MacroScript.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Content/Rollout/ScriptFile/ScriptFile.ms" );
@@ -15,7 +16,9 @@ filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Tooltip/T
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Params.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Events/Event/Event.ms" );	-- moved before controls
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Events/Events.ms" );	-- moved before controls
+
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Control.ms" );	-- moved before controls
+
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Layout/Bbox/Bbox.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Layout/Layout.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/types/ControlBox.ms" ); 

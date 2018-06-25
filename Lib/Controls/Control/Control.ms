@@ -3,7 +3,7 @@
 struct Control_v 
 (
 	/* dependency */
-	Events	= Events_v parent_control:this,
+	Events	= ControlEvent_v parent_control:this,
 	_Params	= Params_v(),
 	Layout,
 
@@ -33,7 +33,7 @@ struct Control_v
 		this._setPath()
 		this._setValue()
 
-		this.Events._bindDefaultEvent()
+		--this.Events._bindDefaultEvents()
 
 		return this
 	),
@@ -105,8 +105,10 @@ struct Control_v
 
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col)
 
-		Events._addHandlers this
+		--Events._addHandlers this
+		
 	),
+
 	/** _set caption
 	 */
 	function _setCaption =
