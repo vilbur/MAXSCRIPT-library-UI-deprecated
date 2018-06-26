@@ -37,12 +37,12 @@ struct MacroScript_Content_v
 	 */
 	function _addControls _controls =
 	(
-		--print ( "this=" + this as string )
-		--print ( "category=" + category as string )
-		--print ( "name=" + name as string )
 
 		button_name	= buttontext as string
-		((_controls.button button_name ).pressed ("macros.run @"+category+"@ @"+name+"@")).params ( "Tooltip:"+(this._getTooltip()) )
+		_button	= _controls.button button_name
+		
+		_button.pressed ("macros.run @"+category+"@ @"+name+"@")
+		_button.params ( "Tooltip:"+(this._getTooltip()) )
 
 	),
 	/** _get tooltip

@@ -56,10 +56,6 @@ struct Floater_v
 		
 		roll_main	= (Rollout_v()).new title
 		
-		--try(cui.UnRegisterDialogBar test_floater)catch() --try to unregister if already registered
-		--try(DestroyDialog test_floater)catch()	
-		--this.unregister()
-		
 		roll_main.subrollouts = Rollouts.values
 		
 		roll_main.CreateRollDialog height:_height
@@ -223,7 +219,8 @@ struct Floater_v
 			ini = getFilenamePath(getSourceFileName()) + "\\" + id + ".ini"
 		
 		--print ( "***Floater.ini=" + ini as string )
-		_Ini.ini = ini
+		if( ini!=undefined ) then
+			_Ini.ini = ini
 	), 
 	
 	function test =
