@@ -17,12 +17,21 @@ struct Ini_v
 	),
 	/** Ini save control state
 	 */
-	function load section key =
-	--function save =
+	function load section key default:undefined =
 	(
-		getINISetting ini section key -- return
-		--print( "Ini.save() \nini=" + ini + " \nsection=" + section + " \nkey=" + key + " \nvalue=" + value)
-		--messagebox ("Ini.save() \nini=" + ini )
+		section	= section	as string
+		key	= key	as string
+		value	= default
+		--ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"\\/+" ).Replace ini "\\\\"
+	
+		if( hasINISetting ini section key == true ) then
+			value = getINISetting ini section key -- return
+		
+		print ( "ini=" + ini as string )
+		print ( "Ini_v.load() " + section + " " + key + " = " + value as string )
+		print ( "hasINISetting ini section key =" + (hasINISetting ini section key)  as string )
+
+		value --return
 	),
 	
 	function test =

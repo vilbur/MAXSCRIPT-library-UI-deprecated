@@ -16,7 +16,6 @@ struct RolloutEvent_v
 	function open callback tooltip:"" =
 	(
 		this.Events._setEvent (Event_v type:"open" code:callback params:"val" ) --return
-		--this.Events._setEvent (Event_v type:"open" code:callback params:"val" ) --return
 	),
 	/** Bind pressed event
 	  
@@ -29,8 +28,6 @@ struct RolloutEvent_v
 	 */
 	function _bindDefaultEvents =
 	(
-			--save_to_ini = "print (\"Event: default \"+val as string )"
-			
 			section_key	= filterString parent_control.id "."
 			
 			save_to_ini = parent_control.id + ".saveIni @"+section_key[1]+"@ @open@ (val as string )"
@@ -44,14 +41,14 @@ struct RolloutEvent_v
 	(
 		parent_control.roll.addText ("on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")" )
 	),
-	/** _get llback
+	/** Get callback on rollout opne\close
 	 */
 	function _getCallback =
 	(
 		code_open	= this._getEventCode "open"
 		code_close	= this._getEventCode "close"
 		
-		"if(val==true)then (" +code_open+ ")else("+code_close+")" --return
+		"if(val==true)then (" +code_open+ ")else(" +code_close+ ")" --return
 	),
 	/** _get event code
 	 */

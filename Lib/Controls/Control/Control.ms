@@ -95,7 +95,6 @@ struct Control_v
 	function _getValueFromIni =
 	(
 		value = (Ini_v ini:(parent_roll.ini)).load parent_roll.id id
-
 	),
 	/** Add control to UI 
 	 */
@@ -106,9 +105,7 @@ struct Control_v
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col)
 
 		Events._addHandlers()
-		
 	),
-
 	/** _set caption
 	 */
 	function _setCaption =

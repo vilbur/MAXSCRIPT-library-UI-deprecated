@@ -5,17 +5,19 @@ clearListener();
 /*---------------------------------------
 	ROLLOUT DEFINITION
 -----------------------------------------*/
-Floater	= (Floater_v()).new "Test Floater"
+
+ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"(ms|mscr)$" ).Replace (getSourceFileName()) "ini"
+Floater	= (Floater_v ini:ini).new "Test Floater"
 
 --_rollout	= (Rollout_v()).new "Test Rollout"
 _rollout	= Floater.roll "Events test" ""
 
-_rollout.Events.open "print \"Event: Custom open\""
-_rollout.Events.close "print \"Event: Custom close\""
+_rollout.onOpen "print \"Event: Custom open\""
+_rollout.onClose "print \"Event: Custom close\""
 
 --_rollout.Events.open "messagebox \\\"Custom event\\\""
 --_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
-_rollout.ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"(ms|mscr)$" ).Replace (getSourceFileName()) "ini"
+--Floater.ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"(ms|mscr)$" ).Replace (getSourceFileName()) "ini"
 
 _controls_1	= _rollout.controls()
 --_controls	= _rollout.controls groupbox:("groupbox ") -- get new container for controls

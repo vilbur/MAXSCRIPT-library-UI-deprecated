@@ -9,61 +9,7 @@ struct Events_v
 	Events	= List_v(),
 	Events_default	= List_v(),
 	event_types,
-	--parent_control,
 	
-	
-	/** Bind default event called before user defined callback
-	 */
-	function _bindDefaultEvent =
-	(
-
-		--if( parent_control.type == #checkbox ) then
-		--(
-		--	section_key	= filterString parent_control.path "."
-		--	
-		--	save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
-		--	
-		--	this._setDefaultEvent (Event_v type:"changed" code:save_to_ini params:"val")
-		--)
-		--else if( parent_control.type == #rollout ) then
-		--(
-		--	section_key	= filterString parent_control.id "."
-		--	
-		--	save_to_ini = "messagebox \"message\""
-		--	
-		--	this._setDefaultEvent (Event_v type:"open" code:save_to_ini  )
-		--
-		--)
-
-	),
-	--/*---------------------------------------
-	--	EVENT TYPES
-	--	
-	--	PARAMETERS:
-	--		@param	string	callback	Code executed on event
-	--		@param	callback	tooltip	Tooltip for control
-	--
-	-------------------------------------------*/
-	--/** Bind pressed event
-	-- */
-	--function pressed callback tooltip:"" =
-	--(
-	--	this._setEvent (Event_v type:"pressed" code:callback) --return 
-	--),
-	--/** Bind changed event
-	--  * Value of control is passed to control as variable "val" 
-	--  */
-	--function changed callback tooltip:"" =
-	--(
-	--	this._setEvent (Event_v type:"changed" code:callback params:"val") --return
-	--),
-	--/** Bind pressed event
-	-- */
-	--function open callback tooltip:"" =
-	--(
-	--	this._setEvent (Event_v type:"open" code:callback) --return
-	--),
-
 	/*---------------------------------------
 		SET EVENTS TO LIST
 	-----------------------------------------*/
@@ -100,14 +46,6 @@ struct Events_v
 		for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
 			
 	),
-	--/** Add event handler
-	--  
-	-- */
-	--function _addHandler Event =
-	--(
-	--	if( Event!=undefined ) then
-	--		parent_control.parent_roll.roll.addhandler  parent_control.id Event.type codeStr:Event.code  paramStr:Event.params 
-	--),
 	/*---------------------------------------
 		MERGE EVENTS
 	-----------------------------------------*/
@@ -131,7 +69,7 @@ struct Events_v
 		Event_merged 	= Event_v type:(this._getEventProperty Event_default Event "type")
 		Event_merged.params	= this._getEventProperty Event_default Event "params"
 		Event_merged.code	= ( this._getCodeStr Event_default ) + ";" + ( this._getCodeStr Event )
-		print ( "===Event_merged=" + Event_merged as string )
+		--print ( "===Event_merged=" + Event_merged as string )
 		Event_merged --return
 	),
 	/** Get property from one of ddefined evetts

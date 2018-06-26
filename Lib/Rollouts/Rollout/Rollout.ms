@@ -3,9 +3,13 @@
   *
   * @property	string	title	Title of rollout
   * @property	string	id	Id of rollout, if not defined then sanitized title is used E.G.: title="Foo Rollout" >>> id="foo_rollout"
-  * @property	int	height	Height of tollout
+  * @property	int	height	Height of rollout
+  *
   *
   * @property	string	ini	Path to ini where state of UI is saved, if false then ini state is not saved
+  *
+  * @method	void	onOpen( @param	string	callback[, @param	string	tooltip] )	
+  * @method	void	onClose( @param	string	callback[, @param	string	tooltip] )	
   *
   */
 struct Rollout_v
@@ -19,7 +23,7 @@ struct Rollout_v
 	
 	/* options */
 	height,
-	ini = false,
+	ini = false, -- inherit by Floater_v
 
 	/* lists */
  	ControlBoxes	= #(),
@@ -33,8 +37,9 @@ struct Rollout_v
 	type	= #rollout, -- nack reference for this.Events._bindDefaultEvent()
 	
 	/*------ EXTENDED METHODS ------*/
-	open	= Events.open,
-	close	= Events.close,
+	onOpen	= Events.open,
+	onClose	= Events.close,
+	
 	/** Set new rollout
 	  * @param	string	title	Title of rollout
 	  * @param	string	[_id]	Id of rollout, if void then sanitized title is used E.G.: "Foo Rollout" >>> "foo_rollout"
@@ -82,6 +87,14 @@ struct Rollout_v
 		return roll
 	),
 
+
+	/** Open close by ini
+	 */
+	function open state =
+	(
+		print ( "Rollout."+id+".open()=" + state as string )
+		execute ( id+".open = "+state as string )
+	),
 	/*---------------------------------------
 		CONTROLS 
 	-----------------------------------------*/
@@ -126,6 +139,8 @@ struct Rollout_v
 		this._addSaveIniFunction()
 
 		roll.end()
+		
+		
 	),
 	/*---------------------------------------
 		ROLLOUT DEFINITION
@@ -179,12 +194,6 @@ struct Rollout_v
 		if( ini != false ) then  
 			roll.addText( "function saveIni _section _key _value = ( (Ini_v ini:@"+ini+"@).save _section _key _value )" )
 	),
-	--/** _add function
-	-- */
-	--function _addFunction =
-	--(
-	--	
-	--),
 
 	/*---------------------------------------
 		HELPERS
@@ -203,6 +212,7 @@ struct Rollout_v
 		id = "rollout_"+_id
 
 	),
+	
 	/** Create new roll with rolloutCreator()
 	 */
 	function _setRoll =

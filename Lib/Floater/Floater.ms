@@ -1,4 +1,3 @@
-
 /** Globals
  */
 struct Globals_v
@@ -8,7 +7,8 @@ struct Globals_v
 
 if( __GLOBAL__v==undefined ) then
 	global __GLOBAL__v = Globals_v()
-
+	
+	
 /** Floater
   *
   *
@@ -18,9 +18,11 @@ if( __GLOBAL__v==undefined ) then
 struct Floater_v
 (
 	self	= this,
+	
 	/* dependency */
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
+	_Ini	= Ini_v(),
 
 	/* config */	
 	title,
@@ -66,6 +68,8 @@ struct Floater_v
 			
 		size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
 
+		this._openCloseRollouts()
+		
 		this.register()
 		
 		this --return
@@ -83,7 +87,6 @@ struct Floater_v
 	(
 		if( title!="" ) then -- GET will be removed probably in future
 		(
-			--print ( "roll() ini=" + ini as string )
 			_rollout	= (Rollout_v ini:ini ).new title id:id
 			id	= _rollout.id
 			Rollouts.setVal id ( _rollout )
@@ -192,7 +195,6 @@ struct Floater_v
 		for _rollout in Rollouts.values do
 			addRollout (_rollout.create dialog:false) Floater
 	),
-
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
@@ -201,24 +203,27 @@ struct Floater_v
 		id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
 
 		__GLOBAL__v.Floater = this
-		
-		--print ( "----GLOBAL Floater=" + id as string )
-
-		--test_var = "global_test"
-		--execute ( "global "+test_var  )
-		--execute ( "global "+test_var +"="+id )
-
-		--global_test = "changed value"
-		
-		
-		--execute ( "global "+id  )
 	),
+	/** _open close rollouts
+	 */
+	function _openCloseRollouts =
+	(
+		for _rollout_id in Rollouts.keys do
+		(
+			_Rollout	= Rollouts.getVal _rollout_id
+			_Rollout.open ( _Ini.load _Rollout.id #open default:true )
+		)
+	),
+	
 	/** _set ini
 	 */
 	function _setIni =
 	(
-		ini = getFilenamePath(getSourceFileName()) + "\\" + id + ".ini"
-		print ( "ini=" + ini as string )
+		if( ini==undefined and _Ini.ini==undefined ) then
+			ini = getFilenamePath(getSourceFileName()) + "\\" + id + ".ini"
+		
+		--print ( "***Floater.ini=" + ini as string )
+		_Ini.ini = ini
 	), 
 	
 	function test =
