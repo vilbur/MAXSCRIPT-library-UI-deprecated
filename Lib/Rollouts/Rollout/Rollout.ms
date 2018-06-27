@@ -119,8 +119,8 @@ struct Rollout_v
 	  */
 	function _setRolloutGlobalVariable =
 	(
-		--if( id==undefined ) then
-		--print ("rollout global "+id)
+		print ( "Rollout_v._setRolloutGlobalVariable() global " + id as string )
+
 		execute ( "global "+ id )
 	),
 
@@ -205,13 +205,7 @@ struct Rollout_v
 		if( _id=="" ) then
 			_id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
 		
-		--_id = _id_	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"_" ).Replace _id_ "replace"
-		
-		print ( "rollout id=" + "rollout_" + _id as string )
-
-		--id = _id
 		id = "rollout_"+_id
-
 	),
 	
 	/** Create new roll with rolloutCreator()

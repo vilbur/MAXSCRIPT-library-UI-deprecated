@@ -9,20 +9,20 @@ struct ScriptFile_Content_v
 (
 	/* public properties */
 	file,
-	
+
 	/* private properties */
 	_name,
 	MacroScripts	= #(),
 	_MacroScript,	-- store currently parsed Macro file
-	
+
 	/** File
 	 */
 	function load file_path =
 	(
 		file	= file_path
-		--print ( " ScriptFile_Content.load file=" +  getFilenameType file as string )
+
 		print ("ScriptFile_Content.load\""+file+"\"")
-		if( getFilenameType file == ".mcr" ) then
+		if( this.isMacrosriptFile() ) then
 		(
 			filein file
 
@@ -30,17 +30,23 @@ struct ScriptFile_Content_v
 		)
 		this --return
 	),
-	/** Has macro scripts
-	 */
-	function hasMacroScripts =
-	(
-		MacroScripts.count > 0 --return
-	),
 	/** Is maxscript file
 	 */
 	function isMaxscriptFile =
 	(
 		 getFilenameType file == ".ms" --return
+	),
+	/** Is maxscript file
+	 */
+	function isMacrosriptFile =
+	(
+		 getFilenameType file == ".mcr" --return
+	),
+	/** Has macro scripts
+	 */
+	function hasMacroScripts =
+	(
+		MacroScripts.count > 0 --return
 	),
 	/** Insert to ui
 	 */
@@ -48,14 +54,15 @@ struct ScriptFile_Content_v
 	(
 		print ( "ScriptFile_Content._addControls() =" + file as string )
 
-		_name	= if(  _name==undefined )then "" else "";
-		 
-		_controls	= this.addGroupbox _rollout
-		
-		if( getFilenameType file == ".mcr" ) then
+		_name	= if( _name==undefined )then "" else "";
+
+		if( this.isMacrosriptFile() ) then
+		(
+			_controls	= this.addGroupbox _rollout
+
 			for m = 1 to MacroScripts.count do
 				MacroScripts[m]._addControls _controls
-
+		)
 		else
 			this._runScriptFile()
 	),
@@ -67,18 +74,25 @@ struct ScriptFile_Content_v
 	),
 	/** Get name of groupbox by file name
 	  * 
-	  * @return	string	Name of groupbox, if file is named "_main.mcr", then return undefined and controls are placed to rollout
+	  * @return	string	Name of groupbox, If filename starts with underscore "_", then return undefined and controls are placed to new controls box without groupbox
 	 */
 	function _getGroupboxName =
 	(
 		filename = getFilenameFile file
-		
-		if not ( matchPattern file pattern:"*_main.mcr" ) then
+
+		if ( this.hasGroupbox() ) then
 			filename
 		else
 			undefined
 	),
-	
+	/** If filename starts with underscore "_"
+	  * @return	boolean	
+	 */
+	function hasGroupbox =
+	(
+		( dotNetClass "System.Text.RegularExpressions.Regex" ).isMatch ( getFilenameFile file ) "^_" == false --return 
+	),
+
 	/** _run script file
 	 */
 	function _runScriptFile =

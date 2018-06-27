@@ -70,6 +70,16 @@ struct Control_v
 		this --return
 	),
 
+
+	/** Get promise string to get property of controls 
+	  * @example prop ("state")	return "rollout_foo.this_control.state"
+	  *
+	  * @return	string	Path to controls property
+	 */
+	function prop prop_name =
+	(
+		return path + "." + ( prop_name as string )
+	),
 	/** _set value
 	 */
 	function _setValue =
@@ -100,8 +110,6 @@ struct Control_v
 	 */
 	function _addControl =
 	(
-		--print ("Control._addControl() " + type +" " + id +"=path"+path)
-
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col)
 
 		Events._addHandlers()
@@ -117,7 +125,7 @@ struct Control_v
 	 */
 	function _setPath =
 	(
-		this.path = parent_roll.id +"."+id
+		path = parent_roll.id +"."+id
 	),
 	/** Get width
 	 */

@@ -15,8 +15,6 @@ struct Controls_v
 	 */
 	function control type caption id value:undefined add:true =
 	(
-		--print ( "----- control =" + type as string )
-		
 		if( id==undefined or id=="" ) then
 			id = this.getId caption 
 		
@@ -35,7 +33,9 @@ struct Controls_v
 	),
 	
 	/*---------------------------------------
+	  
 		CONTROLS TYPES
+		
 	-----------------------------------------*/
 	/** Add Button
 	 */
@@ -49,28 +49,28 @@ struct Controls_v
 	(
 		this.control #checkbox caption id value:checked add:add
 	),
+
+
 	/*---------------------------------------
+	  
 		ADDING CONTROLS
+		
 	-----------------------------------------*/
 	/** Add controls to rollout
 	 */ 
 	function _addControls =
 	(
-		--print "-------Controls_v._addControls"
-		--this.setNewControlBox()
-		--this.setNewBoxPosition()
 		ControlBox.new	parent_roll groupbox	-- Set new groupbox
 		parent_roll.Layout.newControlsBox	groupbox	-- Set position to layout
 
-		
 		for Control in this.Controls do
 			Control._addControl()
 		
 		ControlBox.addGroupBox()	-- Add groupbox control
 		parent_roll.Layout.nextControlsBox groupbox	--
-		--this.addGroupbox()
-		--this.setNextBoxPosition()
 	),
+
+
 
 	/*---------------------------------------
 		HELPERS

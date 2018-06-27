@@ -41,7 +41,7 @@ _Checkbox_B	= _controls_1.checkbox "Checkbox B" checked:true -- set checkbox che
 --	It allows use data of Checkbox in pressed event of Button, even if Button is added before Checkbox 
 --*/
 --_Checkbox_D	= _controls_1.checkbox "Checkbox D"	add:false
---_Button_D	= (_controls_1.button "Button D"	add:false).pressed (_Checkbox_D.path+".state  = not "+_Checkbox_D.path+".state")
+--_Button_D	= (_controls_1.button "Button D"	add:false).pressed (_Checkbox_D.prop ("state")+" = not "+_Checkbox_D.path+".state")
 --
 --_controls_1.add _Button_D
 --_controls_1.add _Checkbox_D

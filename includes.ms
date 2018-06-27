@@ -22,7 +22,7 @@ filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Control.m
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Layout/Bbox/Bbox.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Layout/Layout.ms" );
-filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/types/ControlBox.ms" ); 
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/ControlBox/ControlBox.ms" ); 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Controls.ms" );
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Rollout/Rollout.ms" );
