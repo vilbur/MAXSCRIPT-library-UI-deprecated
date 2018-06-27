@@ -32,8 +32,9 @@ struct Rollout_Content_v
 		_rollout = Floater.roll (name) ""
 		
 		for f=1 to ScriptFiles.count do
-			if( ScriptFiles[f].MacroScripts.count > 0 ) then
-				ScriptFiles[f]._addControls _rollout
+			if( ScriptFiles[f].hasMacroScripts() or ScriptFiles[f].isMaxscriptFile() ) then
+				ScriptFiles[f].addControls _rollout
+				
 	),
  
 	/** Set name "Rollout-1" >> "Rollout 1"
@@ -53,12 +54,15 @@ struct Rollout_Content_v
 	function _loadMacroFiles =
 	(
 		macro_files = sort ( join (getFiles (dir + "/*.mcr")) (getFiles (dir + "/*.ms")) )
-		--macro_files = sort ( getFiles (dir + "/*.mcr")) 
+		--print ( "macro_files=" + macro_files as string )
 
 		if( macro_files.count > 0 ) then
 			for macro_file in macro_files do
 				append ScriptFiles ( (ScriptFile_Content_v()).load macro_file )
 
+		for item in ScriptFiles do
+			print ( "item=" + item.file as string )		
+				
 		this --return
 	),
 	function test =
@@ -66,3 +70,10 @@ struct Rollout_Content_v
 		messagebox "Rollout_Content_v.test()"
 	)
 )
+
+
+
+
+
+
+

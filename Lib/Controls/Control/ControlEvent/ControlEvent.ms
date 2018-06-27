@@ -41,7 +41,7 @@ struct ControlEvent_v
 	 */
 	function _addHandlers =
 	(
-		print ( "ControlEvent_v._addHandlers=" + this.Events._getEvents() as string )
+		--print ( "ControlEvent_v._addHandlers=" + this.Events._getEvents() as string )
 		_Events = this.Events._getEvents()
 		
 		for _Event in _Events do

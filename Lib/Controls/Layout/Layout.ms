@@ -34,7 +34,7 @@ struct Layout_v
 	 */
 	function nextControlsBox groupbox =
 	(
-		print ( "Layout_v.nextControlsBox() groupbox=" + groupbox as string )
+		--print ( "Layout_v.nextControlsBox() groupbox=" + groupbox as string )
 		
 		y = pos[2] + _grid
 		--y = pos[2] + 16

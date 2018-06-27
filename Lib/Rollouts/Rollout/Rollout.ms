@@ -92,7 +92,7 @@ struct Rollout_v
 	 */
 	function open state =
 	(
-		print ( "Rollout."+id+".open()=" + state as string )
+		--print ( "Rollout."+id+".open()=" + state as string )
 		execute ( id+".open = "+state as string )
 	),
 	/*---------------------------------------
@@ -120,7 +120,7 @@ struct Rollout_v
 	function _setRolloutGlobalVariable =
 	(
 		--if( id==undefined ) then
-		print ("rollout global "+id)
+		--print ("rollout global "+id)
 		execute ( "global "+ id )
 	),
 
@@ -206,7 +206,8 @@ struct Rollout_v
 			_id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
 		
 		--_id = _id_	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"_" ).Replace _id_ "replace"
-		print ( "GLOBAL rollout=" + _id as string )
+		
+		print ( "rollout id=" + "rollout_" + _id as string )
 
 		--id = _id
 		id = "rollout_"+_id

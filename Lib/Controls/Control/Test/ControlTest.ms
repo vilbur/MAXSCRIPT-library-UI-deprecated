@@ -47,7 +47,7 @@ _Checkbox_B	= _controls_1.checkbox "Checkbox B" checked:true -- set checkbox che
 --_controls_1.add _Checkbox_D
 
 
-/*---------------------------------------A
+/*---------------------------------------
 	 CREATE DIALOG 
 -----------------------------------------*/
 _rollout.CreateRollDialog()

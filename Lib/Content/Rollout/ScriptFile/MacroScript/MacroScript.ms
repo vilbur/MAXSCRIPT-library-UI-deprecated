@@ -54,7 +54,7 @@ struct MacroScript_Content_v
 		if( toolTip!=undefined ) then
 		(
 			string_split	= filterString toolTip "|"
-			print ( "string_split=" + string_split as string )
+			--print ( "string_split=" + string_split as string )
 			if( string_split[1]!=undefined ) then
 				tooltip_text = 	"" + string_split[1]
 

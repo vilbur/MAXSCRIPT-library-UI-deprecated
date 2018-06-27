@@ -7,7 +7,6 @@
   */
 struct ScriptFile_Content_v
 (
-	
 	/* public properties */
 	file,
 	
@@ -21,28 +20,37 @@ struct ScriptFile_Content_v
 	function load file_path =
 	(
 		file	= file_path
-
-		--print ( " getFilenameType file=" +  getFilenameType file as string )
+		--print ( " ScriptFile_Content.load file=" +  getFilenameType file as string )
+		print ("ScriptFile_Content.load\""+file+"\"")
 		if( getFilenameType file == ".mcr" ) then
 		(
-			print ("MacroFile.load\""+file+"\"")
-
 			filein file
 
 			this._parseMacrosInFile (this._getFileContent file_path)
-
 		)
-
 		this --return
+	),
+	/** Has macro scripts
+	 */
+	function hasMacroScripts =
+	(
+		MacroScripts.count > 0 --return
+	),
+	/** Is maxscript file
+	 */
+	function isMaxscriptFile =
+	(
+		 getFilenameType file == ".ms" --return
 	),
 	/** Insert to ui
 	 */
-	function _addControls _rollout =
+	function addControls _rollout =
 	(
-		if( _name==undefined ) then
-			_name	= getFilenameFile file
-		
-		_controls	= _rollout.controls groupbox:( this._getGroupboxName() ) -- get new container for controls
+		print ( "ScriptFile_Content._addControls() =" + file as string )
+
+		_name	= if(  _name==undefined )then "" else "";
+		 
+		_controls	= this.addGroupbox _rollout
 		
 		if( getFilenameType file == ".mcr" ) then
 			for m = 1 to MacroScripts.count do
@@ -50,6 +58,12 @@ struct ScriptFile_Content_v
 
 		else
 			this._runScriptFile()
+	),
+	/** Add groupbox
+	 */
+	function addGroupbox _rollout =
+	(
+		_rollout.controls groupbox:( this._getGroupboxName() ) -- get new container for controls
 	),
 	/** Get name of groupbox by file name
 	  * 
@@ -105,8 +119,7 @@ struct ScriptFile_Content_v
 
 		while not eof file_opened do 
 		(
-			r =  readLine file_opened --read the first line and store as a string it in r
-			append lines r --append the first line to lines array
+			append lines ( readLine file_opened ) --append the first line to lines array
 			line_cnt += 1 --add 1 to the counter
 		)
 

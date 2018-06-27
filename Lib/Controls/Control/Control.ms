@@ -100,7 +100,7 @@ struct Control_v
 	 */
 	function _addControl =
 	(
-		print ("Control._addControl() " + type +" " + id +"=path"+path)
+		--print ("Control._addControl() " + type +" " + id +"=path"+path)
 
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col)
 

@@ -17,7 +17,7 @@ struct Events_v
 	 */
 	function _setDefaultEvent Event =
 	(
-		print ( "_setDefaultEvent=" + Event as string )
+		--print ( "_setDefaultEvent=" + Event as string )
 		this.Events_default.setVal Event.type Event
 	),
 	/** Set Event to Events

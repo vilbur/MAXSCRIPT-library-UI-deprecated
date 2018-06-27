@@ -15,7 +15,7 @@ struct Controls_v
 	 */
 	function control type caption id value:undefined add:true =
 	(
-		print ( "----- control =" + type as string )
+		--print ( "----- control =" + type as string )
 		
 		if( id==undefined or id=="" ) then
 			id = this.getId caption 
@@ -56,7 +56,7 @@ struct Controls_v
 	 */ 
 	function _addControls =
 	(
-		print "-------Controls_v._addControls"
+		--print "-------Controls_v._addControls"
 		--this.setNewControlBox()
 		--this.setNewBoxPosition()
 		ControlBox.new	parent_roll groupbox	-- Set new groupbox
@@ -72,31 +72,6 @@ struct Controls_v
 		--this.setNextBoxPosition()
 	),
 
-	--private
-	--/** Set groupbox
-	-- */
-	--function setNewControlBox =
-	--(
-	--	ControlBox.setNewControlBox parent_roll groupbox
-	--),
-	--/** Set new box position
-	-- */
-	--function setNewBoxPosition =
-	--(
-	--	parent_roll.Layout.setNewBoxPosition groupbox
-	--),
-	--/** Set next box position
-	-- */
-	--function setNextBoxPosition =
-	--(
-	--	parent_roll.Layout.setNextBoxPosition groupbox
-	--),
-	--/** Add groupbox
-	-- */
-	--function addGroupbox =
-	--(
-	--	ControlBox.addGroupBox()
-	--),
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------*/

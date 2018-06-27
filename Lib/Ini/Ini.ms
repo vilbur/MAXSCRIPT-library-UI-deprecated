@@ -27,9 +27,9 @@ struct Ini_v
 		if( hasINISetting ini section key == true ) then
 			value = getINISetting ini section key -- return
 		
-		print ( "ini=" + ini as string )
-		print ( "Ini_v.load() " + section + " " + key + " = " + value as string )
-		print ( "hasINISetting ini section key =" + (hasINISetting ini section key)  as string )
+		--print ( "ini=" + ini as string )
+		--print ( "Ini_v.load() " + section + " " + key + " = " + value as string )
+		--print ( "hasINISetting ini section key =" + (hasINISetting ini section key)  as string )
 
 		value --return
 	),
