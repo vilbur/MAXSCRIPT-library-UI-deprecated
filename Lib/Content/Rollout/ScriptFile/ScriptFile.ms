@@ -78,9 +78,11 @@ struct ScriptFile_Content_v
 	(
 		for _line in lines do
 		(
-			if( matchPattern _line pattern:@"*macroScript*" ) then
+			rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
+			rx	= dotNetClass "System.Text.RegularExpressions.Regex"
+
+			if( rx.isMatch _line "(?<!--)macroscript" rx_options.IgnoreCase == true  ) then
 			(
-				--print ( "MACRO=" + _line as string )
 				if( _MacroScript!=undefined ) then
 					append MacroScripts _MacroScript
 
