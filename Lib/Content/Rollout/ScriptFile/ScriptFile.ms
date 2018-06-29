@@ -78,10 +78,8 @@ struct ScriptFile_Content_v
 	 */
 	function _getGroupboxName =
 	(
-		filename = getFilenameFile file
-
 		if ( this.hasGroupbox() ) then
-			filename
+			( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+" ).Replace ( trimLeft ( trimRight (getFilenameFile file) "_" )  "_" ) " "
 		else
 			undefined
 	),
