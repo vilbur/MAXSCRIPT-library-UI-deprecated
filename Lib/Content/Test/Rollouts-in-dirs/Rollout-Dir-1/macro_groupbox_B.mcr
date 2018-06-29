@@ -1,6 +1,6 @@
 
 macroScript macro_test_E
-	category:	"macrotest"
+	category:	"_macrotest"
 	buttontext: "macro_test_E"
 	toolTip:	"Test tooltip"
 	icon:	"#(path, index)"
@@ -9,7 +9,7 @@ macroScript macro_test_E
 )
 
 macroScript macro_test_F
-	category:	"macrotest"
+	category:	"_macrotest"
 	buttontext: "macro_test_F"
 	toolTip:	"Test tooltip"
 	icon:	"#(path, index)"
@@ -18,7 +18,7 @@ macroScript macro_test_F
 )
 
 macroScript macro_test_G
-	category:	"macrotest"
+	category:	"_macrotest"
 	buttontext: "macro_test_G"
 	toolTip:	"Test tooltip"
 	icon:	"#(path, index)"

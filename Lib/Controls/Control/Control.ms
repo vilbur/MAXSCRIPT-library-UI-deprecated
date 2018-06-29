@@ -22,14 +22,16 @@ struct Control_v
 	path, -- full path to control id E.G.: "foo_rollout.bar_control"
 
 	/*------ EXTENDED METHODS ------*/
-	pressed = Events.pressed,
-	changed = Events.changed,
+	pressed	= Events.pressed,
+	changed	= Events.changed,
+	rightclick	= Events.rightclick,
 
 	/** Init object
 	 */
 	function init =
 	(
 		this._setCaption()
+		this._setId()
 		this._setPath()
 		this._setValue()
 
@@ -113,6 +115,14 @@ struct Control_v
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col)
 
 		Events._addHandlers()
+	),
+	/** Get id
+	 */
+	function _setId =
+	(
+		id_source	= ( if( id==undefined or id=="" )then caption else id ) as string
+
+		id = ( ( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (id_source) ) "" ) as string
 	),
 	/** _set caption
 	 */

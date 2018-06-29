@@ -1,12 +1,12 @@
-
-/** ControlBox
+/** Section box of controls, an be groupbox if "ControlBox_v.groupbox" is set
+  *
+  * Id of groupbox has preffix "gb_"
  */
 struct ControlBox_v 
 (
 	parent_roll,
 	id,
 	groupbox,
-	--pos,
 
 	/** Set parent roll
 	 */
@@ -15,12 +15,13 @@ struct ControlBox_v
 		parent_roll	= _parent_roll
 		groupbox	= _groupbox
 		
-		return this
+		this --return 
 	),	
 	/** Add groupbox
 	 */
 	function addGroupBox =
 	(
+		print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
 		if( groupbox!=undefined ) then
 			parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(parent_roll.Layout._getGroupboxParams())
 	),
@@ -29,7 +30,7 @@ struct ControlBox_v
 	 */
 	function getId =
 	(
-		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower groupbox ) "_";
+		"_gb" + (( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower groupbox ) "_" ) --return
 	),
 
 	function test =

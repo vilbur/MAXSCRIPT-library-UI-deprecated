@@ -15,12 +15,7 @@ struct Controls_v
 	 */
 	function control type caption id value:undefined add:true =
 	(
-		if( id==undefined or id=="" ) then
-			id = this.getControlId caption 
-		else
-			id = this.getControlId id 
-		
-		Control_new = (Control_v parent_roll:parent_roll type:type caption:caption id:id value:value ).init() 
+		Control_new = (Control_v parent_roll:parent_roll type:type caption:caption value:value ).init() 
 		
 		if( add==true ) then
 			this.add Control_new
@@ -77,12 +72,7 @@ struct Controls_v
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------*/
-	/** Get id
-	 */
-	function getControlId caption =
-	(
-		return ( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower (caption as string) ) "_";
-	),
+
 	
 	function test =
 	(

@@ -8,7 +8,10 @@ struct MacroScript_Content_v
 	toolTip,
 	icon,
 	_macroScript,
-	self=this,
+	
+	
+	Controls_added	= #(),
+
 	/** Set name
 	 */
 	function setName _string =
@@ -27,22 +30,29 @@ struct MacroScript_Content_v
 		--value	=	props[2]
 		value	= ( dotnetObject "System.Text.RegularExpressions.Regex" "\"" ).Replace ( trimLeft ( trimRight props[2] )  ) ""
 
-		if( hasProperty self key ) then
-			setProperty self key value
+		if( hasProperty this key ) then
+			setProperty this key value
 
 		this --return
 	),
 	/** Insert Macro as button to UI
 	  * Button runs macro on preesed
 	 */
-	function _addControls _controls =
+	function _addControls _Controls =
 	(
-	--print ( "category = " + category as string )
-		--button_name	= buttontext as string
-		_button	= _controls.button (buttontext as string) id:( this.getControlId() )
+		control_id	=  this.getControlId()
+	
+	
+		_button	= _Controls.button (buttontext as string) id:control_id add:false
+		
+		
+		--_button.rightclick ("messagebox @Test@")
 		
 		_button.pressed ("macros.run @"+category+"@ @"+name+"@")
+		
 		_button.params ( "Tooltip:"+(this._getTooltip()) )
+		
+		_controls.add _button
 
 	),
 	/** Get ntrol id

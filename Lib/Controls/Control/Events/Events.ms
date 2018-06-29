@@ -26,8 +26,6 @@ struct Events_v
 	(
 		--print ( "Events_v._setEvent()=" + Event as string )
 		this.Events.setVal Event.type Event
-		
-		--parent_control --return 
 	),
 	--/*---------------------------------------
 	--	ADDING EVENT HANDLERS

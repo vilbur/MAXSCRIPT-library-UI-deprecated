@@ -1,18 +1,18 @@
 
-macroScript macro_test_C
-	category:	"macrotest"
-	buttontext: "macro_test"
-	toolTip:	"Test tooltip"
+macroScript macro_left_click_test
+	category:	"_macrotest"
+	buttontext: "Left\Right click"
+	toolTip:	"Left\Right click button generated from macro"
 	icon:	"#(path, index)"
 (
-	messagebox "Macro Test C\n\nSUCCESS";
+	messagebox "Left click on button"
 )
 
-macroScript macro_test_D
-	category:	"macrotest"
-	buttontext: "macro_test_2"
-	toolTip:	"Test tooltip"
-	icon:	"#(path, index)"
-(
-	messagebox "Macro Test D\n\nSUCCESS";
-)
+--macroScript macro_right_click_test
+--	category:	"_macrotest"
+--	buttontext: "Left\Right click"
+--	toolTip:	"Right tooltip"
+--	icon:	"#(path, index)"
+--(
+--	messagebox "Right click on button"
+--)
