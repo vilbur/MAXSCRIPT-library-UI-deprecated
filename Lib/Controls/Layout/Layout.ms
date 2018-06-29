@@ -3,14 +3,15 @@
 struct Layout_v
 (
 	Bbox,
-	_grid	= 32,	-- width and height of _grid
+	_grid	= 24,	-- width and height of _grid
+	roll_width	= 12, -- columns width of rollout
 	padding	= 2,	-- padding between controls
 	margin	= 2,
+	padding_box	= 16,
+
 	pos_box	= [margin*2,4],
 	pos,
 
-	roll_width	= 8, -- columns width of rollout
-	padding_box	= 16,
 
 	/*---------------------------------------
 		CONTROLS BOX

@@ -203,7 +203,7 @@ struct Rollout_v
 	function _setId _id =
 	(
 		if( _id=="" ) then
-			_id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
+			_id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
 		
 		id = "rollout_"+_id
 	),

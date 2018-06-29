@@ -116,10 +116,11 @@ struct ScriptFile_Content_v
 
 				_MacroScript = (MacroScript_Content_v()).setName _line
 			)
-			else if( _MacroScript!=undefined and  matchPattern _line pattern:@"*:*" ) then
+			--else if( _MacroScript!=undefined and  matchPattern _line pattern:@"*:*" ) then
+			else if( _MacroScript!=undefined and rx.isMatch _line "(?<!--)\s*\w+:" rx_options.IgnoreCase == true  ) then
 				_MacroScript.setProp (filterString _line ":") 
 		)
-
+ --matchPattern _line pattern:@"*:*"
 		if( _MacroScript!=undefined) then
 			append MacroScripts _MacroScript
 	),
