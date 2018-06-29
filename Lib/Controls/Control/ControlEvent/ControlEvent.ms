@@ -8,7 +8,7 @@
 struct ControlEvent_v 
 (
 	/* dependency */
-	Events	= Events_v event_types:#("pressed", "rightclick", "changed"), -- 
+	Events	= Events_v event_types:#("pressed", "rightclick", "changed"),
 
 	parent_control,
 
@@ -21,20 +21,20 @@ struct ControlEvent_v
 	-----------------------------------------*/
 	/** Bind pressed event
 	 */
-	function pressed callback tooltip:"" =
+	function pressed callback tooltip:"A" =
 	(
 		this._bindEvent "pressed" callback tooltip
 	),
 	/** Bind changed event
 	  * Value of control is passed to control as variable "val" 
 	  */
-	function changed callback tooltip:"" =
+	function changed callback tooltip:"B" =
 	(
 		this._bindEventWithValue "changed" callback tooltip
 	),
 	/** Bind rightclick event
 	  */
-	function rightclick callback tooltip:"" =
+	function rightclick callback tooltip:"C" =
 	(
 		this._bindEvent "rightclick" callback tooltip
 	),
@@ -51,9 +51,9 @@ struct ControlEvent_v
 	/** Set event with value in callback, E.G.: for checkbox
 	  *	placehoder for variable of value is "val"
 	 */
-	function _bindEventWithValue type tooltip =
+	function _bindEventWithValue type callback tooltip =
 	(
-		this.Events._setEvent (Event_v type:type code:callback params:"val" tooltip:tooltip) --return
+		this.Events._setEvent (Event_v type:type code:callback tooltip:tooltip) --return
 	),
 
 	/** _bind default event

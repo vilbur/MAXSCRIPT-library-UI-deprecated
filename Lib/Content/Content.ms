@@ -7,9 +7,10 @@
   * @example 1) Content_v dir:("C:/ContentDir") -- load all dirs in directory as rollouts
   *		ContentDir\  
   *			rollout-A\
-  *				groupbox.mcr	- Hole file is Gorupbox & every macro in *.mcr file is buton
+  *				groupbox.mcr	-- Hole file is Gorupbox & every macro in *.mcr file is button
+  *				_no_groupbox.mcr	-- Macro in file which starts with underscopre "_" will not be placed to groupbox
   *			rollout-B\
-  *				custom-ui.ms	- Each script will be executed on floater creation
+  *				custom-ui.ms	-- Each script will be executed on floater creation
   *	 
   * --------------------------------------------------------------------------------------------------------------------
   * @example 2) Content_v dir:("C:/ContentDir/*") match:"rollout-(.*)" -- load directories in subdirs, only dirs matching regex are used as rollouts, rollout name is match group

@@ -54,7 +54,10 @@ struct Events_v
 		
 		if( Event_default!=undefined or Event!=undefined ) then
 			this.mergeEvents Event_default Event
-			
+		else
+			undefined
+		
+		Event
 		--print ( "Events_v._mergeEvent() " + event_type as string )
 	),
 	/** Merge events
@@ -64,10 +67,11 @@ struct Events_v
 		Event_merged 	= Event_v type:(this._getEventProperty Event_default Event "type")
 		Event_merged.params	= this._getEventProperty Event_default Event "params"
 		Event_merged.code	= ( this._getCodeStr Event_default ) + ";" + ( this._getCodeStr Event )
-		--print ( "===Event_merged=" + Event_merged as string )
+		Event_merged.tooltip	= this._getEventProperty Event_default Event "tooltip"
+
 		Event_merged --return
 	),
-	/** Get property from one of ddefined evetts
+	/** Get property from one of defined evets
 	 */
 	function _getEventProperty Event_default Event property =
 	(

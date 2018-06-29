@@ -1,11 +1,16 @@
-/** Content macro
- */
+/** Struct present single macrosript in ".mcr" file
+  *
+  * This macro is able to add self calling button to UI
+  * Macro is called with left click
+  * Right click macro for button is added with another macroscript with same button name stored in "buttontext:"
+  *
+  */
 struct MacroScript_Content_v
 (
 	name,
 	category,
 	buttontext,
-	toolTip,
+	tooltip,
 	icon,
 	_macroScript,
 	
@@ -16,25 +21,27 @@ struct MacroScript_Content_v
 	 */
 	function setName _string =
 	(
-		--name	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"macroScript\s+" ).Replace _string ""
-		--name	= trimleft _string "macroScript "
 		name	= trimLeft (trimRight (substring _string 13 -1))
 		name	= ( dotnetObject "System.Text.RegularExpressions.Regex" "[\"]*" ).Replace name ""
+		
 		this --return
 	),
 	/** Set property
 	 */
 	function setProp props =
 	(
-		key	=	 trimLeft (trimRight (trimLeft props[1]))
-		--value	=	props[2]
+		key	= trimLeft (trimRight (trimLeft props[1]))
 		value	= ( dotnetObject "System.Text.RegularExpressions.Regex" "\"" ).Replace ( trimLeft ( trimRight props[2] )  ) ""
-
+		--print ( key +" = " + value as string )
 		if( hasProperty this key ) then
 			setProperty this key value
 
 		this --return
 	),
+	
+	/*---------------------------------------
+		PRIVATE
+	-----------------------------------------*/	
 	/** Insert Macro as button to UI
 	  * Button runs macro on preesed
 	 */
@@ -52,10 +59,6 @@ struct MacroScript_Content_v
 		)
 		else
 			_button = this._setOnClickEvent #right _button_exists 
-		
-		--_button.params ( "Tooltip:"+(this._getTooltip()) )
-		
-		--if( _button_exists==false ) then
 	),
 	/** Get control id
 	 */
@@ -77,46 +80,7 @@ struct MacroScript_Content_v
 		
 		Control --return
 	),
-	--/** Set leftClick
-	-- */
-	--function _setLeftClick Control =
-	--(
-	--	Control.pressed ("macros.run @"+category+"@ @"+name+"@")
-	--	
-	--	Control --return
-	--),
-	--/** Set right click
-	-- */
-	--function _setRightClick Control =
-	--(
-	--	Control.rightclick ("macros.run @"+category+"@ @"+name+"@")
-	--
-	--	Control --return
-	--),
-	--/** _get tooltip
-	-- */
-	--function _getTooltip =
-	--(
-	--	tooltip_text = "X"
-	--
-	--	if( toolTip!=undefined ) then
-	--	(
-	--		string_split	= filterString toolTip "|"
-	--		--print ( "string_split=" + string_split as string )
-	--		if( string_split[1]!=undefined ) then
-	--			tooltip_text = 	"" + string_split[1]
-	--
-	--		if( string_split[2]!=undefined ) then
-	--			tooltip_text += "\n" + string_split[2]
-	--		--	"EMTY:"
-	--
-	--	)
-	--	--else
-	--		--" macro @"+category+"@ @"+name+"@"
-	--
-	--		"\""+tooltip_text+"\""
-	--
-	--),
+
 	function test =
 	(
 		messagebox "Content.test()"

@@ -2,17 +2,16 @@
 macroScript macro_left_click_test
 	category:	"_macrotest"
 	buttontext: "Left\Right click"
-	toolTip:	"Button generated"
+	toolTip:	"Left Right click button generated from macro"
 	icon:	"#(path, index)"
 (
-	--messagebox "Left click on button"
-	messagebox "If exists more then one macro with same \"buttontext\" properity \n\nthen next macro will be added as rightclick"
+	messagebox "Left click on button"
 )
 
 macroScript macro_right_click_test
 	category:	"_macrotest"
 	buttontext: "Left\Right click"
-	toolTip:	"From macro"
+	toolTip:	"Right tooltip"
 	icon:	"#(path, index)"
 (
 	messagebox "Right click on button"

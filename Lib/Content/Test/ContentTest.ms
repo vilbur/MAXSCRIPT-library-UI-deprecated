@@ -12,14 +12,12 @@ Floater	= (Floater_v()).new "Layout Test"
 function loadContentTest =
 (
 	current_dir	= getFilenamePath(getSourceFileName())
+	--Content	= (Content_v dir:(current_dir+"/Rollout-tooltip-test")	match:"rollout-(.*)$"	).load()
 	Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
-	--Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs/*")	match:"rollout-(test-.*)"	).load()
-
-	Content.load()
-	--Content_nested.load()
+	Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs/*")	match:"rollout-(test-.*)"	).load()
 	
 	Content.setControlsToUI Floater
-	--Content_nested.setControlsToUI Floater
+	Content_nested.setControlsToUI Floater
 )
 
 /** Add extra rollout

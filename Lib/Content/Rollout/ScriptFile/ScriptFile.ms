@@ -1,9 +1,11 @@
 /** Process ".ms" & ".mcr" file
+  * 1) Get macroscripts from '.mcr' files
+  * 2) Filein '.ms' files
   *
   * @property	string	file	Path to file
   *
-  * Get macroscripts from '.mcr' files
-  * Filein '.ms' files
+  *
+  *
   */
 struct ScriptFile_Content_v
 (

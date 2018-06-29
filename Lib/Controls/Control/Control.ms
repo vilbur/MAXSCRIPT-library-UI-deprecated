@@ -3,14 +3,14 @@
 struct Control_v 
 (
 	/* dependency */
-	Events	= ControlEvent_v parent_control:this,
+	ControlEvent	= ControlEvent_v parent_control:this,
 	_Params	= Params_v(),
 	Layout,
 
 	parent_roll,
 
 	/* config */
-	type,
+	type,	-- type of control E.G.: #button
 	caption,
 	id,
 	value,
@@ -22,9 +22,9 @@ struct Control_v
 	path, -- full path to control id E.G.: "foo_rollout.bar_control"
 
 	/*------ EXTENDED METHODS ------*/
-	pressed	= Events.pressed,
-	changed	= Events.changed,
-	rightclick	= Events.rightclick,
+	pressed	= ControlEvent.pressed,
+	changed	= ControlEvent.changed,
+	rightclick	= ControlEvent.rightclick,
 
 	/** Init object
 	 */
@@ -35,7 +35,7 @@ struct Control_v
 		this._setPath()
 		this._setValue()
 
-		this.Events._bindDefaultEvents()
+		this.ControlEvent._bindDefaultEvents()
 
 		return this
 	),
@@ -71,7 +71,6 @@ struct Control_v
 
 		this --return
 	),
-
 
 	/** Get promise string to get property of controls 
 	  * @example prop ("state")	return "rollout_foo.this_control.state"
@@ -112,9 +111,9 @@ struct Control_v
 	 */
 	function _addControl =
 	(
-		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col)
+		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col + this._getTooltip())
 
-		Events._addHandlers()
+		ControlEvent._addHandlers()
 	),
 	/** Get id
 	 */
@@ -143,14 +142,52 @@ struct Control_v
 	(
 		return this._col * this.Layout.col_px
 	),
-	/** _get tooltip
+	/** Get tooltip, if button then get tooltips from events
+		Set prefixes "Leftclick:" & "\nRightclick:"
 	 */
 	function _getTooltip =
 	(
+		tooltip =	""
+		
+		if( type == #button ) then
+		(
+			Event_pressed	= ControlEvent.Events.getEvent "pressed"
+			Event_rightclick	= ControlEvent.Events.getEvent "rightclick" 
+			--print ( "Event_pressed = " + Event_pressed as string )
+			--print ( "Event_rightclick = " + Event_rightclick as string )
+			
+			if( Event_pressed != undefined  and Event_rightclick != undefined ) then
+				tooltip = "Leftclick:    " + Event_pressed.tooltip + "\nRightclick: " + Event_rightclick.tooltip
 
+			else if( Event_pressed != undefined ) then
+				tooltip = Event_pressed.tooltip
+		)
+		
+		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
 	),
 	function test =
 	(
 		messagebox "Control_v.test()"
 	)
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
