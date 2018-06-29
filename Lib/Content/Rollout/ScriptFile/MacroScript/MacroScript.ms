@@ -42,49 +42,81 @@ struct MacroScript_Content_v
 	(
 		control_id	=  this.getControlId()
 	
-	
 		_button	= _Controls.button (buttontext as string) id:control_id add:false
+		_button_exists	= _Controls.get ( _button.id )
 		
+		if( _button_exists==false ) then
+		(
+			_button = this._setOnClickEvent #left _button 
+			_controls.add _button
+		)
+		else
+			_button = this._setOnClickEvent #right _button_exists 
 		
-		--_button.rightclick ("messagebox @Test@")
+		--_button.params ( "Tooltip:"+(this._getTooltip()) )
 		
-		_button.pressed ("macros.run @"+category+"@ @"+name+"@")
-		
-		_button.params ( "Tooltip:"+(this._getTooltip()) )
-		
-		_controls.add _button
-
+		--if( _button_exists==false ) then
 	),
-	/** Get ntrol id
+	/** Get control id
 	 */
 	function getControlId =
 	(
 		category as string + "_"+ buttontext as string --return
 	),
-	/** _get tooltip
+	/** Set leftClick
 	 */
-	function _getTooltip =
+	function _setOnClickEvent _mbutton Control =
 	(
-		tooltip_text = "X"
-
-		if( toolTip!=undefined ) then
-		(
-			string_split	= filterString toolTip "|"
-			--print ( "string_split=" + string_split as string )
-			if( string_split[1]!=undefined ) then
-				tooltip_text = 	"" + string_split[1]
-
-			if( string_split[2]!=undefined ) then
-				tooltip_text += "\n" + string_split[2]
-			--	"EMTY:"
-
-		)
-		--else
-			--" macro @"+category+"@ @"+name+"@"
-
-			"\""+tooltip_text+"\""
-
+		callback = "macros.run @"+category+"@ @"+name+"@"
+		
+		if( _mbutton==#left ) then
+			Control.pressed callback tooltip:tooltip
+		
+		else
+			Control.rightclick callback tooltip:tooltip
+		
+		Control --return
 	),
+	--/** Set leftClick
+	-- */
+	--function _setLeftClick Control =
+	--(
+	--	Control.pressed ("macros.run @"+category+"@ @"+name+"@")
+	--	
+	--	Control --return
+	--),
+	--/** Set right click
+	-- */
+	--function _setRightClick Control =
+	--(
+	--	Control.rightclick ("macros.run @"+category+"@ @"+name+"@")
+	--
+	--	Control --return
+	--),
+	--/** _get tooltip
+	-- */
+	--function _getTooltip =
+	--(
+	--	tooltip_text = "X"
+	--
+	--	if( toolTip!=undefined ) then
+	--	(
+	--		string_split	= filterString toolTip "|"
+	--		--print ( "string_split=" + string_split as string )
+	--		if( string_split[1]!=undefined ) then
+	--			tooltip_text = 	"" + string_split[1]
+	--
+	--		if( string_split[2]!=undefined ) then
+	--			tooltip_text += "\n" + string_split[2]
+	--		--	"EMTY:"
+	--
+	--	)
+	--	--else
+	--		--" macro @"+category+"@ @"+name+"@"
+	--
+	--		"\""+tooltip_text+"\""
+	--
+	--),
 	function test =
 	(
 		messagebox "Content.test()"

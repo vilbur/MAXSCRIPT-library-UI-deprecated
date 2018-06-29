@@ -35,14 +35,11 @@ struct Events_v
 	function _getEvents =
 	(
 		Events_merged	= #()
-		--parent_control	= _parent_control
 		
 		for event_type in event_types do
 			append Events_merged (this.getEvent event_type)
 		
-		--Events_merged --return
 		for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
-			
 	),
 	/*---------------------------------------
 		MERGE EVENTS

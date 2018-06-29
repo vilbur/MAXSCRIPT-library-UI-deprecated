@@ -8,11 +8,11 @@ macroScript macro_left_click_test
 	messagebox "Left click on button"
 )
 
---macroScript macro_right_click_test
---	category:	"_macrotest"
---	buttontext: "Left\Right click"
---	toolTip:	"Right tooltip"
---	icon:	"#(path, index)"
---(
---	messagebox "Right click on button"
---)
+macroScript macro_right_click_test
+	category:	"_macrotest"
+	buttontext: "Left\Right click"
+	toolTip:	"Right tooltip"
+	icon:	"#(path, index)"
+(
+	messagebox "Right click on button"
+)

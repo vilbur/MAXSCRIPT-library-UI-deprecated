@@ -28,7 +28,19 @@ struct Controls_v
 	(
 		append Controls Control
 	),
-	
+	/** Get existing control
+	  * @return	false|Control_v
+	 */
+	function get id =
+	(
+		control_exists = false 
+		
+		for Control in Controls do
+			if( Control.id == id ) then 
+				control_exists = Control
+			
+		control_exists --return
+	),
 	/*---------------------------------------
 	  
 		CONTROLS TYPES
@@ -46,7 +58,6 @@ struct Controls_v
 	(
 		this.control #checkbox caption id value:checked add:add
 	),
-
 
 	/*---------------------------------------
 	  

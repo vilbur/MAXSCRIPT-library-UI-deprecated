@@ -20,28 +20,42 @@ struct ControlEvent_v
 			@param	callback	tooltip	Tooltip for control
 	-----------------------------------------*/
 	/** Bind pressed event
-
 	 */
 	function pressed callback tooltip:"" =
 	(
-		this.Events._setEvent (Event_v type:"pressed" code:callback) --return 
+		this._bindEvent "pressed" callback tooltip
 	),
 	/** Bind changed event
 	  * Value of control is passed to control as variable "val" 
 	  */
 	function changed callback tooltip:"" =
 	(
-		this.Events._setEvent (Event_v type:"changed" code:callback params:"val") --return
+		this._bindEventWithValue "changed" callback tooltip
 	),
 	/** Bind rightclick event
 	  */
 	function rightclick callback tooltip:"" =
 	(
-		this.Events._setEvent (Event_v type:"rightclick" code:callback ) --return
+		this._bindEvent "rightclick" callback tooltip
 	),
+	
 	/*---------------------------------------
 		PRIVATE 
 	-----------------------------------------*/
+	/** Set event
+	 */
+	function _bindEvent type callback tooltip =
+	(
+		this.Events._setEvent (Event_v type:type code:callback tooltip:tooltip) --return
+	),
+	/** Set event with value in callback, E.G.: for checkbox
+	  *	placehoder for variable of value is "val"
+	 */
+	function _bindEventWithValue type tooltip =
+	(
+		this.Events._setEvent (Event_v type:type code:callback params:"val" tooltip:tooltip) --return
+	),
+
 	/** _bind default event
 	 */
 	function _bindDefaultEvents =
