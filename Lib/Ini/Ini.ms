@@ -11,7 +11,7 @@ struct Ini_v
 	function save section key value =
 	(
 		setINISetting ini section key (value as string )
-		--print( "Ini.save() \nini=" + ini + " \nsection=" + section + " \nkey=" + key + " \nvalue=" + value)
+		print( "Ini_v.save() \nini=" + ini + " \nsection=" + section + " \nkey=" + key + " \nvalue=" + value)
 		--messagebox ("Ini.save() \nini=" + ini )
 	),
 	/** Ini save control state
@@ -23,7 +23,7 @@ struct Ini_v
 		value	= default
 		--ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"\\/+" ).Replace ini "\\\\"
 	
-		if( hasINISetting ini section key == true ) then
+		if( ini!=false and hasINISetting ini section key == true ) then
 			value = getINISetting ini section key -- return
 		
 		--print ( "ini=" + ini as string )

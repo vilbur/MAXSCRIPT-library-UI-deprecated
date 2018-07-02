@@ -23,7 +23,7 @@ struct ScriptFile_Content_v
 	(
 		file	= file_path
 
-		print ("ScriptFile_Content.load\""+file+"\"")
+		--print ("ScriptFile_Content.load\""+file+"\"")
 		if( this.isMacrosriptFile() ) then
 		(
 			filein file
@@ -54,7 +54,7 @@ struct ScriptFile_Content_v
 	 */
 	function addControls _rollout =
 	(
-		print ( "ScriptFile_Content._addControls() =" + file as string )
+		--print ( "ScriptFile_Content._addControls() =" + file as string )
 
 		_name	= if( _name==undefined )then "" else "";
 
@@ -97,7 +97,7 @@ struct ScriptFile_Content_v
 	 */
 	function _runScriptFile =
 	(
-		print ("FILEIN:\""+file+"\"")
+		--print ("FILEIN:\""+file+"\"")
 		filein file
 	),
 	/** Parse MacroScripts in file

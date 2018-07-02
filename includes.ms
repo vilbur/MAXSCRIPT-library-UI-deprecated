@@ -1,7 +1,7 @@
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/List/List.ms" );
 
-filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Events/Event/Event.ms" );	-- moved before controls
-filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Events/Events.ms" );	-- moved before controls
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Events/Event/Event.ms" );	-- moved before controls
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Events/Events.ms" );	-- moved before controls
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/ControlEvent/ControlEvent.ms" )
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Rollout/RolloutEvent/RolloutEvent.ms" )

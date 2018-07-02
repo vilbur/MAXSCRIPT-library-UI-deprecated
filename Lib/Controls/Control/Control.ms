@@ -35,7 +35,7 @@ struct Control_v
 		this._setPath()
 		this._setValue()
 
-		this.ControlEvent._bindDefaultEvents()
+		this.ControlEvent.setDefaultEvents()
 
 		return this
 	),

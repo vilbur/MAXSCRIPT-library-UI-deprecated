@@ -21,57 +21,57 @@ struct ControlEvent_v
 	-----------------------------------------*/
 	/** Bind pressed event
 	 */
-	function pressed callback tooltip:"A" =
+	function pressed callback tooltip:"" =
 	(
-		this._bindEvent "pressed" callback tooltip
+		this._setEvent "pressed" callback tooltip
 	),
 	/** Bind changed event
 	  * Value of control is passed to control as variable "val" 
 	  */
-	function changed callback tooltip:"B" =
+	function changed callback tooltip:"" =
 	(
-		this._bindEventWithValue "changed" callback tooltip
+		this._setEventWithValue "changed" callback tooltip
 	),
 	/** Bind rightclick event
 	  */
-	function rightclick callback tooltip:"C" =
+	function rightclick callback tooltip:"" =
 	(
-		this._bindEvent "rightclick" callback tooltip
-	),
-	
-	/*---------------------------------------
-		PRIVATE 
-	-----------------------------------------*/
-	/** Set event
-	 */
-	function _bindEvent type callback tooltip =
-	(
-		this.Events._setEvent (Event_v type:type code:callback tooltip:tooltip) --return
-	),
-	/** Set event with value in callback, E.G.: for checkbox
-	  *	placehoder for variable of value is "val"
-	 */
-	function _bindEventWithValue type callback tooltip =
-	(
-		this.Events._setEvent (Event_v type:type code:callback tooltip:tooltip) --return
+		this._setEvent "rightclick" callback tooltip
 	),
 
-	/** _bind default event
+	/** _set default event
 	 */
-	function _bindDefaultEvents =
+	function setDefaultEvents =
 	(
 		section_key	= filterString parent_control.path "."
 		
 		save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
 		
-		this.Events._setDefaultEvent (Event_v type:"changed" code:save_to_ini params:"val")
+		this.Events.setDefaultEvent(Event_v type:"changed" code:save_to_ini params:"val")
 	),
+	/*---------------------------------------
+		PRIVATE 
+	-----------------------------------------*/
+	/** Set event
+	 */
+	function _setEvent type callback tooltip =
+	(
+		this.Events.setEvent (Event_v type:type code:callback tooltip:tooltip) --return
+	),
+	/** Set event with value in callback, E.G.: for checkbox
+	  *	placehoder for variable of value is "val"
+	 */
+	function _setEventWithValue type callback tooltip =
+	(
+		this.Events.setEvent (Event_v type:type code:callback tooltip:tooltip) --return
+	),
+
 	/** _add handlers
 	 */
 	function _addHandlers =
 	(
-		--print ( "ControlEvent_v._addHandlers=" + this.Events._getEvents() as string )
-		_Events = this.Events._getEvents()
+		--print ( "ControlEvent_v._addHandlers=" + this.Events.getEvents() as string )
+		_Events = this.Events.getEvents()
 		
 		for _Event in _Events do
 			parent_control.parent_roll.roll.addhandler  parent_control.id _Event.type codeStr:_Event.code  paramStr:_Event.params 

@@ -60,8 +60,8 @@ struct Rollout_Content_v
 			for macro_file in macro_files do
 				append ScriptFiles ( (ScriptFile_Content_v()).load macro_file )
 
-		for item in ScriptFiles do
-			print ( "item=" + item.file as string )		
+		--for item in ScriptFiles do
+		--	print ( "item=" + item.file as string )		
 				
 		this --return
 	),

@@ -28,17 +28,17 @@ struct Rollout_v
 	/* lists */
  	ControlBoxes	= #(),
 	Subrollouts	= #(),
-	Events	= RolloutEvent_v parent_control:this,
+	RolloutEvent	= RolloutEvent_v parent_control:this,
 	
 	/* store rollout and parent rollout */
 	roll,
 	parent_roll,
 	
-	type	= #rollout, -- nack reference for this.Events._bindDefaultEvent()
+	type	= #rollout, -- nack reference for this.RolloutEvent._bindDefaultEvent()
 	
 	/*------ EXTENDED METHODS ------*/
-	onOpen	= Events.open,
-	onClose	= Events.close,
+	onOpen	= RolloutEvent.onOpen,
+	onClose	= RolloutEvent.onClose,
 	
 	/** Set new rollout
 	  * @param	string	title	Title of rollout
@@ -54,8 +54,8 @@ struct Rollout_v
 		this._setRolloutGlobalVariable()
 		
 		this._setRoll()
-		
-		this.Events._bindDefaultEvents()
+
+		this.setDefaultEvents()
 
 		return this
 	),
@@ -87,8 +87,7 @@ struct Rollout_v
 		return roll
 	),
 
-
-	/** Open close by ini
+	/** Open close rollout s
 	 */
 	function open state =
 	(
@@ -112,18 +111,44 @@ struct Rollout_v
 	),
 
 	/*---------------------------------------
-		PRIVATE
+		ROLLOUT NEW
 	-----------------------------------------*/
+	/** Set id by title if not defined
+	 */
+	function _setId _id =
+	(
+		if( _id=="" ) then
+			_id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
+		
+		id = "rollout_"+_id
+	),
+	
 	/** Set rollout global variable
 	  * Global variable is id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
 	  */
 	function _setRolloutGlobalVariable =
 	(
-		print ( "Rollout_v._setRolloutGlobalVariable() global " + id as string )
+		--print ( "Rollout_v._setRolloutGlobalVariable() global " + id as string )
 
 		execute ( "global "+ id )
 	),
 
+	/** Create new roll with rolloutCreator()
+	 */
+	function _setRoll =
+	(
+		roll = rolloutCreator id title
+	),
+	/** Add default events
+	 */
+	function setDefaultEvents =
+	(
+		if( ini != false ) then 
+			this.RolloutEvent.setDefaultEvents()
+	),
+	/*---------------------------------------
+		CREATE ROLLOUT
+	-----------------------------------------*/
 	/** Create rollout
 	 */
 	function _createRollout =
@@ -134,17 +159,13 @@ struct Rollout_v
 		
 		this._createSubRollouts()
 
-		this.Events._addHandlers()
+		this._addEventHandlers()
 
 		this._addSaveIniFunction()
 
 		roll.end()
-		
-		
 	),
-	/*---------------------------------------
-		ROLLOUT DEFINITION
-	-----------------------------------------*/
+
 	/**  Add controls on rollout creation
 	*/
 	function _addControls =
@@ -169,6 +190,7 @@ struct Rollout_v
 			--roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
 		)
 	),
+
 	/** Add sub rollouts
 	 */
 	function _addSubRollouts =
@@ -183,37 +205,25 @@ struct Rollout_v
 			execute add_subrollouts
 		)
 	),
-
+	/** Bind events to rollout 
+	 */
+	function _addEventHandlers =
+	(
+		this.RolloutEvent._addHandlers()
+	),
 	/** Add saveIni() function to rollout
 	  * This function is called before user callback
-	  * saveIni() function 
 	  *
 	  */
 	function _addSaveIniFunction =
 	(
+		print ( "Rollout_v._addSaveIniFunction() "+id+"= " + ini as string )
+		
 		if( ini != false ) then  
 			roll.addText( "function saveIni _section _key _value = ( (Ini_v ini:@"+ini+"@).save _section _key _value )" )
 	),
 
-	/*---------------------------------------
-		HELPERS
-	-----------------------------------------*/
-	/** Set id by title if not defined
-	 */
-	function _setId _id =
-	(
-		if( _id=="" ) then
-			_id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
-		
-		id = "rollout_"+_id
-	),
-	
-	/** Create new roll with rolloutCreator()
-	 */
-	function _setRoll =
-	(
-		roll = rolloutCreator id title
-	),
+
 	function test =
 	(
 		messagebox "Rollout_v.test()"

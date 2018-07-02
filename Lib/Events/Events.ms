@@ -15,24 +15,24 @@ struct Events_v
 	-----------------------------------------*/
 	/** Set Event to Events
 	 */
-	function _setDefaultEvent Event =
+	function setDefaultEvent Event =
 	(
 		--print ( "_setDefaultEvent=" + Event as string )
 		this.Events_default.setVal Event.type Event
 	),
 	/** Set Event to Events
 	 */
-	function _setEvent Event =
+	function setEvent Event =
 	(
-		--print ( "Events_v._setEvent()=" + Event as string )
 		this.Events.setVal Event.type Event
 	),
-	--/*---------------------------------------
-	--	ADDING EVENT HANDLERS
-	-------------------------------------------*/
+	
+	/*---------------------------------------
+		ADDING EVENT HANDLERS
+	-----------------------------------------*/
 	/**  
 	 */
-	function _getEvents =
+	function getEvents =
 	(
 		Events_merged	= #()
 		
@@ -41,6 +41,7 @@ struct Events_v
 		
 		for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
 	),
+	
 	/*---------------------------------------
 		MERGE EVENTS
 	-----------------------------------------*/
@@ -57,7 +58,7 @@ struct Events_v
 		else
 			undefined
 		
-		Event
+		--Event
 		--print ( "Events_v._mergeEvent() " + event_type as string )
 	),
 	/** Merge events
@@ -68,7 +69,7 @@ struct Events_v
 		Event_merged.params	= this._getEventProperty Event_default Event "params"
 		Event_merged.code	= ( this._getCodeStr Event_default ) + ";" + ( this._getCodeStr Event )
 		Event_merged.tooltip	= this._getEventProperty Event_default Event "tooltip"
-
+		--print ( "Events_v.mergeEvents() Event_merged = " + Event_merged as string )
 		Event_merged --return
 	),
 	/** Get property from one of defined evets

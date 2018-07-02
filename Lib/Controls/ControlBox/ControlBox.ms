@@ -21,7 +21,7 @@ struct ControlBox_v
 	 */
 	function addGroupBox =
 	(
-		print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
+		--print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
 		if( groupbox!=undefined ) then
 			parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(parent_roll.Layout._getGroupboxParams())
 	),
