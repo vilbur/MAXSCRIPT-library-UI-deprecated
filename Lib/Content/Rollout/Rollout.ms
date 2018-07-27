@@ -11,7 +11,7 @@ struct Rollout_Content_v
 	
 	ScriptFiles	= #(),
 	--_macros	= #(),
-
+	
 	/** Load
 	 */
 	function load dir =
@@ -19,7 +19,7 @@ struct Rollout_Content_v
 		--print ( "Rollout_Content_v.load dir=" + dir as string )
 		this.dir	= dir
 
-		this.setName()
+		this._setName()
 
 		this._loadMacroFiles()
 
@@ -34,12 +34,11 @@ struct Rollout_Content_v
 		for f=1 to ScriptFiles.count do
 			if( ScriptFiles[f].hasMacroScripts() or ScriptFiles[f].isMaxscriptFile() ) then
 				ScriptFiles[f].addControls _rollout
-				
 	),
  
 	/** Set name "Rollout-1" >> "Rollout 1"
 	 */
-	function setName =
+	function _setName =
 	(
 		if( name==undefined ) then
 			name = filenameFromPath dir
@@ -59,10 +58,7 @@ struct Rollout_Content_v
 		if( macro_files.count > 0 ) then
 			for macro_file in macro_files do
 				append ScriptFiles ( (ScriptFile_Content_v()).load macro_file )
-
-		--for item in ScriptFiles do
-		--	print ( "item=" + item.file as string )		
-				
+	
 		this --return
 	),
 	function test =

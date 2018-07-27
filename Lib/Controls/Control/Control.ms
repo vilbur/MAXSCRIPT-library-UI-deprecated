@@ -111,6 +111,7 @@ struct Control_v
 	 */
 	function _addControl =
 	(
+		print ( "Control_v._addControl() " + id as string )
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col + this._getTooltip())
 
 		ControlEvent._addHandlers()

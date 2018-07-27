@@ -51,6 +51,8 @@ struct Content_v
 		for r=1 to Rollouts.count do
 			Rollouts[r].insertRollout Floater r
 	),
+	
+	
 	/** Load rollouts from files
 	 */
 	function _loadRolloutsFromFiles =

@@ -7,6 +7,9 @@ struct Controls_v
 	ControlBox	= ControlBox_v(),
 	Controls	= #(),
 	
+	
+	
+	
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
 	 *  @param	string	caption	Caption of control
@@ -51,6 +54,12 @@ struct Controls_v
 	function button caption id:undefined add:true =
 	(
 		this.control #button caption id add:add
+	),
+	/** Add Check button
+	 */
+	function checkbutton caption id:undefined add:true =
+	(
+		this.control #checkbutton caption id add:add
 	),
 	/** Add Checkbox
 	 */

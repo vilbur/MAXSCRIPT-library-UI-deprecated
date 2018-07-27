@@ -56,14 +56,18 @@ struct ControlEvent_v
 	 */
 	function _setEvent type callback tooltip =
 	(
-		this.Events.setEvent (Event_v type:type code:callback tooltip:tooltip) --return
+		this.Events.setEvent (Event_v type:type code:callback tooltip:tooltip)
+		
+		parent_control --return
 	),
 	/** Set event with value in callback, E.G.: for checkbox
 	  *	placehoder for variable of value is "val"
 	 */
 	function _setEventWithValue type callback tooltip =
 	(
-		this.Events.setEvent (Event_v type:type code:callback tooltip:tooltip) --return
+		this.Events.setEvent (Event_v type:type code:callback tooltip:tooltip)
+		
+		parent_control --return
 	),
 
 	/** _add handlers

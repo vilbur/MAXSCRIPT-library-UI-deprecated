@@ -22,6 +22,7 @@ struct List_v
 			append keys str
 			append values val
 		)
+		val --return
 	),
 
 	fn getVal str =
