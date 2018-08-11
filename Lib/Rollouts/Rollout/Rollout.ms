@@ -23,7 +23,7 @@ struct Rollout_v
 	
 	/* options */
 	height,
-	ini = false, -- inherit by Floater_v
+	ini, -- inherit by Floater_v
 
 	/* lists */
  	ControlBoxes	= #(),
@@ -75,16 +75,16 @@ struct Rollout_v
     function createRollDialog height:undefined =
 	(
 		this.height	= height
-
+		
 		this.tryDestroyDialog()
 		
 		this._createRollout()
-
+		
 		CreateDialog (roll.def) width:(Layout._getRollWidth()-6)
 		
 		this._addSubRollouts()
 		
-		return roll
+		roll --return
 	),
 
 	/** Open close rollout s
@@ -147,7 +147,7 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		if( ini != false ) then 
+		if( ini != undefined ) then 
 			this.RolloutEvent.setDefaultEvents()
 	),
 	/*---------------------------------------
@@ -221,10 +221,15 @@ struct Rollout_v
 	  */
 	function _addSaveIniFunction =
 	(
-		--print ( "Rollout_v._addSaveIniFunction() "+id+"= " + ini as string )
-		
-		if( ini != false ) then  
-			roll.addText( "function saveIni _section _key _value = ( (Ini_v _ini:@"+ini+"@).save _section _key _value )" )
+		print "\n"
+		print ( "this = " + id as string )
+		print ( "ini = " + ini as string )
+		if( ini != undefined ) then
+			roll.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
+			--roll.addText( "function saveIni _section _key _value = ( (Ini_v _path:@"+ini+"@).save _section _key _value )" )
+
+			
+			----roll.addText( "function saveIni _section _key _value = ( print ( ((Ini_v()).path @"+ini+"@)  as String ) )" )
 	),
 
 

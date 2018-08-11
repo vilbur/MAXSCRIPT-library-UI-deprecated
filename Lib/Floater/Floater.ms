@@ -43,8 +43,8 @@ struct Floater_v
 		
 		this._setIdGlobal()
 		
-		this._setIni()
-		
+		this._setIniDefaults()
+
 		this --return
 	),
 
@@ -54,10 +54,12 @@ struct Floater_v
 	(
 		_height	= height
 		
+		--this._setIniDefaults()
+
 		this._setFloater()
 		
 		size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
-
+		
 		this._openCloseRollouts()
 		
 		this.register()
@@ -75,14 +77,14 @@ struct Floater_v
 	  */
 	function roll title id  =
 	(
-		if( title!="" ) then -- GET will be removed probably in future
-		(
-			_rollout	= (Rollout_v ini:(Ini.ini #get) ).new title id:id
-			id	= _rollout.id
-			Rollouts.setVal id ( _rollout )
-		)
+		print ( "Ini = " + Ini as string )
+		print ( "Floater.roll() Ini.path = " + (Ini.path #get) as string )
+
+		_rollout	= (Rollout_v ini:(Ini.path #get) ).new title id:id
+		--id	= _rollout.id
+		Rollouts.setVal (_rollout.id) ( _rollout )
 		
-		return Rollouts.getVal id
+		Rollouts.getVal id --return 
 	),
 	/** Dock\Undock sidebar to window
 	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
@@ -196,16 +198,19 @@ struct Floater_v
 		)
 	),
 	
-	/** _set ini
+	/** Set default path to ini file
+	  *
+	  * Default dir:	"#temp\ini-files\"
+	  * Default file:	"%floater_id%.ini"
 	 */
-	function _setIni =
+	function _setIniDefaults =
 	(
-		if( _ini == undefined and Ini.ini == undefined ) then
-			_ini = getFilenamePath(getSourceFileName()) + "\\" + id + ".ini"
+		if( Ini.dir #get == undefined ) then
+			Ini.dir (( pathConfig.GetDir #temp ) + "\ini-files")
+			--Ini.dir (( pathConfig.GetDir #temp ) )
 		
-		--print ( "***Floater.ini=" + ini as string )
-		if( _ini != undefined ) then
-			Ini.ini = _ini
+		if( Ini.file #get == undefined ) then
+			Ini.file ( (getFilenameFile id) + ".ini" )
 	), 
 	
 	/** Assign main rollout as floater to property Floater
@@ -214,7 +219,7 @@ struct Floater_v
 	(
 		roll_main	= (Rollout_v()).new title
 		roll_main.subrollouts	= Rollouts.values
-
+		
 		roll_main.createRollDialog height:_height
 		
 		Floater = roll_main.roll.def
