@@ -54,7 +54,7 @@ struct RolloutEvent_v
 		callback_open	= this._getEventCode "onOpen"
 		callback_close	= this._getEventCode "onClose"
 				
-		print ( "RolloutEvent_v._getCallback() callback_open = " + callback_open as string )
+		--print ( "RolloutEvent_v._getCallback() callback_open = " + callback_open as string )
 
 		"if( val==true ) then (" +callback_open+ ")else(" +callback_close+ ")" --return
 	),

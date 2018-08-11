@@ -1,8 +1,14 @@
 /** Control
- *		  
- *	IMPORTANT: Add New Type:
- *		1) Create method in this file
- *		2) Extend this method in struct Control_v
+ *
+ *	====================================================================
+ *
+ *		!!!!!! IMPORTANT !!!!!!
+ *
+ *		Add New EVENT Type:
+ *			1) Create method in this file
+ *			2) Extend this method in struct Control_v
+ *		
+ *	====================================================================
  *		
  */
 struct ControlEvent_v 

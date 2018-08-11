@@ -11,7 +11,7 @@ struct Ini_v
 	function save section key value =
 	(
 		setINISetting ini section key (value as string )
-		print( "Ini_v.save() \nini=" + ini + " \nsection=" + section + " \nkey=" + key + " \nvalue=" + value)
+		--print( "Ini_v.save() \nini=" + ini + " \nsection=" + section + " \nkey=" + key + " \nvalue=" + value)
 		--messagebox ("Ini.save() \nini=" + ini )
 	),
 	/** Ini save control state

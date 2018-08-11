@@ -43,7 +43,7 @@ struct Control_v
 	 */
 	function param key value =
 	(
-		_Params.add key value
+		_Params.add ( key as string ) value
 
 		this --return
 	),
@@ -72,14 +72,29 @@ struct Control_v
 		this --return
 	),
 
-	/** Get promise string to get property of controls 
-	  * @example prop ("state")	return "rollout_foo.this_control.state"
+	/** Get\Set property of control, or get promise string
+	  * @param	string|name	prop_name	Name of property
+	  * @param	mixin|#get|#path	_value	Value or mode of set\get
+	  *
+	  * @example this.prop #state #get	// return current value of property "state"
+	  * @example this.prop #state #path	// return path string to property e.g.: "rollout_id.control_id.state"
+	  * @example this.prop #state true	// set value to control
 	  *
 	  * @return	string	Path to controls property
 	 */
-	function prop prop_name =
+	function prop prop_name _value =
 	(
-		return path + "." + ( prop_name as string )
+		prop_path	= path + "." + ( prop_name as string )
+		
+		if( _value == #get ) then 
+			execute prop_path
+			
+		else if( _value == #path ) then 
+			prop_path -- return path to property 
+
+		else
+			execute (prop_path + "="+_value as string ) -- set value
+			
 	),
 	/** _set value
 	 */
@@ -111,7 +126,8 @@ struct Control_v
 	 */
 	function _addControl =
 	(
-		print ( "Control_v._addControl() " + id as string )
+		--print ( "Control_v._addControl() " + id as string )
+		--print ( "Control_v._addControl() " + (id+(parent_roll.Layout.getControlsParams _Params _col)) as string )
 		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col + this._getTooltip())
 
 		ControlEvent._addHandlers()

@@ -217,7 +217,7 @@ struct Rollout_v
 	  */
 	function _addSaveIniFunction =
 	(
-		print ( "Rollout_v._addSaveIniFunction() "+id+"= " + ini as string )
+		--print ( "Rollout_v._addSaveIniFunction() "+id+"= " + ini as string )
 		
 		if( ini != false ) then  
 			roll.addText( "function saveIni _section _key _value = ( (Ini_v ini:@"+ini+"@).save _section _key _value )" )

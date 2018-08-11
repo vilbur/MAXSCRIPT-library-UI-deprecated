@@ -30,7 +30,8 @@ struct Rollout_Content_v
 	function insertRollout Floater index =
 	(
 		_rollout = Floater.roll (name) ""
-		
+
+		print ( "rollout.name = " + name as string )
 		for f=1 to ScriptFiles.count do
 			if( ScriptFiles[f].hasMacroScripts() or ScriptFiles[f].isMaxscriptFile() ) then
 				ScriptFiles[f].addControls _rollout
