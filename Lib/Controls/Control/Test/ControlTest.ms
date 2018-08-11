@@ -29,11 +29,11 @@ _Checkbox_B	= _controls_1.checkbox "Checkbox B" checked:true -- set checkbox che
 _Checkbox_B.changed "MessageBox (val as string)"
 
 _Button_B	= _controls_1.button "Button B"
-_Button_B.pressed "MessageBox (val as string)"
+_Button_B.pressed "MessageBox @Button B pressed@"
 
 
 /*------ add control & event in chain ------*/
-(_controls_1.checkbox	"Checkbox C").changed "MessageBox (val as string)"
+(_controls_1.checkbox	"Checkbox C").changed "(MessageBox (val as string))"
 (_controls_1.button	"Button C").pressed "MessageBox (val as string)"
 
 
@@ -41,7 +41,7 @@ _Button_B.pressed "MessageBox (val as string)"
 	It allows use data of Checkbox in pressed event of Button, even if Button is added before Checkbox 
 */
 _Checkbox_D	= _controls_1.checkbox "Checkbox D"	add:false
-_Button_D	= (_controls_1.button "Toggle checkbox"	add:false).pressed ( "_Checkbox_D.toggle()" )
+_Button_D	= (_controls_1.button "Toggle checkbox"	add:false).pressed ( "(_Checkbox_D.toggle())" )
 
 _controls_1.add _Button_D
 _controls_1.add _Checkbox_D

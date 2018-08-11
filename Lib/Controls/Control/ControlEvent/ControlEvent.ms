@@ -45,15 +45,18 @@ struct ControlEvent_v
 		this._setEvent "rightclick" callback tooltip
 	),
 
-	/** _set default event
+	/** Set default event, save to ini if ini is defined in rollout
 	 */
 	function setDefaultEvents =
 	(
 		section_key	= filterString parent_control.path "."
 		
-		save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
-		
-		this.Events.setDefaultEvent(Event_v type:"changed" code:save_to_ini params:"val")
+		if( parent_control.parent_roll.ini != undefined ) then
+		(
+			save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
+			
+			this.Events.setDefaultEvent(Event_v type:"changed" code:save_to_ini params:"val")
+		)
 	),
 	/*---------------------------------------
 		PRIVATE 
@@ -66,12 +69,12 @@ struct ControlEvent_v
 		
 		parent_control --return
 	),
-	/** Set event with value in callback, E.G.: for checkbox
-	  *	placehoder for variable of value is "val"
+	/** Set event with parameter in callback, E.G.: for checkbox
+	  *	placeholder for variable of value is "val"
 	 */
 	function _setEventWithValue type callback tooltip =
 	(
-		this.Events.setEvent (Event_v type:type code:callback tooltip:tooltip)
+		this.Events.setEvent (Event_v type:type code:callback tooltip:tooltip params:"val")
 		
 		parent_control --return
 	),
