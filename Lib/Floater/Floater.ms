@@ -8,10 +8,9 @@ struct Globals_v
 if( __GLOBAL__v==undefined ) then
 	global __GLOBAL__v = Globals_v()
 	
-	
-/** Floater
+/** Dialog floater
   *
-  *
+  * Rollout with subroullouts is used as "Floater" instead of using regular [RolloutFloater](https://help.autodesk.com/view/3DSMAX/2018/ENU/?guid=__files_GUID_A72112A6_BDFB_47A6_88FB_8D49C4CBD049_htm)
   *
   *
   */
@@ -40,27 +39,33 @@ struct Floater_v
 	 */
 	function new _title =
 	(
-		this.title = _title
+		print ( "rollout_viltools2 = " + rollout_viltools2 as string )
+
+		title = _title
 		
 		this._setIdGlobal()
 		
 		this._setIni()
-
+		
 		this --return
 	),
+
 	/** Create
 	 */
 	function create height:undefined =
 	(
 		_height	= height
 		
-		roll_main	= (Rollout_v()).new title
+		this._setFloater()
 		
-		roll_main.subrollouts = Rollouts.values
-		
-		roll_main.CreateRollDialog height:_height
-		
-		Floater = roll_main.roll.def
+		--roll_main	= (Rollout_v()).new title
+		--roll_main.subrollouts	= Rollouts.values
+		--
+		----this.destroyTest roll_main.id
+		--
+		--roll_main.createRollDialog height:_height
+		--
+		--Floater = roll_main.roll.def
 			
 		size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
 
@@ -141,7 +146,6 @@ struct Floater_v
 	function position x y =
 	(
 		this.undock()
-		--this.unregister()
 		
 		Floater.pos = [ (getMAXWindowPos()).x + x, (getMAXWindowPos()).y + y ]
 
@@ -164,25 +168,17 @@ struct Floater_v
 	(
 		this.unregister()
 
-		--cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) 
 		cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
 	),
 	/** Unregister dialog bar
 	 */
 	function unregister =
 	(
+		print ( "Floater.name = " + Floater.name as string )
+		
 		try(cui.UnRegisterDialogBar Floater)catch() --try to unregister if already registered
 	),
 	
-	/** Create Floater
-	  * Floater can`t has Menu
-	  * Rollouts are added as rollouts
-	 */
-	function _createFloater =
-	(
-		Floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
-		this._addRollouts()
-	),
 
 	/** _add rollouts
 	 */
@@ -223,9 +219,38 @@ struct Floater_v
 			_Ini.ini = ini
 	), 
 	
+	
+	/** Assign main rollout as floater to property Floater
+	 */
+	function _setFloater =
+	(
+		roll_main	= (Rollout_v()).new title
+		roll_main.subrollouts	= Rollouts.values
+
+		roll_main.createRollDialog height:_height
+		
+		Floater = roll_main.roll.def
+	),
+
+
+
+
+
+	/** Create Floater - UNUSED METHOD WILL BE DELETE
+	  * Floater can`t has Menu
+	  * Rollouts are added as rollouts
+	 */
+	function _createFloater =
+	(
+		Floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
+		this._addRollouts()
+	),
+
 	function test =
 	(
 		messagebox "Floater.test()"
 	)
 	
+
+
 )

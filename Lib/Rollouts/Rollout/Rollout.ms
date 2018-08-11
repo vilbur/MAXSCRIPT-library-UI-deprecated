@@ -72,12 +72,12 @@ struct Rollout_v
 	/** Create rollout dialog
 	 * @return	RolloutClass
 	 */
-    function CreateRollDialog height:undefined =
+    function createRollDialog height:undefined =
 	(
 		this.height	= height
 
-		--try(DestroyDialog id)catch() -- must be above rollout definition
-
+		this.tryDestroyDialog()
+		
 		this._createRollout()
 
 		CreateDialog (roll.def) width:(Layout._getRollWidth()-6)
@@ -122,17 +122,21 @@ struct Rollout_v
 		
 		id = "rollout_"+_id
 	),
-	
+
 	/** Set rollout global variable
 	  * Global variable is id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
 	  */
 	function _setRolloutGlobalVariable =
 	(
-		--print ( "Rollout_v._setRolloutGlobalVariable() global " + id as string )
-
 		execute ( "global "+ id )
 	),
-
+	/** Try destroy dialog by global variable before variable will be overwritten
+	 */
+	function tryDestroyDialog =
+	(
+		try(cui.UnRegisterDialogBar (execute id))catch()	
+		try(DestroyDialog           (execute id))catch()	
+	),
 	/** Create new roll with rolloutCreator()
 	 */
 	function _setRoll =
