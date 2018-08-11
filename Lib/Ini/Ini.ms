@@ -12,6 +12,7 @@ struct Ini_v
 	 */
 	function dir _path =
 	(
+		print ( "Ini_v.dir() = " + _path as string )
 		_path = this._normalizePath _path
 		
 		this._getSetProp #_dir _path --return
@@ -20,7 +21,7 @@ struct Ini_v
 	 */
 	function file filename =
 	(
-		--print ( "Ini_v.file() = " + filename as string )
+		print ( "Ini_v.file() = " + filename as string )
 		this._getSetProp #_file filename --return
 	),
 	/** Get\set ini file path
@@ -30,6 +31,7 @@ struct Ini_v
 	  */
 	function path _path =
 	(
+		print ( "Ini_v.path() = " + _path as string )
 		if( _path == #get ) then
 			this._combinePath()
 

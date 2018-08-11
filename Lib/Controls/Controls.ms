@@ -7,9 +7,6 @@ struct Controls_v
 	ControlBox	= ControlBox_v(),
 	Controls	= #(),
 	
-	
-	
-	
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
 	 *  @param	string	caption	Caption of control

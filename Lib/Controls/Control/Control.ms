@@ -3,6 +3,8 @@
 struct Control_v 
 (
 	/* dependency */
+	Checkbox 	= Checkbox_v Control:this,
+	
 	ControlEvent	= ControlEvent_v parent_control:this,
 	_Params	= Params_v(),
 	Layout,
@@ -21,11 +23,14 @@ struct Control_v
 	/* access */ 
 	path, -- full path to control id E.G.: "foo_rollout.bar_control"
 
-	/*------ EXTENDED METHODS ------*/
+	/*------ EXTENDED EVENTS ------*/
 	pressed	= ControlEvent.pressed,
 	changed	= ControlEvent.changed,
 	rightclick	= ControlEvent.rightclick,
 
+	/*------ EXTENDED CONTROL TYPES ------*/
+	toggle	= Checkbox.toggle,
+	
 	/** Init object
 	 */
 	function init =
@@ -120,10 +125,10 @@ struct Control_v
 	 */
 	function _getValueFromIni =
 	(
-		--value = (Ini_v ini:(parent_roll.ini)).load parent_roll.id id
 		ini_path = parent_roll.ini
 		
-		value = ((Ini_v()).path ini_path ).load parent_roll.id id
+		if( ini_path != undefined ) then
+			value = ((Ini_v()).path ini_path ).load parent_roll.id id --return 
 	),
 	/** Add control to UI 
 	 */
