@@ -12,7 +12,7 @@ struct Ini_v
 	 */
 	function dir _path =
 	(
-		_path = this._escapePath _path
+		_path = this._normalizePath _path
 		
 		this._getSetProp #_dir _path --return
 	),
@@ -33,7 +33,7 @@ struct Ini_v
 		if( _path == #get ) then
 			this._combinePath()
 
-		_path = this._escapePath _path
+		_path = this._normalizePath _path
 		
 		this._getSetProp #_path _path --return
 	),
@@ -97,12 +97,10 @@ struct Ini_v
 	),
 	/** Escape path
 	 */
-	function _escapePath __path =
+	function _normalizePath __path =
 	(
-		--if( classOf _path == string ) then 
-			--_path = ( substituteString ( _path as string ) "\\" "\\\\" )
-			
-		if( __path != #get ) then ( substituteString ( __path as string ) "\\" "\\\\" ) else __path  --return
+		--if( __path != #get ) then ( substituteString ( __path as string ) "\\" "\\\\" ) else __path  --return
+		if( __path != #get ) then ( pathConfig.normalizePath __path ) else __path  --return
 	),
 	
 	function test =
