@@ -39,8 +39,6 @@ struct Floater_v
 	 */
 	function new _title =
 	(
-		print ( "rollout_viltools2 = " + rollout_viltools2 as string )
-
 		title = _title
 		
 		this._setIdGlobal()
