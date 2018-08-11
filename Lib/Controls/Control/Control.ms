@@ -120,7 +120,10 @@ struct Control_v
 	 */
 	function _getValueFromIni =
 	(
-		value = (Ini_v ini:(parent_roll.ini)).load parent_roll.id id
+		--value = (Ini_v ini:(parent_roll.ini)).load parent_roll.id id
+		ini_path = parent_roll.ini
+		
+		value = ((Ini_v()).path ini_path ).load parent_roll.id id
 	),
 	/** Add control to UI 
 	 */

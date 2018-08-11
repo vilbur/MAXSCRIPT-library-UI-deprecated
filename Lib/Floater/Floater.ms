@@ -67,13 +67,13 @@ struct Floater_v
 		this --return
 	),
 
-	/** Get\Set rollout in Floater
+	/** Set rollout in Floater
 	  * @param	string	title	Title of rollout
 	  * @param	string	id	Id of roullout, if empty then sanitized title is used
 	  * @return	[Rollout](../Rollouts/Rollout)
 	  *
-	  * @example roll "roll title" "roll_id" 	// set rollout 
-	  * @example roll "" "roll_id"	// get rollout
+	  * @example roll "Roll Title" "rollout_id" 	// set rollout
+	  * @example roll "Roll Title" "" 	// set rollout, id will be sanitized title "roll_title"
 	  */
 	function roll title id  =
 	(
@@ -84,7 +84,7 @@ struct Floater_v
 		--id	= _rollout.id
 		Rollouts.setVal (_rollout.id) ( _rollout )
 		
-		Rollouts.getVal id --return 
+		Rollouts.getVal  (_rollout.id)  --return 
 	),
 	/** Dock\Undock sidebar to window
 	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
@@ -161,6 +161,7 @@ struct Floater_v
 
 		cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
 	),
+	
 	/** Unregister dialog bar
 	 */
 	function unregister =
@@ -170,7 +171,6 @@ struct Floater_v
 		try(cui.UnRegisterDialogBar Floater)catch() --try to unregister if already registered
 	),
 	
-
 	/** _add rollouts
 	 */
 	function _addRollouts =
