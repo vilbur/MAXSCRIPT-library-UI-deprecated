@@ -21,7 +21,7 @@ struct Floater_v
 	/* dependency */
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
-	_Ini	= Ini_v(),
+	Ini	= Ini_v(),
 
 	/* config */	
 	title,
@@ -29,7 +29,7 @@ struct Floater_v
 	_height,
 	
 	/* options */	
-	ini,
+	_ini,
 	
 	/* store */
 	Floater,
@@ -56,15 +56,6 @@ struct Floater_v
 		
 		this._setFloater()
 		
-		--roll_main	= (Rollout_v()).new title
-		--roll_main.subrollouts	= Rollouts.values
-		--
-		----this.destroyTest roll_main.id
-		--
-		--roll_main.createRollDialog height:_height
-		--
-		--Floater = roll_main.roll.def
-			
 		size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
 
 		this._openCloseRollouts()
@@ -86,7 +77,7 @@ struct Floater_v
 	(
 		if( title!="" ) then -- GET will be removed probably in future
 		(
-			_rollout	= (Rollout_v ini:ini ).new title id:id
+			_rollout	= (Rollout_v ini:(Ini.ini #get) ).new title id:id
 			id	= _rollout.id
 			Rollouts.setVal id ( _rollout )
 		)
@@ -201,7 +192,7 @@ struct Floater_v
 		for _rollout_id in Rollouts.keys do
 		(
 			_Rollout	= Rollouts.getVal _rollout_id
-			_Rollout.open ( _Ini.load _Rollout.id #open default:true )
+			_Rollout.open ( Ini.load _Rollout.id #open default:true )
 		)
 	),
 	
@@ -209,14 +200,13 @@ struct Floater_v
 	 */
 	function _setIni =
 	(
-		if( ini==undefined and _Ini.ini==undefined ) then
-			ini = getFilenamePath(getSourceFileName()) + "\\" + id + ".ini"
+		if( _ini == undefined and Ini.ini == undefined ) then
+			_ini = getFilenamePath(getSourceFileName()) + "\\" + id + ".ini"
 		
 		--print ( "***Floater.ini=" + ini as string )
-		if( ini!=undefined ) then
-			_Ini.ini = ini
+		if( _ini != undefined ) then
+			Ini.ini = _ini
 	), 
-	
 	
 	/** Assign main rollout as floater to property Floater
 	 */
