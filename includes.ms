@@ -1,3 +1,11 @@
+
+/*---------------------------------------
+	SET INLCUDE PATH TO CURRENT DIRECTORY
+-----------------------------------------*/
+userscripts_path_default = getDir #userscripts 	-- save $userscripts path
+SetDir #userscripts (getFilenamePath(getSourceFileName()))	-- set current dir as $userscripts path for including
+
+
 /*---------------------------------------
 	VENDOR
 -----------------------------------------*/
@@ -32,6 +40,8 @@ filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Params.ms
 
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/ControlTypes/Checkbox/Checkbox.ms" )
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/ControlTypes/Button/Button.ms" )
+
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Control.ms" );	-- moved before controls
 
@@ -52,3 +62,7 @@ filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Rollouts.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Floater/Floater.ms" );
 
 
+/*---------------------------------------
+	REVERT DEFAULT PATH
+-----------------------------------------*/
+SetDir #userscripts userscripts_path_default -- revert drfault path back
