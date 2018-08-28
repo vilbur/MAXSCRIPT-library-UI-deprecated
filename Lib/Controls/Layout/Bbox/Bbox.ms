@@ -8,12 +8,12 @@ struct Bbox_v
 	
 	/** Add
 	 */
-	function add Params =
+	function add dimensions =
 	(
-		pos	= Params.get #pos
+		pos	= dimensions[1]
 		--_width	= Params.get #width
-		bbox_width	= pos[1] + (Params.get #width)
-		bbox_height	= pos[1] + (Params.get #height)
+		bbox_width	= pos[1] + dimensions[2]
+		bbox_height	= pos[1] + dimensions[3]
 		
 		if( bbox_width > width ) then
 			width = bbox_width as integer

@@ -1,11 +1,7 @@
-
-	
 	/* dependency */
-	--Checkbox 	= Checkbox_v Control:this,
-	
 	ControlEvent	= ControlEvent_v parent_control:this,
 	_Params	= Params_v(),
-	Layout,
+	--Layout,
 
 	parent_roll,
 
@@ -65,12 +61,12 @@
 		return this 
 	),
 	/** Set width of control in columns 
-	  * @param	integer	_width	Number of columns
+	  * @param	integer	columns	Number of columns
 	  * @return	self
 	 */
-	function col _width =
+	function col columns =
 	(
-		_col = _width
+		_col = columns
 
 		this --return
 	),
@@ -137,9 +133,7 @@
 	 */
 	function _addControl =
 	(
-		--print ( "Control_v._addControl() " + id as string )
-		--print ( "Control_v._addControl() " + (id+(parent_roll.Layout.getControlsParams _Params _col)) as string )
-		parent_roll.roll.addControl type id caption paramStr:(parent_roll.Layout.getControlsParams _Params _col + this._getTooltip())
+		parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
 
 		ControlEvent._addHandlers()
 	),
@@ -164,12 +158,26 @@
 	(
 		path = parent_roll.id +"."+id
 	),
-	/** Get width
+	--/** Get width
+	-- */
+	--function _getWidth =
+	--(
+	--	format "\nControlBody._getWidth()\n" 
+	--	--return this._col * this.Layout.col_px
+	--),
+	/** Get parameters
 	 */
-	function _getWidth =
+	function _getParameters =
 	(
-		return this._col * this.Layout.col_px
+		dimensions = parent_roll.Layout.getControlDimensions _col
+		
+		_Params.add #pos	dimensions[1]
+		_Params.add #width	dimensions[2]
+		_Params.add #height dimensions[3]
+		
+		_Params.join() + this._getTooltip() --return
 	),
+
 	/** Get tooltip, if button then get tooltips from events
 		Set prefixes "Leftclick:" & "\nRightclick:"
 	 */
@@ -193,4 +201,7 @@
 		
 		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
 	),
+
+
+
 

@@ -12,7 +12,6 @@ struct Layout_v
 	pos_box	= [margin*2,4],
 	pos,
 
-
 	/*---------------------------------------
 		CONTROLS BOX
 	-----------------------------------------*/
@@ -34,7 +33,7 @@ struct Layout_v
 	/** Set next box position
 	 */
 	function nextControlsBox groupbox =
-	(
+	( 
 		--print ( "Layout_v.nextControlsBox() groupbox=" + groupbox as string )
 		
 		y = pos[2] + _grid
@@ -69,21 +68,23 @@ struct Layout_v
 	  * @param	int	col	Width of control
 	  *
 	 */
-	function getControlsParams Params col =
+	function getControlDimensions col =
 	(
-		width	= col * _grid
+		width_raw	= col * _grid
 
-		this.trySetNewControlsRow width
+		this.trySetNewControlsRow width_raw
 
-		Params.add #pos	[ pos[1] + padding, pos[2] ]
-		Params.add #width	( width - padding*2 )
-		Params.add #height ( _grid - padding*2 )
-
-		Bbox.add Params
+		pos	= [ pos[1] + padding, pos[2] ]
+		width	= width_raw	- padding * 2
+		height	= _grid 	- padding * 2
 		
-		this._setNewControlPosition width
+		dimensions	= #( pos, width, height ) 
 
-		return Params.join()
+		Bbox.add dimensions
+		
+		this._setNewControlPosition width_raw
+		
+		dimensions --return
 	),
 	/** Try set new controls row
 	 */

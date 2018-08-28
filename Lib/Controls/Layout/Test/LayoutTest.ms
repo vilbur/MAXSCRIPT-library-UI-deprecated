@@ -21,13 +21,17 @@ function addRolloutByCodeTest name =
 	--_rollout = __GLOBAL__v.test_floater name ""
 	_rollout = __GLOBAL__v.Floater.roll name ""
 	_controls	= _rollout.controls groupbox:"Groupbox A" -- get new container for controls
-	_controlsB	= _rollout.controls groupbox:"Groupbox B" -- get new container for controls
+	_controlsB	= _rollout.controls groupbox:"Columns test" -- get new container for controls
 	
 	for i = 1 to 9 do
-		_controls.button ("button by code A "+i as string )
+		_controls.button ("Button A "+i as string )
 
-	for i = 1 to 2 do
-		_controlsB.button ("button by code B "+i as string )
+	for i = 1 to 12 do
+	(
+		_button = _controlsB.button ("Col "+i as string )
+		_button.col i
+		
+	)
 		
 	
 	--_controlsB.button ("button by code B")
@@ -36,9 +40,7 @@ function addRolloutByCodeTest name =
 /*---------------------------------------
 	RUN TEST
 -----------------------------------------*/
-addRolloutByCodeTest "Rollout by code 1"
-loadContentTest()
+addRolloutByCodeTest "Rollout by code"
 --loadContentTest()
-addRolloutByCodeTest "Rollout by code 2"
 
 Floater.create()

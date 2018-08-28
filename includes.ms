@@ -1,6 +1,6 @@
 
 /*---------------------------------------
-	SET INLCUDE PATH TO CURRENT DIRECTORY
+	SET INCLUDE PATH TO CURRENT DIRECTORY
 -----------------------------------------*/
 userscripts_path_default = getDir #userscripts 	-- save $userscripts path
 SetDir #userscripts (getFilenamePath(getSourceFileName()))	-- set current dir as $userscripts path for including
@@ -36,7 +36,7 @@ filein ( getFilenamePath(getSourceFileName()) + "/Lib/Menu/Menu.ms" );
 	CONTROLS 
 -----------------------------------------*/
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Tooltip/Tooltip.ms" );
-filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Params.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Params/Params.ms" );
 
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/ControlTypes/Checkbox/Checkbox.ms" )
