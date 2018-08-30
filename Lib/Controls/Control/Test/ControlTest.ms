@@ -19,7 +19,8 @@ _controls_1	= _rollout.controls groupbox:"Test Groupbox"
 /*------ add control via control method ------*/
 _Checkbox_A = _controls_1.control #checkbutton "Checkbox A" id:#checkbox_a
 --_Checkbox_A.changed "MessageBox (val as string)"
-_Checkbox_A.param #width 128
+_Checkbox_A.param #width 164
+--_Checkbox_A.col 6
 
 --_Button_A = _controls_1.control #button "Button A" id:#button_a
 --_Button_A.pressed "MessageBox @Button pressed@"

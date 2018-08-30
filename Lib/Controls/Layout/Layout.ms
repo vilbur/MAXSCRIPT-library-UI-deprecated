@@ -68,32 +68,24 @@ struct Layout_v
 	  * @param	int	col	Width of control
 	  *
 	 */
-	function getControlDimensions col =
+	function setControlDimensions col _pos _width _height =
 	(
-		--format ("\nLayout.getControlDimensions()\ncol: % " (col as string) )
-		width_raw	= col * _grid
-		--print ( "col = " + col as string )
-		--print ( "_grid = " + _grid as string )
-		--print ( "width_raw = " + width_raw as string )
-		--print ( "padding = " + padding as string )
-		--print ( "(width_raw	- padding * 2) = " + (width_raw	- padding * 2) as string )
-		--print ( "pos = " + pos as string )
+		width_raw	= if( _width == undefined ) then col * _grid else _width
 		
 		this.trySetNewControlsRow width_raw
 
-		pos	= [ pos[1] + padding, pos[2] ]
-		width	= width_raw	- padding * 2
-		height	= _grid 	- padding * 2
+		pos	= if( _pos == undefined ) then [ pos[1] + padding, pos[2] ] else _pos
 		
-		--width	= 256
-		--height	= 24
-		--
+		width	=  width_raw	- padding * 2
+		
+		height	= if( _height == undefined ) then  _grid 	- padding * 2 else _height
+		
 		dimensions	= #( pos, width, height ) 
 		
 		Bbox.add dimensions
 		
 		this._setNewControlPosition width_raw
-		
+		--print ( "dimensions = " + dimensions as string )
 		dimensions --return
 	),
 	/** Try set new controls row
