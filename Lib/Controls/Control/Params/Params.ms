@@ -6,10 +6,11 @@ struct Params_v
 	
 	/** Add value
 	 */
-	function add param value =
+	function add param value force:true =
 	(
-		List.setVal param value
-		
+		if( force == true or this.get param == undefined ) then  
+			List.setVal param value
+			
 		return this
 	),
 	/** Get value
@@ -34,7 +35,7 @@ struct Params_v
 
 		for k=1 to List.keys.count do
 			params = params + " " + List.keys[k] +":"+ List.values[k] as string
-		
+		print ( "params = " + params as string )
 		return params
 	),
 	

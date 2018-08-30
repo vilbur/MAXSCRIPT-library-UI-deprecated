@@ -7,36 +7,44 @@ struct List_v
 	keys	= #(),
 	values	= #(),
 	
-	fn setVal str val=
+	/**  
+	 */
+	function setVal key val =
 	(
+		key = key as string
 		
-		local i=findItem keys (str as string)
-		--format ">> %\n" i
+		local i=findItem keys key
+
 		if i>0 then
 		(
-			keys[i]	= str
+			keys[i]	= key
 			values[i]	= val
 		)
 		else
 		(
-			append keys str
+			append keys key
 			append values val
 		)
 		val --return
 	),
-
-	fn getVal str =
+	/**  
+	 */
+	function getVal key =
 	(
-		local i=findItem keys str
+		key = key as string
+
+		local i = findItem keys key
+		
 		if i>0 then
 			values[i] --return
 		else
 			undefined --return
 	),
-	
-	fn delete str=
+	/**  
+	 */
+	function delete key=
 	(
-		local i=findItem keys str
+		local i=findItem keys key
 		if i>0 then
 		(
 			deleteItem keys	i

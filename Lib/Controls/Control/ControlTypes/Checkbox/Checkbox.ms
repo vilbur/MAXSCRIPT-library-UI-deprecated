@@ -31,6 +31,14 @@ struct Checkbox_v
 	/*------------------------------------------------------------------------------
 		PRIVATE
 	--------------------------------------------------------------------------------*/
+	--/** Sanitize parameters by specific control type
+	--  *
+	--  * This method must be in all structs which include "ControlBody.ms"
+	-- */
+	--function _sanitizeParametersByControlType =
+	--(
+	--	
+	--),
 	
 	--/** Get\set value of property 
 	--  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
@@ -56,9 +64,9 @@ struct Checkbox_v
 	function _construct =
 	(
 		print ("Checkbox._construct()")
-		type = #checkbox
+		type	= #checkbox
+		name_of_value_param	= #checked
 
-		--this.init()
 		
 		----Controls.add this
 		--Controls.test this

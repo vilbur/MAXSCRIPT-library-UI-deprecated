@@ -6,15 +6,17 @@ struct Button_v
 	include "Lib/Controls/Control/ControlBody.ms"
 	
 	
-	
 	/*------------------------------------------------------------------------------
 		PRIVATE
 	--------------------------------------------------------------------------------*/
-	
-	/*------------------------------------------------------------------------------
-		PRIVATE
-	--------------------------------------------------------------------------------*/
-	
+	--/** Sanitize parameters by specific control type
+	--  *
+	--  * This method must be in all structs which include "ControlBody.ms"
+	-- */
+	--function _sanitizeParametersByControlType =
+	--(
+	--	
+	--),	
 	--/** Get\set value of property 
 	--  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
 	--  * @param	string|#get value	Value of property
@@ -39,7 +41,8 @@ struct Button_v
 	function _construct =
 	(
 		print ("Button_v._construct()")
-		type = #button
+		type	= #button
+
 	),
 	
 	__construct = this._construct()

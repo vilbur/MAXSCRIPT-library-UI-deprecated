@@ -4,13 +4,13 @@
 	--Layout,
 
 	parent_roll,
-
+	name_of_value_param	= #value,
 	/* config */
-	type,	-- type of control E.G.: #button
-	caption,
 	id,
+	type,	-- type of control E.G.: #button
 	value,
-
+	caption,
+	
 	/* options */
 	_col 	= 4,
 
@@ -107,14 +107,14 @@
 		if( value==undefined ) then
 			this._getValueFromIni()
 
-		key = #value
+		--key = #value
 
 		if( value!=undefined and value!=""  ) then
 		(
-			if( type == #checkbox ) then
-				key = #checked
+			--if( type == #checkbox ) then
+			--	key = #checked
 
-			this.param key value
+			this.param name_of_value_param value
 
 		) else
 			this._getValueFromIni()
@@ -133,6 +133,8 @@
 	 */
 	function _addControl =
 	(
+		--this._sanitizeParametersByControlType()
+
 		parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
 
 		ControlEvent._addHandlers()
@@ -171,14 +173,16 @@
 	(
 		dimensions = parent_roll.Layout.getControlDimensions _col
 		
-		_Params.add #pos	dimensions[1]
-		_Params.add #width	dimensions[2]
-		_Params.add #height dimensions[3]
+		_Params.add #pos	dimensions[1] force:false
+		_Params.add #width	dimensions[2] force:false
+		_Params.add #height dimensions[3] force:false
+		
+		--print ( "Params.get #width = " + (_Params.get #width) as string )
 		
 		_Params.join() + this._getTooltip() --return
 	),
 
-	/** Get tooltip, if button then get tooltips from events
+	/** Get tooltip, if button then get tooltips from eventsz
 		Set prefixes "Leftclick:" & "\nRightclick:"
 	 */
 	function _getTooltip =
@@ -201,7 +205,16 @@
 		
 		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
 	),
-
-
-
-
+	--
+	--/** Get Name of value parameter by type of control E.G.: CKECBOX = #checked | EDITTEXT = #text | DEFAULT = #value
+	--  * 
+	--  * Return value name_of_value_param property if defined, else return #value
+	--  * 
+	--  * @return	name 
+	-- */
+	--function _getNameOfValueParameter =
+	--(
+	--	if( hasProperty this "name_of_value_param" ) then name_of_value_param else name_of_value_param_extend --return
+	--),
+	
+	

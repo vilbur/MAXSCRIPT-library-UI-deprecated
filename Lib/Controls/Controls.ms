@@ -56,15 +56,15 @@ struct Controls_v
 	),
 	/** Add Checkbox
 	 */
-	function checkbox caption id:undefined add:true checked:undefined =
+	function checkbox caption id:undefined checked:undefined add:true =
 	(
 		this.newControl (Checkbox_v caption:caption id:id ) add:add
 	),
-	/** Add Checkbox
+	/** Add Edit text control
 	 */
-	function edit caption id:undefined add:true value:undefined =
+	function edit caption id:undefined value:undefined add:true =
 	(
-		--this.control #edittext caption id value:value add:add
+		this.newControl (Control_v type:#edittext caption:caption id:id value:value name_of_value_param:#text ) add:add
 	),
 	
 	/**  Add control of any type
@@ -77,8 +77,7 @@ struct Controls_v
 	(
 		_Control.parent_roll	= parent_roll
 		
-		_Control.init() 
-		--Control_new = (Checkbox_v parent_roll:parent_roll type:type caption:caption value:value ).init() 
+		_Control.init()
 		
 		if( add == true ) then
 			this.add _Control
