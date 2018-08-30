@@ -13,7 +13,8 @@
 	
 	/* options */
 	_col 	= 4,
-
+	dimensions	= #(),	-- dimensions of conrol #( [xy] position, integer width, integer height )
+	
 	/* access */ 
 	path, -- full path to control id E.G.: "foo_rollout.bar_control"
 
@@ -33,6 +34,7 @@
 		this._setId()
 		this._setPath()
 		this._setValue()
+		--this._setDimensions()
 
 		this.ControlEvent.setDefaultEvents()
 
@@ -107,18 +109,11 @@
 		if( value==undefined ) then
 			this._getValueFromIni()
 
-		--key = #value
-
 		if( value!=undefined and value!=""  ) then
-		(
-			--if( type == #checkbox ) then
-			--	key = #checked
-
 			this.param name_of_value_param value
 
-		) else
+		else
 			this._getValueFromIni()
-
 	),
 	/** Get value from ini
 	 */
@@ -128,6 +123,16 @@
 		
 		if( ini_path != undefined ) then
 			value = ((Ini_v()).path ini_path ).load parent_roll.id id --return 
+	),
+	/** _set dimensions
+	 */
+	function _setDimensions =
+	(
+		dimensions = parent_roll.Layout.getControlDimensions _col
+		--print ( "dimensions = " + dimensions as string )
+		_Params.add #pos	dimensions[1] force:false
+		_Params.add #width	dimensions[2] force:false
+		_Params.add #height dimensions[3] force:false
 	),
 	/** Add control to UI 
 	 */
@@ -151,7 +156,6 @@
 	 */
 	function _setCaption =
 	(
-		--caption = trimLeft (trimRight caption)
 		caption	= trimLeft ( trimRight  caption "_" )  "_"
 	),
 	/** Set path
@@ -171,14 +175,8 @@
 	 */
 	function _getParameters =
 	(
-		dimensions = parent_roll.Layout.getControlDimensions _col
-		
-		_Params.add #pos	dimensions[1] force:false
-		_Params.add #width	dimensions[2] force:false
-		_Params.add #height dimensions[3] force:false
-		
-		--print ( "Params.get #width = " + (_Params.get #width) as string )
-		
+		this._setDimensions()
+
 		_Params.join() + this._getTooltip() --return
 	),
 

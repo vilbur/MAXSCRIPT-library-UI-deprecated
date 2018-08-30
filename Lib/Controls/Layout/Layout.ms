@@ -34,7 +34,7 @@ struct Layout_v
 	 */
 	function nextControlsBox groupbox =
 	( 
-		--print ( "Layout_v.nextControlsBox() groupbox=" + groupbox as string )
+		print ( "Layout_v.nextControlsBox() groupbox=" + groupbox as string )
 		
 		y = pos[2] + _grid
 		--y = pos[2] + 16
@@ -63,23 +63,33 @@ struct Layout_v
 	/*---------------------------------------
 		CONTROLS
 	-----------------------------------------*/
-	/** 
+	/** Set dimensions of control, add to Bounding box
 	  * @param	Params	Params
 	  * @param	int	col	Width of control
 	  *
 	 */
 	function getControlDimensions col =
 	(
+		--format ("\nLayout.getControlDimensions()\ncol: % " (col as string) )
 		width_raw	= col * _grid
-
+		--print ( "col = " + col as string )
+		--print ( "_grid = " + _grid as string )
+		--print ( "width_raw = " + width_raw as string )
+		--print ( "padding = " + padding as string )
+		--print ( "(width_raw	- padding * 2) = " + (width_raw	- padding * 2) as string )
+		--print ( "pos = " + pos as string )
+		
 		this.trySetNewControlsRow width_raw
 
 		pos	= [ pos[1] + padding, pos[2] ]
 		width	= width_raw	- padding * 2
 		height	= _grid 	- padding * 2
 		
+		--width	= 256
+		--height	= 24
+		--
 		dimensions	= #( pos, width, height ) 
-
+		
 		Bbox.add dimensions
 		
 		this._setNewControlPosition width_raw
@@ -90,6 +100,8 @@ struct Layout_v
 	 */
 	function trySetNewControlsRow width =
 	(
+		--print ( "(this._getRollWidth()) = " + (this._getRollWidth()) as string )
+		--print ( "pos = " + pos as string )
 		if( (pos[1] + width) > this._getRollWidth() ) then
 			pos = [ pos_box[1], pos[2] + _grid ]
 	),

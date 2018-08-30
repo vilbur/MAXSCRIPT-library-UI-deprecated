@@ -8,8 +8,8 @@ clearListener();
 _rollout	= (Rollout_v()).new "Test Rollout"
 --_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 
-_controls_1	= _rollout.controls()
 --_controls_1	= _rollout.controls()
+_controls_1	= _rollout.controls groupbox:"Test Groupbox"
 
 
 /*---------------------------------------
@@ -19,11 +19,11 @@ _controls_1	= _rollout.controls()
 /*------ add control via control method ------*/
 _Checkbox_A = _controls_1.control #checkbutton "Checkbox A" id:#checkbox_a
 --_Checkbox_A.changed "MessageBox (val as string)"
+_Checkbox_A.param #width 128
 
 --_Button_A = _controls_1.control #button "Button A" id:#button_a
 --_Button_A.pressed "MessageBox @Button pressed@"
 
---_Button_A.param #width 128
 --_Button_A.col 8
 
 --/*------ add control via exact type of control method ------*/
@@ -62,7 +62,7 @@ _Checkbox_A = _controls_1.control #checkbutton "Checkbox A" id:#checkbox_a
 
 _Checkbox_D	= _controls_1.edit "Edit_Text" value:"\"Textplace holder\""
 --_Checkbox_D.param #width 256
-_Checkbox_D.col 10
+--_Checkbox_D.col 6
 
 
 --_Checkbox_D	= _controls_1.edit "Edit_Text" 
