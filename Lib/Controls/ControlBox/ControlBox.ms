@@ -23,7 +23,7 @@ struct ControlBox_v
 	(
 		--print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
 		if( groupbox!=undefined ) then
-			parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(parent_roll.Layout._getGroupboxParams())
+			parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(this._getGroupboxParams())
 	),
 	
 	/** Get id
@@ -31,6 +31,26 @@ struct ControlBox_v
 	function getId =
 	(
 		"_gb" + (( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower groupbox ) "_" ) --return
+	),
+	
+	/*------------------------------------------------------------------------------
+		PRIVATE
+	--------------------------------------------------------------------------------*/
+	/** _get groupbox params
+	 */
+	function _getGroupboxParams =
+	(
+		dimensions	= parent_roll.Layout._getGroupboxDimensions()
+		--format "\n\n=== ControlBox._getGroupboxParams()\ndimensions = % " dimensions
+		
+		Params	= Params_v()
+		
+		Params.add #pos	dimensions[1]
+		Params.add #width	dimensions[2]
+		Params.add #height dimensions[3]
+		--Params.add #height 48
+		
+		Params.join() --return
 	),
 
 	function test =

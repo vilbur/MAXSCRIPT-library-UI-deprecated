@@ -35,7 +35,7 @@ struct Params_v
 
 		for k=1 to List.keys.count do
 			params = params + " " + List.keys[k] +":"+ List.values[k] as string
-		print ( "params = " + params as string )
+		format "\nParams.join()\nparams = % " params
 		return params
 	),
 	

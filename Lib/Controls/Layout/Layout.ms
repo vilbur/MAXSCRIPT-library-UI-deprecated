@@ -34,8 +34,6 @@ struct Layout_v
 	 */
 	function nextControlsBox groupbox =
 	( 
-		print ( "Layout_v.nextControlsBox() groupbox=" + groupbox as string )
-		
 		y = pos[2] + _grid
 		--y = pos[2] + 16
 
@@ -47,18 +45,15 @@ struct Layout_v
 
 	/** Get params string of Controls box
 	 */
-	function _getGroupboxParams =
+	function _getGroupboxDimensions =
 	(
-		--print ( "pos_box=" + pos_box as string )
-		--print ( "pos=" + pos as string )
-		Params	= Params_v()
-		--print ( "Bbox.width=" + Bbox.width as string )
-		Params.add #pos	[ pos_box[1] - margin, pos_box[2] - padding_box ]
-		Params.add #width	( Bbox.width + margin )
-		Params.add #height ( pos[2] - pos_box[2] + _grid + padding_box )
-		--print ( "Params.join()=" + Params.join()as string )
-
-		return Params.join()
+		format "\nBbox.height = % " Bbox.height
+		#(
+			[ pos_box[1] - margin, pos_box[2] - padding_box ],
+			( Bbox.width + margin ),
+			( Bbox.height + margin )
+			--( pos[2] - pos_box[2] + _grid + padding_box )		
+		)
 	),
 	/*---------------------------------------
 		CONTROLS
@@ -74,18 +69,19 @@ struct Layout_v
 		
 		this.trySetNewControlsRow width_raw
 
-		pos	= if( _pos == undefined ) then [ pos[1] + padding, pos[2] ] else _pos
-		
+		--format "\nheight = % " height
+		pos	= if( _pos	== undefined ) then [ pos[1] + padding, pos[2] ]	else _pos
+		height	= if( _height	== undefined ) then _grid - padding * 2        	else _height
 		width	=  width_raw	- padding * 2
 		
-		height	= if( _height == undefined ) then  _grid 	- padding * 2 else _height
-		
-		dimensions	= #( pos, width, height ) 
+		dimensions	= #( pos, width, height )
 		
 		Bbox.add dimensions
 		
 		this._setNewControlPosition width_raw
 		--print ( "dimensions = " + dimensions as string )
+		format "\nLayout.setControlDimensions()\ndimensions = % " dimensions
+		
 		dimensions --return
 	),
 	/** Try set new controls row

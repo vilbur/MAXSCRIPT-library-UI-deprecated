@@ -102,7 +102,7 @@ struct Controls_v
 		for Control in this.Controls do
 			Control._addControl()
 		
-		ControlBox.addGroupBox()	-- Add groupbox control
+		ControlBox.addGroupBox()	-- Add groupbox control to UI
 		parent_roll.Layout.nextControlsBox groupbox	--
 	),
 

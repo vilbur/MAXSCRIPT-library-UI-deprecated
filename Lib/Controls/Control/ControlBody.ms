@@ -128,7 +128,7 @@
 	 */
 	function _setDimensions =
 	(
-		print ( "_Params = " + _Params as string )
+		--print ( "_Params = " + _Params as string )
 		dimensions = parent_roll.Layout.setControlDimensions _col (_Params.get #pos) (_Params.get #width) (_Params.get #height)
 	
 		_Params.add #pos	dimensions[1] force:false
