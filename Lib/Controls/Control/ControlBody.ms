@@ -5,11 +5,13 @@
 
 	parent_roll,
 	name_of_value_param	= #value,
+	
 	/* config */
 	id,
 	type,	-- type of control E.G.: #button
-	value,
 	caption,
+	
+	value,
 	
 	/* options */
 	_col 	= 4,
@@ -23,9 +25,6 @@
 	changed	= ControlEvent.changed,
 	rightclick	= ControlEvent.rightclick,
 
-	/*------ EXTENDED CONTROL TYPES ------*/
-	--toggle	= Checkbox.toggle,
-	
 	/** Init object
 	 */
 	function init =
@@ -40,14 +39,7 @@
 
 		return this
 	),
-	/** Param
-	 */
-	function param key value =
-	(
-		_Params.add ( key as string ) value
 
-		this --return
-	),
 	/** Set params for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
@@ -62,6 +54,15 @@
 		)
 		return this 
 	),
+	/** Param
+	 */
+	function param key value =
+	(
+		_Params.add ( key as string ) value
+
+		this --return
+	),	
+	
 	/** Set width of control in columns 
 	  * @param	integer	columns	Number of columns
 	  * @return	self
@@ -77,16 +78,17 @@
 	  * @param	string|name	prop_name	Name of property 
 	  * @param	mixin|#get|#path	_value	Value or mode of set\get
 	  *
+	  * @example this.prop #state "value"	// set value to control
 	  * @example this.prop #state #get	// return current value of property "state"
 	  * @example this.prop #state #path	// return path string to property e.g.: "rollout_id.control_id.state"
-	  * @example this.prop #state true	// set value to control
 	  *
 	  * @return	string	Path to controls property
 	 */
 	function prop prop_name _value =
 	(
 		prop_path	= path + "." + ( prop_name as string )
-		
+		format "\nprop_path = % " prop_path
+
 		if( _value == #get ) then 
 			execute prop_path
 			
@@ -97,7 +99,7 @@
 			execute (prop_path + "="+_value as string ) -- set value
 			
 	),
-
+	
 	/*------------------------------------------------------------------------------
 		PRIVATE
 	--------------------------------------------------------------------------------*/
@@ -110,10 +112,19 @@
 			this._getValueFromIni()
 
 		if( value!=undefined and value!=""  ) then
-			this.param name_of_value_param value
-
-		else
-			this._getValueFromIni()
+			this._setValueParameter value
+		--else
+			--this._getValueFromIni()
+	),
+	/** Add quotes to parameter if value is string
+	  * Add value to params
+	 */
+	function _setValueParameter value =
+	(
+		if( classOf value == string ) then 
+			value = "\""+value+"\""
+		
+		this.param name_of_value_param value
 	),
 	/** Get value from ini
 	 */
@@ -140,7 +151,8 @@
 	function _addControl =
 	(
 		--this._sanitizeParametersByControlType()
-
+		format "\n\n=== ControlBody._addControl()\nid = % " id
+		--parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
 		parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
 
 		ControlEvent._addHandlers()
@@ -150,8 +162,11 @@
 	function _setId =
 	(
 		id_source	= ( if( id==undefined or id=="" )then caption else id ) as string
-
+		--format "\n\n=== ControlBody._setId()\nid_source = % " id_source
 		id = ( ( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (id_source) ) "" ) as string
+		
+		if( id == "" ) then 
+			id = type  as string + random 1000 9999  as string
 	),
 	/** _set caption
 	 */

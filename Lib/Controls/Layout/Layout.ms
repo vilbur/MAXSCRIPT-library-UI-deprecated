@@ -65,22 +65,22 @@ struct Layout_v
 	 */
 	function setControlDimensions col _pos _width _height =
 	(
-		width_raw	= if( _width == undefined ) then col * _grid else _width
+		format "\n=== Layout.setControlDimensions()\n" 
+		width_raw	= if( _width == undefined ) then col * _grid else _width as integer 
 		
 		this.trySetNewControlsRow width_raw
 
 		--format "\nheight = % " height
-		pos	= if( _pos	== undefined ) then [ pos[1] + padding, pos[2] ]	else _pos
-		height	= if( _height	== undefined ) then _grid - padding * 2        	else _height
+		pos	= if( _pos	== undefined ) then [ pos[1] + padding, pos[2] ]	else _pos	as integer 
+		height	= if( _height	== undefined ) then _grid - padding * 2        	else _height	as integer 
 		width	=  width_raw	- padding * 2
-		
+		--format "pos = % width = % height = % \n" pos width height
 		dimensions	= #( pos, width, height )
 		
 		Bbox.add dimensions
 		
 		this._setNewControlPosition width_raw
-		--print ( "dimensions = " + dimensions as string )
-		format "\nLayout.setControlDimensions()\ndimensions = % " dimensions
+		--format "\nLayout.setControlDimensions()\ndimensions = % " dimensions
 		
 		dimensions --return
 	),
@@ -88,8 +88,8 @@ struct Layout_v
 	 */
 	function trySetNewControlsRow width =
 	(
-		--print ( "(this._getRollWidth()) = " + (this._getRollWidth()) as string )
-		--print ( "pos = " + pos as string )
+		format "\n=== Layout.trySetNewControlsRow()\nwidth = % \n" width
+		--format "_getRollWidth = % \n" (this._getRollWidth())
 		if( (pos[1] + width) > this._getRollWidth() ) then
 			pos = [ pos_box[1], pos[2] + _grid ]
 	),
