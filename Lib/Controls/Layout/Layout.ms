@@ -15,7 +15,7 @@ struct Layout_v
 	/*---------------------------------------
 		CONTROLS BOX
 	-----------------------------------------*/
-	/** Set init pos
+	/** Set init pos 
 	 */
 	function newControlsBox groupbox =
 	(
@@ -81,7 +81,7 @@ struct Layout_v
 		
 		this._setNewControlPosition width_raw
 		--format "\nLayout.setControlDimensions()\ndimensions = % " dimensions
-		
+		 
 		dimensions --return
 	),
 	/** Try set new controls row

@@ -94,6 +94,13 @@ struct Rollout_v
 		--print ( "Rollout."+id+".open()=" + state as string )
 		execute ( id+".open = "+state as string )
 	),
+	/** Exists
+	 */
+	function exists =
+	(
+		(execute id) != undefined --return
+	),
+
 	/*---------------------------------------
 		CONTROLS 
 	-----------------------------------------*/
@@ -123,12 +130,15 @@ struct Rollout_v
 		id = "rollout_"+_id
 	),
 
-	/** Set rollout global variable
+	/** Declare rollout global variable
 	  * Global variable is id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
+	  *
+	  * Declared as undefined, because of reset rollout when script is restarted
+	  *
 	  */
 	function _setRolloutGlobalVariable =
 	(
-		execute ( "global "+ id )
+		execute ( "global "+ id +" = undefined")
 	),
 	/** Try destroy dialog by global variable before variable will be overwritten
 	 */
@@ -159,7 +169,7 @@ struct Rollout_v
 	(
 		roll.begin()
 		
-		this._addControls()
+		this._renderControls()
 		
 		this._createSubRollouts()
 
@@ -169,13 +179,12 @@ struct Rollout_v
 
 		roll.end()
 	),
-
-	/**  Add controls on rollout creation
+	/**  Add controls to UI on rollout creation
 	*/
-	function _addControls =
+	function _renderControls =
 	(
 		for Controls in ControlBoxes do
-			Controls._addControls()
+			Controls._renderControls()
 	),
 	/** Create sub rollouts
 	 */
@@ -226,12 +235,7 @@ struct Rollout_v
 		print ( "ini = " + ini as string )
 		if( ini != undefined ) then
 			roll.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
-			--roll.addText( "function saveIni _section _key _value = ( (Ini_v _path:@"+ini+"@).save _section _key _value )" )
-
-			
-			----roll.addText( "function saveIni _section _key _value = ( print ( ((Ini_v()).path @"+ini+"@)  as String ) )" )
 	),
-
 
 	function test =
 	(

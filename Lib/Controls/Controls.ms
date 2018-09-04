@@ -2,7 +2,7 @@
  */
 struct Controls_v
 (
-	parent_roll,
+	Parent_roll,
 	groupbox, -- caption of groupbox
 	ControlBox	= ControlBox_v(),
 	Controls	= #(),
@@ -116,7 +116,7 @@ struct Controls_v
 	 */
 	function newControl _Control add:true =
 	(
-		_Control.parent_roll	= parent_roll
+		_Control.Parent_roll	= Parent_roll
 		
 		_Control.init()
 		
@@ -128,16 +128,16 @@ struct Controls_v
 	
 	/** Add controls to rollout
 	 */ 
-	function _addControls =
+	function _renderControls =
 	(
-		ControlBox.new	parent_roll groupbox	-- Set new groupbox
-		parent_roll.Layout.newControlsBox	groupbox	-- Set position to layout
+		ControlBox.new	Parent_roll groupbox	-- Set new groupbox
+		Parent_roll.Layout.newControlsBox	groupbox	-- Set position to layout
 
 		for Control in this.Controls do
-			Control._addControl()
+			Control._renderControl()
 		
 		ControlBox.addGroupBox()	-- Add groupbox control to UI
-		parent_roll.Layout.nextControlsBox groupbox	--
+		Parent_roll.Layout.nextControlsBox groupbox	--
 	),
 
 

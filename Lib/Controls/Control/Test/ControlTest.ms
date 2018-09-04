@@ -55,8 +55,14 @@ _controls_1	= _rollout.controls groupbox:"Test Groupbox"
 
 
 --btn_param	= (_controls_1.button "Param").param #width 64
-btn_params	= (_controls_1.button "Params").params "width:64"
+--btn_params	= (_controls_1.button "Params").params "width:64"
+btn_param	= _controls_1.button "Param test"
 
+btn_param.caption	= "Button"
+
+btn_param.prop.add #width 128
+
+--btn_param.exists()
 
 /*------------------------------------------------------------------------------
 
@@ -77,10 +83,16 @@ btn_params	= (_controls_1.button "Params").params "width:64"
 
 
 
-
-
-
 /*---------------------------------------
 	 CREATE DIALOG 
 -----------------------------------------*/
+
+--btn_param.exists()
 _rollout.CreateRollDialog()
+--btn_param.exists()
+
+--format "rollout_test_rollout.paramtest.text = % \n" rollout_test_rollout.paramtest.text
+
+
+
+

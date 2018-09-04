@@ -1,9 +1,9 @@
 	/* dependency */
 	ControlEvent	= ControlEvent_v parent_control:this,
-	_Params	= Params_v(),
+	Prop	= Params_v Control:this,
 	--Layout,
 
-	parent_roll,
+	Parent_roll,
 	name_of_value_param	= #value,
 	
 	/* config */
@@ -19,6 +19,7 @@
 	
 	/* access */ 
 	path, -- full path to control id E.G.: "foo_rollout.bar_control"
+	control, -- full path to control id E.G.: "foo_rollout.bar_control"
 
 	/*------ EXTENDED EVENTS ------*/
 	pressed	= ControlEvent.pressed,
@@ -29,51 +30,15 @@
 	 */
 	function init =
 	(
+		print "ControlBody.init()"
 		this._setCaption()
 		this._setId()
-		this._setPath()
-		this._setValue()
-		--this._setDimensions()
+		this._setControl()
 
 		this.ControlEvent.setDefaultEvents()
-
+		--this.exists()
 		return this
 	),
-
-	/** Set params for control
-	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
-	 */
-	function params params_string =
-	(
-		string_split	= filterString params_string ","
-
-		for key_value_string in string_split do
-		(
-			key_value	= filterString key_value_string ":"
-			_Params.add key_value[1] key_value[2]
-		)
-		return this 
-	),
-	/** Param
-	 */
-	function param key value =
-	(
-		_Params.add ( key as string ) value
-
-		this --return
-	),	
-	
-	/** Set width of control in columns 
-	  * @param	integer	columns	Number of columns
-	  * @return	self
-	 */
-	function col columns =
-	(
-		_col = columns
-
-		this --return
-	),
-
 	/** Get\Set property of control, or get promise string
 	  * @param	string|name	prop_name	Name of property 
 	  * @param	mixin|#get|#path	_value	Value or mode of set\get
@@ -84,26 +49,91 @@
 	  *
 	  * @return	string	Path to controls property
 	 */
-	function prop prop_name _value =
+	--function prop prop_name _value =
+	--(
+	--
+	--	if( control != undefined ) then
+	--	(
+	--		prop_path	= this.propPath prop_name
+	--		
+	--		
+	--		
+	--	)
+	--	
+	--		
+	--),
+	/** Set params for control
+	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
+	 */
+	function params params_string =
 	(
-		prop_path	= path + "." + ( prop_name as string )
-		format "\nprop_path = % " prop_path
+		string_split	= filterString params_string ","
 
-		if( _value == #get ) then 
-			execute prop_path
-			
-		else if( _value == #path ) then 
-			prop_path -- return path to property 
+		for key_value_string in string_split do
+		(
+			key_value	= filterString key_value_string ":"
+			Prop.add key_value[1] key_value[2]
+		)
+		return this 
+	),
+	/** Param
+	 */
+	function param key value =
+	(
+		Prop.add ( key as string ) value
 
-		else
-			execute (prop_path + "="+_value as string ) -- set value
-			
+		this --return
+	),	
+	
+
+	/** Set width of control in columns 
+	  * @param	integer	columns	Number of columns
+	  * @return	self
+	 */
+	function col columns =
+	(
+		_col = columns
+
+		this --return
+	),
+	/** Exists
+	 */
+	function exists =
+	(
+		--(execute path).width = 128
+		--path.width = 128
+		print "=== ControlBody.exists()"
+		--format "path = % \n" path
+		
+		--execute ((path + ".text" ) + "=\"Test\"" ) -- set value
+		--format "Parent_roll.exists() = % \n" (Parent_roll.exists())
+		
+		
+		--rollout_test_rollout.paramtest.text = "Test"
+		--format "rollout_test_rollout = % \n" rollout_test_rollout
+		--rollout_test_rollout.paramtest
+		
+		Parent_roll.exists() --return
 	),
 	
 	/*------------------------------------------------------------------------------
 		PRIVATE
 	--------------------------------------------------------------------------------*/
+	/** Add control to UI 
+	 */
+	function _renderControl =
+	(
+		print "ControlBody._renderControl()"
+		this._setValue()
 
+		Parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
+
+		ControlEvent._addHandlers()
+	),
+	
+	/*---------------------------------------
+		GETTERS & SETTERS
+	-----------------------------------------*/
 	/** _set value
 	 */
 	function _setValue =
@@ -130,32 +160,21 @@
 	 */
 	function _getValueFromIni =
 	(
-		ini_path = parent_roll.ini
+		ini_path = Parent_roll.ini
 		
 		if( ini_path != undefined ) then
-			value = ((Ini_v()).path ini_path ).load parent_roll.id id --return 
+			value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return 
 	),
 	/** _set dimensions
 	 */
 	function _setDimensions =
 	(
-		--print ( "_Params = " + _Params as string )
-		dimensions = parent_roll.Layout.setControlDimensions _col (_Params.get #pos) (_Params.get #width) (_Params.get #height)
+		--print ( "Prop = " + Prop as string )
+		dimensions = Parent_roll.Layout.setControlDimensions _col (Prop.get #pos) (Prop.get #width) (Prop.get #height)
 	
-		_Params.add #pos	dimensions[1] force:false
-		_Params.add #width	dimensions[2] force:false
-		_Params.add #height dimensions[3] force:false
-	),
-	/** Add control to UI 
-	 */
-	function _addControl =
-	(
-		--this._sanitizeParametersByControlType()
-		format "\n\n=== ControlBody._addControl()\nid = % " id
-		--parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
-		parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
-
-		ControlEvent._addHandlers()
+		Prop.add #pos	dimensions[1] force:false
+		Prop.add #width	dimensions[2] force:false
+		Prop.add #height dimensions[3] force:false
 	),
 	/** Get id
 	 */
@@ -172,13 +191,14 @@
 	 */
 	function _setCaption =
 	(
-		caption	= trimLeft ( trimRight  caption "_" )  "_"
+		caption	= trimLeft ( trimRight caption "_" )  "_"
 	),
 	/** Set path
 	 */
-	function _setPath =
+	function _setControl =
 	(
-		path = parent_roll.id +"."+id
+		path = Parent_roll.id +"."+id
+		control = Parent_roll.id +"."+id
 	),
 	--/** Get width
 	-- */
@@ -193,7 +213,7 @@
 	(
 		this._setDimensions()
 
-		_Params.join() + this._getTooltip() --return
+		Prop.join() + this._getTooltip() --return
 	),
 
 	/** Get tooltip, if button then get tooltips from eventsz
