@@ -64,7 +64,7 @@ struct Controls_v
 	 */
 	function edit caption id:undefined value:undefined add:true =
 	(
-		this.newControl (Control_v type:#edittext caption:caption id:id value:value name_of_value_param:#text ) add:add
+		this.newControl (EditText_v caption:caption id:id value:value ) add:add
 	),
 	
 	

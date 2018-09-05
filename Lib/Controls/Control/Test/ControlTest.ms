@@ -89,14 +89,25 @@ function cretateControlWithParameters =
 	
 --------------------------------------------------------------------------------*/
 
+/** Edit control test
+ */
+function editControlTest =
+(
+	_edit	= _controls_1.edit ""
+	_edit_2	= _controls_1.edit "Caption" value:"Text Placeholder"
+	--_edit.param #width 256
+	_edit.col 12
+	
+	_edit_2.valueAsTooltip true
+	
+	--_edit_2.changed "messagebox \"Test\""
+	
+	--_edit	= _controls_1.path button:"Edit_Text"
+	--
+	----_control_path	= _controls_1.edit "Edit_Text" 
 
---_Checkbox_D	= _controls_1.edit "" value:"Text Placeholder"
---_Checkbox_D.param #width 256
-----_Checkbox_D.col 6
---
---_Checkbox_D	= _controls_1.path button:"Edit_Text"
---
-----_control_path	= _controls_1.edit "Edit_Text" 
+)
+
 
 
 /*---------------------------------------
@@ -104,14 +115,16 @@ function cretateControlWithParameters =
 -----------------------------------------*/
 
 cretateControlWithPropertiesTest()
-cretateControlWithParameters()
+--cretateControlWithParameters()
+--editControlTest()
+
+
 
 /* CREATE DIALOG  */
 _rollout.CreateRollDialog()
 
-addParameterToExistingControlsTest()
+--addParameterToExistingControlsTest()
 
---format "rollout_test_rollout.paramtest.text = % \n" rollout_test_rollout.paramtest.text
 
 
 

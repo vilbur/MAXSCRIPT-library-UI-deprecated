@@ -1,5 +1,5 @@
 	/* dependency */
-	ControlEvent	= ControlEvent_v parent_control:this,
+	Events	= ControlEvents_v parent_control:this,
 	Prop	= Params_v Control:this,
 	--Layout,
 
@@ -22,9 +22,9 @@
 	control, -- full path to control id E.G.: "foo_rollout.bar_control"
 
 	/*------ EXTENDED EVENTS ------*/
-	pressed	= ControlEvent.pressed,
-	changed	= ControlEvent.changed,
-	rightclick	= ControlEvent.rightclick,
+	pressed	= Events.pressed,
+	changed	= Events.changed,
+	rightclick	= Events.rightclick,
 
 	/** Init object
 	 */
@@ -35,7 +35,7 @@
 		this._setId()
 		this._setControl()
 
-		this.ControlEvent.setDefaultEvents()
+		this.Events.setDefaultEvents()
 		--this.exists()
 		return this
 	),
@@ -52,9 +52,16 @@
 			key_value	= filterString key_value_string ":"
 			Prop.add key_value[1] key_value[2]
 		)
-		return this 
+		this --return  
 	),
+	/** Param
+	 */
+	function param key value =
+	(
+		Prop.add ( key as string ) value
 
+		this --return
+	),
 	/** Set width of control in columns 
 	  * @param	integer	columns	Number of columns
 	  * @return	self
@@ -86,7 +93,7 @@
 
 		Parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
 
-		ControlEvent._addHandlers()
+		Events._addHandlers()
 	),
 	
 	/*---------------------------------------
@@ -109,6 +116,8 @@
 	 */
 	function _setValueParameter value =
 	(
+		print "------------\nControlBody._setValueParameter()"
+
 		if( classOf value == string ) then 
 			value = "\""+value+"\""
 		
@@ -118,6 +127,7 @@
 	 */
 	function _getValueFromIni =
 	(
+		print "------------\nControlBody._getValueFromIni()"
 		ini_path = Parent_roll.ini
 		
 		if( ini_path != undefined ) then
@@ -185,8 +195,8 @@
 		
 		if( type == #button ) then
 		(
-			Event_pressed	= ControlEvent.Events.getEvent "pressed"
-			Event_rightclick	= ControlEvent.Events.getEvent "rightclick" 
+			Event_pressed	= Events.Events.getEvent "pressed"
+			Event_rightclick	= Events.Events.getEvent "rightclick" 
 			--print ( "Event_pressed = " + Event_pressed as string )
 			--print ( "Event_rightclick = " + Event_rightclick as string )
 			
