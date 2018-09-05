@@ -1,6 +1,6 @@
-/** Params
+/** Props
  */
-struct Params_v
+struct Props_v
 (
 	Control,
 
@@ -27,7 +27,11 @@ struct Params_v
 	 */
 	function get param =
 	(
-		return (List.getVal param)
+		if not ( Control.exists() ) then
+			List.getVal param -- return
+			
+		else
+			this.getProp param 
 	),
 	/** Remove
 	 */
@@ -35,19 +39,20 @@ struct Params_v
 	(
 		List.delete param
 		
-		return this
+		this
 	),
 	/** Join
 	 */
 	function join =
 	(
-		--print "Params.join()"
+		--print "------------\nParams.join()"
 		params = ""
 
 		for k=1 to List.keys.count do
 			params = params + " " + List.keys[k] +":"+ List.values[k] as string
-		--format "params = % \n" params
-		return params
+
+		--format " params	= % \n" params
+		params --return
 	),
 	
 	/*------------------------------------------------------------------------------
@@ -91,7 +96,7 @@ struct Params_v
 	
 	--function test =
 	--(
-	--	messagebox "Params.test()"
+	--	messagebox "Props.test()"
 	--)
 	
 	

@@ -49,14 +49,14 @@ struct ControlBox_v
 		dimensions	= Parent_roll.Layout._getGroupboxDimensions()
 		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
 		
-		Params	= Params_v Control:this
+		Props	= Props_v Control:this
 		
-		Params.add #pos	dimensions[1]
-		Params.add #width	dimensions[2]
-		Params.add #height dimensions[3]
-		--Params.add #height 48
+		Props.add #pos	dimensions[1]
+		Props.add #width	dimensions[2]
+		Props.add #height dimensions[3]
+		--Props.add #height 48
 		
-		Params.join() --return
+		Props.join() --return
 	),
 
 	function test =

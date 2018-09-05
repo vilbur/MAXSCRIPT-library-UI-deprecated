@@ -36,7 +36,7 @@ filein ( getFilenamePath(getSourceFileName()) + "/Lib/Menu/Menu.ms" );
 	CONTROLS 
 -----------------------------------------*/
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Tooltip/Tooltip.ms" );
-filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Params/Params.ms" );
+filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/Props/Props.ms" );
 
 
 filein ( getFilenamePath(getSourceFileName()) + "/Lib/Controls/Control/ControlTypes/Checkbox/Checkbox.ms" )

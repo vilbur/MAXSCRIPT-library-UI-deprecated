@@ -3,30 +3,18 @@
 struct Checkbox_v
 (
 	include "Lib/Controls/Control/ControlBody.ms"
-
-	--Control,
 	
 	checked,
-	
-	--Controls,
-	--parent_roll,
-	--
-	--/* config */
-	--type,	-- type of control E.G.: #button
-	--caption,
-	--id,
-	--value,
-	--
+
 	/** Toggle checkbox
 	 */
 	function toggle =
 	(
-		
-		current_state = this.prop #state #get
-		
-		this.prop #state ( not current_state )
+		--print "------------\nCheckbox.toggle()"
+		current_state = this.prop.get #state
+		--format " current_state	= % \n" current_state
+		this.prop.add #state ( not current_state )
 	),
-	
 	
 	/*------------------------------------------------------------------------------
 		PRIVATE
@@ -66,13 +54,6 @@ struct Checkbox_v
 		--print "------------\nCheckbox._construct()"
 		type	= #checkbox
 		name_of_value_param	= #checked
-
-		
-		----Controls.add this
-		--Controls.test this
-		--print ( "this = " + this as string )
-		--print ( "Controls = " + Controls as string )
-		
 	),
 	
 	__construct = this._construct()

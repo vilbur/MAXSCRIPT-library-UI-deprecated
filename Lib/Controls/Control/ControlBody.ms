@@ -1,6 +1,6 @@
 	/* dependency */
 	Events	= ControlEvents_v parent_control:this,
-	Prop	= Params_v Control:this,
+	Prop	= Props_v Control:this,
 	--Layout,
 
 	Parent_roll,
@@ -116,12 +116,24 @@
 	 */
 	function _setValueParameter value =
 	(
-		print "------------\nControlBody._setValueParameter()"
-
-		if( classOf value == string ) then 
-			value = "\""+value+"\""
-		
-		this.param name_of_value_param value
+		--print "------------\nControlBody._setValueParameter()"
+		this.param name_of_value_param (this._formatDatatypeValue value)
+	),
+	/** Format datatype of value
+	  * Put quotes around string value
+	 */
+	function _formatDatatypeValue value =
+	(
+		if( classOf value == String and this._isValueBooleanString value == false ) then 
+			"\""+value+"\"" --return
+		else
+			value --return 
+	),
+	/** Is value boolean string E.G.: "true" OR "false"
+	 */
+	function _isValueBooleanString value =
+	(
+		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
 	),
 	/** Get value from ini
 	 */
@@ -131,7 +143,10 @@
 		ini_path = Parent_roll.ini
 		
 		if( ini_path != undefined ) then
-			value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return 
+			value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return
+			
+		format " value	= % \n" value
+		value --return
 	),
 	/** _set dimensions
 	 */
@@ -184,6 +199,7 @@
 		this._setDimensions()
 
 		Prop.join() + this._getTooltip() --return
+		--this._getTooltip() --return
 	),
 
 	/** Get tooltip, if button then get tooltips from eventsz

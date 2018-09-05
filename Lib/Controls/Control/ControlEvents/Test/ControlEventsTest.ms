@@ -1,15 +1,12 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../../../../../includes.ms" )
 clearListener();
 
-
 /*---------------------------------------
 	ROLLOUT DEFINITION
 -----------------------------------------*/
 _rollout	= (Rollout_v()).new "Events Test"
---_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
+_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 
---_controls_1	= _rollout.controls()
-global _controls_1	= _rollout.controls groupbox:"Test Groupbox"
 
 
 /*---------------------------------------
@@ -20,49 +17,25 @@ global _controls_1	= _rollout.controls groupbox:"Test Groupbox"
  */
 function cretateControlWithPropertiesTest =
 (
-	global btn_prop	= _controls_1.button "Props test"
+	_controls_1	= _rollout.controls groupbox:"Test Groupbox"
+	_btn_prop	= _controls_1.button "Props test"
+	_checkbox 	= _controls_1.checkbox "Checkbox test"
 	
-	--btn_prop.col 6
-	btn_prop.pressed "messagebox \"Test\""
-	
+	--_btn_prop.col 6
+	_btn_prop.pressed	"messagebox \"Pressed\""	tooltip:"Pressed tooltip"
+	_btn_prop.rightclick 	"messagebox \"Rightclick\""	tooltip:"Rightclick tooltip"
 )
---/** Add parameter to existing controls
--- */
---function addParameterToExistingControlsTest =
---(
---	btn_prop.prop.add #enabled false
---)
---/** Cretate control with parameters
--- */
---function cretateControlWithParameters =
---(
---	btn_param	= _controls_1.button "Param test"
---	
---	btn_param.params "width:144, height:48"
---)
 
-/*------------------------------------------------------------------------------
-
-	CONTROL TYPES
-	
---------------------------------------------------------------------------------*/
-
-/** Edit control test
+/** Set control properties
  */
-function editControlTest =
+function remoteCheckbox =
 (
-	_edit	= _controls_1.edit ""
-	_edit_2	= _controls_1.edit "Caption" value:"Text Placeholder"
-	--_edit.param #width 256
-	_edit.col 12
-	
-	_edit_2.valueAsTooltip true
-	
-	--_edit_2.changed "messagebox \"Test\""
-	
-	--_edit	= _controls_1.path button:"Edit_Text"
-	--
-	----_control_path	= _controls_1.edit "Edit_Text" 
+	_controls_2	= _rollout.controls groupbox:"Toggle Test"
+
+	_btn_toggle	= _controls_2.button "Toggle checkbox" 
+	global _checkbox_toggle 	= _controls_2.checkbox "Toggle Test" -- declare controls variable as global, so it can be revoked in callback of button
+
+	_btn_toggle.pressed	"(_checkbox_toggle.toggle())"	tooltip:"Pressed tooltip"
 
 )
 
@@ -73,17 +46,11 @@ function editControlTest =
 -----------------------------------------*/
 
 cretateControlWithPropertiesTest()
---cretateControlWithParameters()
---editControlTest()
-
+remoteCheckbox()
 
 
 /* CREATE DIALOG  */
 _rollout.CreateRollDialog()
-
---addParameterToExistingControlsTest()
-
-
 
 
 

@@ -11,7 +11,7 @@ _rollout	= (Rollout_v()).new "Test Rollout"
 --_controls_1	= _rollout.controls()
 global _controls_1	= _rollout.controls groupbox:"Test Groupbox"
 
-
+ 
 /*---------------------------------------
 	ADD CONTROLS
 -----------------------------------------*/
