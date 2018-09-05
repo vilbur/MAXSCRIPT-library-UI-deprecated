@@ -98,7 +98,7 @@ function editControlTest =
 	--_edit.param #width 256
 	_edit.col 12
 	
-	_edit_2.valueAsTooltip true
+	--_edit_2.valueAsTooltip true
 	
 	--_edit_2.changed "messagebox \"Test\""
 	
@@ -115,8 +115,8 @@ function editControlTest =
 -----------------------------------------*/
 
 cretateControlWithPropertiesTest()
---cretateControlWithParameters()
---editControlTest()
+cretateControlWithParameters()
+editControlTest()
 
 
 
