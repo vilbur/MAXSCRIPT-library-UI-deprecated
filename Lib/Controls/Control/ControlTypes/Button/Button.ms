@@ -40,7 +40,7 @@ struct Button_v
 	 */
 	function _construct =
 	(
-		print ("Button_v._construct()")
+		--print "------------\nButton._construct()"
 		type	= #button
 
 	),

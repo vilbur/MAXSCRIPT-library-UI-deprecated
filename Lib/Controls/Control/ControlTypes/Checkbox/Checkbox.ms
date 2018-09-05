@@ -21,7 +21,7 @@ struct Checkbox_v
 	 */
 	function toggle =
 	(
-		print "Checkbox_v.toggle()"
+		
 		current_state = this.prop #state #get
 		
 		this.prop #state ( not current_state )
@@ -63,7 +63,7 @@ struct Checkbox_v
 	 */
 	function _construct =
 	(
-		print ("Checkbox._construct()")
+		--print "------------\nCheckbox._construct()"
 		type	= #checkbox
 		name_of_value_param	= #checked
 

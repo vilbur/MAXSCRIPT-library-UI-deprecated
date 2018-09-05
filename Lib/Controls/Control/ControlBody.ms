@@ -30,7 +30,7 @@
 	 */
 	function init =
 	(
-		print "ControlBody.init()"
+		--print "------------\nControlBody.init()"
 		this._setCaption()
 		this._setId()
 		this._setControl()
@@ -39,29 +39,7 @@
 		--this.exists()
 		return this
 	),
-	/** Get\Set property of control, or get promise string
-	  * @param	string|name	prop_name	Name of property 
-	  * @param	mixin|#get|#path	_value	Value or mode of set\get
-	  *
-	  * @example this.prop #state "value"	// set value to control
-	  * @example this.prop #state #get	// return current value of property "state"
-	  * @example this.prop #state #path	// return path string to property e.g.: "rollout_id.control_id.state"
-	  *
-	  * @return	string	Path to controls property
-	 */
-	--function prop prop_name _value =
-	--(
-	--
-	--	if( control != undefined ) then
-	--	(
-	--		prop_path	= this.propPath prop_name
-	--		
-	--		
-	--		
-	--	)
-	--	
-	--		
-	--),
+
 	/** Set params for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
@@ -76,15 +54,6 @@
 		)
 		return this 
 	),
-	/** Param
-	 */
-	function param key value =
-	(
-		Prop.add ( key as string ) value
-
-		this --return
-	),	
-	
 
 	/** Set width of control in columns 
 	  * @param	integer	columns	Number of columns
@@ -96,23 +65,12 @@
 
 		this --return
 	),
-	/** Exists
+	/** Find if control is rendered in ui already
+	  *
+	  * When rollout is rendered, then control is rendered immediately
 	 */
 	function exists =
 	(
-		--(execute path).width = 128
-		--path.width = 128
-		print "=== ControlBody.exists()"
-		--format "path = % \n" path
-		
-		--execute ((path + ".text" ) + "=\"Test\"" ) -- set value
-		--format "Parent_roll.exists() = % \n" (Parent_roll.exists())
-		
-		
-		--rollout_test_rollout.paramtest.text = "Test"
-		--format "rollout_test_rollout = % \n" rollout_test_rollout
-		--rollout_test_rollout.paramtest
-		
 		Parent_roll.exists() --return
 	),
 	
@@ -123,7 +81,7 @@
 	 */
 	function _renderControl =
 	(
-		print "ControlBody._renderControl()"
+		--print "------------\nControlBody._renderControl()"
 		this._setValue()
 
 		Parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
@@ -143,8 +101,8 @@
 
 		if( value!=undefined and value!=""  ) then
 			this._setValueParameter value
-		--else
-			--this._getValueFromIni()
+		----else
+			----this._getValueFromIni()
 	),
 	/** Add quotes to parameter if value is string
 	  * Add value to params
@@ -169,12 +127,14 @@
 	 */
 	function _setDimensions =
 	(
-		--print ( "Prop = " + Prop as string )
+		--print "------------\nControlBody._setDimensions()"
 		dimensions = Parent_roll.Layout.setControlDimensions _col (Prop.get #pos) (Prop.get #width) (Prop.get #height)
-	
-		Prop.add #pos	dimensions[1] force:false
-		Prop.add #width	dimensions[2] force:false
-		Prop.add #height dimensions[3] force:false
+		--format " Prop.get #width = % \n" (Prop.get #width)
+		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
+
+		Prop.add #pos	dimensions[1] force:true
+		Prop.add #width	dimensions[2] force:true
+		Prop.add #height dimensions[3] force:true
 	),
 	/** Get id
 	 */

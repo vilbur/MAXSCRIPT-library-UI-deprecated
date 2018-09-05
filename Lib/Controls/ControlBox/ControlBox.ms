@@ -4,7 +4,7 @@
  */
 struct ControlBox_v 
 (
-	parent_roll,
+	Parent_roll,
 	id,
 	groupbox,
 
@@ -12,7 +12,7 @@ struct ControlBox_v
 	 */
 	function new _parent_roll _groupbox =
 	(
-		parent_roll	= _parent_roll
+		Parent_roll	= _parent_roll
 		groupbox	= _groupbox
 		
 		this --return 
@@ -23,7 +23,7 @@ struct ControlBox_v
 	(
 		--print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
 		if( groupbox!=undefined ) then
-			parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(this._getGroupboxParams())
+			Parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(this._getGroupboxParams())
 	),
 	
 	/** Get id
@@ -32,7 +32,12 @@ struct ControlBox_v
 	(
 		"_gb" + (( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower groupbox ) "_" ) --return
 	),
-	
+	/** Exists
+	 */
+	function exists =
+	(
+		false
+	),
 	/*------------------------------------------------------------------------------
 		PRIVATE
 	--------------------------------------------------------------------------------*/
@@ -40,10 +45,11 @@ struct ControlBox_v
 	 */
 	function _getGroupboxParams =
 	(
-		dimensions	= parent_roll.Layout._getGroupboxDimensions()
-		--format "\n\n=== ControlBox._getGroupboxParams()\ndimensions = % " dimensions
+		--print "------------\nControlBox._getGroupboxParams()"
+		dimensions	= Parent_roll.Layout._getGroupboxDimensions()
+		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
 		
-		Params	= Params_v()
+		Params	= Params_v Control:this
 		
 		Params.add #pos	dimensions[1]
 		Params.add #width	dimensions[2]

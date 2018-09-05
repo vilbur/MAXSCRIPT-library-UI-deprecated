@@ -9,7 +9,7 @@ _rollout	= (Rollout_v()).new "Test Rollout"
 --_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 
 --_controls_1	= _rollout.controls()
-_controls_1	= _rollout.controls groupbox:"Test Groupbox"
+global _controls_1	= _rollout.controls groupbox:"Test Groupbox"
 
 
 /*---------------------------------------
@@ -54,15 +54,34 @@ _controls_1	= _rollout.controls groupbox:"Test Groupbox"
 --_controls_1.add _Checkbox_D
 
 
---btn_param	= (_controls_1.button "Param").param #width 64
+--btn_prop	= (_controls_1.button "Param").param #width 64
 --btn_params	= (_controls_1.button "Params").params "width:64"
-btn_param	= _controls_1.button "Param test"
 
-btn_param.caption	= "Button"
-
-btn_param.prop.add #width 128
-
---btn_param.exists()
+/** Set control properties
+ */
+function cretateControlWithPropertiesTest =
+(
+	global btn_prop	= _controls_1.button "Props test"
+	
+	--btn_prop.col 6
+	btn_prop.prop.add #width 144
+	btn_prop.prop.add #height 48
+	btn_prop.prop.add #border false
+)
+/** Add parameter to existing controls
+ */
+function addParameterToExistingControlsTest =
+(
+	btn_prop.prop.add #enabled false
+)
+/** Cretate control with parameters
+ */
+function cretateControlWithParameters =
+(
+	btn_param	= _controls_1.button "Param test"
+	
+	btn_param.params "width:144, height:48"
+)
 
 /*------------------------------------------------------------------------------
 
@@ -80,16 +99,17 @@ btn_param.prop.add #width 128
 ----_control_path	= _controls_1.edit "Edit_Text" 
 
 
-
-
-
 /*---------------------------------------
-	 CREATE DIALOG 
+	RUN TESTS
 -----------------------------------------*/
 
---btn_param.exists()
+cretateControlWithPropertiesTest()
+cretateControlWithParameters()
+
+/* CREATE DIALOG  */
 _rollout.CreateRollDialog()
---btn_param.exists()
+
+addParameterToExistingControlsTest()
 
 --format "rollout_test_rollout.paramtest.text = % \n" rollout_test_rollout.paramtest.text
 

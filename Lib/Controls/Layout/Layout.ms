@@ -47,7 +47,6 @@ struct Layout_v
 	 */
 	function _getGroupboxDimensions =
 	(
-		format "\nBbox.height = % " Bbox.height
 		#(
 			[ pos_box[1] - margin, pos_box[2] - padding_box ],
 			( Bbox.width + margin ),
@@ -65,22 +64,22 @@ struct Layout_v
 	 */
 	function setControlDimensions col _pos _width _height =
 	(
-		format "\n=== Layout.setControlDimensions()\n" 
-		width_raw	= if( _width == undefined ) then col * _grid else _width as integer 
+		--print "------------\nLayout.setControlDimensions()"
+		--format " col	= % \n _pos 	 = % \n _width  = % \n _height = % \n\n" col _pos _width _height
 		
+		width_raw	= if( _width == undefined ) then col * _grid else _width as integer 
+		--format " width_raw	= % \n" width_raw
 		this.trySetNewControlsRow width_raw
 
-		--format "\nheight = % " height
 		pos	= if( _pos	== undefined ) then [ pos[1] + padding, pos[2] ]	else _pos	as integer 
 		height	= if( _height	== undefined ) then _grid - padding * 2        	else _height	as integer 
 		width	=  width_raw	- padding * 2
-		--format "pos = % width = % height = % \n" pos width height
+	
 		dimensions	= #( pos, width, height )
 		
 		Bbox.add dimensions
 		
 		this._setNewControlPosition width_raw
-		--format "\nLayout.setControlDimensions()\ndimensions = % " dimensions
 		 
 		dimensions --return
 	),
@@ -88,8 +87,6 @@ struct Layout_v
 	 */
 	function trySetNewControlsRow width =
 	(
-		format "\n=== Layout.trySetNewControlsRow()\nwidth = % \n" width
-		--format "_getRollWidth = % \n" (this._getRollWidth())
 		if( (pos[1] + width) > this._getRollWidth() ) then
 			pos = [ pos_box[1], pos[2] + _grid ]
 	),
@@ -106,16 +103,16 @@ struct Layout_v
 	 */
 	function _getRollWidth =
 	(
-		return (roll_width * _grid) + margin*4 + 14
+		--print "------------\nLayout._getRollWidth()"
+		width = (roll_width * _grid) + margin*4 + 14
+		--format "width = % \n" width
+		width --return
 	),
 	/** _get roll height
 	 */
 	function _getRollHeight =
 	(
-		print ( "_getRollHeight()=" + (Bbox.height + 48) as string )
-
-		return Bbox.height + 48
-		--return 64
+		Bbox.height + 48
 	),
 
 	function test =

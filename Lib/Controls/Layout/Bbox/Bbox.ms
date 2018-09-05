@@ -10,6 +10,7 @@ struct Bbox_v
 	 */
 	function add dimensions =
 	(
+		--print "Bbox.add()"
 		pos	= dimensions[1]
 		--_width	= Params.get #width
 		bbox_width	= pos[1] + dimensions[2]
@@ -22,7 +23,7 @@ struct Bbox_v
 			height = bbox_height as integer
 		
 		--format "\n\nBbox.add()\ndimensions = % " dimensions
-		format "\n\n=== Bbox.add()\nheight = % " height
+		--format "height = % \n" height
 	),
 	
 	function test =
