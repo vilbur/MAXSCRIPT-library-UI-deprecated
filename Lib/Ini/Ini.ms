@@ -31,7 +31,7 @@ struct Ini_v
 	  */
 	function path _path =
 	(
-		print ( "Ini_v.path() = " + _path as string )
+		print "------------\nIni.path()"
 		if( _path == #get ) then
 			this._combinePath()
 
@@ -43,27 +43,27 @@ struct Ini_v
 	 */
 	function save section key value =
 	(
-		print ( "Ini_v.save() " + section + "." + key + " = " + value as string )
-		print ( "_path = " + _path as string )
-		
+		--print "------------\nIni.save()"
 		setINISetting _path section key ( value as string )
 	),
 	/** Ini save control state
 	 */
 	function load section key default:undefined =
-	(		
+	(
+		print "------------\nIni.load()"
 		section	= section	as string
 		key	= key	as string
 		value	= default
 		--ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"\\/+" ).Replace ini "\\\\"
-	
+		
+		format " _path	= % \n" _path
+		format " section	= % \n key	= % \n value	= % \n\n" section key value
+		format " hasINISetting _path section key	= % \n" (hasINISetting _path section key)
+		format " _path != undefined and hasINISetting _path section key == true	= % \n" (_path != undefined and hasINISetting _path section key == true)
 		if( _path != undefined and hasINISetting _path section key == true ) then
 			value = getINISetting _path section key -- return
 		
-		--print ( "ini=" + ini as string )
-		--print ( "Ini_v.load() " + section + " " + key + " = " + value as string )
-		--print ( "hasINISetting ini section key =" + (hasINISetting ini section key)  as string )
-
+		format " value	= % \n" value
 		value --return
 	),
 	/*---------------------------------------

@@ -6,7 +6,7 @@ clearListener();
 	ROLLOUT DEFINITION
 -----------------------------------------*/
 _rollout	= (Rollout_v()).new "Test Rollout"
---_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
+_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 
 --_controls_1	= _rollout.controls()
 global _controls_1	= _rollout.controls groupbox:"Test Groupbox"
@@ -62,6 +62,7 @@ global _controls_1	= _rollout.controls groupbox:"Test Groupbox"
 function cretateControlWithPropertiesTest =
 (
 	global btn_prop	= _controls_1.button "Props test"
+	--id:"Test_control"
 	
 	--btn_prop.col 6
 	btn_prop.prop.add #width 144
@@ -89,12 +90,18 @@ function cretateControlWithParameters =
 	
 --------------------------------------------------------------------------------*/
 
+/** Checkbox test
+ */
+function checkboxTest =
+(
+	_checkbox 	= _controls_1.checkbox "Checkbox test"
+)
 /** Edit control test
  */
 function editControlTest =
 (
 	_edit	= _controls_1.edit ""
-	_edit_2	= _controls_1.edit "Caption" value:"Text Placeholder"
+	--_edit_2	= _controls_1.edit "Caption" value:"Text Placeholder"
 	--_edit.param #width 256
 	_edit.col 12
 	
@@ -114,8 +121,9 @@ function editControlTest =
 	RUN TESTS
 -----------------------------------------*/
 
-cretateControlWithPropertiesTest()
-cretateControlWithParameters()
+--cretateControlWithPropertiesTest()
+--cretateControlWithParameters()
+--checkboxTest()
 editControlTest()
 
 

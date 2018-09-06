@@ -32,12 +32,13 @@
 	(
 		--print "------------\nControlBody.init()"
 		this._setCaption()
-		this._setId()
-		this._setControl()
-
+		--this._setId()
+ 		this._setControl()
+		this._setValue()
+		
 		this.Events.setDefaultEvents()
-		--this.exists()
-		return this
+
+		this --return
 	),
 
 	/** Set params for control
@@ -89,7 +90,7 @@
 	function _renderControl =
 	(
 		--print "------------\nControlBody._renderControl()"
-		this._setValue()
+
 
 		Parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
 
@@ -139,13 +140,12 @@
 	 */
 	function _getValueFromIni =
 	(
-		print "------------\nControlBody._getValueFromIni()"
+		print "***------------\nControlBody._getValueFromIni()"
 		ini_path = Parent_roll.ini
 		
 		if( ini_path != undefined ) then
 			value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return
-			
-		format " value	= % \n" value
+		
 		value --return
 	),
 	/** _set dimensions
@@ -161,17 +161,7 @@
 		Prop.add #width	dimensions[2] force:true
 		Prop.add #height dimensions[3] force:true
 	),
-	/** Get id
-	 */
-	function _setId =
-	(
-		id_source	= ( if( id==undefined or id=="" )then caption else id ) as string
-		--format "\n\n=== ControlBody._setId()\nid_source = % " id_source
-		id = ( ( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (id_source) ) "" ) as string
-		
-		if( id == "" ) then 
-			id = type  as string + random 1000 9999  as string
-	),
+
 	/** _set caption
 	 */
 	function _setCaption =
@@ -185,13 +175,7 @@
 		path = Parent_roll.id +"."+id
 		control = Parent_roll.id +"."+id
 	),
-	--/** Get width
-	-- */
-	--function _getWidth =
-	--(
-	--	format "\nControlBody._getWidth()\n" 
-	--	--return this._col * this.Layout.col_px
-	--),
+
 	/** Get parameters
 	 */
 	function _getParameters =

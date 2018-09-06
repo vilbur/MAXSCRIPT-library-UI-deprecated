@@ -6,7 +6,7 @@ struct Controls_v
 	groupbox, -- caption of groupbox
 	ControlBox	= ControlBox_v(),
 	Controls	= #(),
-	
+
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
 	 *  @param	string	caption	Caption of control
@@ -28,20 +28,21 @@ struct Controls_v
 	 */
 	function get id =
 	(
-		control_exists = false 
-		
+		--control_exists = false
+
 		for Control in Controls do
 			if( Control.id == id ) then 
 				control_exists = Control
-			
+
 		control_exists --return
 	),
+
 	/*---------------------------------------
-	  
+
 		CONTROLS TYPES
-		
+
 	-----------------------------------------*/
-	
+
 	/** Add Button
 	 */
 	function button caption id:undefined add:true =
@@ -66,48 +67,43 @@ struct Controls_v
 	(
 		this.newControl (EditText_v caption:caption id:id value:value ) add:add
 	),
-	
-	
+
 	/** Save path
 	 */
 	function savePath =
 	(
-		
-	), 
-	
+
+	),
+
 	/** Path
 	 */
 	function path =
 	(
 		browse_button	= this.button "..."	add:false
 		edit_text	= this.edit "test_edit" value:"Test"	add:false
-		
-		initial_dir	= "C:\\" 
-		
+
+		initial_dir	= "C:\\"
+
 		--browse_button.pressed "getSavePath()"
 		--browse_button.pressed "messagebox \"XXX\""
 		browse_button.pressed ( "messagebox "+(edit_text.prop #text #path ) )
 		--browse_button.pressed ( edit_text.text = "getSavePath")
-		
-		
+
 		--format "\n\n=== Controls.path()\nedit_text.get = % " (edit_text.prop #text #get)
 		--format "\n\n=== Controls.path()\nedit_text.path = % " (edit_text.prop #text #path)
-		
+
 		this.add browse_button
 		this.add edit_text
 
-		
 		--this.newControl (Control_v type:#edittext caption:caption id:id value:value name_of_value_param:#text ) add:add
+	),
 
-	),	
-	
-	
 	/*---------------------------------------
-	  
+
 		ADDING CONTROLS TO UI
-		
+
 	-----------------------------------------*/
-	
+
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
 	 *  @param	string	caption	Caption of control
@@ -116,16 +112,19 @@ struct Controls_v
 	 */
 	function newControl _Control add:true =
 	(
+		print "------------\nControls.newControl()"
 		_Control.Parent_roll	= Parent_roll
+		_Control	= this._setControlId _Control
 		
+		format " _Control	= % \n" _Control
 		_Control.init()
-		
+
 		if( add == true ) then
 			this.add _Control
-			
+
 		_Control --return
 	),
-	
+
 	/** Add controls to rollout
 	 */ 
 	function _renderControls =
@@ -135,21 +134,59 @@ struct Controls_v
 
 		for Control in this.Controls do
 			Control._renderControl()
-		
+
 		ControlBox.addGroupBox()	-- Add groupbox control to UI
 		Parent_roll.Layout.nextControlsBox groupbox	--
 	),
+	/*---------------------------------------
+		CONTROL ID
+	-----------------------------------------*/
+	/** Get id
+	 */
+	function _setControlId Control =
+	(
+		print "***------------\nControls._setControlId()"
+		format " Control.caption	= % \n" Control.caption
+		Control.id	= ( if( Control.id == undefined or Control.id == "" ) then ( this.sanitizeId Control.caption ) else Control.id ) as string
 
-
+		if( Control.id == "" ) then 
+			Control.id = this._getIdByType Control.type
+		
+		format " Control.id	= % \n" Control.id
+		Control --return
+	),
+	/** Sanitize id
+	 */
+	function sanitizeId _string =
+	(
+		(( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (_string) ) "") --return
+	),
+	/** Get id by type
+	 */
+	function _getIdByType type =
+	(
+		print "------------\nControlBody._getIdByType()"
+		id = type  as string + "_01"  as string
+		
+		id_full	= Parent_roll.id +"."+id
+		
+		format " id	= % \n" id
+		format " id_full	= % \n" id_full
+		--format " execute id_full	= % \n" (execute id_full)
+		--format " id	= % \n" id
+		--format " control	= % \n" control
+		--format " Parent_roll.id	= % \n" Parent_roll.id
+		
+		id --return
+	),
 
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------*/
 
-	
 	function test =
 	(
 		print "Controls_v.test()"
 	)
-	
+
 )

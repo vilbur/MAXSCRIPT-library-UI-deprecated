@@ -16,7 +16,7 @@ struct ControlEvents_v
 	/* dependency */
 	Events	= Events_v event_types:#("pressed", "rightclick", "changed"),
 
-	parent_control,
+	Parent_control,
 
 	/*---------------------------------------
 		BIND EVENT BY TYPE
@@ -49,7 +49,7 @@ struct ControlEvents_v
 	 */
 	function setDefaultEvents =
 	(
-		if( parent_control.parent_roll.ini != undefined ) then
+		if( Parent_control.parent_roll.ini != undefined ) then
 			this.setSaveToIniCallback()
 	),
 	
@@ -57,8 +57,10 @@ struct ControlEvents_v
 	 */
 	function setSaveToIniCallback =
 	(
-		section_key	= filterString parent_control.path "."
-		save_to_ini = parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
+		print "------------\nControlEvents.setSaveToIniCallback()"
+		format " Parent_control.path	= % \n" Parent_control.path
+		section_key	= filterString Parent_control.path "."
+		save_to_ini = Parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
 		
 		this.Events.setDefaultEvent(Event_v type:"changed" code:save_to_ini params:"val")
 	),
@@ -73,7 +75,7 @@ struct ControlEvents_v
 	(
 		this.Events.add (Event_v type:type code:callback tooltip:tooltip)
 		
-		parent_control --return
+		Parent_control --return
 	),
 	/** Set event with parameter in callback, E.G.: for checkbox
 	  *	placeholder for variable of value is "val"
@@ -82,7 +84,7 @@ struct ControlEvents_v
 	(
 		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:"val")
 		
-		parent_control --return
+		Parent_control --return
 	),
 	/** _add handlers
 	 */
@@ -92,7 +94,7 @@ struct ControlEvents_v
 		_Events = this.Events.getEvents()
 		
 		for _Event in _Events do
-			parent_control.parent_roll.roll.addhandler  parent_control.id _Event.type codeStr:_Event.code  paramStr:_Event.params 
+			Parent_control.parent_roll.roll.addhandler  Parent_control.id _Event.type codeStr:_Event.code  paramStr:_Event.params 
 		
 	),
 	
