@@ -7,7 +7,6 @@ struct ControlId_v
 	Parent_control,
 	id,
 	full,
-	--rollout_id,
 	
 	__construct = this._construct #(),
 	
@@ -16,7 +15,7 @@ struct ControlId_v
 	function setId _id =
 	(
 		this._setControlId _id
-		full	= Parent_control.Parent_roll.id +"."+id
+		this._setIdFull()
 	),
 	/** Get
 	 */
@@ -44,29 +43,39 @@ struct ControlId_v
 		
 		format " id	= % \n" id
 	),
+	/** _set id full
+	 */
+	function _setIdFull =
+	(
+		full	= Parent_control.Parent_roll.id +"."+id
+	),
 	/** Sanitize id
 	 */
 	function sanitizeId _string =
 	(
 		(( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (_string) ) "") --return
 	),
-	/** Get id by type
+	/** Combine control type and counter, and find next unique id
+	  *
+	  * @return	string E.G.: "edittext_01"
 	 */
 	function _getIdByType type =
 	(
 		print "------------\nControlBody._getIdByType()"
-		id = type  as string + "_01"  as string
-		
-		id_full	= Parent_control.Parent_roll.id +"."+id
-		
-		format " id	= % \n" id
-		format " id_full	= % \n" id_full
-		--format " execute id_full	= % \n" (execute id_full)
-		--format " id	= % \n" id
-		--format " control	= % \n" control
-		--format " Parent_roll.id	= % \n" Parent_roll.id
-		
-		id --return
+		counter	= 1
+
+		id = this.getIdString type counter
+
+		while ( Parent_control.Parent_roll.hasControl id ) do
+			id = this.getIdString type (counter += 1)
+			
+		id --return 
+	),
+	/** Get id string
+	 */
+	function getIdString type counter =
+	(
+		type as string + "_" + counter as string --return
 	),
 	/*------------------------------------------------------------------------------
 		PRIVATE
@@ -97,7 +106,7 @@ struct ControlId_v
 	 */
 	function _construct construct_properties =
 	(
-		print "------------\nControlId._construct()"
+		--print "------------\nControlId._construct()"
 		for prop in construct_properties where getProperty this prop == undefined do
 			messageBox ("Undefined construct property\n\nProperty:"+prop+"\n\n"+ classof this as string )
 	)

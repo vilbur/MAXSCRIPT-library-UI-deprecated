@@ -12,7 +12,7 @@ struct Ini_v
 	 */
 	function dir _path =
 	(
-		print ( "Ini_v.dir() = " + _path as string )
+		--print ( "Ini_v.dir() = " + _path as string )
 		_path = this._normalizePath _path
 		
 		this._getSetProp #_dir _path --return
@@ -21,7 +21,7 @@ struct Ini_v
 	 */
 	function file filename =
 	(
-		print ( "Ini_v.file() = " + filename as string )
+		--print ( "Ini_v.file() = " + filename as string )
 		this._getSetProp #_file filename --return
 	),
 	/** Get\set ini file path
@@ -31,7 +31,7 @@ struct Ini_v
 	  */
 	function path _path =
 	(
-		print "------------\nIni.path()"
+		--print "------------\nIni.path()"
 		if( _path == #get ) then
 			this._combinePath()
 
@@ -50,20 +50,20 @@ struct Ini_v
 	 */
 	function load section key default:undefined =
 	(
-		print "------------\nIni.load()"
+		--print "------------\nIni.load()"
 		section	= section	as string
 		key	= key	as string
 		value	= default
 		--ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"\\/+" ).Replace ini "\\\\"
 		
-		format " _path	= % \n" _path
-		format " section	= % \n key	= % \n value	= % \n\n" section key value
-		format " hasINISetting _path section key	= % \n" (hasINISetting _path section key)
-		format " _path != undefined and hasINISetting _path section key == true	= % \n" (_path != undefined and hasINISetting _path section key == true)
+		--format " _path	= % \n" _path
+		--format " section	= % \n key	= % \n value	= % \n\n" section key value
+		--format " hasINISetting _path section key	= % \n" (hasINISetting _path section key)
+		--format " _path != undefined and hasINISetting _path section key == true	= % \n" (_path != undefined and hasINISetting _path section key == true)
 		if( _path != undefined and hasINISetting _path section key == true ) then
 			value = getINISetting _path section key -- return
 		
-		format " value	= % \n" value
+		--format " value	= % \n" value
 		value --return
 	),
 	/*---------------------------------------
@@ -95,7 +95,7 @@ struct Ini_v
 		if( _path == undefined and _dir != undefined and _file != undefined ) then
 			_path = _dir +"\\" + _file
 			
-		print ( "Ini._combinePath = " + _path as string )
+		--print ( "Ini._combinePath = " + _path as string )
 	),
 	/** Escape path
 	 */

@@ -17,10 +17,6 @@
 	_col 	= 4,
 	dimensions	= #(),	-- dimensions of conrol #( [xy] position, integer width, integer height )
 	
-	/* access */ 
-	path, -- full path to control id E.G.: "foo_rollout.bar_control"
-	control, -- full path to control id E.G.: "foo_rollout.bar_control"
-
 	/*------ EXTENDED EVENTS ------*/
 	pressed	= Events.pressed,
 	changed	= Events.changed,
@@ -34,16 +30,16 @@
 	 */
 	function init _Parent_roll _id =
 	(
+		--print "------------\nControlBody.init()"
 		Parent_roll	= _Parent_roll
+		
+		this._setCaption()
+		
 		id.setId _id
 		
-		--print "------------\nControlBody.init()"
-		this._setCaption()
-		--this._setId()
- 		--this._setControl()
 		this._setValue()
 		
-		--this.Events.setDefaultEvents()
+		this.Events.setDefaultEvents()
 
 		this --return
 	),
@@ -145,7 +141,7 @@
 	 */
 	function _getValueFromIni =
 	(
-		print "***------------\nControlBody._getValueFromIni()"
+		--print "***------------\nControlBody._getValueFromIni()"
 		ini_path = Parent_roll.ini
 		
 		if( ini_path != undefined ) then

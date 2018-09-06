@@ -22,14 +22,14 @@ struct Controls_v
 	function add &Control =
 	(
 		append Controls Control
+		
+		Parent_roll.addControl Control
 	),
 	/** Get existing control
 	  * @return	false|Control_v
 	 */
 	function get id =
 	(
-		--control_exists = false
-
 		for Control in Controls do
 			if( Control.id == id ) then 
 				control_exists = Control
@@ -112,7 +112,7 @@ struct Controls_v
 	 */
 	function newControl _Control id: add:true =
 	(
-		print "------------\nControls.newControl()"
+		--print "------------\nControls.newControl()"
 		
 		--format " _Control	= % \n" _Control
 		_Control.init Parent_roll id
@@ -136,47 +136,7 @@ struct Controls_v
 		ControlBox.addGroupBox()	-- Add groupbox control to UI
 		Parent_roll.Layout.nextControlsBox groupbox	--
 	),
-	--/*---------------------------------------
-	--	CONTROL ID
-	-------------------------------------------*/
-	--/** Get id
-	-- */
-	--function _setControlId Control =
-	--(
-	--	print "***------------\nControls._setControlId()"
-	--	format " Control.caption	= % \n" Control.caption
-	--	Control.id	= ( if( Control.id == undefined or Control.id == "" ) then ( this.sanitizeId Control.caption ) else Control.id ) as string
-	--
-	--	if( Control.id == "" ) then 
-	--		Control.id = this._getIdByType Control.type
-	--	
-	--	format " Control.id	= % \n" Control.id
-	--	Control --return
-	--),
-	--/** Sanitize id
-	-- */
-	--function sanitizeId _string =
-	--(
-	--	(( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (_string) ) "") --return
-	--),
-	--/** Get id by type
-	-- */
-	--function _getIdByType type =
-	--(
-	--	print "------------\nControlBody._getIdByType()"
-	--	id = type  as string + "_01"  as string
-	--	
-	--	id_full	= Parent_roll.id +"."+id
-	--	
-	--	format " id	= % \n" id
-	--	format " id_full	= % \n" id_full
-	--	--format " execute id_full	= % \n" (execute id_full)
-	--	--format " id	= % \n" id
-	--	--format " control	= % \n" control
-	--	--format " Parent_roll.id	= % \n" Parent_roll.id
-	--	
-	--	id --return
-	--),
+
 
 	/*---------------------------------------
 		HELPERS

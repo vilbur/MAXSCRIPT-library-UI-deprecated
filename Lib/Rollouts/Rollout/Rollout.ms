@@ -33,6 +33,7 @@ struct Rollout_v
 	/* store rollout and parent rollout */
 	roll,
 	parent_roll,
+	_controls	= #(),	-- store ids of added controls in rollout
 	
 	type	= #rollout, -- nack reference for this.RolloutEvent._bindDefaultEvent()
 	
@@ -116,7 +117,24 @@ struct Rollout_v
 
 		return Controls_new
 	),
-
+	/** Add control id to array controls
+	 */
+	function addControl Control =
+	(
+		print "------------\nRollout.addControl()"
+		appendIfUnique _controls Control.id.id
+		format " _controls	= % \n" _controls
+	),
+	/** Has control
+	 */
+	function hasControl id =
+	(
+		print "------------\nRollout.hasControl()"
+		has_control = findItem _controls id > 0
+		format " id	= % \n has_control	= % \n\n" id has_control
+		has_control --return
+		--findItem _controls id > 0 --return
+	),
 	/*---------------------------------------
 		ROLLOUT NEW
 	-----------------------------------------*/
