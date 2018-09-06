@@ -1,5 +1,6 @@
 	/* dependency */
-	Events	= ControlEvents_v parent_control:this,
+	id	= ControlId_v Parent_control:this,
+	Events	= ControlEvents_v Parent_control:this,
 	Prop	= Props_v Control:this,
 	--Layout,
 
@@ -7,7 +8,6 @@
 	name_of_value_param	= #value,
 	
 	/* config */
-	id,
 	type,	-- type of control E.G.: #button
 	caption,
 	
@@ -27,16 +27,23 @@
 	rightclick	= Events.rightclick,
 
 	/** Init object
+	  *
+	  * @param	Rollout_v	_Parent_roll	required on init
+	  * @param	string|undefined	_id	required on init
+	  * @return	self
 	 */
-	function init =
+	function init _Parent_roll _id =
 	(
+		Parent_roll	= _Parent_roll
+		id.setId _id
+		
 		--print "------------\nControlBody.init()"
 		this._setCaption()
 		--this._setId()
- 		this._setControl()
+ 		--this._setControl()
 		this._setValue()
 		
-		this.Events.setDefaultEvents()
+		--this.Events.setDefaultEvents()
 
 		this --return
 	),
@@ -90,9 +97,7 @@
 	function _renderControl =
 	(
 		--print "------------\nControlBody._renderControl()"
-
-
-		Parent_roll.roll.addControl type id caption paramStr:(this._getParameters())
+		Parent_roll.roll.addControl type id.id caption paramStr:(this._getParameters())
 
 		Events._addHandlers()
 	),
@@ -168,13 +173,13 @@
 	(
 		caption	= trimLeft ( trimRight caption "_" )  "_"
 	),
-	/** Set path
-	 */
-	function _setControl =
-	(
-		path = Parent_roll.id +"."+id
-		control = Parent_roll.id +"."+id
-	),
+	--/** Set path
+	-- */
+	--function _setControl =
+	--(
+	--	path = Parent_roll.id +"."+id
+	--	control = Parent_roll.id +"."+id
+	--),
 
 	/** Get parameters
 	 */

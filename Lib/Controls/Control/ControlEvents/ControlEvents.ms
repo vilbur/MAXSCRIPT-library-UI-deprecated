@@ -58,9 +58,10 @@ struct ControlEvents_v
 	function setSaveToIniCallback =
 	(
 		print "------------\nControlEvents.setSaveToIniCallback()"
-		format " Parent_control.path	= % \n" Parent_control.path
-		section_key	= filterString Parent_control.path "."
-		save_to_ini = Parent_control.parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
+		format " Parent_control	= % \n" Parent_control
+		format " Parent_control.path	= % \n" Parent_control.id.id
+		section_key	= filterString Parent_control.id.id "."
+		save_to_ini = Parent_control.Parent_roll.id + ".saveIni @"+section_key[1]+"@ @"+section_key[2]+"@ (val as string )"
 		
 		this.Events.setDefaultEvent(Event_v type:"changed" code:save_to_ini params:"val")
 	),
