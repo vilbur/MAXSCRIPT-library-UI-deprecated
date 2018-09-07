@@ -29,17 +29,27 @@ struct ControlId_v
 	--(
 	--	_full --return
 	--),
-	/** Get id
+	
+	/** Set unique id for control
+	  * If id exists, then suffix 'controltype_counter' is added E.G.: 'foo_id_button_01'
+	  *
+	  * @examples of source of id
+	  *		1) id is defined	_id	= "foo_id"	>>> id = "foo_id"	-- id is used
+	  *		2) id is undefined	Control.caption	= "Foo bar"	>>> id = "foo_bar"	-- sanitized caption is used
+	  *
+	  * @param	string|undefined	_id	id of control
+	  *
 	 */
 	function _setControlId _id =
 	(
 		print "***------------\nControls._setControlId()"
-		format " Parent_control.caption	= % \n" Parent_control.caption
+		format " Parent_control	= % \n" Parent_control.caption
 		
+		type	= Parent_control.type as string
 		id	= ( if( _id == undefined or _id == "" ) then ( this.sanitizeId Parent_control.caption ) else _id ) as string
 
-		if( id == "" ) then 
-			id = this._getIdByType Parent_control.type
+		if ( this.controlExiststs id ) then
+			id	= this._getUniqueId ( if( id != "" or id != undefined ) then (id + "_" + type) else type )
 		
 		format " id	= % \n" id
 	),
@@ -53,29 +63,45 @@ struct ControlId_v
 	 */
 	function sanitizeId _string =
 	(
+		print "------------\nControlId.sanitizeId()"
+		--format " _string	= % \n" _string
+		_string = substituteString _string " " "_" -- replace whitespace
+		--format " _string	= % \n" _string
 		(( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (_string) ) "") --return
 	),
 	/** Combine control type and counter, and find next unique id
-	  *
+	  * 
+	  * 
+	  * 
 	  * @return	string E.G.: "edittext_01"
 	 */
-	function _getIdByType type =
+	function _getUniqueId _string =
 	(
-		print "------------\nControlBody._getIdByType()"
+		print "------------\nControlBody._getUniqueId()"
+		format " _string	= % \n" _string
 		counter	= 1
 
-		id = this.getIdString type counter
+		id = this.concat _string counter
 
-		while ( Parent_control.Parent_roll.hasControl id ) do
-			id = this.getIdString type (counter += 1)
+		while ( this.controlExiststs id ) do
+			id = this.concat _string (counter += 1)
 			
 		id --return 
 	),
 	/** Get id string
 	 */
-	function getIdString type counter =
+
+	function concat _string _counter =
 	(
-		type as string + "_" + counter as string --return
+		_suffix	=  (if( _counter > 9 ) then "" else "0"  )+ _counter as string
+		
+		_string as string + "_" + _suffix --return
+	),
+	/** Control existsts
+	 */
+	function controlExiststs id =
+	(
+		Parent_control.Parent_roll.hasControl id --return
 	),
 	/*------------------------------------------------------------------------------
 		PRIVATE

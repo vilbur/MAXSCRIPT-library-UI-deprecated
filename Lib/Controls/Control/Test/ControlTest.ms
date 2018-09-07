@@ -100,10 +100,16 @@ function checkboxTest =
  */
 function editControlTest =
 (
-	_edit_1	= _controls_1.edit ""
-	_edit_2	= _controls_1.edit "" value:"Text Placeholder"
+	--_edit_1	= _controls_1.edit "" value:"Auto ids"
+	--_edit_2	= _controls_1.edit "" value:"Auto ids"
+	--_edit_2.col 8
+	
+	_button_1	= _controls_1.button	"Caption id"
+	_button_1	= _controls_1.button	"Caption id"
+	_checkbox_1	= _controls_1.checkbox	"Caption id"
+
+	
 	--_edit.param #width 256
-	--_edit_2.col 12
 	
 	--_edit_2.valueAsTooltip true
 	
