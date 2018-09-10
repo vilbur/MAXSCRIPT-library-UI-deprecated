@@ -95,10 +95,11 @@ struct Rollout_v
 		--print ( "Rollout."+id+".open()=" + state as string )
 		execute ( id+".open = "+state as string )
 	),
-	/** Exists
+	/** Find if rollout has been added to UI already
 	 */
 	function exists =
 	(
+		--print "------------\nRollout.exists()"
 		(execute id) != undefined --return
 	),
 
@@ -123,15 +124,15 @@ struct Rollout_v
 	(
 		print "------------\nRollout.addControl()"
 		appendIfUnique _controls Control.id.id
-		format " _controls	= % \n" _controls
+		--format " _controls	= % \n" _controls
 	),
 	/** Has control
 	 */
 	function hasControl id =
 	(
-		print "------------\nRollout.hasControl()"
+		--print "------------\nRollout.hasControl()"
 		has_control = findItem _controls id > 0
-		format " id	= % \n has_control	= % \n\n" id has_control
+		--format " id	= % \n has_control	= % \n\n" id has_control
 		has_control --return
 		--findItem _controls id > 0 --return
 	),
@@ -248,9 +249,6 @@ struct Rollout_v
 	  */
 	function _addSaveIniFunction =
 	(
-		print "\n"
-		print ( "this = " + id as string )
-		print ( "ini = " + ini as string )
 		if( ini != undefined ) then
 			roll.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
 	),

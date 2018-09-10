@@ -3,10 +3,7 @@
  */
 
 print "------------\nInclude	FloaterIncludeTest.ms"
-
-format " getFilenameFile(getSourceFileName())	= % \n" (getFilenameFile(getSourceFileName()))
-format " getThisScriptFilename()	= % \n" (getThisScriptFilename())
-
+filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
 
 if( floater_name == undefined ) then
 	messageBox "Variable floater_name is undefinded.\nPlease set floater_name before inlcude \"FloaterIncludeTest.ms\" " beep:true

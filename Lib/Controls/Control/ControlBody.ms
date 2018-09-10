@@ -1,7 +1,8 @@
 	/* dependency */
 	id	= ControlId_v	Parent_control:this,
 	Events	= ControlEvents_v	Parent_control:this,
-	Prop	= Props_v	Control:this,
+	--Prop	= Props_v	Control:this,
+	Props	= Props_v	Control:this,
 	--test_prop = "test value",
 	--Layout,
 
@@ -22,7 +23,12 @@
 	pressed	= Events.pressed,
 	changed	= Events.changed,
 	rightclick	= Events.rightclick,
-
+	/** Test method
+	 */
+	function testMethod =
+	(
+		messageBox "ControlBody.testMethod" beep:false
+	),
 	/** Init object
 	  *
 	  * @param	Rollout_v	_Parent_roll	required on init
@@ -83,6 +89,7 @@
 	 */
 	function exists =
 	(
+		--print "------------\nControlBody.exists()"
 		Parent_roll.exists() --return
 	),
 	

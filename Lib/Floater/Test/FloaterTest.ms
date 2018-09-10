@@ -1,7 +1,5 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" );
 
-clearListener();
-
 
 /*------ GET FLOATER CLASS ------*/
 --Floater	= Floater_v title:"Test floater"

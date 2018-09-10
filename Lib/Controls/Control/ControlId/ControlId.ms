@@ -42,8 +42,7 @@ struct ControlId_v
 	 */
 	function _setControlId _id =
 	(
-		print "***------------\nControls._setControlId()"
-		format " Parent_control	= % \n" Parent_control.caption
+		--print "***------------\nControls._setControlId()"
 		
 		type	= Parent_control.type as string
 		id	= ( if( _id == undefined or _id == "" ) then ( this.sanitizeId Parent_control.caption ) else _id ) as string
@@ -63,7 +62,7 @@ struct ControlId_v
 	 */
 	function sanitizeId _string =
 	(
-		print "------------\nControlId.sanitizeId()"
+		--print "------------\nControlId.sanitizeId()"
 		--format " _string	= % \n" _string
 		_string = substituteString _string " " "_" -- replace whitespace
 		--format " _string	= % \n" _string
@@ -77,8 +76,8 @@ struct ControlId_v
 	 */
 	function _getUniqueId _string =
 	(
-		print "------------\nControlBody._getUniqueId()"
-		format " _string	= % \n" _string
+		--print "------------\nControlBody._getUniqueId()"
+		--format " _string	= % \n" _string
 		counter	= 1
 
 		id = this.concat _string counter

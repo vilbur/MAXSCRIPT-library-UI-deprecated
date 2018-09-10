@@ -4,7 +4,6 @@
 struct Button_v 
 (
 	include "Lib/Controls/Control/ControlBody.ms"
-	test_prop = "test value",
 
 	
 	/*------------------------------------------------------------------------------
@@ -37,13 +36,20 @@ struct Button_v
 	--	) else
 	--		getProperty this ( key as string ) --return
 	--),
+	
+	--/** Test method
+	-- */
+	--function testMethod =
+	--(
+	--	messageBox "testMethod" beep:false
+	--),
+	
 	/** Construct
 	 */
 	function _construct =
 	(
 		--print "------------\nButton._construct()"
 		type	= #button
-
 	),
 	
 	__construct = this._construct()

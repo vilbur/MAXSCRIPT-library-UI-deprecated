@@ -5,24 +5,21 @@ struct Props_v
 	Control,
 
 	List	= List_v(),
-	
+
 	/** Add value
 	 */
 	function add param value force:true =
 	(
-		--print "------------\nParams.add()"
-		
+		--print "------------\nProps.add()"
+
 		if( force == true or this.get param == undefined ) then  
 			List.setVal param value
 		
-		--format "Control = % \n" Control
-		--format "Control.exists() = % \n" (Control.exists())
 		if ( Control.exists() ) then
 			this.setProp param value
-			--format "****param = % \nvalue = % \n" param value
 		
-		return this
-	),
+		this --return
+	), 
 	/** Get value
 	 */
 	function get param =
@@ -45,7 +42,7 @@ struct Props_v
 	 */
 	function join =
 	(
-		--print "------------\nParams.join()"
+		--print "------------\nProps.join()"
 		params = ""
 
 		for k=1 to List.keys.count do
@@ -62,19 +59,18 @@ struct Props_v
 	 */
 	function propPath prop_name =
 	(
-		--print "------------\nParams.propPath()"
-		--format "Path = % \n" (Control.control + "." + (prop_name as string ))
-		Control.control + "." + (prop_name as string ) --return
+		--print "------------\nProps.propPath()"
+		Control.id.full + "." + (prop_name as string ) --return
 	),
 	/** Set prop
 	 */
 	function setProp prop_name _value =
 	(
+		--print "------------\nProps.setProp()"
 		if( classOf _value == String ) then 
 			_value = "\""+_value as string +"\""
 		
 		execute ((this.propPath prop_name) + "="+_value as string ) -- set value
-		--execute ((this.propPath prop_name) + "=\""+_value as string +"\"" ) -- set value
 		
 		this --return	
 	),
@@ -89,7 +85,7 @@ struct Props_v
 	 */
 	function _construct =
 	(
-		--print "------------\nParams._construct()"
+		--print "------------\nProps._construct()"
 	),
 	
 	__construct = this._construct()	
