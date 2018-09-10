@@ -67,14 +67,6 @@ struct Controls_v
 	(
 		this.newControl (EditText_v caption:caption value:value ) id:id add:add
 	),
-
-	/** Save path
-	 */
-	function savePath =
-	(
-
-	),
-
 	/** Path
 	 */
 	function path =
@@ -113,7 +105,6 @@ struct Controls_v
 	function newControl _Control id: add:true =
 	(
 		--print "------------\nControls.newControl()"
-		
 		--format " _Control	= % \n" _Control
 		_Control.init Parent_roll id
 
@@ -137,7 +128,6 @@ struct Controls_v
 		Parent_roll.Layout.nextControlsBox groupbox	--
 	),
 
-
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------*/
@@ -148,3 +138,5 @@ struct Controls_v
 	)
 
 )
+
+

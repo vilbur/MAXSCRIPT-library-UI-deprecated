@@ -1,7 +1,8 @@
 	/* dependency */
-	id	= ControlId_v Parent_control:this,
-	Events	= ControlEvents_v Parent_control:this,
-	Prop	= Props_v Control:this,
+	id	= ControlId_v	Parent_control:this,
+	Events	= ControlEvents_v	Parent_control:this,
+	Prop	= Props_v	Control:this,
+	--test_prop = "test value",
 	--Layout,
 
 	Parent_roll,
@@ -54,7 +55,7 @@
 		for key_value_string in string_split do
 		(
 			key_value	= filterString key_value_string ":"
-			Prop.add key_value[1] key_value[2]
+			Props.add key_value[1] key_value[2]
 		)
 		this --return  
 	),
@@ -62,7 +63,7 @@
 	 */
 	function param key value =
 	(
-		Prop.add ( key as string ) value
+		Props.add ( key as string ) value
 
 		this --return
 	),
@@ -154,13 +155,13 @@
 	function _setDimensions =
 	(
 		--print "------------\nControlBody._setDimensions()"
-		dimensions = Parent_roll.Layout.setControlDimensions _col (Prop.get #pos) (Prop.get #width) (Prop.get #height)
-		--format " Prop.get #width = % \n" (Prop.get #width)
+		dimensions = Parent_roll.Layout.setControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height)
+		--format " Props.get #width = % \n" (Props.get #width)
 		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
 
-		Prop.add #pos	dimensions[1] force:true
-		Prop.add #width	dimensions[2] force:true
-		Prop.add #height dimensions[3] force:true
+		Props.add #pos	dimensions[1] force:true
+		Props.add #width	dimensions[2] force:true
+		Props.add #height dimensions[3] force:true
 	),
 
 	/** _set caption
@@ -183,7 +184,7 @@
 	(
 		this._setDimensions()
 
-		Prop.join() + this._getTooltip() --return
+		Props.join() + this._getTooltip() --return
 		--this._getTooltip() --return
 	),
 

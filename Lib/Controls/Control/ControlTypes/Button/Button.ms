@@ -4,7 +4,8 @@
 struct Button_v 
 (
 	include "Lib/Controls/Control/ControlBody.ms"
-	
+	test_prop = "test value",
+
 	
 	/*------------------------------------------------------------------------------
 		PRIVATE

@@ -48,7 +48,7 @@ struct ControlId_v
 		type	= Parent_control.type as string
 		id	= ( if( _id == undefined or _id == "" ) then ( this.sanitizeId Parent_control.caption ) else _id ) as string
 
-		if ( this.controlExiststs id ) then
+		if ( id == "" or this.controlExiststs id ) then
 			id	= this._getUniqueId ( if( id != "" or id != undefined ) then (id + "_" + type) else type )
 		
 		format " id	= % \n" id

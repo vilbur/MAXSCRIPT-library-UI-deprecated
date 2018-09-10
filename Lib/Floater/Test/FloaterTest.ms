@@ -1,4 +1,5 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" );
+
 clearListener();
 
 
@@ -15,7 +16,6 @@ Floater	= (Floater_v()).new "Test Floater"
 
 for r in #("A", "B", "C", "D") do
 (
-	
 	roll_name	= "Controls"+r
 	--execute ("global "+roll_name)
 	_rollout	= Floater.roll roll_name ""
