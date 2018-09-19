@@ -12,8 +12,7 @@ struct MacroScript_Content_v
 	buttontext,
 	tooltip,
 	icon,
-	_macroScript,
-	
+	--_macroScript, -- IS THIS USED ?
 	
 	Controls_added	= #(),
 
@@ -41,17 +40,20 @@ struct MacroScript_Content_v
 	
 	/*---------------------------------------
 		PRIVATE
-	-----------------------------------------*/	
+	-----------------------------------------*/
 	/** Insert Macro as button to UI
 	  * Button runs macro on preesed
 	 */
 	function _addControls _Controls =
 	(
+		--print "------------\nMacroScript._addControls()"
+		--format " _macroScript	= % \n" _macroScript
 		control_id	=  this.getControlId()
-	
-		_button	= _Controls.button (buttontext as string) id:control_id add:false
+		--format " control_id	= % \n" control_id
+		_button	= _Controls.button ( buttontext as string ) id:control_id add:false
+		--format " _button	= % \n" _button
 		_button_exists	= _Controls.get ( _button.id )
-		
+		f
 		if( _button_exists==false ) then
 		(
 			_button = this._setOnClickEvent #left _button 

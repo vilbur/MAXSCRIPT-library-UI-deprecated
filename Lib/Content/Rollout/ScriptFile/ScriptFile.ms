@@ -21,8 +21,9 @@ struct ScriptFile_Content_v
 	 */
 	function load file_path =
 	(
+		--print "------------\nScriptFile.load()"
 		file	= file_path
-
+		--format " file	= % \n" file
 		--print ("ScriptFile_Content.load\""+file+"\"")
 		if( this.isMacrosriptFile() ) then
 		(

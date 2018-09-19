@@ -1,10 +1,7 @@
 	/* dependency */
 	id	= ControlId_v	Parent_control:this,
 	Events	= ControlEvents_v	Parent_control:this,
-	--Prop	= Props_v	Control:this,
 	Props	= Props_v	Control:this,
-	--test_prop = "test value",
-	--Layout,
 
 	Parent_roll,
 	name_of_value_param	= #value,
@@ -90,7 +87,18 @@
 	function exists =
 	(
 		--print "------------\nControlBody.exists()"
-		Parent_roll.exists() --return
+		--format " id.full	= % \n" id.full
+		control_exists	= false 
+
+		--Parent_roll.exists() --return
+		
+		if( Parent_roll.exists() ) then
+			try(
+				control_exists = (execute id.full) != undefined
+				
+			)catch()
+		
+		control_exists --return
 	),
 	
 	/*------------------------------------------------------------------------------

@@ -58,7 +58,7 @@ struct Rollout_v
 
 		this.setDefaultEvents()
 
-		return this
+		this --return 
 	),
 	/** Subrollout
 	 */
@@ -68,7 +68,7 @@ struct Rollout_v
 		
 		append Subrollouts _subrollout
 		
-		return _subrollout
+		_subrollout --return 
 	),
 	/** Create rollout dialog
 	 * @return	RolloutClass
@@ -100,6 +100,9 @@ struct Rollout_v
 	function exists =
 	(
 		--print "------------\nRollout.exists()"
+		--format " id	= % \n" id
+		--format " (execute id) != undefined	= % \n" ((execute id) != undefined)
+		--format " (execute id)	= % \n" ((execute id))
 		(execute id) != undefined --return
 	),
 
@@ -116,13 +119,13 @@ struct Rollout_v
 
 		append this.ControlBoxes Controls_new
 
-		return Controls_new
+		Controls_new --return
 	),
 	/** Add control id to array controls
 	 */
 	function addControl Control =
 	(
-		print "------------\nRollout.addControl()"
+		--print "------------\nRollout.addControl()"
 		appendIfUnique _controls Control.id.id
 		--format " _controls	= % \n" _controls
 	),

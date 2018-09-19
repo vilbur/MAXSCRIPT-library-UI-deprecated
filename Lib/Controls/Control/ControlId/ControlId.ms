@@ -42,15 +42,17 @@ struct ControlId_v
 	 */
 	function _setControlId _id =
 	(
-		--print "***------------\nControls._setControlId()"
-		
+		--print "------------\nControlId._setControlId()"
+		--format " _id input	= % \n" _id
 		type	= Parent_control.type as string
-		id	= ( if( _id == undefined or _id == "" ) then ( this.sanitizeId Parent_control.caption ) else _id ) as string
+		id_source	= if( _id == undefined or _id == "" ) then ( this.sanitizeId Parent_control.caption ) else _id 
+		--format " id_source	= % \n" id_source 
+		id	= ( this.sanitizeId id_source ) as string
 
 		if ( id == "" or this.controlExiststs id ) then
 			id	= this._getUniqueId ( if( id != "" or id != undefined ) then (id + "_" + type) else type )
 		
-		format " id	= % \n" id
+		--format " id output	= % \n" id
 	),
 	/** _set id full
 	 */
@@ -122,7 +124,8 @@ struct ControlId_v
 		(
 			setProperty  this ( key as string ) value
 			this --return
-		) else
+		)
+		else
 			getProperty this ( key as string ) --return
 	),
 	

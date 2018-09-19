@@ -24,6 +24,10 @@ struct Props_v
 	 */
 	function get param =
 	(
+		--print "------------\nProps.get()"
+		--format " param	= % \n" param
+		--format " Control.exists()	= % \n" (Control.exists())
+		
 		if not ( Control.exists() ) then
 			List.getVal param -- return
 			
@@ -78,6 +82,8 @@ struct Props_v
 	 */
 	function getProp prop_name =
 	(
+		--print "------------\nProps.getProp()"
+		--format " prop_name	= % \n" prop_name
 		execute (this.propPath prop_name)
 	),
 	

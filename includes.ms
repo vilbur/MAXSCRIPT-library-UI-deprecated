@@ -5,7 +5,6 @@
 userscripts_path_default = getDir #userscripts 	-- save $userscripts path
 SetDir #userscripts (getFilenamePath(getSourceFileName()))	-- set current dir as $userscripts path for including
 
-
 /*---------------------------------------
 	VENDOR
 -----------------------------------------*/
@@ -66,4 +65,4 @@ filein ( getFilenamePath(getSourceFileName()) + "/Lib/Floater/Floater.ms" );
 /*---------------------------------------
 	REVERT DEFAULT PATH
 -----------------------------------------*/
-SetDir #userscripts userscripts_path_default -- revert drfault path back
+SetDir #userscripts userscripts_path_default -- revert default path back

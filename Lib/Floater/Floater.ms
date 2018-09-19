@@ -54,7 +54,7 @@ struct Floater_v
 	(
 		_height	= height
 		
-		--this._setIniDefaults()
+		------this._setIniDefaults()
 
 		this._setFloater()
 		
@@ -77,9 +77,6 @@ struct Floater_v
 	  */
 	function roll title id  =
 	(
-		print ( "Ini = " + Ini as string )
-		print ( "Floater.roll() Ini.path = " + (Ini.path #get) as string )
-
 		_rollout	= (Rollout_v ini:(Ini.path #get) ).new title id:id
 		--id	= _rollout.id
 		Rollouts.setVal (_rollout.id) ( _rollout )
@@ -166,7 +163,7 @@ struct Floater_v
 	 */
 	function unregister =
 	(
-		print ( "Floater.name = " + Floater.name as string )
+		--print "------------\nFloater.unregister()"
 		
 		try(cui.UnRegisterDialogBar Floater)catch() --try to unregister if already registered
 	),

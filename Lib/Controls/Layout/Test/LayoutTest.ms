@@ -30,10 +30,8 @@ function addRolloutByCodeTest name =
 	(
 		_button = _controlsB.button ("Col "+i as string )
 		_button.col i
-		
 	)
 		
-	
 	--_controlsB.button ("button by code B")
 )
 

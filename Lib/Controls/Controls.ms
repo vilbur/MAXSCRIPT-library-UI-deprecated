@@ -30,6 +30,8 @@ struct Controls_v
 	 */
 	function get id =
 	(
+		control_exists = false
+		
 		for Control in Controls do
 			if( Control.id == id ) then 
 				control_exists = Control
