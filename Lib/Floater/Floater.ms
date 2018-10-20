@@ -16,17 +16,18 @@ if( __GLOBAL__v==undefined ) then
   */
 struct Floater_v
 (
-	self	= this,
-	
 	/* dependency */
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
 	Ini	= Ini_v(),
+	
+	/* required properties */
+	title,
+	__construct = #(#title),
 
 	/* config */	
-	title,
 	id,
-	_height,
+	height,
 	
 	/* options */	
 	_ini,
@@ -34,36 +35,23 @@ struct Floater_v
 	/* store */
 	Floater,
 	size_init, -- size of dialog after creation
-	
-	/** New
-	 */
-	function new _title =
-	(
-		title = _title
 		
-		this._setIdGlobal()
-		
-		this._setIniDefaults()
-
-		this --return
-	),
-
 	/** Create
 	 */
 	function create height:undefined =
 	(
-		_height	= height
+		--this._getSetProp #height height
+		this.height	= height
 		
-		------this._setIniDefaults()
-
 		this._setFloater()
 		
-		size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
+		--size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
+		--size_init = #(512, 512)
 		
-		this._openCloseRollouts()
+		--this._openCloseRollouts()
 		
-		this.register()
-		
+		--this.register()
+				
 		this --return
 	),
 
@@ -103,13 +91,13 @@ struct Floater_v
 			(side == "bottom"	or side == #bottom):	_dock = #cui_dock_bottom
 			default:	_dock = #cui_floatable
 		)
-		
+		--format " side	= % \n" side
 		cui.DockDialogBar Floater _dock
 		
-		if( _dock == #cui_floatable ) then
-			this.unregister()
-		
-		this --return
+		--if( _dock == #cui_floatable ) then
+		--	this.unregister()
+		--
+		--this --return
 	),
 	/** Undock dialog
 	  * @return	self
@@ -154,20 +142,27 @@ struct Floater_v
 	 */
 	function register =
 	(
-		this.unregister()
-
-		cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
+		--this.unregister()
+		try(
+			cui.getDockState Floater
+		)catch(
+			cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
+			print ("Dialog \""+title+"\" registered in method Floater.register()")
+		)
 	),
 	
 	/** Unregister dialog bar
 	 */
 	function unregister =
 	(
-		--print "------------\nFloater.unregister()"
-		
 		try(cui.UnRegisterDialogBar Floater)catch() --try to unregister if already registered
 	),
 	
+    
+	/*--------------------------------------------------------------------------------*/
+		private
+	/*--------------------------------------------------------------------------------*/
+
 	/** _add rollouts
 	 */
 	function _addRollouts =
@@ -180,7 +175,7 @@ struct Floater_v
 	  */
 	function _setIdGlobal =
 	(
-		id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
+		id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
 
 		__GLOBAL__v.Floater = this
 	),
@@ -217,14 +212,10 @@ struct Floater_v
 		roll_main	= (Rollout_v()).new title
 		roll_main.subrollouts	= Rollouts.values
 		
-		roll_main.createRollDialog height:_height
+		roll_main.createRollDialog height:512
 		
 		Floater = roll_main.roll.def
 	),
-
-
-
-
 
 	/** Create Floater - UNUSED METHOD WILL BE DELETE
 	  * Floater can`t has Menu
@@ -235,12 +226,40 @@ struct Floater_v
 		Floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
 		this._addRollouts()
 	),
-
-	function test =
+	/** Get\set value of property 
+	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
+	  * @param	string|#get value	Value of property
+	  *
+	  * @return	string|self Value or self
+	  *
+	  * @example this._getSetProp "foo" "bar" -- SET "bar" to property "foo"
+	  * @example this._getSetProp #foo  #get  -- GET value of property "foo"
+	  */
+	function _getSetProp key value =
 	(
-		messagebox "Floater.test()"
+		if( value != #get ) then
+		(
+			if( value != undefined ) then
+				setProperty this ( key as string ) value
+			
+			this --return
+		) else
+			getProperty this ( key as string ) --return
+	),
+	/** Check if required properties are defined
+	  * Names of construct props are defined in __construct array
+	 */
+	function checkConstctructProperties =  
+	(
+		for prop in __construct where getProperty this prop == undefined do
+			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	),
+	on create do
+	(
+		checkConstctructProperties()
+		
+		this._setIdGlobal()
+		this._setIniDefaults()
+		
 	)
-	
-
-
 )

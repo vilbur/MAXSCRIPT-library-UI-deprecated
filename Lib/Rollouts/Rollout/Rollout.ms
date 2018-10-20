@@ -14,52 +14,39 @@
   */
 struct Rollout_v
 (
+	/* required properties */
+	title,
+
+	/* optionable properties */
+	id,
+
+	/* store rollout and parent rollout */
+	roll,
+	--parent_roll,
+
+	private
+	
 	/* dependency */
 	Layout	= Layout_v(),
-
-	/* config */
-	title,
-	id,
 	
 	/* options */
-	height,
 	ini, -- inherit by Floater_v
+	properties_keys	=  #(#width, #height),
 
 	/* lists */
  	ControlBoxes	= #(),
 	Subrollouts	= #(),
 	RolloutEvent	= RolloutEvent_v parent_control:this,
 	
-	/* store rollout and parent rollout */
-	roll,
-	parent_roll,
 	_controls	= #(),	-- store ids of added controls in rollout
 	
-	type	= #rollout, -- nack reference for this.RolloutEvent._bindDefaultEvent()
-	
+	type	= #rollout, -- reference for this.RolloutEvent._bindDefaultEvent()
+
 	/*------ EXTENDED METHODS ------*/
 	onOpen	= RolloutEvent.onOpen,
 	onClose	= RolloutEvent.onClose,
-	
-	/** Set new rollout
-	  * @param	string	title	Title of rollout
-	  * @param	string	[_id]	Id of rollout, if void then sanitized title is used E.G.: "Foo Rollout" >>> "foo_rollout"
-	  * @return	self
-	 */
-	function new title id:"" height:0 =
-	(
-		this.title	= title
 
-		this._setId id
-		
-		this._setRolloutGlobalVariable()
-		
-		this._setRoll()
-
-		this.setDefaultEvents()
-
-		this --return 
-	),
+	public	
 	/** Subrollout
 	 */
 	function subrollout title id:"" =
@@ -71,24 +58,35 @@ struct Rollout_v
 		_subrollout --return 
 	),
 	/** Create rollout dialog
-	 * @return	RolloutClass
+	  * Wrapper for http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm
+	  *
+	  *
+	  * @return	RolloutClass
 	 */
-    function createRollDialog height:undefined =
+    function create width: height: =
 	(
-		this.height	= height
-		
-		this.tryDestroyDialog()
+		--this.destroy()
 		
 		this._createRollout()
 		
-		CreateDialog (roll.def) width:(Layout._getRollWidth()-6)
+		CreateDialog (roll.def) 
 		
+		this.properties #(width, height)
+
 		this._addSubRollouts()
 		
 		roll --return
 	),
+	 
+	/** Set properties
+	 */
+	function properties properties_values =
+	(
+		for i = 1 to properties_keys.count where properties_values[i] != unsupplied do
+			execute ( id + "."+properties_keys[i]+" = " + properties_values[i] as string )  
+	),
 
-	/** Open close rollout s
+	/** Open close rollout
 	 */
 	function open state =
 	(
@@ -139,17 +137,24 @@ struct Rollout_v
 		has_control --return
 		--findItem _controls id > 0 --return
 	),
+
+	
+	private
+
+	
 	/*---------------------------------------
 		ROLLOUT NEW
 	-----------------------------------------*/
 	/** Set id by title if not defined
 	 */
-	function _setId _id =
+	function _setId =
 	(
-		if( _id=="" ) then
-			_id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
+		if( id != undefined ) then
+			return()
 		
-		id = "rollout_"+_id
+		id_by_title = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
+
+		id = "rollout_" + id_by_title
 	),
 
 	/** Declare rollout global variable
@@ -164,10 +169,20 @@ struct Rollout_v
 	),
 	/** Try destroy dialog by global variable before variable will be overwritten
 	 */
-	function tryDestroyDialog =
+	function destroy =
 	(
-		try(cui.UnRegisterDialogBar (execute id))catch()	
-		try(DestroyDialog           (execute id))catch()	
+		print "------------\nRollout.destroy()"
+		--format " _id	= % \n" _id
+		--try(cui.UnRegisterDialogBar (execute _id))catch()	
+		--try(DestroyDialog           (execute _id))catch()
+		--format " this	= % \n" this
+		--try(cui.UnRegisterDialogBar rollout_test_subrollouts)catch()	
+		--try(DestroyDialog           rollout_test_subrollouts)catch()	
+--		
+		try( execute("cui.UnRegisterDialogBar " +id) )catch()
+		try( execute("DestroyDialog "           +id) )catch()
+		--try( execute("cui.UnRegisterDialogBar "+"rollout_test_subrollouts" ) )catch()	
+		--try( execute("DestroyDialog "+"rollout_test_subrollouts"           ) )catch()
 	),
 	/** Create new roll with rolloutCreator()
 	 */
@@ -240,6 +255,9 @@ struct Rollout_v
 			execute add_subrollouts
 		)
 	),
+	/*------------------------------------------------------------------------------
+		EVENTS
+	--------------------------------------------------------------------------------*/
 	/** Bind events to rollout 
 	 */
 	function _addEventHandlers =
@@ -256,9 +274,38 @@ struct Rollout_v
 			roll.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
 	),
 
-	function test =
-	(
-		messagebox "Rollout_v.test()"
-	)
 	
+	/*------------------------------------------------------------------------------
+		CONSTRUCT
+	--------------------------------------------------------------------------------*/
+	
+	__construct = #(#title),
+
+	/** Check if required properties are defined
+	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
+	  * @param	construct_properties this.properties required for initialization of struct
+	 */
+	function checkConstctructProperties =
+	(
+		for prop in __construct where getProperty this prop == undefined do
+			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	),
+	
+	
+	on create do
+	(
+		checkConstctructProperties()
+		
+		this._setId()
+		
+		this.destroy()
+
+		this._setRolloutGlobalVariable()
+		
+		this._setRoll()
+
+		this.setDefaultEvents()
+	)
+
+
 )

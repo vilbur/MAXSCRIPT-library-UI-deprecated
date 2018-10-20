@@ -1,8 +1,3 @@
-
---filein ( (getThisScriptFilename()) + "/../RolloutClass/RolloutClass.ms" );
-
---filein ( (getThisScriptFilename()) + "/../Lib/Rollouts/Rollouts.ms" );
-
 filein ( getFilenamePath(getSourceFileName()) + "/includes.ms" )
 
 
@@ -17,12 +12,12 @@ struct UI_v
 	 */
 	function loadContent =
 	(
-		Content.autoLoadRollouts()
+		--format " Content	= % \n" Content	
+		Content.load()
 		
 		Content.setControlsToUI Floater
 			
 		Floater.create()
-
 	),
 	
 	function test =
