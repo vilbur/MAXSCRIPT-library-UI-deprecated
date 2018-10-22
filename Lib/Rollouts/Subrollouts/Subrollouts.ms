@@ -3,8 +3,14 @@
   */
 struct Subrollouts_v
 (
-
+	
+	parent_roll,
+	
+	private
+	
 	List	= #(),
+	
+	public
 	
 	/** Add
 	 */
@@ -29,13 +35,13 @@ struct Subrollouts_v
 	  *
 	  *
 	 */
-	function _addSubrolloutsDefinition roll =
+	function addSubrolloutsDefinition =
 	(
 		if( List.count == 0 ) then
 			return ()
 
 		--print ( "\nsubRollout " + id + "List " + "\"List\"" )
-		roll.roll.addText ( "\nsubRollout " + roll.id + "List " + "\"List\"" )
+		parent_roll.roll.addText ( "\nsubRollout " + parent_roll.id + "List " + "\"List\"" )
 	),
 
 	/** Add sub rollouts
@@ -44,7 +50,7 @@ struct Subrollouts_v
 	 *   "AddSubRollout rollout_main.subRollout1 subRollout1a
 	 * 	 AddSubRollout rollout_main.subRollout1 subRollout1b"
 	 */
-	function addSubRollouts id =
+	function addSubRollouts =
 	(
 		print "------------\nSubrollouts.addSubRollouts()"
 		format " List	= % \n" List
@@ -54,7 +60,7 @@ struct Subrollouts_v
 		add_subrollouts = ""
 		
 		for subrollout in List do
-			add_subrollouts += "\nAddSubRollout " + id + "." + id + "List " +  " " + subrollout.id
+			add_subrollouts += "\nAddSubRollout " + parent_roll.id + "." + parent_roll.id + "List " +  " " + subrollout.id
 		--format " add_subrollouts	= % \n" add_subrollouts
 		execute add_subrollouts
 	),

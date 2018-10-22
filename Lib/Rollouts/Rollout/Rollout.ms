@@ -35,7 +35,7 @@ struct Rollout_v
 
 	/* lists */
  	ControlBoxes	= #(),
-	Subrollouts	= Subrollouts_v(),
+	Subrollouts	= Subrollouts_v parent_roll:this,
 	RolloutEvent	= RolloutEvent_v parent_control:this,
 	
 	_controls	= #(),	-- store ids of added controls in rollout
@@ -61,7 +61,7 @@ struct Rollout_v
 		
 		this.properties #(width, height)
 
-		Subrollouts.addSubRollouts id
+		Subrollouts.addSubRollouts()
 		
 		roll --return
 	),
@@ -74,7 +74,7 @@ struct Rollout_v
 		this._renderControls()
 		
 		Subrollouts.createSubRollouts()
-		Subrollouts._addSubrolloutsDefinition this
+		Subrollouts.addSubrolloutsDefinition()
 
 		this._addEventHandlers()
 
@@ -89,8 +89,6 @@ struct Rollout_v
 		print "------------\nRollout.subrollout()"
 		_subrollout = Rollout_v title:title id:id
 		
-		--format " _subrollout	= % \n" _subrollout
-		--append Subrollouts _subrollout
 		Subrollouts.add _subrollout
 		
 		_subrollout --return 
@@ -114,10 +112,6 @@ struct Rollout_v
 	 */
 	function exists =
 	(
-		--print "------------\nRollout.exists()"
-		--format " id	= % \n" id
-		--format " (execute id) != undefined	= % \n" ((execute id) != undefined)
-		--format " (execute id)	= % \n" ((execute id))
 		(execute id) != undefined --return
 	),
 
