@@ -28,7 +28,7 @@ function crateSubrollouts =
 	--(subcontrols_A.control #button "Control A2" #control_A2).pressed "MessageBox @Control A2 pressed@"
 	----/* ========= CONTROLS B ========= */
 	----controls_B	= _rollout.controls()-- get new groupbox for controls
-	--subroll_B	= _rollout.subrollout "Subrollout B"
+	subroll_B	= _rollout.subrollout "Subrollout B"
 	--subcontrols_B	= subroll_B.controls groupbox:"groupbox B" -- get new groupbox for controls
 	----subcontrols_B.button "Control B1" id:#control_b1 -- id is optionable
 	----(subcontrols_B.button "Disabled B2").params " enabled: false, border: false"

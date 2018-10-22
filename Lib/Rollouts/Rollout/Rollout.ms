@@ -49,7 +49,7 @@ struct Rollout_v
 	public	
 
 	/** Create rollout dialog
-	  * Wrapper for http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm
+	  * [ Wrapper for CreateDialog()](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm)
 	  *
 	  * @return	RolloutClass
 	 */
@@ -60,7 +60,7 @@ struct Rollout_v
 		CreateDialog (roll.def) 
 		
 		this.properties #(width, height)
-
+s
 		Subrollouts.addSubRollouts()
 		
 		roll --return
@@ -86,7 +86,6 @@ struct Rollout_v
 	 */
 	function subrollout title id: =
 	(
-		print "------------\nRollout.subrollout()"
 		_subrollout = Rollout_v title:title id:id
 		
 		Subrollouts.add _subrollout
@@ -160,7 +159,7 @@ struct Rollout_v
 	 */
 	function _setId =
 	(
-		if( id != undefined ) then
+		if not ( id == undefined or id == unsupplied ) then
 			return()
 		
 		id_by_title = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
