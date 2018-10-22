@@ -35,7 +35,7 @@ struct Rollout_v
 
 	/* lists */
  	ControlBoxes	= #(),
-	Subrollouts	= #(),
+	Subrollouts	= Subrollouts_v(),
 	RolloutEvent	= RolloutEvent_v parent_control:this,
 	
 	_controls	= #(),	-- store ids of added controls in rollout
@@ -47,37 +47,54 @@ struct Rollout_v
 	onClose	= RolloutEvent.onClose,
 
 	public	
-	/** Subrollout
-	 */
-	function subrollout title id:"" =
-	(
-		_subrollout = (Rollout_v()).new title id:id
-		
-		append Subrollouts _subrollout
-		
-		_subrollout --return 
-	),
+
 	/** Create rollout dialog
 	  * Wrapper for http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm
-	  *
 	  *
 	  * @return	RolloutClass
 	 */
     function create width: height: =
 	(
-		--this.destroy()
-		
 		this._createRollout()
 		
 		CreateDialog (roll.def) 
 		
 		this.properties #(width, height)
 
-		this._addSubRollouts()
+		Subrollouts.addSubRollouts id
 		
 		roll --return
 	),
-	 
+	/** Create rollout
+	 */
+	function _createRollout =
+	(
+		roll.begin()
+		
+		this._renderControls()
+		
+		Subrollouts.createSubRollouts()
+		Subrollouts._addSubrolloutsDefinition this
+
+		this._addEventHandlers()
+
+		this._addSaveIniFunction()
+
+		roll.end()
+	),
+	/** Subrollout
+	 */
+	function subrollout title id: =
+	(
+		print "------------\nRollout.subrollout()"
+		_subrollout = Rollout_v title:title id:id
+		
+		--format " _subrollout	= % \n" _subrollout
+		--append Subrollouts _subrollout
+		Subrollouts.add _subrollout
+		
+		_subrollout --return 
+	),
 	/** Set properties
 	 */
 	function properties properties_values =
@@ -171,18 +188,8 @@ struct Rollout_v
 	 */
 	function destroy =
 	(
-		print "------------\nRollout.destroy()"
-		--format " _id	= % \n" _id
-		--try(cui.UnRegisterDialogBar (execute _id))catch()	
-		--try(DestroyDialog           (execute _id))catch()
-		--format " this	= % \n" this
-		--try(cui.UnRegisterDialogBar rollout_test_subrollouts)catch()	
-		--try(DestroyDialog           rollout_test_subrollouts)catch()	
---		
 		try( execute("cui.UnRegisterDialogBar " +id) )catch()
 		try( execute("DestroyDialog "           +id) )catch()
-		--try( execute("cui.UnRegisterDialogBar "+"rollout_test_subrollouts" ) )catch()	
-		--try( execute("DestroyDialog "+"rollout_test_subrollouts"           ) )catch()
 	),
 	/** Create new roll with rolloutCreator()
 	 */
@@ -200,22 +207,7 @@ struct Rollout_v
 	/*---------------------------------------
 		CREATE ROLLOUT
 	-----------------------------------------*/
-	/** Create rollout
-	 */
-	function _createRollout =
-	(
-		roll.begin()
-		
-		this._renderControls()
-		
-		this._createSubRollouts()
 
-		this._addEventHandlers()
-
-		this._addSaveIniFunction()
-
-		roll.end()
-	),
 	/**  Add controls to UI on rollout creation
 	*/
 	function _renderControls =
@@ -223,38 +215,7 @@ struct Rollout_v
 		for Controls in ControlBoxes do
 			Controls._renderControls()
 	),
-	/** Create sub rollouts
-	 */
-	function _createSubRollouts =
-	(
-		if( height==undefined ) then
-			height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
-		
-		--print ( "Subrollouts.count=" + Subrollouts.count as string )
-		if( Subrollouts.count>0 ) then 
-		(
-			for _rollout in Subrollouts do
-				_rollout._createRollout()
-				
-			roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" height:"+( height as string )+" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
-			--roll.addText ( "\nsubRollout " + id + "Subrollouts " + "\"Subrollouts\" width:"+(Subrollouts[1].Layout._getRollWidth() as string )+" offset:[-14,-6]" )
-		)
-	),
 
-	/** Add sub rollouts
-	 */
-	function _addSubRollouts =
-	(
-		add_subrollouts = ""
-		
-		if( Subrollouts.count>0 ) then
-		(
-			for _rollout in Subrollouts do
-				add_subrollouts += "\nAddSubRollout " + id + "." + id + "Subrollouts " +  " " + _rollout.id
-
-			execute add_subrollouts
-		)
-	),
 	/*------------------------------------------------------------------------------
 		EVENTS
 	--------------------------------------------------------------------------------*/

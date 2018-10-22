@@ -55,6 +55,7 @@ try(
 	/*---------------------------------------
 		ROLLOUT
 	-----------------------------------------*/
+	filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Subrollouts/Subrollouts.ms" )
 	filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Rollout/Rollout.ms" );
 	filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Rollouts.ms" );
 	

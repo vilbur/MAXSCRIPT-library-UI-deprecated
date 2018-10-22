@@ -22,11 +22,10 @@ function crateSubrollouts =
 	_rollout	= Rollout_v title:"Test Subrollouts" 
 
 	/* ========= SUBROLLOUT A ========= */
-	--subroll_A	= _rollout.subrollout "Subrollout A"
+	subroll_A	= _rollout.subrollout "Subrollout A" id:"Subrollout_A"
 	--subcontrols_A	= subroll_A.controls() -- get new container for controls
-	--
+
 	--(subcontrols_A.control #button "Control A2" #control_A2).pressed "MessageBox @Control A2 pressed@"
-	--
 	----/* ========= CONTROLS B ========= */
 	----controls_B	= _rollout.controls()-- get new groupbox for controls
 	--subroll_B	= _rollout.subrollout "Subrollout B"
