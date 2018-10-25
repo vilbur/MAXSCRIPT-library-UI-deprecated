@@ -1,10 +1,9 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../../../../Floater/Test/includes/FloaterIncludeTest.ms" )
 print "------------\nInclude	RolloutIncludeTest.ms"
 
-_rollout_1	= UI.roll "Test Rollout" ""
-
+_rollout_1	= Floater.roll "Test Rollout"
 
 /*
-	For crating UI use:
-		UI.create()
+	For creating Floater use:
+		Floater.create()
 */

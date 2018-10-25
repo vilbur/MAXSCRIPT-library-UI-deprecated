@@ -78,18 +78,10 @@ struct Controls_v
 
 		initial_dir	= "C:\\"
 
-		--browse_button.pressed "getSavePath()"
-		--browse_button.pressed "messagebox \"XXX\""
 		browse_button.pressed ( "messagebox "+(edit_text.prop #text #path ) )
-		--browse_button.pressed ( edit_text.text = "getSavePath")
-
-		--format "\n\n=== Controls.path()\nedit_text.get = % " (edit_text.prop #text #get)
-		--format "\n\n=== Controls.path()\nedit_text.path = % " (edit_text.prop #text #path)
 
 		this.add browse_button
 		this.add edit_text
-
-		--this.newControl (Control_v type:#edittext caption:caption id:id value:value name_of_value_param:#text ) add:add
 	),
 
 	/*---------------------------------------
@@ -108,7 +100,8 @@ struct Controls_v
 	(
 		--print "------------\nControls.newControl()"
 		--format " _Control	= % \n" _Control
-		_Control.init Parent_roll id
+		
+		--_Control.init id
 
 		if( add == true ) then
 			this.add _Control
@@ -118,16 +111,22 @@ struct Controls_v
 
 	/** Add controls to rollout
 	 */ 
-	function _renderControls =
+	function _addControlToUi =
 	(
 		ControlBox.new	Parent_roll groupbox	-- Set new groupbox
-		Parent_roll.Layout.newControlsBox	groupbox	-- Set position to layout
-
+		--Parent_roll.Layout.newControlsBox	groupbox	-- Set position to layout
+		
 		for Control in this.Controls do
-			Control._renderControl()
-
+		(
+			--Control.addControlToUi()
+			Parent_roll.roll.addControl Control.type Control.id.id Control.caption
+			Control.Events._addHandlers()
+			--paramStr:(this._getParameters())
+			--Parent_roll.Layout.setControlDimensions
+		)
+		
 		ControlBox.addGroupBox()	-- Add groupbox control to UI
-		Parent_roll.Layout.nextControlsBox groupbox	--
+		--Parent_roll.Layout.nextControlsBox groupbox	--
 	),
 
 	/*---------------------------------------

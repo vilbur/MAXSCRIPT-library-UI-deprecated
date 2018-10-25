@@ -61,13 +61,15 @@ struct ScriptFile_Content_v
 
 		if( this.isMacrosriptFile() ) then
 		(
+			format " _rollout	= % \n" _rollout
 			_controls	= this.addGroupbox _rollout
-
+		format " _controls	= % \n" _controls
 			for m = 1 to MacroScripts.count do
-				MacroScripts[m]._addControls _controls
+			format " MacroScripts[m]	= % \n" MacroScripts[m]
+				--MacroScripts[m]._addControls _controls
 		)
-		else
-			this._runScriptFile()
+		--else
+		--	this._runScriptFile()
 	),
 	/** Add groupbox
 	 */

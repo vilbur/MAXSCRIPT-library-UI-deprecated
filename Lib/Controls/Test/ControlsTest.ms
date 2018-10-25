@@ -14,7 +14,8 @@ filein ( getFilenamePath(getSourceFileName()) + "/inlcudes/ControlsIncludeTest.m
  */
 function buttonTest =
 (
-	btn_prop	= _controls_1.button "Props test"
+	btn_prop_a	= _controls_1.button "Props test A"
+	btn_prop_b	= _controls_1.button "Props test B"
 )
 /** Checkbox test
  */
@@ -47,11 +48,10 @@ function editControlTest =
 -----------------------------------------*/
 
 buttonTest()
-checkboxTest()
-editControlTest()
-
+--checkboxTest()
+--editControlTest()
 
 /* CREATE DIALOG  */
-UI.create()
+Floater.create()
 
-
+--rollout_controlstest.rollout_test_rollout.height = 256

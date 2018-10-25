@@ -21,9 +21,14 @@ struct ControlBox_v
 	 */
 	function addGroupBox =
 	(
-		--print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
-		if( groupbox!=undefined ) then
-			Parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(this._getGroupboxParams())
+		print "------------\nControlBox.addGroupBox()"
+		----print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
+		--if( groupbox!=undefined ) then
+		format " this._getGroupboxParams()	= % \n" (this._getGroupboxParams())
+			--Parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(this._getGroupboxParams())
+		--Parent_roll.roll.addControl #groupbox (this.getId()) groupbox
+		
+		--format " groupbox	= % \n" groupbox
 	),
 	
 	/** Get id
@@ -49,14 +54,15 @@ struct ControlBox_v
 		dimensions	= Parent_roll.Layout._getGroupboxDimensions()
 		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
 		
-		Props	= Props_v Control:this
-		
-		Props.add #pos	dimensions[1]
-		Props.add #width	dimensions[2]
-		Props.add #height dimensions[3]
+		--Props	= Props_v Control:this
+		--
+		--Props.add #pos	dimensions[1]
+		--Props.add #width	dimensions[2]
+		--Props.add #height dimensions[3]
 		--Props.add #height 48
 		
-		Props.join() --return
+		--Props.join() --return
+		""
 	),
 
 	function test =

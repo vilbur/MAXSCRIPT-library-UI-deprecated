@@ -58,7 +58,9 @@ struct ControlId_v
 	 */
 	function _setIdFull =
 	(
-		full	= Parent_control.Parent_roll.id +"."+id
+		print "HOTFIX ------------\nControlId._setIdFull()"
+		--full	= Parent_control.Parent_roll.id +"."+id -- make without Parent_roll
+		full	= id -- hotfix
 	),
 	/** Sanitize id
 	 */
@@ -78,7 +80,7 @@ struct ControlId_v
 	 */
 	function _getUniqueId _string =
 	(
-		--print "------------\nControlBody._getUniqueId()"
+		--print "------------\nControlExtends._getUniqueId()"
 		--format " _string	= % \n" _string
 		counter	= 1
 
@@ -102,7 +104,9 @@ struct ControlId_v
 	 */
 	function controlExiststs id =
 	(
-		Parent_control.Parent_roll.hasControl id --return
+		print "HOTFIX ------------\nControlId.controlExiststs()"
+		--Parent_control.Parent_roll.hasControl id --return
+		false --return
 	),
 	/*------------------------------------------------------------------------------
 		PRIVATE

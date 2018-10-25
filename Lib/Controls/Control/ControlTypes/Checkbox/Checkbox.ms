@@ -2,7 +2,7 @@
  */
 struct Checkbox_v
 (
-	include "Lib/Controls/Control/ControlBody.ms"
+	include "Lib/Controls/Control/ControlExtends.ms"
 	
 	checked,
 
@@ -21,7 +21,7 @@ struct Checkbox_v
 	--------------------------------------------------------------------------------*/
 	--/** Sanitize parameters by specific control type
 	--  *
-	--  * This method must be in all structs which include "ControlBody.ms"
+	--  * This method must be in all structs which include "ControlExtends.ms"
 	-- */
 	--function _sanitizeParametersByControlType =
 	--(
@@ -47,14 +47,21 @@ struct Checkbox_v
 	--	) else
 	--		getProperty this ( key as string ) --return
 	--),
-	/** Construct
-	 */
-	function _construct =
-	(
-		--print "------------\nCheckbox._construct()"
-		type	= #checkbox
-		name_of_value_param	= #checked
-	),
+	--/** Construct
+	-- */
+	--function _construct =
+	--(
+	--	--print "------------\nCheckbox._construct()"
+	--	type	= #checkbox
+	--	name_of_value_param	= #checked
+	--),
 	
-	__construct = this._construct()
+	--__construct = this._construct()
+	/** Test
+	 */
+	function test =
+	(
+		
+	)
+	
 )

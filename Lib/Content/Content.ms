@@ -47,9 +47,10 @@ struct Content_v
 	 */
 	function setControlsToUI Floater =
 	(
-		print ( "-------------Rollouts=" + Rollouts as string )
+		print "------------\nContent.setControlsToUI()"
+		format " Rollouts	= % \n" Rollouts
 		for r=1 to Rollouts.count do
-			Rollouts[r].insertRollout Floater r
+			Rollouts[r].insertRollout Floater Rollouts[r].name
 	),
 	
 	

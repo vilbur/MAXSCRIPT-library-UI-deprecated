@@ -1,13 +1,16 @@
+	/* required properties */
+	__construct = #(),
+
 	/* dependency */
-	id	= ControlId_v	Parent_control:this,
+	ControlId	= ControlId_v	Parent_control:this,
 	Events	= ControlEvents_v	Parent_control:this,
 	Props	= Props_v	Control:this,
 
-	Parent_roll,
+	--Parent_roll,
 	name_of_value_param	= #value,
 	
 	/* config */
-	type,	-- type of control E.G.: #button
+	type,
 	caption,
 	
 	value,
@@ -20,11 +23,12 @@
 	pressed	= Events.pressed,
 	changed	= Events.changed,
 	rightclick	= Events.rightclick,
+	
 	/** Test method
 	 */
 	function testMethod =
 	(
-		messageBox "ControlBody.testMethod" beep:false
+		messageBox "ControlExtends.testMethod" beep:false
 	),
 	/** Init object
 	  *
@@ -32,20 +36,20 @@
 	  * @param	string|undefined	_id	required on init
 	  * @return	self
 	 */
-	function init _Parent_roll _id =
+	function init _id =
 	(
-		--print "------------\nControlBody.init()"
-		Parent_roll	= _Parent_roll
+		--print "------------\nControlExtends.init()"
+		--Parent_roll	= _Parent_roll
 		
-		this._setCaption()
-		
-		id.setId _id
-		
-		this._setValue()
-		
-		this.Events.setDefaultEvents()
-
-		this --return
+		--this._setCaption()
+		--
+		--ControlId.setId _id
+		--
+		--this._setValue()
+		--
+		--this.Events.setDefaultEvents()
+		--
+		--this --return
 	),
 
 	/** Set params for control
@@ -86,15 +90,16 @@
 	 */
 	function exists =
 	(
-		--print "------------\nControlBody.exists()"
-		--format " id.full	= % \n" id.full
+		print "------------\nControlExtends.exists()"
+		print ""
+		--format " ControlId.full	= % \n" ControlId.full
 		control_exists	= false 
 
 		--Parent_roll.exists() --return
 		
 		if( Parent_roll.exists() ) then
 			try(
-				control_exists = (execute id.full) != undefined
+				control_exists = (execute ControlId.full) != undefined
 				
 			)catch()
 		
@@ -104,37 +109,37 @@
 	/*------------------------------------------------------------------------------
 		PRIVATE
 	--------------------------------------------------------------------------------*/
-	/** Add control to UI 
-	 */
-	function _renderControl =
-	(
-		--print "------------\nControlBody._renderControl()"
-		Parent_roll.roll.addControl type id.id caption paramStr:(this._getParameters())
-
-		Events._addHandlers()
-	),
+	--/** Add control to UI 
+	-- */
+	--function addControlToUi =
+	--(
+	--	--print "------------\nControlExtends._renderControl()"
+	--	Parent_roll.roll.addControl type ControlId.id caption paramStr:(this._getParameters())
+	--
+	--	Events._addHandlers()
+	--),
 	
 	/*---------------------------------------
 		GETTERS & SETTERS
 	-----------------------------------------*/
-	/** _set value
-	 */
-	function _setValue =
-	(
-		if( value==undefined ) then
-			this._getValueFromIni()
-
-		if( value!=undefined and value!=""  ) then
-			this._setValueParameter value
-		----else
-			----this._getValueFromIni()
-	),
+	--/** _set value
+	-- */
+	--function _setValue =
+	--(
+	--	if( value==undefined ) then
+	--		this._getValueFromIni()
+	--
+	--	if( value!=undefined and value!=""  ) then
+	--		this._setValueParameter value
+	--	----else
+	--		----this._getValueFromIni()
+	--),
 	/** Add quotes to parameter if value is string
 	  * Add value to params
 	 */
 	function _setValueParameter value =
 	(
-		--print "------------\nControlBody._setValueParameter()"
+		--print "------------\nControlExtends._setValueParameter()"
 		this.param name_of_value_param (this._formatDatatypeValue value)
 	),
 	/** Format datatype of value
@@ -153,23 +158,24 @@
 	(
 		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
 	),
-	/** Get value from ini
-	 */
-	function _getValueFromIni =
-	(
-		--print "***------------\nControlBody._getValueFromIni()"
-		ini_path = Parent_roll.ini
-		
-		if( ini_path != undefined ) then
-			value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return
-		
-		value --return
-	),
+	--/** Get value from ini
+	-- */
+	--function _getValueFromIni =
+	--(
+	--	print "------------\nControlExtends._getValueFromIni()"
+	--	print "HOTFIX"
+	--	ini_path = Parent_roll.ini
+	--	
+	--	if( ini_path != undefined ) then
+	--		value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return
+	--	
+	--	value --return
+	--),
 	/** _set dimensions
 	 */
 	function _setDimensions =
 	(
-		--print "------------\nControlBody._setDimensions()"
+		--print "------------\nControlExtends._setDimensions()"
 		dimensions = Parent_roll.Layout.setControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height)
 		--format " Props.get #width = % \n" (Props.get #width)
 		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
@@ -185,19 +191,12 @@
 	(
 		caption	= trimLeft ( trimRight caption "_" )  "_"
 	),
-	--/** Set path
-	-- */
-	--function _setControl =
-	--(
-	--	path = Parent_roll.id +"."+id
-	--	control = Parent_roll.id +"."+id
-	--),
 
 	/** Get parameters
 	 */
 	function _getParameters =
 	(
-		this._setDimensions()
+		--this._setDimensions()
 
 		Props.join() + this._getTooltip() --return
 		--this._getTooltip() --return
@@ -225,6 +224,36 @@
 		)
 		
 		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
+	),
+	/** Set control type
+	 */
+	function setControlType =
+	(
+		--format " classof this	= % \n" (classof this)
+		type = (filterString( classof this as string ) "(:")[2]
+		
+	),
+	/** Check if required properties are defined
+	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
+	  * @param	construct_properties this.properties required for initialization of struct
+	 */
+	function checkConstctructProperties =
+	(
+		for prop in __construct where getProperty this prop == undefined do
+			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	),
+	
+	on create do
+	(
+		checkConstctructProperties()
+		
+		this._setCaption()
+		
+		ControlId.setId _id
+		
+		--this._setValue()
+		
+		this.Events.setDefaultEvents()
 	),
 	--
 	--/** Get Name of value parameter by type of control E.G.: CKECBOX = #checked | EDITTEXT = #text | DEFAULT = #value

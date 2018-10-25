@@ -5,7 +5,7 @@
 userscripts_path_default = getDir #userscripts 	-- save $userscripts path
 SetDir #userscripts (getFilenamePath(getSourceFileName()))	-- set current dir as $userscripts path for including
 
-try(
+--try(
 	
 	/*---------------------------------------
 		VENDOR
@@ -71,6 +71,6 @@ try(
 	SetDir #userscripts userscripts_path_default -- revert default path back
 
 
-)catch(
-	SetDir #userscripts userscripts_path_default -- revert default path back
-)
+--)catch(
+--	SetDir #userscripts userscripts_path_default -- revert default path back
+--)

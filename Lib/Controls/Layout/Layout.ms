@@ -3,6 +3,7 @@
 struct Layout_v
 (
 	Bbox,
+	
 	_grid	= 24,	-- width and height of _grid
 	roll_width	= 12, -- columns width of rollout
 	padding	= 2,	-- padding between controls
@@ -47,12 +48,17 @@ struct Layout_v
 	 */
 	function _getGroupboxDimensions =
 	(
-		#(
-			[ pos_box[1] - margin, pos_box[2] - padding_box ],
-			( Bbox.width + margin ),
-			( Bbox.height + margin )
-			--( pos[2] - pos_box[2] + _grid + padding_box )		
-		)
+		print "------------\nLayout._getGroupboxDimensions()"
+		format " this	= % \n" this
+		format " pos_box	= % \n" pos_box
+		-- TADY JE BUG !!!!
+		--#(
+		--	[ pos_box[1] - margin, pos_box[2] - padding_box ],
+		--	( Bbox.width + margin ),
+		--	( Bbox.height + margin )
+		--	--( pos[2] - pos_box[2] + _grid + padding_box )		
+		--)
+		#()
 	),
 	/*---------------------------------------
 		CONTROLS

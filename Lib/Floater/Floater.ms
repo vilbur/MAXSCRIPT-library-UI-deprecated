@@ -27,7 +27,7 @@ struct Floater_v
 
 	/* config */	
 	id,
-	height,
+	--height,
 	
 	/* options */	
 	_ini,
@@ -36,14 +36,17 @@ struct Floater_v
 	Floater,
 	size_init, -- size of dialog after creation
 		
-	/** Create
+	/** Create Floater
+	  * Same parameters as __[ Rollout.create() ](../Rollouts/Rollout)__
 	 */
-	function create height:undefined =
+	function create width: height: pos: =
 	(
-		--this._getSetProp #height height
-		this.height	= height
+		roll_main	= Rollout_v title:title id:id
+		roll_main.subrollouts.list	= Rollouts.values
 		
-		this._setFloater()
+		roll_main.create height:height width:width
+		
+		Floater = roll_main.roll.def
 		
 		--size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
 		--size_init = #(512, 512)
@@ -63,9 +66,9 @@ struct Floater_v
 	  * @example roll "Roll Title" "rollout_id" 	// set rollout
 	  * @example roll "Roll Title" "" 	// set rollout, id will be sanitized title "roll_title"
 	  */
-	function roll title id  =
+	function roll title id:  =
 	(
-		_rollout	= (Rollout_v ini:(Ini.path #get) ).new title id:id
+		_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
 		--id	= _rollout.id
 		Rollouts.setVal (_rollout.id) ( _rollout )
 		
@@ -173,10 +176,11 @@ struct Floater_v
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
-	function _setIdGlobal =
+	function _setFloaterGlobal =
 	(
-		id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
-
+		id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
+		id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"[^a-zA-Z0-9-_]" ).Replace id ""
+		
 		__GLOBAL__v.Floater = this
 	),
 	/** _open close rollouts
@@ -204,18 +208,6 @@ struct Floater_v
 		if( Ini.file #get == undefined ) then
 			Ini.file ( (getFilenameFile id) + ".ini" )
 	), 
-	
-	/** Assign main rollout as floater to property Floater
-	 */
-	function _setFloater =
-	(
-		roll_main	= (Rollout_v()).new title
-		roll_main.subrollouts	= Rollouts.values
-		
-		roll_main.createRollDialog height:512
-		
-		Floater = roll_main.roll.def
-	),
 
 	/** Create Floater - UNUSED METHOD WILL BE DELETE
 	  * Floater can`t has Menu
@@ -258,7 +250,7 @@ struct Floater_v
 	(
 		checkConstctructProperties()
 		
-		this._setIdGlobal()
+		this._setFloaterGlobal()
 		this._setIniDefaults()
 		
 	)

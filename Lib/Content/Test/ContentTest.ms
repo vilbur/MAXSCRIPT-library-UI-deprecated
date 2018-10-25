@@ -5,19 +5,19 @@ clearListener();
 
 
 /** DEFINE FLOATER  */
-Floater	= (Floater_v()).new "Layout Test"
+Floater	=  Floater_v title:"Layout Test"
 
 /** Load content from file tree
  */
 function loadContentTest =
 (
 	current_dir	= getFilenamePath(getSourceFileName())
-	--Content	= (Content_v dir:(current_dir+"/Rollout-tooltip-test")	match:"rollout-(.*)$"	).load()
+	----Content	= (Content_v dir:(current_dir+"/Rollout-tooltip-test")	match:"rollout-(.*)$"	).load()
 	Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
-	Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs/*")	match:"rollout-(test-.*)"	).load()
+	--Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs/*")	match:"rollout-(test-.*)"	).load()
 	
 	Content.setControlsToUI Floater
-	Content_nested.setControlsToUI Floater
+	--Content_nested.setControlsToUI Floater
 )
 
 /** Add extra rollout

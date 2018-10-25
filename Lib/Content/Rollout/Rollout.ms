@@ -27,13 +27,17 @@ struct Rollout_Content_v
 	),
 	/** Insert rollout
 	 */
-	function insertRollout Floater index =
+	function insertRollout Floater name =
 	(
-		_rollout = Floater.roll name ""
-
-		print ( "rollout.name = " + name as string )
+		print "------------\nRollout.insertRollout()"
+		format " name	= % \n" name
+		format " Floater	= % \n" Floater
+		_rollout = Floater.roll name unsupplied
+		
+		--print ( "rollout.name = " + name as string )
 		for f=1 to ScriptFiles.count do
 			if( ScriptFiles[f].hasMacroScripts() or ScriptFiles[f].isMaxscriptFile() ) then
+				--format " ScriptFiles[f]	= % \n" ScriptFiles[f]
 				ScriptFiles[f].addControls _rollout
 	),
  

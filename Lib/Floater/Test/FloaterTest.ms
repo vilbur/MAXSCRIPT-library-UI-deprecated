@@ -1,21 +1,7 @@
 clearListener()
-filein ( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" );
 
-
-/*------ GET FLOATER CLASS ------*/
-Floater	= Floater_v title:"Test floater"
+filein ( getFilenamePath(getSourceFileName()) + "/includes/FloaterIncludeTest.ms" )
 
 /*------ CREATE FLOATER DIALOG ------*/
 --Floater.create()
-Floater.create height:512
-
-
-/*------ POSITION METHODS FOR FLOATER ------*/
-
---Floater.dock #right
-
---Floater.dock ""
-
---Floater.position 512 512
-
---Floater.size 512 512
+Floater.create height:512 width:320

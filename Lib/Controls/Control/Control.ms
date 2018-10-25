@@ -3,7 +3,7 @@
  */
 struct Control_v 
 (
-	include "Lib/Controls/Control/ControlBody.ms"
+	include "Lib/Controls/Control/ControlExtends.ms"
 	
 	/*------------------------------------------------------------------------------
 		INTERFACE METHODS
@@ -16,7 +16,7 @@ struct Control_v
 	--------------------------------------------------------------------------------*/
 	--/** Sanitize parameters by specific control type
 	--  *
-	--  * This method must be in all structs which include "ControlBody.ms"
+	--  * This method must be in all structs which include "ControlExtends.ms"
 	-- */
 	--function _sanitizeParame tersByControlType =
 	--(

@@ -3,7 +3,7 @@
  */
 struct EditText_v 
 (
-	include "Lib/Controls/Control/ControlBody.ms"
+	include "Lib/Controls/Control/ControlExtends.ms"
 	
 	/** Value as tooltip
 	 */
@@ -24,7 +24,7 @@ struct EditText_v
 	--------------------------------------------------------------------------------*/
 	--/** Sanitize parameters by specific control type
 	--  *
-	--  * This method must be in all structs which include "ControlBody.ms"
+	--  * This method must be in all structs which include "ControlExtends.ms"
 	-- */
 	--function _sanitizeParametersByControlType =
 	--(
@@ -49,15 +49,22 @@ struct EditText_v
 	--	) else
 	--		getProperty this ( key as string ) --return
 	--),
-	/** Construct
+	--/** Construct
+	-- */
+	--function _construct =
+	--(
+	--	--print "------------\nButton._construct()"
+	--	type	= #edittext
+	--	name_of_value_param	= #text
+	--
+	--),
+	--
+	--__construct = this._construct()
+	/** Test
 	 */
-	function _construct =
+	function test =
 	(
-		--print "------------\nButton._construct()"
-		type	= #edittext
-		name_of_value_param	= #text
-
-	),
+		
+	)
 	
-	__construct = this._construct()
 )

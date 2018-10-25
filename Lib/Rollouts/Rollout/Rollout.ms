@@ -16,22 +16,23 @@ struct Rollout_v
 (
 	/* required properties */
 	title,
+	__construct = #(#title),
 
 	/* optionable properties */
 	id,
 
 	/* store rollout and parent rollout */
 	roll,
-	--parent_roll,
+	parent_roll,
 
-	private
+	--private
 	
 	/* dependency */
 	Layout	= Layout_v(),
 	
 	/* options */
 	ini, -- inherit by Floater_v
-	properties_keys	=  #(#width, #height),
+	properties_keys	=  #(#width, #height, #pos),
 
 	/* lists */
  	ControlBoxes	= #(),
@@ -50,17 +51,16 @@ struct Rollout_v
 
 	/** Create rollout dialog
 	  * [ Wrapper for CreateDialog()](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm)
-	  *
 	  * @return	RolloutClass
 	 */
-    function create width: height: =
+    function create width: height: pos: =
 	(
 		this._createRollout()
 		
 		CreateDialog (roll.def) 
 		
-		this.properties #(width, height)
-s
+		this.properties #(width, height, pos)
+		
 		Subrollouts.addSubRollouts()
 		
 		roll --return
@@ -184,7 +184,7 @@ s
 		try( execute("cui.UnRegisterDialogBar " +id) )catch()
 		try( execute("DestroyDialog "           +id) )catch()
 	),
-	/** Create new roll with rolloutCreator()
+	/** Create new roll with [ RolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-5FC5036F-E2D7-46C9-9AFA-7B3550B9F254)
 	 */
 	function _setRoll =
 	(
@@ -233,7 +233,6 @@ s
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
 	
-	__construct = #(#title),
 
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
@@ -253,13 +252,14 @@ s
 		this._setId()
 		
 		this.destroy()
-
+		
 		this._setRolloutGlobalVariable()
 		
 		this._setRoll()
-
+		
 		this.setDefaultEvents()
 	)
 
 
 )
+s

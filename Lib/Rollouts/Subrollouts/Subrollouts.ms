@@ -3,14 +3,9 @@
   */
 struct Subrollouts_v
 (
-	
 	parent_roll,
 	
-	private
-	
 	List	= #(),
-	
-	public
 	
 	/** Add
 	 */
@@ -24,7 +19,7 @@ struct Subrollouts_v
 	 */
 	function createSubRollouts =
 	(
-		if( this.anySubrolloutExists() ) then
+		if( this._anySubrolloutExists() ) then
 			for _rollout in List do
 				_rollout._createRollout()
 		--if( height==undefined ) then
@@ -40,9 +35,9 @@ struct Subrollouts_v
 	 */
 	function addSubrolloutsDefinition =
 	(
-		if( this.anySubrolloutExists() ) then
+		if( this._anySubrolloutExists() ) then
 			for subrollout in List do
-				parent_roll.roll.addText ( "\n subRollout " + this.getSubrolloutSlotId subrollout + " \"Subrollouts\"" )
+				parent_roll.roll.addText ( "\n subRollout " + subrollout.id + " \"Subrollouts\"" )
 	),
 
 	/** Add sub rollouts
@@ -50,8 +45,8 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts =
 	(
-		if( this.anySubrolloutExists() ) then
-			execute (this.getAddSubrolloutString())
+		if( this._anySubrolloutExists() ) then
+			execute (this._getAddSubrolloutString())
 	),
 	
 	private
@@ -62,30 +57,33 @@ struct Subrollouts_v
 	 *
 	 *  @return	string "AddSubRollout {rollout.id}.{subrollout.id}_subrollout {subrollout.id}"	
 	 */
-	function getAddSubrolloutString =
+	function _getAddSubrolloutString =
 	(
 		add_subrollouts = ""
 		
 		for subrollout in List do
-			add_subrollouts += "\n AddSubRollout " + parent_roll.id + "." + this.getSubrolloutSlotId subrollout +  " " + subrollout.id
+		(
+			format " ID	= % \n"( parent_roll.id + "." + subrollout.id)
+			add_subrollouts += "\n AddSubRollout " + parent_roll.id + "." + subrollout.id +  " " + subrollout.id
+		)
 		
 		add_subrollouts --return
 	),
 	/** Any subrollout exists
 	 */
-	function anySubrolloutExists =
+	function _anySubrolloutExists =
 	(
 		List.count > 0 --return
 	),
 
-	/** Get subrollout slot id
-	  * @param	object	__[rollout](../Rollout)__
-	  * @return	string	"{subrollout.id}_subrollout"
-	 */
-	function getSubrolloutSlotId subrollout =
-	(
-		subrollout.id + "_subrollout " --return
-	),
+	--/** Get subrollout slot id
+	--  * @param	object	__[rollout](../Rollout)__
+	--  * @return	string	"{subrollout.id}_subrollout"
+	-- */
+	--function _getSubrolloutSlotId subrollout =
+	--(
+	--	subrollout.id + "_subrollout " --return
+	--),
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/

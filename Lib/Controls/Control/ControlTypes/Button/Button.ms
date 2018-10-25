@@ -3,7 +3,7 @@
  */
 struct Button_v 
 (
-	include "Lib/Controls/Control/ControlBody.ms"
+	include "Lib/Controls/Control/ControlExtends.ms"
 
 	
 	/*------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ struct Button_v
 	--------------------------------------------------------------------------------*/
 	--/** Sanitize parameters by specific control type
 	--  *
-	--  * This method must be in all structs which include "ControlBody.ms"
+	--  * This method must be in all structs which include "ControlExtends.ms"
 	-- */
 	--function _sanitizeParametersByControlType =
 	--(
@@ -44,13 +44,17 @@ struct Button_v
 	--	messageBox "testMethod" beep:false
 	--),
 	
-	/** Construct
+	--/** Construct
+	-- */
+	--function _construct =
+	--(
+	--	--print "------------\nButton._construct()"
+	--	type	= #button
+	--),
+	/** Test
 	 */
-	function _construct =
+	function test =
 	(
-		--print "------------\nButton._construct()"
-		type	= #button
-	),
-	
-	__construct = this._construct()
+		
+	)
 )
