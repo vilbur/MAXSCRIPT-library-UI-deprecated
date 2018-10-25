@@ -7,7 +7,7 @@ subroll_B	= Floater.roll "Subrollout B"
 
 /*------ CREATE FLOATER DIALOG ------*/
 --Floater.create()
-Floater.create height:512 width:320
+Floater.create height:512 width:320 pos:[0,0]
 
 
 /*------ POSITION METHODS FOR FLOATER ------*/

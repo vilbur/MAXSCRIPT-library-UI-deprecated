@@ -41,10 +41,13 @@ struct Floater_v
 	 */
 	function create width: height: pos: =
 	(
+		print "------------\nFloater.create()"
+		format " id	= % \n" id
+		this.destroy()
 		roll_main	= Rollout_v title:title id:id
 		roll_main.subrollouts.list	= Rollouts.values
-		
-		roll_main.create height:height width:width
+		--format " pos	= % \n" pos
+		roll_main.create height:height width:width pos:pos
 		
 		Floater = roll_main.roll.def
 		
@@ -54,7 +57,11 @@ struct Floater_v
 		--this._openCloseRollouts()
 		
 		--this.register()
-				
+		
+		--format " _isDocked()	= % \n" (this._isDocked())
+		
+		--this.destroy()
+		--format "Floater created: % \n" roll_main.id
 		this --return
 	),
 
@@ -85,36 +92,35 @@ struct Floater_v
 	function dock side =
 	(
 		this.register()
+
+		if( findItem #( #left, #right, #top, #bottom ) (side as name) > 0 ) then 
+			_dock = ("cui_dock_" + side as string) as name
+		else
+			_dock = #cui_floatable
 		
-		case of
-		(
-			(side == "left"	or side == #left):	_dock = #cui_dock_left
-			(side == "right"	or side == #right):	_dock = #cui_dock_right
-			(side == "top"	or side == #top):	_dock = #cui_dock_top
-			(side == "bottom"	or side == #bottom):	_dock = #cui_dock_bottom
-			default:	_dock = #cui_floatable
-		)
-		--format " side	= % \n" side
 		cui.DockDialogBar Floater _dock
-		
-		--if( _dock == #cui_floatable ) then
-		--	this.unregister()
-		--
-		--this --return
+
+		this --return
 	),
 	/** Undock dialog
 	  * @return	self
 	 */
 	function undock =
 	(
-		this.unregister()
-
+		print "------------\nFloater.undock()"
+		--format " _isRegistered()	= % \n" (this._isRegistered())
+		--format " _isDocked()	= % \n" (this._isDocked())
+		if ( this._isRegistered() and this._isDocked() ) then 
 		this.dock "undock" --return
+		--format " cui.getDockState Floater	= % \n" (cui.getDockState Floater)
+		
+		--this.unregister()
 	),
 	/** Close
 	 */
-	function close =
+	function destroy =
 	(
+		print "------------\nFloater.destroy()"
 		this.unregister()
 
 		try(DestroyDialog Floater)catch()
@@ -126,8 +132,11 @@ struct Floater_v
 	(
 		this.undock()
 		
-		Floater.pos = [ (getMAXWindowPos()).x + x, (getMAXWindowPos()).y + y ]
-
+		--Floater.pos = [ x, y ]
+		if not( this._isRegistered() ) then 
+			SetDialogPos Floater ( getMAXWindowPos() + [ x, y ] )
+		else
+			Floater.pos = [ x, y ]
 		this --return
 	),
 	/** Set size of dialog
@@ -145,13 +154,8 @@ struct Floater_v
 	 */
 	function register =
 	(
-		--this.unregister()
-		try(
-			cui.getDockState Floater
-		)catch(
+		if not( this._isRegistered() ) then 
 			cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
-			print ("Dialog \""+title+"\" registered in method Floater.register()")
-		)
 	),
 	
 	/** Unregister dialog bar
@@ -161,6 +165,29 @@ struct Floater_v
 		try(cui.UnRegisterDialogBar Floater)catch() --try to unregister if already registered
 	),
 	
+	/** _is registered
+	 */
+	function _isRegistered =
+	(
+		try(
+			cui.getDockState Floater
+			true --return 
+		)catch(
+			false --return 
+		)
+	),
+	/** Is floatable
+	 */
+	function _isFloatable =
+	(
+		if ( this._isRegistered() and cui.getDockState Floater == #cui_floatable ) then true else false --return
+	),
+	/** _is docked
+	 */
+	function _isDocked =
+	(
+		if ( matchPattern ((cui.getDockState Floater) as string ) pattern:@"_dock_" ) then true else false --return
+	),
     
 	/*--------------------------------------------------------------------------------*/
 		private
@@ -248,6 +275,7 @@ struct Floater_v
 	),
 	on create do
 	(
+		print "------------\nFloater.onCreate()"
 		checkConstctructProperties()
 		
 		this._setFloaterGlobal()

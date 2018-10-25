@@ -5,3 +5,8 @@ filein ( getFilenamePath(getSourceFileName()) + "/includes/FloaterIncludeTest.ms
 /*------ CREATE FLOATER DIALOG ------*/
 --Floater.create()
 Floater.create height:512 width:320
+
+--Floater.position 0 0
+Floater.dock #right
+--floaterincludetestms.width = 1024
+

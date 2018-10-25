@@ -32,11 +32,11 @@ struct Rollout_v
 	
 	/* options */
 	ini, -- inherit by Floater_v
-	properties_keys	=  #(#width, #height, #pos),
+	properties_keys	=  #(#width, #height),
 
 	/* lists */
  	ControlBoxes	= #(),
-	Subrollouts	= Subrollouts_v parent_roll:this,
+	Subrollouts	= Subrollouts_v  parent_roll:this,
 	RolloutEvent	= RolloutEvent_v parent_control:this,
 	
 	_controls	= #(),	-- store ids of added controls in rollout
@@ -57,12 +57,14 @@ struct Rollout_v
 	(
 		this._createRollout()
 		
-		CreateDialog (roll.def) 
+		--CreateDialog (roll.def) 
+		CreateDialog (roll.def)
 		
-		this.properties #(width, height, pos)
+		this.properties #(width, height)
 		
 		Subrollouts.addSubRollouts()
-		
+		format "Rollout created: % \n" id
+
 		roll --return
 	),
 	/** Create rollout
@@ -97,6 +99,7 @@ struct Rollout_v
 	function properties properties_values =
 	(
 		for i = 1 to properties_keys.count where properties_values[i] != unsupplied do
+			--format " properties_keys[i]	= % \n" properties_keys[i]
 			execute ( id + "."+properties_keys[i]+" = " + properties_values[i] as string )  
 	),
 
