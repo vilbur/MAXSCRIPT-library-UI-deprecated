@@ -1,57 +1,34 @@
-filein ( getFilenamePath(getSourceFileName()) + "/../../../../../includes.ms" )
-clearListener();
+clearListener()
+
+--filein ( getFilenamePath(getSourceFileName()) + "/../Control.ms" )
+
+filein ( getFilenamePath(getSourceFileName()) + "/../../Control.ms" )
+filein ( getFilenamePath(getSourceFileName()) + "/../ControlId.ms" )
 
 
-/*---------------------------------------
-	ROLLOUT DEFINITION
------------------------------------------*/
-_rollout	= (Rollout_v()).new "Control Id Test"
---_rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
-
-global _controls_1	= _rollout.controls groupbox:"Test Groupbox"
-
-/*---------------------------------------
-	TESTS
------------------------------------------*/
-
-/** Edit control test
- */
-function editControlTest =
-(
-	_edit_1	= _controls_1.edit "" value:"Auto ids"
-	_edit_2	= _controls_1.edit "" value:"Auto ids"
-	--_edit_2.col 8
-	
-	--_button_1	= _controls_1.button	"Caption id"
-	--_button_1	= _controls_1.button	"Caption id"
-	--_checkbox_1	= _controls_1.checkbox	"Caption id"
-
-	
-	--_edit.param #width 256
-	
-	--_edit_2.valueAsTooltip true
-	
-	--_edit_2.changed "messagebox \"Test\""
-	
-	--_edit	= _controls_1.path button:"Edit_Text"
-	--
-	----_control_path	= _controls_1.edit "Edit_Text" 
-
-)
+Button_1	= Control_v type:#button	caption:"Test button"
+ControlId 	= ControlId_v Parent_control:Button_1
 
 
 
-/*---------------------------------------
-	RUN TESTS
------------------------------------------*/
-
-editControlTest()
-
-/* CREATE DIALOG  */
-_rollout.CreateRollDialog()
-
-
-
-
-
-
+--/**  
+-- *	DEFINE CONTROLS
+-- */
+--Button_1	= Control_v type:#button	caption:"Test button"
+--Checkbox_1	= Control_v type:#checkbox	caption:"Test checkbox"
+--
+--
+--/* define rollut */
+--rci = rolloutCreator "myRollout" "My Rollout"
+--rci.begin()
+--
+--
+--/**  
+-- *	ADD CONTROLS
+-- */
+--rci.addControl Button_1.type	Button_1.id	Button_1.caption
+--rci.addControl Checkbox_1.type	Checkbox_1.id	Checkbox_1.caption
+--
+--
+--/* create rollout */
+--createDialog (rci.end())

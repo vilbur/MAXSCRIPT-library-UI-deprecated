@@ -1,12 +1,12 @@
 clearListener()
 
-filein ( getFilenamePath(getSourceFileName()) + "/../Control.ms" )
+filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
 
 /**  
  *	DEFINE CONTROLS
  */
-Button_1	= Control_v type:#button	caption:"Test button"
-Checkbox_1	= Control_v type:#checkbox	caption:"Test checkbox"
+Button_1	= Control_v type:#button	caption:"Test"
+Checkbox_1	= Control_v type:#checkbox	caption:"Test"
 
 
 /* define rollut */

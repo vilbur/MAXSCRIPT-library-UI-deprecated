@@ -24,12 +24,6 @@
 	changed	= Events.changed,
 	rightclick	= Events.rightclick,
 	
-	/** Test method
-	 */
-	function testMethod =
-	(
-		messageBox "ControlExtends.testMethod" beep:false
-	),
 	/** Set params for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
@@ -80,6 +74,15 @@
 		--	)catch()
 		
 		control_exists --return
+	),
+	
+	/** _set id
+	 */
+	function setId id =
+	(
+		ControlId.setId id
+		
+		this.id = ControlId.id
 	),
 	
 	private
@@ -228,12 +231,7 @@
 		
 		format " type	= % \n" type
 	),
-	/** _set id
-	 */
-	function _setId =
-	(
-		id = ControlId.setId id
-	),
+
 	
 	on create do
 	(
@@ -243,7 +241,7 @@
 		
 		this._setCaption()
 		
-		this._setId()
+		this.setId id
 		
 		--this._setValue()
 		
