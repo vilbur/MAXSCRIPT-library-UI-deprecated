@@ -1,7 +1,6 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../../../Rollouts/Rollout/Test/includes/RolloutIncludeTest.ms" )
 print "------------\nInclude	ControlsIncludeTest.ms"
 
-clearListener()
 _controls_1 = _rollout_1.controls groupbox:"Test Groupbox"
 
 /*

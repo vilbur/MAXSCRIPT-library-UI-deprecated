@@ -1,6 +1,6 @@
 clearListener();
 
-floater_name = "ControlsTest"
+--floater_name = "ControlsTest"
 filein ( getFilenamePath(getSourceFileName()) + "/inlcudes/ControlsIncludeTest.ms" )
 
 
@@ -14,8 +14,9 @@ filein ( getFilenamePath(getSourceFileName()) + "/inlcudes/ControlsIncludeTest.m
  */
 function buttonTest =
 (
+	--format " _controls_1	= % \n" _controls_1
 	btn_prop_a	= _controls_1.button "Props test A"
-	btn_prop_b	= _controls_1.button "Props test B"
+	--btn_prop_b	= _controls_1.button "Props test B"
 )
 /** Checkbox test
  */

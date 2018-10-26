@@ -126,8 +126,9 @@ struct Rollout_v
 	 */
 	function controls groupbox:undefined =
 	(
+		--print "------------\nRollout.controls()"
 		Controls_new 	= Controls_v parent_roll:this groupbox:groupbox
-
+		--format " Controls_new	= % \n" Controls_new
 		append this.ControlBoxes Controls_new
 
 		Controls_new --return
@@ -209,7 +210,7 @@ struct Rollout_v
 	function _renderControls =
 	(
 		for Controls in ControlBoxes do
-			Controls._renderControls()
+			Controls._addControlsToUi()
 	),
 
 	/*------------------------------------------------------------------------------

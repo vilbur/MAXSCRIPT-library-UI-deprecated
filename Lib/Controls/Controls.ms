@@ -3,6 +3,7 @@
 struct Controls_v
 (
 	Parent_roll,
+	
 	groupbox, -- caption of groupbox
 	ControlBox	= ControlBox_v(),
 	Controls	= #(),
@@ -13,7 +14,7 @@ struct Controls_v
 	 * 
 	 *  @return	[Control](../../Control)
 	 */
-	function control type caption id:undefined add:true =
+	function control type caption id: add:true =
 	(
 		this.newControl (Control_v type:type caption:caption id:id ) add:add
 	),
@@ -47,25 +48,25 @@ struct Controls_v
 
 	/** Add Button
 	 */
-	function button caption id:undefined add:true =
+	function button caption id: add:true =
 	(
 		this.newControl (Button_v caption:caption ) id:id add:add
 	),
 	/** Add Check button
 	 */
-	function checkbutton caption id:undefined add:true =
+	function checkbutton caption id: add:true =
 	(
 		this.newControl (Control_v type:#checkbutton caption:caption ) id:id add:add
 	),
 	/** Add Checkbox
 	 */
-	function checkbox caption id:undefined checked:undefined add:true =
+	function checkbox caption id: checked: add:true =
 	(
 		this.newControl (Checkbox_v caption:caption ) id:id add:add
 	),
 	/** Add Edit text control
 	 */
-	function edit caption id:undefined value:undefined add:true =
+	function edit caption id: value: add:true =
 	(
 		this.newControl (EditText_v caption:caption value:value ) id:id add:add
 	),
@@ -96,14 +97,14 @@ struct Controls_v
 	 * 
 	 *  @return	[Control](../../Control)
 	 */
-	function newControl _Control id: add:true =
+	function newControl _Control add:true =
 	(
 		--print "------------\nControls.newControl()"
 		--format " _Control	= % \n" _Control
 		
 		--_Control.init id
 
-		if( add == true ) then
+		if( add ) then
 			this.add _Control
 
 		_Control --return
@@ -111,7 +112,7 @@ struct Controls_v
 
 	/** Add controls to rollout
 	 */ 
-	function _addControlToUi =
+	function _addControlsToUi =
 	(
 		ControlBox.new	Parent_roll groupbox	-- Set new groupbox
 		--Parent_roll.Layout.newControlsBox	groupbox	-- Set position to layout

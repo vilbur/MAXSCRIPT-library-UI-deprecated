@@ -1,21 +1,21 @@
+	
 	/* required properties */
-	__construct = #(),
-
+	type,
+	caption,
+	__construct = #( #type, #caption ),
+	
 	/* dependency */
 	ControlId	= ControlId_v	Parent_control:this,
+	--ControlId,
 	Events	= ControlEvents_v	Parent_control:this,
 	Props	= Props_v	Control:this,
 
 	--Parent_roll,
 	name_of_value_param	= #value,
-	
-	/* config */
-	type,
-	caption,
-	
 	value,
 	
 	/* options */
+	id,
 	_col 	= 4,
 	dimensions	= #(),	-- dimensions of conrol #( [xy] position, integer width, integer height )
 	
@@ -30,28 +30,6 @@
 	(
 		messageBox "ControlExtends.testMethod" beep:false
 	),
-	/** Init object
-	  *
-	  * @param	Rollout_v	_Parent_roll	required on init
-	  * @param	string|undefined	_id	required on init
-	  * @return	self
-	 */
-	function init _id =
-	(
-		--print "------------\nControlExtends.init()"
-		--Parent_roll	= _Parent_roll
-		
-		--this._setCaption()
-		--
-		--ControlId.setId _id
-		--
-		--this._setValue()
-		--
-		--this.Events.setDefaultEvents()
-		--
-		--this --return
-	),
-
 	/** Set params for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
@@ -91,24 +69,21 @@
 	function exists =
 	(
 		print "------------\nControlExtends.exists()"
-		print ""
+		print "HOTFIX"
 		--format " ControlId.full	= % \n" ControlId.full
 		control_exists	= false 
 
-		--Parent_roll.exists() --return
-		
-		if( Parent_roll.exists() ) then
-			try(
-				control_exists = (execute ControlId.full) != undefined
-				
-			)catch()
+		--if( Parent_roll.exists() ) then
+		--	try(
+		--		control_exists = (execute ControlId.full) != undefined
+		--		
+		--	)catch()
 		
 		control_exists --return
 	),
 	
-	/*------------------------------------------------------------------------------
-		PRIVATE
-	--------------------------------------------------------------------------------*/
+	private
+	
 	--/** Add control to UI 
 	-- */
 	--function addControlToUi =
@@ -225,35 +200,54 @@
 		
 		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
 	),
-	/** Set control type
-	 */
-	function setControlType =
-	(
-		--format " classof this	= % \n" (classof this)
-		type = (filterString( classof this as string ) "(:")[2]
-		
-	),
+	--/** Set control type
+	-- */
+	--function setControlType =
+	--(
+	--	--format " classof this	= % \n" (classof this)
+	--	type = (filterString( classof this as string ) "(:")[2]
+	--	
+	--),
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
 	  * @param	construct_properties this.properties required for initialization of struct
 	 */
-	function checkConstctructProperties =
+	function _checkConstctructProperties =
 	(
 		for prop in __construct where getProperty this prop == undefined do
 			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
 	
+	/** Set type
+	 */
+	function _setType =
+	(
+		print "------------\nControlExtends._setType()"
+		if( type == undefined ) then
+			type = toLower (( filterString( classof this as string ) "_*(:" )[2])
+		
+		format " type	= % \n" type
+	),
+	/** _set id
+	 */
+	function _setId =
+	(
+		id = ControlId.setId id
+	),
+	
 	on create do
 	(
-		checkConstctructProperties()
+		this._setType()
+		
+		_checkConstctructProperties()
 		
 		this._setCaption()
 		
-		ControlId.setId _id
+		this._setId()
 		
 		--this._setValue()
 		
-		this.Events.setDefaultEvents()
+		--this.Events.setDefaultEvents()
 	),
 	--
 	--/** Get Name of value parameter by type of control E.G.: CKECBOX = #checked | EDITTEXT = #text | DEFAULT = #value

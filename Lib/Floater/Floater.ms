@@ -4,7 +4,7 @@ struct Globals_v
 (
 	Floater
 )
-
+format " __GLOBAL__v	= % \n" __GLOBAL__v
 if( __GLOBAL__v==undefined ) then
 	global __GLOBAL__v = Globals_v()
 	
@@ -42,8 +42,8 @@ struct Floater_v
 	function create width: height: pos: =
 	(
 		print "------------\nFloater.create()"
-		format " id	= % \n" id
-		this.destroy()
+		--format " id	= % \n" id
+		--this.destroy()
 		roll_main	= Rollout_v title:title id:id
 		roll_main.subrollouts.list	= Rollouts.values
 		--format " pos	= % \n" pos
@@ -60,7 +60,6 @@ struct Floater_v
 		
 		--format " _isDocked()	= % \n" (this._isDocked())
 		
-		--this.destroy()
 		--format "Floater created: % \n" roll_main.id
 		this --return
 	),
@@ -276,6 +275,7 @@ struct Floater_v
 	on create do
 	(
 		print "------------\nFloater.onCreate()"
+		this.destroy()
 		checkConstctructProperties()
 		
 		this._setFloaterGlobal()
