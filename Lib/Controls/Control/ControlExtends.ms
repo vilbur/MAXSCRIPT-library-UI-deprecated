@@ -221,17 +221,15 @@
 			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
 	
-	/** Set type
+	/** Set type of control by class name of control
+	  *
+	  * Get 1st part of struct name until underscore "_" E.G.: Get #button from "struct button_optionable_namespace()"
 	 */
 	function _setType =
 	(
-		print "------------\nControlExtends._setType()"
 		if( type == undefined ) then
 			type = toLower (( filterString( classof this as string ) "_*(:" )[2])
-		
-		format " type	= % \n" type
 	),
-
 	
 	on create do
 	(

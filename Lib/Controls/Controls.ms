@@ -112,7 +112,7 @@ struct Controls_v
 
 	/** Add controls to rollout
 	 */ 
-	function _addControlsToUi =
+	function _addControlsToRollout =
 	(
 		ControlBox.new	Parent_roll groupbox	-- Set new groupbox
 		--Parent_roll.Layout.newControlsBox	groupbox	-- Set position to layout

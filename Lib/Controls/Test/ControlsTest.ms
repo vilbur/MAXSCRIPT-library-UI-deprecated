@@ -15,7 +15,7 @@ filein ( getFilenamePath(getSourceFileName()) + "/inlcudes/ControlsIncludeTest.m
 function buttonTest =
 (
 	--format " _controls_1	= % \n" _controls_1
-	btn_prop_a	= _controls_1.button "Props test A"
+	--btn_prop_a	= _controls_1.button "Props test A"
 	--btn_prop_b	= _controls_1.button "Props test B"
 )
 /** Checkbox test
@@ -54,5 +54,6 @@ buttonTest()
 
 /* CREATE DIALOG  */
 Floater.create()
+--Floater.create height:256
 
 --rollout_controlstest.rollout_test_rollout.height = 256

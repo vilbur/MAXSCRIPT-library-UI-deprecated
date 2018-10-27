@@ -14,24 +14,25 @@
   */
 struct Rollout_v
 (
-	/* required properties */
+	/* required */
 	title,
 	__construct = #(#title),
 
 	/* optionable properties */
 	id,
-
-	/* store rollout and parent rollout */
-	roll,
+	/* reference */
 	parent_roll,
 
+	/* properties */
+	ini, -- inherit by Floater_v
+
 	--private
+	_rolloutCreator,
 	
 	/* dependency */
 	Layout	= Layout_v(),
 	
 	/* options */
-	ini, -- inherit by Floater_v
 	properties_keys	=  #(#width, #height),
 
 	/* lists */
@@ -55,25 +56,27 @@ struct Rollout_v
 	 */
     function create width: height: pos: =
 	(
-		this._createRollout()
+		this._setRolloutCreator()
 		
-		--CreateDialog (roll.def) 
-		CreateDialog (roll.def)
+		--CreateDialog (_rolloutCreator.def) 
+		CreateDialog (_rolloutCreator.def)
 		
 		this.properties #(width, height)
 		
 		Subrollouts.addSubRollouts()
 		format "Rollout created: % \n" id
 
-		roll --return
+		_rolloutCreator --return
 	),
 	/** Create rollout
 	 */
-	function _createRollout =
+	function _setRolloutCreator =
 	(
-		roll.begin()
+		_rolloutCreator = rolloutCreator id title
+
+		_rolloutCreator.begin()
 		
-		this._renderControls()
+		this._addControlsToRollout()
 		
 		Subrollouts.createSubRollouts()
 		Subrollouts.addSubrolloutsDefinition()
@@ -82,7 +85,7 @@ struct Rollout_v
 
 		this._addSaveIniFunction()
 
-		roll.end()
+		_rolloutCreator.end()
 	),
 	/** Subrollout
 	 */
@@ -117,6 +120,14 @@ struct Rollout_v
 		(execute id) != undefined --return
 	),
 
+
+	/** Try destroy dialog by global variable before variable will be overwritten
+	 */
+	function destroy =
+	(
+		try( execute("cui.UnRegisterDialogBar " +id) )catch()
+		try( execute("DestroyDialog "           +id) )catch()
+	),
 	/*---------------------------------------
 		CONTROLS 
 	-----------------------------------------*/
@@ -181,19 +192,13 @@ struct Rollout_v
 	(
 		execute ( "global "+ id +" = undefined")
 	),
-	/** Try destroy dialog by global variable before variable will be overwritten
-	 */
-	function destroy =
-	(
-		try( execute("cui.UnRegisterDialogBar " +id) )catch()
-		try( execute("DestroyDialog "           +id) )catch()
-	),
-	/** Create new roll with [ RolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-5FC5036F-E2D7-46C9-9AFA-7B3550B9F254)
-	 */
-	function _setRoll =
-	(
-		roll = rolloutCreator id title
-	),
+
+	--/** Create new _rolloutCreator with [ RolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-5FC5036F-E2D7-46C9-9AFA-7B3550B9F254)
+	-- */
+	--function _setRoll =
+	--(
+	--	_rolloutCreator = rolloutCreator id title
+	--),
 	/** Add default events
 	 */
 	function setDefaultEvents =
@@ -204,13 +209,12 @@ struct Rollout_v
 	/*---------------------------------------
 		CREATE ROLLOUT
 	-----------------------------------------*/
-
 	/**  Add controls to UI on rollout creation
 	*/
-	function _renderControls =
+	function _addControlsToRollout =
 	(
 		for Controls in ControlBoxes do
-			Controls._addControlsToUi()
+			Controls._addControlsToRollout()
 	),
 
 	/*------------------------------------------------------------------------------
@@ -224,12 +228,11 @@ struct Rollout_v
 	),
 	/** Add saveIni() function to rollout
 	  * This function is called before user callback
-	  *
 	  */
 	function _addSaveIniFunction =
 	(
 		if( ini != undefined ) then
-			roll.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
+			_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
 	),
 
 	
@@ -237,7 +240,6 @@ struct Rollout_v
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
 	
-
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
 	  * @param	construct_properties this.properties required for initialization of struct
@@ -259,7 +261,7 @@ struct Rollout_v
 		
 		this._setRolloutGlobalVariable()
 		
-		this._setRoll()
+		--this._setRoll()
 		
 		this.setDefaultEvents()
 	)

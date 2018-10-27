@@ -21,7 +21,7 @@ struct Subrollouts_v
 	(
 		if( this._anySubrolloutExists() ) then
 			for _rollout in List do
-				_rollout._createRollout()
+				_rollout._setRolloutCreator()
 		--if( height==undefined ) then
 			--height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
 	),
@@ -37,7 +37,7 @@ struct Subrollouts_v
 	(
 		if( this._anySubrolloutExists() ) then
 			for subrollout in List do
-				parent_roll.roll.addText ( "\n subRollout " + subrollout.id + " \"Subrollouts\"" )
+				parent_roll._rolloutCreator.addText ( "\n subRollout " + subrollout.id + " \"Subrollouts\"" )
 	),
 
 	/** Add sub rollouts

@@ -44,7 +44,7 @@ struct RolloutEvent_v
 	 */
 	function _addHandlers =
 	(
-		parent_control.roll.addText ("on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")" )
+		parent_control._rolloutCreator.addText ("on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")" )
 	),
 	/** Get callback on rollout open\close
 	 */
