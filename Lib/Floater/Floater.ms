@@ -4,7 +4,7 @@ struct Globals_v
 (
 	Floater
 )
-format " __GLOBAL__v	= % \n" __GLOBAL__v
+--format " __GLOBAL__v	= % \n" __GLOBAL__v
 if( __GLOBAL__v==undefined ) then
 	global __GLOBAL__v = Globals_v()
 	

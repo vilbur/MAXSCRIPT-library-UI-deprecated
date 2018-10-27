@@ -25,19 +25,19 @@ struct Rollout_v
 
 	/* properties */
 	ini, -- inherit by Floater_v
-
-	--private
 	_rolloutCreator,
+
+	private
 	
 	/* dependency */
 	Layout	= Layout_v(),
 	
 	/* options */
-	properties_keys	=  #(#width, #height),
+	rollout_properties	=  #(#width, #height),
 
 	/* lists */
  	ControlBoxes	= #(),
-	Subrollouts	= Subrollouts_v  parent_roll:this,
+	Subrollouts	= Subrollouts_v(),
 	RolloutEvent	= RolloutEvent_v parent_control:this,
 	
 	_controls	= #(),	-- store ids of added controls in rollout
@@ -54,17 +54,15 @@ struct Rollout_v
 	  * [ Wrapper for CreateDialog()](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm)
 	  * @return	RolloutClass
 	 */
-    function create width: height: pos: =
+    function dialogCreate width: height: pos: =
 	(
 		this._setRolloutCreator()
 		
-		--CreateDialog (_rolloutCreator.def) 
 		CreateDialog (_rolloutCreator.def)
 		
-		this.properties #(width, height)
+		this._setProperties #(width, height)
 		
-		Subrollouts.addSubRollouts()
-		format "Rollout created: % \n" id
+		Subrollouts.addSubRollouts id
 
 		_rolloutCreator --return
 	),
@@ -78,16 +76,18 @@ struct Rollout_v
 		
 		this._addControlsToRollout()
 		
-		Subrollouts.createSubRollouts()
-		Subrollouts.addSubrolloutsDefinition()
+		this._createSubrollouts()
 
 		this._addEventHandlers()
 
 		this._addSaveIniFunction()
 
 		_rolloutCreator.end()
+		
+		print ("------------\nRollout._setRolloutCreator() rollout " + id + " created")
 	),
 	/** Subrollout
+	  * @return	object new instance of this
 	 */
 	function subrollout title id: =
 	(
@@ -99,11 +99,21 @@ struct Rollout_v
 	),
 	/** Set properties
 	 */
-	function properties properties_values =
+	function _setProperties properties_values =
 	(
-		for i = 1 to properties_keys.count where properties_values[i] != unsupplied do
-			--format " properties_keys[i]	= % \n" properties_keys[i]
-			execute ( id + "."+properties_keys[i]+" = " + properties_values[i] as string )  
+		for i = 1 to rollout_properties.count where properties_values[i] != unsupplied do
+			--format " rollout_properties[i]	= % \n" rollout_properties[i]
+			execute ( id + "."+rollout_properties[i]+" = " + properties_values[i] as string )  
+	),
+	/** Set properties
+	 */
+	function property key value =
+	(
+		print ("------------\n"+id+".property()")
+		--print "------------\nRollout.property()"
+		--format " id	= % \n" classof id
+		
+		execute ( id + "."+ key as string +" = " + value as string )  
 	),
 
 	/** Open close rollout
@@ -176,10 +186,14 @@ struct Rollout_v
 	(
 		if not ( id == undefined or id == unsupplied ) then
 			return()
-		
-		id_by_title = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower title ) "_";
+			
+		title_no_whitespace = substituteString title " " "_" -- replace whitespace
 
+		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
+		
 		id = "rollout_" + id_by_title
+		format " id	= % \n" id
+		
 	),
 
 	/** Declare rollout global variable
@@ -216,7 +230,17 @@ struct Rollout_v
 		for Controls in ControlBoxes do
 			Controls._addControlsToRollout()
 	),
+	/** _create subrollouts
+	 */
+	function _createSubrollouts =
+	(
+		Subrollouts.createSubRollouts()
 
+		subrollouts_definition = Subrollouts.getSubrolloutsDefinition()
+		
+		if( subrollouts_definition != undefined ) then
+			_rolloutCreator.addText ( subrollouts_definition )
+	),
 	/*------------------------------------------------------------------------------
 		EVENTS
 	--------------------------------------------------------------------------------*/
@@ -268,4 +292,4 @@ struct Rollout_v
 
 
 )
-s
+
