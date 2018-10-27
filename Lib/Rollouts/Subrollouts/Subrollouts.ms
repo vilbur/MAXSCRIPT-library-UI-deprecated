@@ -3,7 +3,7 @@
   */
 struct Subrollouts_v
 (
-	subrollouts_created,
+	definition = "", -- used in "rolloutCreator.addText( definition )"
 	
 	List	= #(),
 	
@@ -14,9 +14,7 @@ struct Subrollouts_v
 		append List _subrollout  
 	),
 	
-	/** Add sub rollouts definition to rollout
-	  *
-	  *
+	/** Create Subrollouts and generate definition
 	 */
 	function createSubRollouts =
 	(
@@ -25,8 +23,9 @@ struct Subrollouts_v
 			
 		for _rollout in List do
 			_rollout._setRolloutCreator()
-			
-		subrollouts_created = true
+		
+		this._setDefinition()
+		
 		--if( height==undefined ) then
 			--height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
 	),
@@ -45,16 +44,10 @@ struct Subrollouts_v
 	  *
 	  * @return	string|undefined If any subrollout is defined, otherwise undefined
 	 */
-	function getSubrolloutsDefinition =
+	function _setDefinition =
 	(
-		subrollouts_definition = ""
-		
-		if( this._anySubrolloutExists() ) then
-			for subrollout in List do
-				subrollouts_definition += "\n subRollout " + subrollout.id + " \"Subrollouts\""
-		
-		if( subrollouts_definition != "" ) then 
-			subrollouts_definition --return
+		for subrollout in List do
+			definition += "\n subRollout " + subrollout.id + " \"Subrollouts\""
 	),
 
 	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
@@ -73,8 +66,8 @@ struct Subrollouts_v
 		if not ( this._anySubrolloutExists() ) then
 			return()
 
-		if not ( this._anySubroullotsAreCreated() ) then
-			messageBox "✖ ERROR:\n\nBefore method:\n    Subrollouts_v.addSubRollouts()\n\nMust be executed:\n    Subrollouts_v._createSubrollouts()" beep:true
+		--if not ( this._anySubroullotsAreCreated() ) then
+			--messageBox "✖ ERROR:\n\nBefore method:\n    Subrollouts_v.addSubRollouts()\n\nMust be executed:\n    Subrollouts_v._createSubrollouts()" beep:true
 			
 		add_subrollouts = ""
 		
@@ -93,12 +86,7 @@ struct Subrollouts_v
 	(
 		List.count > 0 --return
 	),
-	/** Subrouulots are created
-	 */
-	function _anySubroullotsAreCreated =
-	(
-		subrollouts_created != undefined and subrollouts_created == true
-	),
+
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
@@ -119,6 +107,5 @@ struct Subrollouts_v
 	(
 		checkConstctructProperties()
 	)
-
 
 )

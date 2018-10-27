@@ -18,7 +18,7 @@ struct Rollout_v
 	title,
 	__construct = #(#title),
 
-	/* optionable properties */
+	/* options */
 	id,
 	/* reference */
 	parent_roll,
@@ -66,7 +66,7 @@ struct Rollout_v
 
 		_rolloutCreator --return
 	),
-	/** Create rollout
+	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
 	 */
 	function _setRolloutCreator =
 	(
@@ -193,7 +193,6 @@ struct Rollout_v
 		
 		id = "rollout_" + id_by_title
 		format " id	= % \n" id
-		
 	),
 
 	/** Declare rollout global variable
@@ -207,12 +206,7 @@ struct Rollout_v
 		execute ( "global "+ id +" = undefined")
 	),
 
-	--/** Create new _rolloutCreator with [ RolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-5FC5036F-E2D7-46C9-9AFA-7B3550B9F254)
-	-- */
-	--function _setRoll =
-	--(
-	--	_rolloutCreator = rolloutCreator id title
-	--),
+
 	/** Add default events
 	 */
 	function setDefaultEvents =
@@ -236,10 +230,8 @@ struct Rollout_v
 	(
 		Subrollouts.createSubRollouts()
 
-		subrollouts_definition = Subrollouts.getSubrolloutsDefinition()
-		
-		if( subrollouts_definition != undefined ) then
-			_rolloutCreator.addText ( subrollouts_definition )
+		if( Subrollouts.definition != "" ) then
+			_rolloutCreator.addText ( Subrollouts.definition  )
 	),
 	/*------------------------------------------------------------------------------
 		EVENTS
@@ -284,8 +276,6 @@ struct Rollout_v
 		this.destroy()
 		
 		this._setRolloutGlobalVariable()
-		
-		--this._setRoll()
 		
 		this.setDefaultEvents()
 	)
