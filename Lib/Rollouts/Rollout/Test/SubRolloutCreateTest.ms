@@ -9,11 +9,11 @@ subroll_A	= _rollout.subrollout "Subrollout A" id:"subrollout_a"
 subroll_B	= _rollout.subrollout "Subrollout B"
 
 /* CREATE ROLLOUT */
-_rollout.dialogCreate() 
---_rollout.dialogCreate height:512
+--_rollout.dialogCreate() 
+_rollout.dialogCreate height:256
 --format "Subrollouts: 	= % \n" rollout_test_subrollouts.controls 
 
 
 /* TRY SET PROPERTIES TO ROLLOUT MANNUALLY */
---rollout_test_subrollouts.rollout_subrollout_b.height	 = 128
---rollout_test_subrollouts.rollout_subrollout_b.pos	+= [0,256]
+rollout_test_subrollouts.rollout_subrollout_b.height	 = 128
+rollout_test_subrollouts.rollout_subrollout_b.pos	+= [0,128]

@@ -20,12 +20,15 @@ struct Rollout_v
 
 	/* options */
 	id,
+	
 	/* reference */
 	parent_roll,
 
 	/* properties */
 	ini, -- inherit by Floater_v
 	_rolloutCreator,
+	
+	Properties	= RolloutProperties_v parent_roll:this,
 
 	private
 	
@@ -60,7 +63,7 @@ struct Rollout_v
 		
 		CreateDialog (_rolloutCreator.def)
 		
-		this._setProperties #(width, height)
+		--this._setProperties #(width, height) -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
 		Subrollouts.addSubRollouts id
 
@@ -91,31 +94,21 @@ struct Rollout_v
 	 */
 	function subrollout title id: =
 	(
-		_subrollout = Rollout_v title:title id:id
+		_subrollout = Rollout_v title:title id:id parent_roll:this
 		
 		Subrollouts.add _subrollout
 		
 		_subrollout --return 
 	),
-	/** Set properties
-	 */
-	function _setProperties properties_values =
-	(
-		for i = 1 to rollout_properties.count where properties_values[i] != unsupplied do
-			--format " rollout_properties[i]	= % \n" rollout_properties[i]
-			execute ( id + "."+rollout_properties[i]+" = " + properties_values[i] as string )  
-	),
-	/** Set properties
-	 */
-	function property key value =
-	(
-		print ("------------\n"+id+".property()")
-		--print "------------\nRollout.property()"
-		--format " id	= % \n" classof id
-		
-		execute ( id + "."+ key as string +" = " + value as string )  
-	),
 
+	/** Get id of rollout, get full id with parent rollout if subrullout
+	  *
+	  * @return	string	"rollout_id|parent_rollout_id.rollout_id"
+	 */
+	function getId =
+	(
+		if( parent_roll == undefined ) then id else parent_roll.id + "." + id
+	),
 	/** Open close rollout
 	 */
 	function open state =
@@ -192,7 +185,6 @@ struct Rollout_v
 		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
 		
 		id = "rollout_" + id_by_title
-		format " id	= % \n" id
 	),
 
 	/** Declare rollout global variable
