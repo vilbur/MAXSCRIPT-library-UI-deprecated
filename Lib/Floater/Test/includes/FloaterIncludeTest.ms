@@ -1,16 +1,15 @@
 /**  Test file for simplified testing
  *	
  */
---messageBox "Yupiii" beep:false
 print "------------\nInclude	FloaterIncludeTest.ms"
 filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
 
-floater_name	= filenameFromPath(getSourceFileName())
-format " floater_name	= % \n" floater_name
-if( floater_name == undefined ) then
-	messageBox "Variable floater_name is undefinded.\nPlease set floater_name before inlcude \"FloaterIncludeTest.ms\" " beep:true
+--floater_name	= filenameFromPath(getSourceFileName())
+--format " floater_name	= % \n" floater_name
+--if( floater_name == undefined ) then
+--	messageBox "Variable floater_name is undefinded.\nPlease set floater_name before inlcude \"FloaterIncludeTest.ms\" " beep:true
 
-Floater	= Floater_v title:floater_name
+Floater	= Floater_v title:(filenameFromPath(getSourceFileName()))
 
 /*
 	For creating Floater use:

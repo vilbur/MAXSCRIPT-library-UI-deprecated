@@ -42,25 +42,14 @@ struct Floater_v
 	function create width: height: pos: =
 	(
 		print "------------\nFloater.create()"
-		--format " id	= % \n" id
-		--this.destroy()
 		roll_main	= Rollout_v title:title id:id
 		roll_main.subrollouts.list	= Rollouts.values
-		--format " pos	= % \n" pos
-		roll_main.create height:height width:width pos:pos
 		
-		Floater = roll_main.roll.def
+		roll_main.dialogCreate height:height width:width pos:pos
+		--roll_main.dialogCreate()
 		
-		--size_init = [(GetDialogSize Floater)[1]+8, (GetDialogSize Floater)[2]]
-		--size_init = #(512, 512)
+		Floater = roll_main._rolloutCreator.def
 		
-		--this._openCloseRollouts()
-		
-		--this.register()
-		
-		--format " _isDocked()	= % \n" (this._isDocked())
-		
-		--format "Floater created: % \n" roll_main.id
 		this --return
 	),
 
@@ -265,9 +254,9 @@ struct Floater_v
 			getProperty this ( key as string ) --return
 	),
 	/** Check if required properties are defined
-	  * Names of construct props are defined in __construct array
+	  * Names of required props are defined in __construct array
 	 */
-	function checkConstctructProperties =  
+	function _checkConstctructProperties =  
 	(
 		for prop in __construct where getProperty this prop == undefined do
 			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
@@ -276,10 +265,10 @@ struct Floater_v
 	(
 		print "------------\nFloater.onCreate()"
 		this.destroy()
-		checkConstctructProperties()
+		
+		_checkConstctructProperties()
 		
 		this._setFloaterGlobal()
 		this._setIniDefaults()
-		
 	)
 )

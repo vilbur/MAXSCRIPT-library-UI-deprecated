@@ -29,6 +29,7 @@ struct Rollout_v
 	_rolloutCreator,
 	
 	Property	= RolloutProperty_v Parent_roll:this,
+	Subrollouts	= Subrollouts_v(),
 
 	private
 	
@@ -38,7 +39,6 @@ struct Rollout_v
 
 	/* lists */
  	ControlBoxes	= #(),
-	Subrollouts	= Subrollouts_v(),
 	RolloutEvent	= RolloutEvent_v parent_control:this,
 	
 	_controls	= #(),	-- store ids of added controls in rollout
