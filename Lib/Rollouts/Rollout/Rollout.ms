@@ -16,19 +16,20 @@ struct Rollout_v
 (
 	/* required */
 	title,
-	__construct = #(#title),
+	__construct = #( #title ),
 
 	/* options */
 	id,
 	
 	/* reference */
-	parent_roll,
+	Parent_roll, -- sore parent rollout if this is subrollouts
 
 	/* properties */
 	ini, -- inherit by Floater_v
 	_rolloutCreator,
 	
-	Properties	= RolloutProperties_v parent_roll:this,
+	Property	= RolloutProperty_v Parent_roll:this,
+	--Property,
 
 	private
 	
@@ -94,7 +95,7 @@ struct Rollout_v
 	 */
 	function subrollout title id: =
 	(
-		_subrollout = Rollout_v title:title id:id parent_roll:this
+		_subrollout = Rollout_v title:title id:id Parent_roll:this
 		
 		Subrollouts.add _subrollout
 		
@@ -107,7 +108,11 @@ struct Rollout_v
 	 */
 	function getId =
 	(
-		if( parent_roll == undefined ) then id else parent_roll.id + "." + id
+		print "------------\nRollout.getId()"
+		--format " Parent_roll	= % \n" Parent_roll
+		format " id	= % \n" id
+		--format " Parent_roll.id	= % \n" Parent_roll.id
+		if( this._isSubrollout() ) then id else Parent_roll.id + "." + id
 	),
 	/** Open close rollout
 	 */
@@ -141,7 +146,7 @@ struct Rollout_v
 	function controls groupbox:undefined =
 	(
 		--print "------------\nRollout.controls()"
-		Controls_new 	= Controls_v parent_roll:this groupbox:groupbox
+		Controls_new 	= Controls_v Parent_roll:this groupbox:groupbox
 		--format " Controls_new	= % \n" Controls_new
 		append this.ControlBoxes Controls_new
 
@@ -165,10 +170,8 @@ struct Rollout_v
 		has_control --return
 		--findItem _controls id > 0 --return
 	),
-
 	
 	private
-
 	
 	/*---------------------------------------
 		ROLLOUT NEW
@@ -242,29 +245,38 @@ struct Rollout_v
 		if( ini != undefined ) then
 			_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
 	),
-
 	
+
+	/*------------------------------------------------------------------------------
+		HELPERS
+	--------------------------------------------------------------------------------*/
+	/** Is subrollout
+	 */
+	function _isSubrollout =
+	(
+		Parent_roll == undefined --return
+	),
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
 	
-	/** Check if required properties are defined
-	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
-	  * @param	construct_properties this.properties required for initialization of struct
+	/** Check if properties in __construct are defined when an instance of the struct is created.
+	  * @example __construct = #( #property_name ) 
 	 */
 	function checkConstctructProperties =
 	(
 		for prop in __construct where getProperty this prop == undefined do
 			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
-	
-	
+	/**  
+	 */
 	on create do
 	(
+		print "------------\nRollout.create()"
 		checkConstctructProperties()
 		
 		this._setId()
-		
+		--Property	= RolloutProperty_v Parent_roll:this
 		this.destroy()
 		
 		this._setRolloutGlobalVariable()

@@ -1,24 +1,23 @@
 /** Rollout properties
  */
-struct RolloutProperties_v
+struct RolloutProperty_v
 (
 	__construct = #(),
 	
 	/* dependency */
 	/* reference */
-	parent_roll,
+	Parent_roll,
 	/* required */
 	/* properties */
-	_width,
-	_height,
-
-
+	_height	= RolloutPropertySetter_v property:#height,
+	_width	= RolloutPropertySetter_v property:#width,
 
 	/** Height
 	 */
 	function height height relative:false =
 	(
-		this._setProperty #height height relative
+		print "------------\nRolloutProperty.height()"
+		--this._setProperty #height height relative
 	),
 	/** Pos
 	 */
@@ -29,20 +28,20 @@ struct RolloutProperties_v
 	
 	private
 	
-	/** Get property string
-	 */
-	function _getPropertyString key =
-	(
-		print "------------\nRolloutProperties._getPropertyString()"
-		format " property	= % \n" (parent_roll.getId() + "." + key as string)
-		
-		parent_roll.getId() + "." + key as string  --return
-	),
 	/** Set property
 	 */
 	function _setProperty key value relative =
 	(
 		execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )  
+	),
+	/** Get property string
+	 */
+	function _getPropertyString key =
+	(
+		print "------------\nRolloutProperties._getPropertyString()"
+		--format " property	= % \n" (parent_roll.getId() + "." + key as string)
+		
+		--parent_roll.getId() + "." + key as string  --return
 	),
 	/** Get property
 	 */
@@ -91,6 +90,10 @@ struct RolloutProperties_v
 	),
 	on create do
 	(
+		--print "------------\nRolloutProperty.create()"
+		
+		--format "parent_roll.getId()	= % \n" (parent_roll.getId())
+		
 		_checkConstctructProperties()
 	)
 	
