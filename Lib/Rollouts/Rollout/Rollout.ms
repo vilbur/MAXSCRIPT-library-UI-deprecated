@@ -61,7 +61,7 @@ struct Rollout_v
 		
 		CreateDialog (_rolloutCreator.def)
 		
-		this.properties #(width, height, pos) -- SET PROPERTIES WITH RolloutProperties_v CLASS
+		this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
 		Subrollouts.addSubRollouts id
 
