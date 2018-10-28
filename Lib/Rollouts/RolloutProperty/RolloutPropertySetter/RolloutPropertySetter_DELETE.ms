@@ -1,4 +1,8 @@
 /** Rollout property setter
+  
+  CURRENTLY NOT UNUSED
+  
+  
  */
 struct RolloutPropertySetter_v
 (

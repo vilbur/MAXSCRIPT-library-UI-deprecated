@@ -5,23 +5,18 @@ clearListener()
 /* ROLLOUT DEFINITION */
 _rollout	= Rollout_v title:"Test Subrollouts" 
 
-subroll_A	= _rollout.subrollout "Subrollout A" id:"subrollout_a"
-subroll_B	= _rollout.subrollout "Subrollout B"
+_subroll_A	= _rollout.subrollout "Subrollout A" id:"subrollout_a"
+_subroll_B	= _rollout.subrollout "Subrollout B"
 
 /* CREATE ROLLOUT */
 _rollout.dialogCreate() 
 --_rollout.dialogCreate height:512
 
---_rollout.property	#height 512
+
+/* SET PROPERTIES INDIVIDUALY */
+_subroll_A.property.height 128
 _rollout.property.height 256
 
---subroll_A.properties.height 128
 
---subroll_B.properties.height 128
---subroll_B.property	#height 128
---subroll_B.properties.pos [0,128] relative:true
-
-/* TRY SET PROPERTIES TO ROLLOUT MANNUALLY */
---rollout_test_subrollouts.subrollout_a.height	 = 128
---rollout_test_subrollouts.rollout_subrollout_b.height	 = 128
---rollout_test_subrollouts.rollout_subrollout_b.pos	+= [0,256]
+/* SET PROPERTIES MULTIPLE AT ONCE */
+_subroll_B.property.all height:128 pos:[0,128] relative:true

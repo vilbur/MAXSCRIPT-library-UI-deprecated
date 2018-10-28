@@ -4,20 +4,20 @@ struct RolloutProperty_v
 (
 	__construct = #(),
 	
-	/* dependency */
 	/* reference */
 	Parent_roll,
-	/* required */
-	/* properties */
-	_height	= RolloutPropertySetter_v property:#height,
-	_width	= RolloutPropertySetter_v property:#width,
-
+	
+	private
+	
+	property_keys	=  #(#width, #height, #pos),
+	
+	public
+	 
 	/** Height
 	 */
 	function height height relative:false =
 	(
-		print "------------\nRolloutProperty.height()"
-		--this._setProperty #height height relative
+		this._setProperty #height height relative
 	),
 	/** Pos
 	 */
@@ -26,28 +26,31 @@ struct RolloutProperty_v
 		this._setProperty #pos position relative
 	),
 	
+	/** Set properties
+	 */
+	function all width: height: pos: relative:false =
+	(
+		--print "------------\nRolloutProperty.all()" 
+		properties_values = #( width, height, pos )
+		--format " properties_values	= % \n" properties_values
+		for i = 1 to property_keys.count where properties_values[i] != unsupplied do
+			this._setProperty property_keys[i] properties_values[i] relative
+	),
+	
 	private
 	
 	/** Set property
 	 */
 	function _setProperty key value relative =
 	(
+		--print ("------------\nRolloutProperty._setProperty() " + key as string)
 		execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )  
 	),
 	/** Get property string
 	 */
 	function _getPropertyString key =
 	(
-		print "------------\nRolloutProperties._getPropertyString()"
-		--format " property	= % \n" (parent_roll.getId() + "." + key as string)
-		
-		--parent_roll.getId() + "." + key as string  --return
-	),
-	/** Get property
-	 */
-	function _getProperty key =
-	(
-		execute ( this._getPropertyString key ) --return
+		parent_roll.getId() + "." + key as string  --return
 	),
 	/** Get value
 	 */
@@ -57,6 +60,12 @@ struct RolloutProperty_v
 			value += this._getProperty key
 		
 		value as string --return
+	),
+	/** Get property
+	 */
+	function _getProperty key =
+	(
+		execute ( this._getPropertyString key ) --return
 	),
 	
 	/** Get\set value of property 

@@ -55,7 +55,7 @@ SetDir #userscripts (getFilenamePath(getSourceFileName()))	-- set current dir as
 	/*---------------------------------------
 		ROLLOUT
 	-----------------------------------------*/
-	filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/RolloutProperty/RolloutPropertySetter/RolloutPropertySetter.ms" )
+	--filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/RolloutProperty/RolloutPropertySetter/RolloutPropertySetter.ms" )
 	filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/RolloutProperty/RolloutProperty.ms" )
 	filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Subrollouts/Subrollouts.ms" )
 	filein ( getFilenamePath(getSourceFileName()) + "/Lib/Rollouts/Rollout/Rollout.ms" );

@@ -14,9 +14,9 @@
   */
 struct Rollout_v
 (
+	__construct = #( #title ),
 	/* required */
 	title,
-	__construct = #( #title ),
 
 	/* options */
 	id,
@@ -29,15 +29,12 @@ struct Rollout_v
 	_rolloutCreator,
 	
 	Property	= RolloutProperty_v Parent_roll:this,
-	--Property,
 
 	private
 	
-	/* dependency */
 	Layout	= Layout_v(),
 	
 	/* options */
-	rollout_properties	=  #(#width, #height),
 
 	/* lists */
  	ControlBoxes	= #(),
@@ -64,7 +61,7 @@ struct Rollout_v
 		
 		CreateDialog (_rolloutCreator.def)
 		
-		--this._setProperties #(width, height) -- SET PROPERTIES WITH RolloutProperties_v CLASS
+		this.properties #(width, height, pos) -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
 		Subrollouts.addSubRollouts id
 
@@ -102,16 +99,13 @@ struct Rollout_v
 		_subrollout --return 
 	),
 
-	/** Get id of rollout, get full id with parent rollout if subrullout
+
+	/** Get id of rollout or get full id with parent rollout if subrullout
 	  *
 	  * @return	string	"rollout_id|parent_rollout_id.rollout_id"
 	 */
 	function getId =
 	(
-		print "------------\nRollout.getId()"
-		--format " Parent_roll	= % \n" Parent_roll
-		format " id	= % \n" id
-		--format " Parent_roll.id	= % \n" Parent_roll.id
 		if( this._isSubrollout() ) then id else Parent_roll.id + "." + id
 	),
 	/** Open close rollout
@@ -250,11 +244,11 @@ struct Rollout_v
 	/*------------------------------------------------------------------------------
 		HELPERS
 	--------------------------------------------------------------------------------*/
-	/** Is subrollout
+	/** Test if this rollout is subrollout
 	 */
 	function _isSubrollout =
 	(
-		Parent_roll == undefined --return
+		Parent_roll == undefined --returnf
 	),
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
@@ -276,7 +270,7 @@ struct Rollout_v
 		checkConstctructProperties()
 		
 		this._setId()
-		--Property	= RolloutProperty_v Parent_roll:this
+
 		this.destroy()
 		
 		this._setRolloutGlobalVariable()
