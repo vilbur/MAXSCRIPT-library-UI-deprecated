@@ -3,13 +3,13 @@ filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" );
 
 
 /* ROLLOUT DEFINITION */
-_rollout	= Rollout_v title:"Test Subrollouts" 
+rollout_1	= Rollout_v title:"Test Subrollouts" 
 
-subroll_A	= _rollout.subrollout "Subrollout A" id:"subrollout_a"
-subroll_B	= _rollout.subrollout "Subrollout B"
+subroll_A	= rollout_1.subrollout "Subrollout A" id:"subrollout_a"
+subroll_B	= rollout_1.subrollout "Subrollout B"
 
 /* CREATE ROLLOUT */
-_rollout.dialogCreate() 
---_rollout.dialogCreate height:256
+rollout_1.dialogCreate() 
+--rollout_1.dialogCreate height:256
 
---format "Subrollouts: 	= % \n" rollout_test_subrollouts.controls 
+--format "Subrollouts: 	= % \n" rollout_test_subrollouts.controls A

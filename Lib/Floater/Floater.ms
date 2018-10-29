@@ -18,6 +18,7 @@ struct Floater_v
 (
 	/* dependency */
 	RolloutMain,
+	Property,
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
 	Ini	= Ini_v(),
@@ -43,8 +44,6 @@ struct Floater_v
 	function create width: height: pos: =
 	(
 		print "------------\nFloater.create()"
-		--RolloutMain	= Rollout_v title:title id:id
-		--RolloutMain.subrollouts.list	= Rollouts.values
 		
 		RolloutMain.dialogCreate height:height width:width pos:pos
 		--RolloutMain.dialogCreate()
@@ -53,11 +52,18 @@ struct Floater_v
 		
 		this --return
 	),
-	/** Set rollout main
+	/** Set main rollout
 	 */
 	function _setMainRollout =
 	(
 		RolloutMain	= Rollout_v title:title id:id
+	),
+	/** Set shortcut to properties
+	  * Make property of RolloutMain accasible from Floater class
+	 */
+	function _setProperty =
+	(
+		Property	= RolloutMain.Property
 	),
 	/** Set rollout in Floater
 	  * @param	string	title	Title of rollout
@@ -187,13 +193,6 @@ struct Floater_v
     
 	private
 
-	--/** _add rollouts
-	-- */
-	--function _addRollouts =
-	--(
-	--	for _rollout in Rollouts.values do
-	--		addRollout (_rollout.create dialog:false) Floater
-	--),
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
@@ -230,15 +229,7 @@ struct Floater_v
 			Ini.file ( (getFilenameFile id) + ".ini" )
 	), 
 
-	--/** Create Floater - UNUSED METHOD WILL BE DELETE
-	--  * Floater can`t has Menu
-	--  * Rollouts are added as rollouts
-	-- */
-	--function _createFloater =
-	--(
-	--	Floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
-	--	this._addRollouts()
-	--),
+
 	/** Get\set value of property 
 	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
 	  * @param	string|#get value	Value of property
@@ -269,14 +260,16 @@ struct Floater_v
 	),
 	on create do
 	(
-		print "------------\nFloater.onCreate()"
+		_checkConstctructProperties()
+		
 		this._setMainRollout()
+		
+		this._setProperty()
 		
 		this.destroy()
 		
-		_checkConstctructProperties()
-		
 		this._setFloaterGlobal()
+		
 		this._setIniDefaults()
 	)
 )
