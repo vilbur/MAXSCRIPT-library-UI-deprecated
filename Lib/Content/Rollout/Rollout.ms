@@ -27,12 +27,12 @@ struct Rollout_Content_v
 	),
 	/** Insert rollout
 	 */
-	function insertRollout Floater name =
+	function insertRollout Dialog name =
 	(
 		print "------------\nRollout.insertRollout()"
 		format " name	= % \n" name
-		format " Floater	= % \n" Floater
-		_rollout = Floater.roll name unsupplied
+		format " Dialog	= % \n" Dialog
+		_rollout = Dialog.roll name unsupplied
 		
 		--print ( "rollout.name = " + name as string )
 		for f=1 to ScriptFiles.count do

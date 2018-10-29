@@ -1,6 +1,6 @@
 clearListener();
 
---floater_name = "ControlsTest"
+--dialog_name = "ControlsTest"
 filein ( getFilenamePath(getSourceFileName()) + "/inlcudes/ControlsIncludeTest.ms" )
 
 
@@ -53,7 +53,7 @@ buttonTest()
 --editControlTest()
 
 /* CREATE DIALOG  */
-Floater.create()
---Floater.create height:256
+Dialog.create()
+--Dialog.create height:256
 
 --rollout_controlstest.rollout_test_rollout.height = 256

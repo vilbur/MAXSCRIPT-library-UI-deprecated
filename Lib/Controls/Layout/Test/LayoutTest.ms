@@ -1,7 +1,7 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
 
 /** DEFINE FLOATER  */
-Floater	= (Floater_v()).new "Test Floater"
+Dialog	= (Dialog_v()).new "Test Dialog"
 
 /** Load content from hierarchy
  */
@@ -11,15 +11,15 @@ function loadContentTest =
 	--Content = Content_v dir:( getFilenamePath(getSourceFileName()) + "/../../../../../../vilbur" ) subdirs:"_*"
 
 	Content.loadTree()
-	Content.setControlsToUI Floater
+	Content.setControlsToUI Dialog
 )
 
 /** Add extra rollout
  */
 function addRolloutByCodeTest name =
 (
-	--_rollout = __GLOBAL__v.test_floater name ""
-	_rollout = __GLOBAL__v.Floater.roll name ""
+	--_rollout = __GLOBAL__v.test_dialog name ""
+	_rollout = __GLOBAL__v.Dialog.roll name ""
 	_controls	= _rollout.controls groupbox:"Groupbox A" -- get new container for controls
 	_controlsB	= _rollout.controls groupbox:"Columns test" -- get new container for controls
 	
@@ -41,4 +41,4 @@ function addRolloutByCodeTest name =
 addRolloutByCodeTest "Rollout by code"
 --loadContentTest()
 
-Floater.create()
+Dialog.create()

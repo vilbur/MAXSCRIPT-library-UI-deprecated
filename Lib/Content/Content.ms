@@ -10,7 +10,7 @@
   *				groupbox.mcr	-- Hole file is Gorupbox & every macro in *.mcr file is button
   *				_no_groupbox.mcr	-- Macro in file which starts with underscopre "_" will not be placed to groupbox
   *			rollout-B\
-  *				custom-ui.ms	-- Each script will be executed on floater creation
+  *				custom-ui.ms	-- Each script will be executed on dialog creation
   *	 
   * --------------------------------------------------------------------------------------------------------------------
   * @example 2) Content_v dir:("C:/ContentDir/*") match:"rollout-(.*)" -- load directories in subdirs, only dirs matching regex are used as rollouts, rollout name is match group
@@ -43,14 +43,14 @@ struct Content_v
 	),
 	
 	/** Set controls to
-	  * @param	__[Floater](../Floater)__
+	  * @param	__[Dialog](../Dialog)__
 	 */
-	function setControlsToUI Floater =
+	function setControlsToUI Dialog =
 	(
 		print "------------\nContent.setControlsToUI()"
 		format " Rollouts	= % \n" Rollouts
 		for r=1 to Rollouts.count do
-			Rollouts[r].insertRollout Floater Rollouts[r].name
+			Rollouts[r].insertRollout Dialog Rollouts[r].name
 	),
 	
 	

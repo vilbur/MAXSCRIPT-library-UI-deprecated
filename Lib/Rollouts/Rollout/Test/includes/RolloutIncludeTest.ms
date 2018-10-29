@@ -1,10 +1,9 @@
-filein ( getFilenamePath(getSourceFileName()) + "/../../../../Floater/Test/includes/FloaterIncludeTest.ms" )
+filein ( getFilenamePath(getSourceFileName()) + "/../../../../Dialog/Test/includes/DialogIncludeTest.ms" )
 print "------------\nInclude	RolloutIncludeTest.ms"
 
-rollout_1	= Floater.roll "_rollout_1"
+rollout_1	= Dialog.roll "_rollout_1"
 
 /*
-	For creating Floater use:
-		Floater.create()
+	For creating Dialog use:
+		Dialog.create()
 */
-		Floater.create()

@@ -5,7 +5,7 @@ clearListener();
 
 
 /** DEFINE FLOATER  */
-Floater	=  Floater_v title:"Layout Test"
+Dialog	=  Dialog_v title:"Layout Test"
 
 /** Load content from file tree
  */
@@ -16,15 +16,15 @@ function loadContentTest =
 	Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
 	--Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs/*")	match:"rollout-(test-.*)"	).load()
 	
-	Content.setControlsToUI Floater
-	--Content_nested.setControlsToUI Floater
+	Content.setControlsToUI Dialog
+	--Content_nested.setControlsToUI Dialog
 )
 
 /** Add extra rollout
  */
 function addRolloutByCodeTest name =
 (
-	_rollout = __GLOBAL__v.Floater.roll name ""
+	_rollout = __GLOBAL__v.Dialog.roll name ""
 	_controls	= _rollout.controls groupbox:"Groupbox A" -- get new container for controls
 	_controlsB	= _rollout.controls groupbox:"Groupbox B" -- get new container for controls
 	_controls.button ("button by code")
@@ -38,4 +38,4 @@ function addRolloutByCodeTest name =
 loadContentTest()
 --addRolloutByCodeTest "Rollout by code 2"
 
-Floater.create()
+Dialog.create()

@@ -5,7 +5,7 @@ filein ( getFilenamePath(getSourceFileName()) + "/includes.ms" )
  */
 struct UI_v
 (
-	Floater	= (Floater_v()).new "Test Floater",
+	Dialog	= (Dialog_v()).new "Test Dialog",
 	Content	= Content_v(),
 	
 	/** Load content
@@ -15,9 +15,9 @@ struct UI_v
 		--format " Content	= % \n" Content	
 		Content.load()
 		
-		Content.setControlsToUI Floater
+		Content.setControlsToUI Dialog
 			
-		Floater.create()
+		Dialog.create()
 	),
 	
 	function test =

@@ -5,7 +5,7 @@
 </livefolder>
 <folder id="ede28176-fc49-47b2-81a8-4f5aaac69609" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Includes-Tests">
 </folder>
-<file id="6e321adc-0982-4027-ae5c-1b6724c2199a" idref="ede28176-fc49-47b2-81a8-4f5aaac69609" name="FloaterIncludeTest.ms" url="Lib/Floater/Test/includes/FloaterIncludeTest.ms">
+<file id="6e321adc-0982-4027-ae5c-1b6724c2199a" idref="ede28176-fc49-47b2-81a8-4f5aaac69609" name="DialogIncludeTest.ms" url="Lib/Dialog/Test/includes/DialogIncludeTest.ms">
 </file>
 <file id="b37a6f83-5730-4076-b462-d2ad1d82c6dc" idref="ede28176-fc49-47b2-81a8-4f5aaac69609" name="ControlsIncludeTest.ms" url="Lib/Controls/Test/inlcudes/ControlsIncludeTest.ms">
 </file>

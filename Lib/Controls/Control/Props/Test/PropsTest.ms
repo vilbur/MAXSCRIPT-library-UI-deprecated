@@ -1,4 +1,4 @@
-floater_name = (getFilenameFile(getSourceFileName()))
+dialog_name = (getFilenameFile(getSourceFileName()))
 filein ( getFilenamePath(getSourceFileName()) + "/../../../Test/inlcudes/ControlsIncludeTest.ms" )
 
 clearListener()

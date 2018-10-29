@@ -2,19 +2,19 @@
  */
 struct Globals_v
 (
-	Floater
+	Dialog
 )
 --format " __GLOBAL__v	= % \n" __GLOBAL__v
 if( __GLOBAL__v==undefined ) then
 	global __GLOBAL__v = Globals_v()
 	
-/** Dialog floater
+/** Dialog dialog
   *
-  * Rollout dialog with subroullouts is used as "Floater" instead of using regular [RolloutFloater](https://help.autodesk.com/view/3DSMAX/2018/ENU/?guid=__files_GUID_A72112A6_BDFB_47A6_88FB_8D49C4CBD049_htm)
+  * Rollout dialog with subroullouts is used as "Dialog" instead of using regular [RolloutDialog](https://help.autodesk.com/view/3DSMAX/2018/ENU/?guid=__files_GUID_A72112A6_BDFB_47A6_88FB_8D49C4CBD049_htm)
   *
   *
   */
-struct Floater_v
+struct Dialog_v
 (
 	/* dependency */
 	RolloutMain,
@@ -35,20 +35,20 @@ struct Floater_v
 	_ini,
 	
 	/* store */
-	Floater,
+	Dialog,
 	size_init, -- size of dialog after creation
 		
-	/** Create Floater
+	/** Create Dialog
 	  * Same parameters as __[ Rollout.create() ](../Rollouts/Rollout)__
 	 */
 	function create width: height: pos: =
 	(
-		print "------------\nFloater.create()"
+		print "------------\nDialog.create()"
 		
 		RolloutMain.dialogCreate height:height width:width pos:pos
 		--RolloutMain.dialogCreate()
 		
-		Floater = RolloutMain._rolloutCreator.def
+		Dialog = RolloutMain._rolloutCreator.def
 		
 		this --return
 	),
@@ -59,13 +59,13 @@ struct Floater_v
 		RolloutMain	= Rollout_v title:title id:id
 	),
 	/** Set shortcut to properties
-	  * Make property of RolloutMain accasible from Floater class
+	  * Make property of RolloutMain accasible from Dialog class
 	 */
 	function _setProperty =
 	(
 		Property	= RolloutMain.Property
 	),
-	/** Set rollout in Floater
+	/** Set rollout in Dialog
 	  * @param	string	title	Title of rollout
 	  * @param	string	id	Id of roullout, if empty then sanitized title is used
 	  * @return	[Rollout](../Rollouts/Rollout)
@@ -100,7 +100,7 @@ struct Floater_v
 		else
 			_dock = #cui_floatable
 		
-		cui.DockDialogBar Floater _dock
+		cui.DockDialogBar Dialog _dock
 
 		this --return
 	),
@@ -109,12 +109,12 @@ struct Floater_v
 	 */
 	function undock =
 	(
-		print "------------\nFloater.undock()"
+		print "------------\nDialog.undock()"
 		--format " _isRegistered()	= % \n" (this._isRegistered())
 		--format " _isDocked()	= % \n" (this._isDocked())
 		if ( this._isRegistered() and this._isDocked() ) then 
 		this.dock "undock" --return
-		--format " cui.getDockState Floater	= % \n" (cui.getDockState Floater)
+		--format " cui.getDockState Dialog	= % \n" (cui.getDockState Dialog)
 		
 		--this.unregister()
 	),
@@ -122,10 +122,10 @@ struct Floater_v
 	 */
 	function destroy =
 	(
-		print "------------\nFloater.destroy()"
+		print "------------\nDialog.destroy()"
 		this.unregister()
 
-		try(DestroyDialog Floater)catch()
+		try(DestroyDialog Dialog)catch()
 	),
 	/** Set position of dialog relative 3Ds Max window
 	  * @return	self
@@ -134,11 +134,11 @@ struct Floater_v
 	(
 		this.undock()
 		
-		--Floater.pos = [ x, y ]
+		--Dialog.pos = [ x, y ]
 		if not( this._isRegistered() ) then 
-			SetDialogPos Floater ( getMAXWindowPos() + [ x, y ] )
+			SetDialogPos Dialog ( getMAXWindowPos() + [ x, y ] )
 		else
-			Floater.pos = [ x, y ]
+			Dialog.pos = [ x, y ]
 		this --return
 	),
 	/** Set size of dialog
@@ -148,7 +148,7 @@ struct Floater_v
 	(
 		this.undock()
 		
-		Floater.size = [ width, height ]
+		Dialog.size = [ width, height ]
 
 		this --return
 	),
@@ -157,14 +157,14 @@ struct Floater_v
 	function register =
 	(
 		if not( this._isRegistered() ) then 
-			cui.RegisterDialogBar	Floater style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
+			cui.RegisterDialogBar	Dialog style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
 	),
 	
 	/** Unregister dialog bar
 	 */
 	function unregister =
 	(
-		try(cui.UnRegisterDialogBar Floater)catch() --try to unregister if already registered
+		try(cui.UnRegisterDialogBar Dialog)catch() --try to unregister if already registered
 	),
 	
 	/** _is registered
@@ -172,7 +172,7 @@ struct Floater_v
 	function _isRegistered =
 	(
 		try(
-			cui.getDockState Floater
+			cui.getDockState Dialog
 			true --return 
 		)catch(
 			false --return 
@@ -182,13 +182,13 @@ struct Floater_v
 	 */
 	function _isFloatable =
 	(
-		if ( this._isRegistered() and cui.getDockState Floater == #cui_floatable ) then true else false --return
+		if ( this._isRegistered() and cui.getDockState Dialog == #cui_floatable ) then true else false --return
 	),
 	/** _is docked
 	 */
 	function _isDocked =
 	(
-		if ( matchPattern ((cui.getDockState Floater) as string ) pattern:@"_dock_" ) then true else false --return
+		if ( matchPattern ((cui.getDockState Dialog) as string ) pattern:@"_dock_" ) then true else false --return
 	),
     
 	private
@@ -196,12 +196,12 @@ struct Floater_v
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
-	function _setFloaterGlobal =
+	function _setDialogGlobal =
 	(
 		id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
 		id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"[^a-zA-Z0-9-_]" ).Replace id ""
 		
-		__GLOBAL__v.Floater = this
+		__GLOBAL__v.Dialog = this
 	),
 	/** _open close rollouts
 	 */
@@ -217,7 +217,7 @@ struct Floater_v
 	/** Set default path to ini file
 	  *
 	  * Default dir:	"#temp\ini-files\"
-	  * Default file:	"%floater_id%.ini"
+	  * Default file:	"%dialog_id%.ini"
 	 */
 	function _setIniDefaults =
 	(
@@ -268,7 +268,7 @@ struct Floater_v
 		
 		this.destroy()
 		
-		this._setFloaterGlobal()
+		this._setDialogGlobal()
 		
 		this._setIniDefaults()
 	)

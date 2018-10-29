@@ -35,7 +35,7 @@ clearListener();
 UI 	= UI_v();
 --UI.test();
 
-/* Create ui floater */
+/* Create ui dialog */
 UI.loadContent();
 
 
@@ -47,5 +47,5 @@ UI.loadContent();
 --UI.Rollouts.test()
 
 
-/* Create ui floater */
+/* Create ui dialog */
 --UI.destroy(); A

@@ -25,7 +25,7 @@ struct Rollout_v
 	Parent_roll, -- sore parent rollout if this is subrollouts
 
 	/* properties */
-	ini, -- inherit by Floater_v
+	ini, -- inherit by Dialog_v
 	_rolloutCreator,
 	
 	Property	= RolloutProperty_v Parent_roll:this,
@@ -120,7 +120,6 @@ struct Rollout_v
 	(
 		(execute id) != undefined --return
 	),
-
 
 	/** Try destroy dialog by global variable before variable will be overwritten
 	 */

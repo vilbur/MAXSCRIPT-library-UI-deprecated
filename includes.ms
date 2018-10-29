@@ -65,7 +65,7 @@ try
 	/*---------------------------------------
 		FLOATER
 	-----------------------------------------*/
-	filein( current_dir + "/Lib/Floater/Floater.ms" );
+	filein( current_dir + "/Lib/Dialog/Dialog.ms" );
 	
 	
 	/*---------------------------------------
