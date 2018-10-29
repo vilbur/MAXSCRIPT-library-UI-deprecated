@@ -70,7 +70,6 @@ struct ControlId_v
 
 		id = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (id_no_whitespace) ) "") --return
 		format " id	= % \n" id
-		
 	),
 
 	--/** Get\set value of property 

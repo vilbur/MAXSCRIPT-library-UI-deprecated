@@ -63,6 +63,8 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts parrent_rollout_id =
 	(
+		print "------------\nSubrollouts.addSubRollouts()"
+		format " this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
 		if not ( this._anySubrolloutExists() ) then
 			return()
 

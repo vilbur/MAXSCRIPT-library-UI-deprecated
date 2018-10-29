@@ -83,22 +83,21 @@ struct Rollout_v
 
 		this._addSaveIniFunction()
 
+		--print ("------------\nRollout._setRolloutCreator() rollout " + id + " created")
 		_rolloutCreator.end()
-		
-		print ("------------\nRollout._setRolloutCreator() rollout " + id + " created")
 	),
 	/** Subrollout
 	  * @return	object new instance of this
 	 */
 	function subrollout title id: =
 	(
+		print "------------\nRollout.subrollout()"
 		_subrollout = Rollout_v title:title id:id Parent_roll:this
 		
 		Subrollouts.add _subrollout
-		
+		--format " _subrollout.id	= % \n" _subrollout.id
 		_subrollout --return 
 	),
-
 
 	/** Get id of rollout or get full id with parent rollout if subrullout
 	  *
@@ -195,7 +194,6 @@ struct Rollout_v
 		execute ( "global "+ id +" = undefined")
 	),
 
-
 	/** Add default events
 	 */
 	function setDefaultEvents =
@@ -257,7 +255,7 @@ struct Rollout_v
 	/** Check if properties in __construct are defined when an instance of the struct is created.
 	  * @example __construct = #( #property_name ) 
 	 */
-	function checkConstctructProperties =
+	function _checkConstctructProperties =
 	(
 		for prop in __construct where getProperty this prop == undefined do
 			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
@@ -266,8 +264,8 @@ struct Rollout_v
 	 */
 	on create do
 	(
-		print "------------\nRollout.create()"
-		checkConstctructProperties()
+		--print "------------\nRollout.on create ()"
+		_checkConstctructProperties()
 		
 		this._setId()
 

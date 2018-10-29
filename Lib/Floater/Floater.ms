@@ -10,13 +10,14 @@ if( __GLOBAL__v==undefined ) then
 	
 /** Dialog floater
   *
-  * Rollout with subroullouts is used as "Floater" instead of using regular [RolloutFloater](https://help.autodesk.com/view/3DSMAX/2018/ENU/?guid=__files_GUID_A72112A6_BDFB_47A6_88FB_8D49C4CBD049_htm)
+  * Rollout dialog with subroullouts is used as "Floater" instead of using regular [RolloutFloater](https://help.autodesk.com/view/3DSMAX/2018/ENU/?guid=__files_GUID_A72112A6_BDFB_47A6_88FB_8D49C4CBD049_htm)
   *
   *
   */
 struct Floater_v
 (
 	/* dependency */
+	RolloutMain,
 	Rollouts	= List_v(),
 	Menu	= Menu_v(),
 	Ini	= Ini_v(),
@@ -42,17 +43,22 @@ struct Floater_v
 	function create width: height: pos: =
 	(
 		print "------------\nFloater.create()"
-		roll_main	= Rollout_v title:title id:id
-		roll_main.subrollouts.list	= Rollouts.values
+		--RolloutMain	= Rollout_v title:title id:id
+		--RolloutMain.subrollouts.list	= Rollouts.values
 		
-		roll_main.dialogCreate height:height width:width pos:pos
-		--roll_main.dialogCreate()
+		RolloutMain.dialogCreate height:height width:width pos:pos
+		--RolloutMain.dialogCreate()
 		
-		Floater = roll_main._rolloutCreator.def
+		Floater = RolloutMain._rolloutCreator.def
 		
 		this --return
 	),
-
+	/** Set rollout main
+	 */
+	function _setMainRollout =
+	(
+		RolloutMain	= Rollout_v title:title id:id
+	),
 	/** Set rollout in Floater
 	  * @param	string	title	Title of rollout
 	  * @param	string	id	Id of roullout, if empty then sanitized title is used
@@ -63,11 +69,13 @@ struct Floater_v
 	  */
 	function roll title id:  =
 	(
-		_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
+		--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
 		--id	= _rollout.id
-		Rollouts.setVal (_rollout.id) ( _rollout )
+		--Rollouts.setVal (_rollout.id) ( _rollout )
+		--
+		--Rollouts.getVal  (_rollout.id)  --return
 		
-		Rollouts.getVal  (_rollout.id)  --return 
+		RolloutMain.subrollout title id:id --return
 	),
 	/** Dock\Undock sidebar to window
 	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
@@ -177,17 +185,15 @@ struct Floater_v
 		if ( matchPattern ((cui.getDockState Floater) as string ) pattern:@"_dock_" ) then true else false --return
 	),
     
-	/*--------------------------------------------------------------------------------*/
-		private
-	/*--------------------------------------------------------------------------------*/
+	private
 
-	/** _add rollouts
-	 */
-	function _addRollouts =
-	(
-		for _rollout in Rollouts.values do
-			addRollout (_rollout.create dialog:false) Floater
-	),
+	--/** _add rollouts
+	-- */
+	--function _addRollouts =
+	--(
+	--	for _rollout in Rollouts.values do
+	--		addRollout (_rollout.create dialog:false) Floater
+	--),
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
@@ -224,15 +230,15 @@ struct Floater_v
 			Ini.file ( (getFilenameFile id) + ".ini" )
 	), 
 
-	/** Create Floater - UNUSED METHOD WILL BE DELETE
-	  * Floater can`t has Menu
-	  * Rollouts are added as rollouts
-	 */
-	function _createFloater =
-	(
-		Floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
-		this._addRollouts()
-	),
+	--/** Create Floater - UNUSED METHOD WILL BE DELETE
+	--  * Floater can`t has Menu
+	--  * Rollouts are added as rollouts
+	-- */
+	--function _createFloater =
+	--(
+	--	Floater	= newRolloutFloater title 270 512 ((getMAXWindowPos()).x) ((getMAXWindowPos()).y)
+	--	this._addRollouts()
+	--),
 	/** Get\set value of property 
 	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
 	  * @param	string|#get value	Value of property
@@ -264,6 +270,8 @@ struct Floater_v
 	on create do
 	(
 		print "------------\nFloater.onCreate()"
+		this._setMainRollout()
+		
 		this.destroy()
 		
 		_checkConstctructProperties()
