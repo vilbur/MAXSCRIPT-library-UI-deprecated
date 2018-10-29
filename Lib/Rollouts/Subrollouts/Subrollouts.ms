@@ -63,8 +63,8 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts parrent_rollout_id =
 	(
-		print "------------\nSubrollouts.addSubRollouts()"
-		format " this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
+		--print "------------\nSubrollouts.addSubRollouts()"
+		--format " this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
 		if not ( this._anySubrolloutExists() ) then
 			return()
 
@@ -76,7 +76,7 @@ struct Subrollouts_v
 		for subrollout in List do
 			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollout.id +  " " + subrollout.id
 
-		format "Subrollouts_v._getAddSubrolloutString() Added subrollouts: % \n" add_subrollouts
+		--format "Subrollouts_v._getAddSubrolloutString() Added subrollouts: % \n" add_subrollouts
 		execute (add_subrollouts)
 	),
 	

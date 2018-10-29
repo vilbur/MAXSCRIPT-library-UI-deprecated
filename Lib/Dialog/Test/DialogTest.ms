@@ -1,7 +1,8 @@
 clearListener()
 
-dialog_name	= filenameFromPath(getSourceFileName())
-filein( getFilenamePath(getSourceFileName()) + "/includes/DialogIncludeTest.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
+
+Dialog	= Dialog_v title:(filenameFromPath(getSourceFileName()))
 
 /*------ CREATE FLOATER DIALOG ------*/
 Dialog.create()

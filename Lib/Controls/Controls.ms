@@ -120,7 +120,7 @@ struct Controls_v
 		for Control in this.Controls do
 		(
 			--Control.addControlToUi()
-			Parent_roll.roll.addControl Control.type Control.id.id Control.caption
+			Parent_roll._rolloutCreator.addControl Control.type Control.id.id Control.caption
 			Control.Events._addHandlers()
 			--paramStr:(this._getParameters())
 			--Parent_roll.Layout.setControlDimensions

@@ -1,8 +1,14 @@
 clearListener();
 
---dialog_name = "ControlsTest"
-filein ( getFilenamePath(getSourceFileName()) + "/inlcudes/ControlsIncludeTest.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
 
+Dialog	= Dialog_v title:(filenameFromPath(getSourceFileName()))
+
+
+subroll_A	= Dialog.roll "Subrollout A" id:"subrollout_a"
+--subroll_B	= Dialog.roll "Subrollout B"
+
+controls_A1 = rollout_1.controls groupbox:"Test Groupbox"
 
 /*------------------------------------------------------------------------------
 
@@ -14,22 +20,22 @@ filein ( getFilenamePath(getSourceFileName()) + "/inlcudes/ControlsIncludeTest.m
  */
 function buttonTest =
 (
-	--format " _controls_1	= % \n" _controls_1
-	--btn_prop_a	= _controls_1.button "Props test A"
-	--btn_prop_b	= _controls_1.button "Props test B"
+	--format " controls_A1	= % \n" controls_A1
+	--btn_prop_a	= controls_A1.button "Props test A"
+	--btn_prop_b	= controls_A1.button "Props test B"
 )
 /** Checkbox test
  */
 function checkboxTest =
 (
-	_checkbox 	= _controls_1.checkbox "Checkbox test"
+	_checkbox 	= controls_A1.checkbox "Checkbox test"
 )
 /** Edit control test
  */
 function editControlTest =
 (
-	_edit_1	= _controls_1.edit "Edit control" value:"Auto ids"
-	_edit_1	= _controls_1.edit "" value:"Auto ids"
+	_edit_1	= controls_A1.edit "Edit control" value:"Auto ids"
+	_edit_1	= controls_A1.edit "" value:"Auto ids"
 
 	--_edit.param #width 256
 	
@@ -37,9 +43,9 @@ function editControlTest =
 	
 	--_edit_2.changed "messagebox \"Test\""
 	
-	--_edit	= _controls_1.path button:"Edit_Text"
+	--_edit	= controls_A1.path button:"Edit_Text"
 	
-	----_control_path	= _controls_1.edit "Edit_Text" 
+	----_control_path	= controls_A1.edit "Edit_Text" 
 )
 
 

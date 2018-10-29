@@ -16,6 +16,11 @@ if( __GLOBAL__v==undefined ) then
   */
 struct Dialog_v
 (
+	__construct = #(#title),
+
+	/* required properties */
+	title,
+
 	/* dependency */
 	RolloutMain,
 	Property,
@@ -23,13 +28,8 @@ struct Dialog_v
 	Menu	= Menu_v(),
 	Ini	= Ini_v(),
 	
-	/* required properties */
-	title,
-	__construct = #(#title),
-
 	/* config */	
 	id,
-	--height,
 	
 	/* options */	
 	_ini,
@@ -43,14 +43,11 @@ struct Dialog_v
 	 */
 	function create width: height: pos: =
 	(
-		print "------------\nDialog.create()"
-		
-		RolloutMain.dialogCreate height:height width:width pos:pos
-		--RolloutMain.dialogCreate()
+		--RolloutMain.dialogCreate height:height width:width pos:pos
+		RolloutMain.dialogCreate()
 		
 		Dialog = RolloutMain._rolloutCreator.def
-		
-		this --return
+		--this --return
 	),
 	/** Set main rollout
 	 */
@@ -66,6 +63,8 @@ struct Dialog_v
 		Property	= RolloutMain.Property
 	),
 	/** Set rollout in Dialog
+	  * UPDATE OF THIS BLOCK IS NEEDED
+	  *
 	  * @param	string	title	Title of rollout
 	  * @param	string	id	Id of roullout, if empty then sanitized title is used
 	  * @return	[Rollout](../Rollouts/Rollout)
@@ -76,10 +75,6 @@ struct Dialog_v
 	function roll title id:  =
 	(
 		--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
-		--id	= _rollout.id
-		--Rollouts.setVal (_rollout.id) ( _rollout )
-		--
-		--Rollouts.getVal  (_rollout.id)  --return
 		
 		RolloutMain.subrollout title id:id --return
 	),
@@ -122,7 +117,7 @@ struct Dialog_v
 	 */
 	function destroy =
 	(
-		print "------------\nDialog.destroy()"
+		--print "------------\nDialog.destroy()"
 		this.unregister()
 
 		try(DestroyDialog Dialog)catch()

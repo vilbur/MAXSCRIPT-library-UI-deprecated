@@ -30,10 +30,10 @@ struct Rollout_v
 	
 	Property	= RolloutProperty_v Parent_roll:this,
 	Subrollouts	= Subrollouts_v(),
+	Layout	= Layout_v(),
 
 	private
 	
-	Layout	= Layout_v(),
 	
 	/* options */
 
@@ -64,8 +64,7 @@ struct Rollout_v
 		this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
 		Subrollouts.addSubRollouts id
-
-		_rolloutCreator --return
+		--_rolloutCreator --return
 	),
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
 	 */
@@ -91,7 +90,7 @@ struct Rollout_v
 	 */
 	function subrollout title id: =
 	(
-		print "------------\nRollout.subrollout()"
+		--print "------------\nRollout.subrollout()"
 		_subrollout = Rollout_v title:title id:id Parent_roll:this
 		
 		Subrollouts.add _subrollout
