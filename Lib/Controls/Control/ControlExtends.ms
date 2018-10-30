@@ -1,3 +1,4 @@
+	public
 	
 	/* required properties */
 	type,
@@ -17,14 +18,14 @@
 	/* options */
 	id,
 	_col 	= 4,
-	dimensions	= #(),	-- dimensions of conrol #( [xy] position, integer width, integer height )
+	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
 	
 	/*------ EXTENDED EVENTS ------*/
 	pressed	= Events.pressed,
 	changed	= Events.changed,
 	rightclick	= Events.rightclick,
 	
-	/** Set params for control
+	/** Set parameters for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
 	function params params_string =

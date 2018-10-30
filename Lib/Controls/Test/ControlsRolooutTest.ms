@@ -13,22 +13,12 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
 /* ROLLOUT DEFINITION */
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
-struct Control_mock(type = #button, id="", caption="Test button")
+--Controls = Controls_v Parent_roll:_Rollout
+--Controls = Controls_v Parent_roll:_Rollout
+--format " Controls	= % \n" Controls
+Groupbox_1 = _Rollout.Controls.new groupbox:"Groupbox 1"
 
-Controls = Controls_v Parent_roll:_Rollout
-
-ControlBox_1 = _Rollout.Controls.new()
-
-for i = 1 to 10 do
-	ControlBox_1.add (Control_mock id:("button_"+i as string ) caption:("Button "+i as string))
-
-appendIfUnique  Controls.ControlBoxes ControlBox_1
-
-format "Controls.ControlBoxes = % \n" Controls.ControlBoxes
-Controls._addControlsToRollout()
-
---Controls.button "Test 1"
---Controls._addControl (Control_mock())
+Groupbox_1.button "Test 1"
 
 /* CREATE ROLLOUT */
 _Rollout.dialogCreate()	-- create with default params

@@ -1,70 +1,158 @@
-/** Section box of controls, an be groupbox if "ControlBox_v.groupbox" is set
+/** Section box of controls, can be groupbox if "ControlBox_v.groupbox" is definded
   *
-  * Id of groupbox has preffix "gb_"
+  * @property	string	groupbox	Store name of [ groupbox ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
+  *
+  *
+  * Id of groupbox has suffix "_groupbox"
  */
 struct ControlBox_v 
 (
-	Parent_roll,
-	id,
+	/* required */
+	/* dependency */
+	/* reference */
+	/* properties */
 	groupbox,
+	controls	= #(),
+	
 
-	/** Set parent roll
+	/** Add control to rollout
 	 */
-	function new _parent_roll _groupbox =
+	function add &Control =
 	(
-		Parent_roll	= _parent_roll
-		groupbox	= _groupbox
-		
-		this --return 
-	),	
-	/** Add groupbox
+		append controls Control
+		--Parent_roll.addControl Control
+	),
+	/*---------------------------------------
+	
+		CONTROLS TYPES
+	
+	-----------------------------------------*/
+	
+	/** Add Button
 	 */
-	function addGroupBox =
+	function button caption id: add:true =
 	(
-		print "------------\nControlBox.addGroupBox()"
-		----print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
-		--if( groupbox!=undefined ) then
-		format " this._getGroupboxParams()	= % \n" (this._getGroupboxParams())
-			--Parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(this._getGroupboxParams())
-		--Parent_roll.roll.addControl #groupbox (this.getId()) groupbox
-		
-		--format " groupbox	= % \n" groupbox
+		--print "------------\nControlBox.button()"
+		this.newControl (Button_v caption:caption ) id:id add:add
+	),
+	/** Add Check button
+	 */
+	function checkbutton caption id: add:true =
+	(
+		this.newControl (Control_v type:#checkbutton caption:caption ) id:id add:add
+	),
+	/** Add Checkbox
+	 */
+	function checkbox caption id: checked: add:true =
+	(
+		this.newControl (Checkbox_v caption:caption ) id:id add:add
+	),
+	/** Add Edit text control
+	 */
+	function edit caption id: value: add:true =
+	(
+		this.newControl (EditText_v caption:caption value:value ) id:id add:add
+	),
+	/** Browse Path control
+	 */
+	function path =
+	(
+		browse_button	= this.button "..."	add:false
+		edit_text	= this.edit "test_edit" value:"Test"	add:false
+	
+		initial_dir	= "C:\\"
+	
+		browse_button.pressed ( "messagebox "+(edit_text.prop #text #path ) )
+	
+		this.add browse_button
+		this.add edit_text
 	),
 	
-	/** Get id
+	/*---------------------------------------
+	
+		ADDING CONTROLS TO UI
+	
+	-----------------------------------------*/
+	
+	/**  Add control of any type
+	 *  @param	string	type	Type of control
+	 *  @param	string	caption	Caption of control
+	 * 
+	 *  @return	[Control](../../Control)
 	 */
-	function getId =
+	function newControl _Control add:true =
 	(
-		"_gb" + (( dotnetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower groupbox ) "_" ) --return
-	),
-	/** Exists
-	 */
-	function exists =
-	(
-		false
-	),
-	/*------------------------------------------------------------------------------
-		PRIVATE
-	--------------------------------------------------------------------------------*/
-	/** _get groupbox params
-	 */
-	function _getGroupboxParams =
-	(
-		--print "------------\nControlBox._getGroupboxParams()"
-		dimensions	= Parent_roll.Layout._getGroupboxDimensions()
-		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
-		
-		--Props	= Props_v Control:this
-		--
-		--Props.add #pos	dimensions[1]
-		--Props.add #width	dimensions[2]
-		--Props.add #height dimensions[3]
-		--Props.add #height 48
-		
-		--Props.join() --return
-		""
-	),
+		print "------------\nControls.newControl()"
+		format " _Control	= % \n" _Control
 
+		if( add ) then
+			this.add _Control
+		
+		_Control --return
+	),
+	
+	
+	--Parent_roll,
+	--id,
+	--
+	--/** Set parent roll
+	-- */
+	--function new _parent_roll _groupbox =
+	--(
+	--	Parent_roll	= _parent_roll
+	--	groupbox	= _groupbox
+	--	
+	--	this --return 
+	--),	
+	--/** Add groupbox
+	-- */
+	--function addGroupBox =
+	--(
+	--	print "------------\nControlBox.addGroupBox()"
+	--	----print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
+	--	--if( groupbox!=undefined ) then
+	--	format " this._getGroupboxParams()	= % \n" (this._getGroupboxParams())
+	--		--Parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(this._getGroupboxParams())
+	--	--Parent_roll.roll.addControl #groupbox (this.getId()) groupbox
+	--	
+	--	--format " groupbox	= % \n" groupbox
+	--),
+	--
+	--/** Get id
+	-- */
+	--function getId =
+	--(
+	--	groupbox_suffix = "_groupbox"
+	--	(( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower groupbox ) "_" ) + groupbox_suffix--return
+	--),
+	--/** Exists
+	-- */
+	--function exists =
+	--(
+	--	false
+	--),
+	--/*------------------------------------------------------------------------------
+	--	PRIVATE
+	----------------------------------------------------------------------------------*/
+	--/** _get groupbox params
+	-- */
+	--function _getGroupboxParams =
+	--(
+	--	--print "------------\nControlBox._getGroupboxParams()"
+	--	dimensions	= Parent_roll.Layout._getGroupboxDimensions()
+	--	--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
+	--	
+	--	--Props	= Props_v Control:this
+	--	--
+	--	--Props.add #pos	dimensions[1]
+	--	--Props.add #width	dimensions[2]
+	--	--Props.add #height dimensions[3]
+	--	--Props.add #height 48
+	--	
+	--	--Props.join() --return
+	--	""
+	--),
+	
 	function test =
 	(
 		messagebox "Control_v.test()"

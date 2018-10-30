@@ -8,9 +8,17 @@
   *
   * @property	string	ini	Path to ini where state of UI is saved, if false then ini state is not saved
   *
-  * @method	void	onOpen( @param	string	callback[, @param	string	tooltip] )	
+  * @method	void	onOpen(  @param	string	callback[, @param	string	tooltip] )	
   * @method	void	onClose( @param	string	callback[, @param	string	tooltip] )	
   *
+  *
+  * -------------------------------------------------------------------------------------
+  * Class structure:
+  *			Rollout
+  *				Controls
+  *					ControlBox
+  *						Control
+  * -------------------------------------------------------------------------------------
   */
 struct Rollout_v
 (
@@ -28,7 +36,8 @@ struct Rollout_v
 	ini, -- inherit by Dialog_v
 	_rolloutCreator,
 	
-	Property	= RolloutProperty_v Parent_roll:this,
+ 	Controls	= Controls_v	Parent_roll:this,
+	Property	= RolloutProperty_v	Parent_roll:this,
 	Subrollouts	= Subrollouts_v(),
 	Layout	= Layout_v(),
 
@@ -38,10 +47,9 @@ struct Rollout_v
 	/* options */
 
 	/* lists */
- 	ControlBoxes	= #(),
 	RolloutEvent	= RolloutEvent_v parent_control:this,
 	
-	_controls	= #(),	-- store ids of added controls in rollout
+	_controls_ids	= #(),	-- store ids of added controls in rollout
 	
 	type	= #rollout, -- reference for this.RolloutEvent._bindDefaultEvent()
 
@@ -57,7 +65,7 @@ struct Rollout_v
 	 */
     function dialogCreate width: height: pos: =
 	(
-		this._setRolloutCreator()
+		this._createRollout()
 		
 		CreateDialog (_rolloutCreator.def)
 		
@@ -71,10 +79,17 @@ struct Rollout_v
 	function _setRolloutCreator =
 	(
 		_rolloutCreator = rolloutCreator id title
-
-		_rolloutCreator.begin()
 		
-		this._addControlsToRollout()
+		_rolloutCreator.begin()
+	),
+	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
+	 */
+	function _createRollout =
+	(
+		--_rolloutCreator.begin()
+		
+		--this._addControlsToRollout()
+		--this.Controls._addControlsToRollout()
 		
 		this._createSubrollouts()
 
@@ -82,7 +97,7 @@ struct Rollout_v
 
 		this._addSaveIniFunction()
 
-		--print ("------------\nRollout._setRolloutCreator() rollout " + id + " created")
+		--print ("------------\nRollout._createRollout() rollout " + id + " created")
 		_rolloutCreator.end()
 	),
 	/** Subrollout
@@ -130,37 +145,37 @@ struct Rollout_v
 	/*---------------------------------------
 		CONTROLS 
 	-----------------------------------------*/
-	/** Get Controls for rollout
-	  * @param	string	[groupbox]	Title of group box
-	  * @return [Controls](../../Controls)
-	 */
-	function controls groupbox:undefined =
-	(
-		--print "------------\nRollout.controls()"
-		Controls_new 	= Controls_v Parent_roll:this groupbox:groupbox
-		--format " Controls_new	= % \n" Controls_new
-		append this.ControlBoxes Controls_new
-
-		Controls_new --return
-	),
-	/** Add control id to array controls
-	 */
-	function addControl Control =
-	(
-		--print "------------\nRollout.addControl()"
-		appendIfUnique _controls Control.id.id
-		--format " _controls	= % \n" _controls
-	),
-	/** Has control
-	 */
-	function hasControl id =
-	(
-		--print "------------\nRollout.hasControl()"
-		has_control = findItem _controls id > 0
-		--format " id	= % \n has_control	= % \n\n" id has_control
-		has_control --return
-		--findItem _controls id > 0 --return
-	),
+	--/** Get Controls for rollout
+	--  * @param	string	[groupbox]	Title of group box
+	--  * @return [Controls](../../Controls)
+	-- */
+	--function controls groupbox:undefined =
+	--(
+	--	--print "------------\nRollout.controls()"
+	--	Controls_new 	= Controls_v Parent_roll:this groupbox:groupbox
+	--	--format " Controls_new	= % \n" Controls_new
+	--	append this.Controls Controls_new
+	--
+	--	Controls_new --return
+	--),
+	--/** Add control id to array controls
+	-- */
+	--function addControl Control =
+	--(
+	--	print "------------\nRollout.addControl()"
+	--	appendIfUnique _controls_ids Control.id.id
+	--	--format " _controls_ids	= % \n" _controls_ids
+	--),
+	--/** Has control
+	-- */
+	--function hasControl id =
+	--(
+	--	--print "------------\nRollout.hasControl()"
+	--	has_control = findItem _controls_ids id > 0
+	--	--format " id	= % \n has_control	= % \n\n" id has_control
+	--	has_control --return
+	--	--findItem _controls_ids id > 0 --return
+	--),
 	
 	private
 	
@@ -206,8 +221,9 @@ struct Rollout_v
 	*/
 	function _addControlsToRollout =
 	(
-		for Controls in ControlBoxes do
-			Controls._addControlsToRollout()
+		print "------------\nRollout._addControlsToRollout()"
+		--for Controls in Controls do
+			--Controls._addControlsToRollout()
 	),
 	/** _create subrollouts
 	 */
@@ -272,6 +288,8 @@ struct Rollout_v
 		this._setRolloutGlobalVariable()
 		
 		this.setDefaultEvents()
+		
+		this._setRolloutCreator()
 	)
 
 

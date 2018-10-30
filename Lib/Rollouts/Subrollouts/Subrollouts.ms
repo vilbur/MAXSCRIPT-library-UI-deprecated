@@ -22,7 +22,7 @@ struct Subrollouts_v
 			return()
 			
 		for _rollout in List do
-			_rollout._setRolloutCreator()
+			_rollout._createRollout()
 		
 		this._setDefinition()
 		
