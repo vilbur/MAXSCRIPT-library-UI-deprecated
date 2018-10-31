@@ -179,16 +179,16 @@ struct Dialog_v
 	 */
 	function _setProperty =
 	(
-		Property	= RolloutMain.Property
+		--Property	= RolloutMain.Property
+		Property	= DialogProperty_v id:RolloutMain.id
 	),
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
 	function _setDialogGlobal =
 	(
-		id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
-		id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"[^a-zA-Z0-9-_]" ).Replace id ""
-		
+		--id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
+		--id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"[^a-zA-Z0-9-_]" ).Replace id ""
 		__GLOBAL__v.Dialog = this
 	),
 	/** _open close rollouts
@@ -258,6 +258,6 @@ struct Dialog_v
 		
 		this._setDialogGlobal()
 		
-		this._setIniDefaults()
+		--this._setIniDefaults() -- DIABLED FOR DEBUGGING
 	)
 )

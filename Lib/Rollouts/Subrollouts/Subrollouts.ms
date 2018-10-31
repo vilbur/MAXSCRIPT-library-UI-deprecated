@@ -15,9 +15,6 @@ struct Subrollouts_v
 	
 	List	= #(),
 	
-	private
-	public
-	
 	/** Add
 	 */
 	function add _subrollout =
@@ -90,7 +87,7 @@ struct Subrollouts_v
 		
 		for subrollout in List do
 			--add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollout.id +  " " + subrollout.id
-			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollouts_slot + " " + subrollout.id
+			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
 
 			
 		--format "Subrollouts_v._getAddSubrolloutString() Added subrollouts: % \n" add_subrollouts

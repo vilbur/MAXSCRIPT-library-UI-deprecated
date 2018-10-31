@@ -82,9 +82,6 @@ struct ControlBox_v
 	 */
 	function newControl _Control add:true =
 	(
-		print "------------\nControls.newControl()"
-		format " _Control	= % \n" _Control
-
 		if( add ) then
 			this.add _Control
 		

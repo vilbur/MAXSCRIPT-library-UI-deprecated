@@ -16,7 +16,6 @@ struct ControlId_v
 	function setId id =
 	(
 		this.id	= id
-		format " id	= % \n" id
 		
 		if not( this._isIdValid() ) then
 			this._setIdByConrolType()
@@ -65,34 +64,15 @@ struct ControlId_v
 	 */
 	function _sanitizeId =
 	(
-		print "------------\nControlId._sanitizeId()"
-		id_no_whitespace = substituteString id " " "_" -- replace whitespace
-
-		id = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (id_no_whitespace) ) "") --return
-		format " id	= % \n" id
+		--print "------------\nControlId._sanitizeId()"
+		--id_no_whitespace = substituteString id " " "_" -- replace whitespace
+		--
+		--id = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (id_no_whitespace) ) "") --return
+		--format " id	= % \n" id
+		id = (Id_v	id:id).sanitizeId()
 	),
 
-	--/** Get\set value of property 
-	--  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
-	--  * @param	string|#get value	Value of property
-	--  *
-	--  * @return	string|self Value or self
-	--  *
-	--  * @example this._getSetProp "foo" "bar" -- SET "bar" to property "foo"
-	--  * @example this._getSetProp #foo  #get  -- GET value of property "foo"
-	--  *
-	--  */
-	--function _getSetProp key value =
-	--(
-	--	if( value != #get ) then
-	--	(
-	--		setProperty  this ( key as string ) value
-	--		this --return
-	--	)
-	--	else
-	--		getProperty this ( key as string ) --return
-	--),
-	
+
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
 	  * @param	construct_properties this.properties required for initialization of struct
