@@ -3,46 +3,30 @@ clearListener();
 filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
 
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
+
+/* ROLLOUT DEFINITION */
 Rollout_A	= Dialog.roll "Subrollout A"
---Rollout_B	= Dialog.roll "Subrollout B"
+Rollout_B	= Dialog.roll "Subrollout B"
 
+/* CONTROLS BOX DEFINITION */
 controls_A1 = Rollout_A.Controls.box()
---controls_B1 = Rollout_B.Controls.box()
+controls_B1 = Rollout_B.Controls.box()
 
+/* CONTROLS DEFINITION */
+Button_B1	= controls_B1.button "Test 1"
 Button_A1	= controls_A1.button "Test 1"
---Button_B1	= controls_B1.button "Test 1"
 
 
-----/* ROLLOUT DEFINITION */
-----_Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
-----
-----struct Control_mock(type = #button, id="", caption="Test button")
-----
-----Controls = Controls_v Parent_roll:_Rollout
-----
-----ControlBox_1 = _Rollout.Controls.new()
-----
-----for i = 1 to 10 do
-----	ControlBox_1.add (Control_mock id:("button_"+i as string ) caption:("Button "+i as string))
-----
-----appendIfUnique  Controls.ControlBoxes ControlBox_1
-----
-----format "Controls.ControlBoxes = % \n" Controls.ControlBoxes
-----Controls._addControlsToRollout()
---
-------Controls.button "Test 1"
-------Controls._addControl (Control_mock())
-----
-----/* CREATE Dialog */
+
+/* CREATE DIALOG */
 Dialog.create()	-- create with default params
 
---rollout_controlstest.rollout_subrollout_1.height = 256
-rollout_controlstest.height = 256
 
---rollout_controlstest.rollout_subrollout_a.height 256
-rollout_controlstest.subrollout_slot.height 256
+rollout_controls_dialogtest.subrollout_slot.height = 512
+--rollout_controls_dialogtest.height = 512
 
-
+--Dialog.RolloutMain.property.height 512
+Dialog.property.height 512
 
 
 

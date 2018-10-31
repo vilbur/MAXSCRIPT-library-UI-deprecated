@@ -65,6 +65,7 @@ struct Rollout_v
 	 */
     function dialogCreate width: height: pos: =
 	(
+		--print "------------\nRollout.dialogCreate()"
 		this._createRollout()
 		
 		CreateDialog (_rolloutCreator.def)
@@ -86,10 +87,11 @@ struct Rollout_v
 	 */
 	function _createRollout =
 	(
+		print ("------------\nRollout._createRollout() "+id)
 		--_rolloutCreator.begin()
 		
 		--this._addControlsToRollout()
-		--this.Controls._addControlsToRollout()
+		this.Controls._addControlsToRollout()
 		
 		this._createSubrollouts()
 
@@ -217,14 +219,14 @@ struct Rollout_v
 	/*---------------------------------------
 		CREATE ROLLOUT
 	-----------------------------------------*/
-	/**  Add controls to UI on rollout creation
-	*/
-	function _addControlsToRollout =
-	(
-		print "------------\nRollout._addControlsToRollout()"
-		--for Controls in Controls do
-			--Controls._addControlsToRollout()
-	),
+	--/**  Add controls to UI on rollout creation
+	--*/
+	--function _addControlsToRollout =
+	--(
+	--	print "------------\nRollout._addControlsToRollout()"
+	--	--for Controls in Controls do
+	--		--Controls._addControlsToRollout()
+	--),
 	/** _create subrollouts
 	 */
 	function _createSubrollouts =

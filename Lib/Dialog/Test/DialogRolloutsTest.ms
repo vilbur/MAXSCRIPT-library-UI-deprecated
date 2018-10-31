@@ -2,7 +2,7 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
 
-Dialog	= Dialog_v title:(filenameFromPath(getSourceFileName()))
+Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
 
 subroll_A	= Dialog.roll "Subrollout A" id:"subrollout_a"

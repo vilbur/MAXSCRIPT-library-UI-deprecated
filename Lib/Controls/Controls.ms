@@ -17,7 +17,7 @@ struct Controls_v
 	 * @param	string	[groupbox]	Title of group box
 	 * @return [Controls](/ControlsBox/ControlsBox)
 	 */
-	function new groupbox: =
+	function box groupbox: =
 	(
 		print "------------\nControls.new()"
 		ControlBox 	= ControlBox_v groupbox:groupbox

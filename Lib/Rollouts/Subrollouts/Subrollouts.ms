@@ -18,6 +18,7 @@ struct Subrollouts_v
 	 */
 	function createSubRollouts =
 	(
+		--print "------------\nSubrollouts.createSubRollouts()"
 		if not ( this._anySubrolloutExists() ) then
 			return()
 			
@@ -46,8 +47,10 @@ struct Subrollouts_v
 	 */
 	function _setDefinition =
 	(
-		for subrollout in List do
-			definition += "\n subRollout " + subrollout.id + " \"Subrollouts\""
+		--for subrollout in List do
+			--definition += "\n subrollout " + subrollout.id + " \"Subrollouts\""
+			
+		definition = "\n subrollout subrollout_slot \"Subrollouts\""
 	),
 
 	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
@@ -74,8 +77,10 @@ struct Subrollouts_v
 		add_subrollouts = ""
 		
 		for subrollout in List do
-			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollout.id +  " " + subrollout.id
+			--add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollout.id +  " " + subrollout.id
+			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + ".subrollout_slot " + subrollout.id
 
+			
 		--format "Subrollouts_v._getAddSubrolloutString() Added subrollouts: % \n" add_subrollouts
 		execute (add_subrollouts)
 	),

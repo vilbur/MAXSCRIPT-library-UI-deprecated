@@ -12,7 +12,6 @@ if( __GLOBAL__v==undefined ) then
   *
   * Rollout dialog with subroullouts is used as "Dialog" instead of using regular [RolloutDialog](https://help.autodesk.com/view/3DSMAX/2018/ENU/?guid=__files_GUID_A72112A6_BDFB_47A6_88FB_8D49C4CBD049_htm)
   *
-  *
   */
 struct Dialog_v
 (
@@ -47,21 +46,8 @@ struct Dialog_v
 		RolloutMain.dialogCreate()
 		
 		Dialog = RolloutMain._rolloutCreator.def
-		--this --return
 	),
-	/** Set main rollout
-	 */
-	function _setMainRollout =
-	(
-		RolloutMain	= Rollout_v title:title id:id
-	),
-	/** Set shortcut to properties
-	  * Make property of RolloutMain accasible from Dialog class
-	 */
-	function _setProperty =
-	(
-		Property	= RolloutMain.Property
-	),
+
 	/** Set rollout in Dialog
 	  * UPDATE OF THIS BLOCK IS NEEDED
 	  *
@@ -80,7 +66,6 @@ struct Dialog_v
 	),
 	/** Dock\Undock sidebar to window
 	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
-	  * @return	self
 	  *
 	  * @example dock "right"	// dock dialog right
 	  * @example dock #left	// dock dialog left
@@ -96,11 +81,8 @@ struct Dialog_v
 			_dock = #cui_floatable
 		
 		cui.DockDialogBar Dialog _dock
-
-		this --return
 	),
 	/** Undock dialog
-	  * @return	self
 	 */
 	function undock =
 	(
@@ -123,7 +105,6 @@ struct Dialog_v
 		try(DestroyDialog Dialog)catch()
 	),
 	/** Set position of dialog relative 3Ds Max window
-	  * @return	self
 	 */
 	function position x y =
 	(
@@ -134,18 +115,14 @@ struct Dialog_v
 			SetDialogPos Dialog ( getMAXWindowPos() + [ x, y ] )
 		else
 			Dialog.pos = [ x, y ]
-		this --return
 	),
 	/** Set size of dialog
-	  * @return	self
 	 */
 	function size width height =
 	(
 		this.undock()
 		
 		Dialog.size = [ width, height ]
-
-		this --return
 	),
 	/** Register dialog bar
 	 */
@@ -187,7 +164,23 @@ struct Dialog_v
 	),
     
 	private
-
+	
+	/** Set main rollout
+	 */
+	function _setMainRollout =
+	(
+		RolloutMain	= Rollout_v title:title id:id
+	),
+	/** Set access shortcut to properties
+	  *
+	  * @example 
+	  * 	Dialog.property.height	512	-- THIS METHOD ALLOW USE THIS
+	  * 	Dialog.RolloutMain.property.height	512	-- INSTEAD OF THIS
+	 */
+	function _setProperty =
+	(
+		Property	= RolloutMain.Property
+	),
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
