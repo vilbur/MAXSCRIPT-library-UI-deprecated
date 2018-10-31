@@ -8,28 +8,40 @@ Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 Rollout_A	= Dialog.roll "Subrollout A"
 Rollout_B	= Dialog.roll "Subrollout B"
 
-/* CONTROLS BOX DEFINITION */
+--/* CONTROLS BOX DEFINITION */
 controls_A1 = Rollout_A.Controls.box()
 controls_B1 = Rollout_B.Controls.box()
 
 /* CONTROLS DEFINITION */
-Button_B1	= controls_B1.button "Test 1"
-Button_A1	= controls_A1.button "Test 1"
+controls_A1.button "Test 1"
 
+for i = 1 to 10 do
+	controls_B1.button ("Test "+i as string )
 
 
 /* CREATE DIALOG */
 Dialog.create()	-- create with default params
 
 
-rollout_controls_dialogtest.subrollout_slot.height = 512
 --rollout_controls_dialogtest.height = 512
 
+--rollout_controls_dialogtest.rollout_subrollout_a.height = 512
+--rollout_controls_dialogtest.rollout_subrollout_b.height = 512
+--rollout_controls_dialogtest.rollout_subrollout_b.pos += [0,100]
+
 --Dialog.RolloutMain.property.height 512
-Dialog.property.height 512
+--clearListener()
+Dialog.property.height 512	-- set property of RolloutMain
+Dialog.property.width 512
+--rollout_controls_dialogtest.subrollouts.height = 256
+--rollout_controls_dialogtest.subrollouts.width  = 256
+ 
+Rollout_A.property.height 256
+--rollout_controls_dialogtest.subrollouts.height = 256
 
 
-
+--Rollout_A.open false
+--Rollout_A.property.height 512	-- set property of RolloutMain
 
 
 

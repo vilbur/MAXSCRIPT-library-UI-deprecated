@@ -63,7 +63,7 @@ try
 	filein( current_dir + "/Lib/Rollouts/Rollouts.ms" );
 	
 	/*---------------------------------------
-		FLOATER
+		DIALOG
 	-----------------------------------------*/
 	filein( current_dir + "/Lib/Dialog/Dialog.ms" );
 	

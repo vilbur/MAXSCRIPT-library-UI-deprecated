@@ -30,19 +30,19 @@ struct Rollout_v
 	id,
 	
 	/* reference */
-	Parent_roll, -- sore parent rollout if this is subrollouts
+	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
 
 	/* properties */
 	ini, -- inherit by Dialog_v
+	subrollouts_slot = "subrollouts",
 	_rolloutCreator,
 	
  	Controls	= Controls_v	Parent_roll:this,
 	Property	= RolloutProperty_v	Parent_roll:this,
-	Subrollouts	= Subrollouts_v(),
+	Subrollouts	= Subrollouts_v slot:subrollouts_slot,
 	Layout	= Layout_v(),
 
 	private
-	
 	
 	/* options */
 
@@ -69,6 +69,7 @@ struct Rollout_v
 		this._createRollout()
 		
 		CreateDialog (_rolloutCreator.def)
+		--CreateDialog (_rolloutCreator.def) height:512
 		
 		this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
@@ -121,7 +122,9 @@ struct Rollout_v
 	 */
 	function getId =
 	(
-		if( this._isSubrollout() ) then id else Parent_roll.id + "." + id
+		--if( this._isSubrollout() ) then id else Parent_roll.id + "." + id
+		--if( this._isSubrollout() ) then Parent_roll.id + "." + id else id
+		if( this._isSubrollout() ) then Parent_roll.id + "." + subrollouts_slot else id
 	),
 	/** Open close rollout
 	 */
@@ -254,7 +257,6 @@ struct Rollout_v
 			_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
 	),
 	
-
 	/*------------------------------------------------------------------------------
 		HELPERS
 	--------------------------------------------------------------------------------*/
@@ -262,7 +264,7 @@ struct Rollout_v
 	 */
 	function _isSubrollout =
 	(
-		Parent_roll == undefined --returnf
+		Parent_roll != undefined --return
 	),
 	/*------------------------------------------------------------------------------
 		CONSTRUCT

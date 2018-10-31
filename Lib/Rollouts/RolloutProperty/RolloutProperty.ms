@@ -17,7 +17,15 @@ struct RolloutProperty_v
 	 */
 	function height height relative:false =
 	(
+		print "------------\nRolloutProperty.height()"
 		this._setProperty #height height relative
+	),
+	/** Width 
+	 */
+	function width width relative:false =
+	(
+		print "------------\nRolloutProperty.width()"
+		this._setProperty #width width relative
 	),
 	/** Pos
 	 */
@@ -43,14 +51,18 @@ struct RolloutProperty_v
 	 */
 	function _setProperty key value relative =
 	(
-		--print ("------------\nRolloutProperty._setProperty() " + key as string)
-		execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )  
+		print ("------------\nRolloutProperty._setProperty() " + key as string )
+		--format "property string = % \n" (this._getPropertyString key)
+		--format "value = % \n" (this._getValue key value relative:relative)
+
+		execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )
+		
 	),
 	/** Get property string
 	 */
 	function _getPropertyString key =
 	(
-		parent_roll.getId() + "." + key as string  --return
+		Parent_roll.getId() + "." + key as string  --return
 	),
 	/** Get value
 	 */
@@ -101,7 +113,7 @@ struct RolloutProperty_v
 	(
 		--print "------------\nRolloutProperty.create()"
 		
-		--format "parent_roll.getId()	= % \n" (parent_roll.getId())
+		--format "Parent_roll.getId()	= % \n" (Parent_roll.getId())
 		
 		_checkConstctructProperties()
 	)
