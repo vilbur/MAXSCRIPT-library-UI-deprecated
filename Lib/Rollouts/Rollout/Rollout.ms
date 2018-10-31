@@ -71,7 +71,7 @@ struct Rollout_v
 		CreateDialog (_rolloutCreator.def)
 		--CreateDialog (_rolloutCreator.def) height:512
 		
-		this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
+		--this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
 		Subrollouts.addSubRollouts id
 		--_rolloutCreator --return
@@ -88,7 +88,7 @@ struct Rollout_v
 	 */
 	function _createRollout =
 	(
-		print ("------------\nRollout._createRollout() "+id)
+		--print ("------------\nRollout._createRollout() "+id)
 		--_rolloutCreator.begin()
 		
 		--this._addControlsToRollout()

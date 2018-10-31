@@ -17,6 +17,7 @@ script_files =
 	/*---------------------------------------
 		PROPERTY
 	-----------------------------------------*/
+	--"/Lib/Property/PropertyMethods.ms",
 	"/Lib/Property/Property.ms",
 	"/Lib/Dialog/DialogProperty/DialogProperty.ms",
 
@@ -64,7 +65,7 @@ script_files =
 		ROLLOUT
 	-----------------------------------------*/
 	--,"/Lib/Rollouts/RolloutProperty/RolloutPropertySetter/RolloutPropertySetter.ms",
-	"/Lib/Rollouts/RolloutProperty/RolloutProperty.ms",
+	--"/Lib/Rollouts/RolloutProperty/RolloutProperty.ms",
 	"/Lib/Rollouts/Subrollouts/Subrollouts.ms",
 	"/Lib/Rollouts/Rollout/Rollout.ms", 
 	"/Lib/Rollouts/Rollouts.ms", 

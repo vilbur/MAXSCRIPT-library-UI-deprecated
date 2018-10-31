@@ -11,41 +11,11 @@ struct RolloutProperty_v
 	
 	property_keys	=  #(#width, #height, #pos),
 	
-	public
+	--public
 	 
-	/** Height
-	 */
-	function height height relative:false =
-	(
-		print "------------\nRolloutProperty.height()"
-		this._setProperty #height height relative
-	),
-	/** Width 
-	 */
-	function width width relative:false =
-	(
-		print "------------\nRolloutProperty.width()"
-		this._setProperty #width width relative
-	),
-	/** Pos
-	 */
-	function pos position relative:false =
-	(
-		this._setProperty #pos position relative
-	),
+	--include "Lib/Property/PropertyMethods.ms"
 	
-	/** Set properties
-	 */
-	function all width: height: pos: relative:false =
-	(
-		--print "------------\nRolloutProperty.all()" 
-		properties_values = #( width, height, pos )
-		--format " properties_values	= % \n" properties_values
-		for i = 1 to property_keys.count where properties_values[i] != unsupplied do
-			this._setProperty property_keys[i] properties_values[i] relative
-	),
-	
-	private
+	--private
 	
 	/** Set property
 	 */

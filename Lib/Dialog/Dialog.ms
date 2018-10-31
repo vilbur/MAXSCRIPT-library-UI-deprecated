@@ -23,7 +23,6 @@ struct Dialog_v
 	/* dependency */
 	RolloutMain,
 	Property,
-	Rollouts	= List_v(),
 	Menu	= Menu_v(),
 	Ini	= Ini_v(),
 	
@@ -42,7 +41,7 @@ struct Dialog_v
 	 */
 	function create width: height: pos: =
 	(
-		--RolloutMain.dialogCreate height:height width:width pos:pos
+		RolloutMain.dialogCreate height:height width:width pos:pos
 		RolloutMain.dialogCreate()
 		
 		Dialog = RolloutMain._rolloutCreator.def
@@ -60,10 +59,18 @@ struct Dialog_v
 	  */
 	function roll title id:  =
 	(
-		--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
+		_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
 		
 		RolloutMain.subrollout title id:id --return
 	),
+	
+	/** Get Rollouts of main roll
+	 */
+	function rollouts =
+	(
+		RolloutMain.Subrollouts.Rollouts --return
+	),
+	
 	/** Dock\Undock sidebar to window
 	  * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
 	  *
@@ -90,7 +97,8 @@ struct Dialog_v
 		--format " _isRegistered()	= % \n" (this._isRegistered())
 		--format " _isDocked()	= % \n" (this._isDocked())
 		if ( this._isRegistered() and this._isDocked() ) then 
-		this.dock "undock" --return
+			this.dock "undock" --return
+		
 		--format " cui.getDockState Dialog	= % \n" (cui.getDockState Dialog)
 		
 		--this.unregister()
@@ -191,16 +199,16 @@ struct Dialog_v
 		--id	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"[^a-zA-Z0-9-_]" ).Replace id ""
 		__GLOBAL__v.Dialog = this
 	),
-	/** _open close rollouts
-	 */
-	function _openCloseRollouts =
-	(
-		for _rollout_id in Rollouts.keys do
-		(
-			_Rollout	= Rollouts.getVal _rollout_id
-			_Rollout.open ( Ini.load _Rollout.id #open default:true )
-		)
-	),
+	--/** _open close rollouts
+	-- */
+	--function _openCloseRollouts =
+	--(
+	--	for _rollout_id in Rollouts.keys do
+	--	(
+	--		_Rollout	= Rollouts.getVal _rollout_id
+	--		_Rollout.open ( Ini.load _Rollout.id #open default:true )
+	--	)
+	--),
 	
 	/** Set default path to ini file
 	  *

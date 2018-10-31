@@ -3,85 +3,52 @@
 struct Property_v
 (
 	__construct = #( #id ),
-	
+
 	/* reference */
-	--Parent_roll,
 	/* required */
 	id, -- id of element to set property
 	/* dependency */
-	/* properties */	
-	
+	/* properties */
+
 	private
-	
+
 	property_keys	=  #(#width, #height, #pos),
-	
+
 	public
-	 
-	/** Height
-	 */
-	function height height relative:false =
-	(
-		print "------------\nRolloutProperty.height()"
-		this._setProperty #height height relative
-	),
-	/** Width 
-	 */
-	function width width relative:false =
-	(
-		print "------------\nRolloutProperty.width()"
-		this._setProperty #width width relative
-	),
-	/** Pos
-	 */
-	function pos position relative:false =
-	(
-		this._setProperty #pos position relative
-	),
-	
-	/** Set properties
-	 */
-	function all width: height: pos: relative:false =
-	(
-		--print "------------\nRolloutProperty.all()" 
-		properties_values = #( width, height, pos )
-		--format " properties_values	= % \n" properties_values
-		for i = 1 to property_keys.count where properties_values[i] != unsupplied do
-			this._setProperty property_keys[i] properties_values[i] relative
-	),
-	
+
 	/** Set property
 	 */
-	function _setProperty key value relative =
+	function setProp property value relative =
 	(
-		print ("------------\nRolloutProperty._setProperty() " + key as string )
+		print ("------------\nProperty.setProp() " + property as string )
 
-		execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )
+		execute ( this._getPropertyString property + " = " + this._getValue property value relative:relative  )
 	),
 
 	private
-	
+
 	/** Get value
 	 */
-	function _getValue key value relative:false =
+	function _getValue property value relative:false =
 	(
 		if( relative ) then 
-			value += this._getProperty key
-		
+			value += this._getProperty property
+
 		value as string --return
 	),
-	
+
 	/** Get property
 	 */
-	function _getProperty key =
+	function _getProperty property =
 	(
-		execute ( this._getPropertyString key ) --return
+		execute ( this._getPropertyString property ) --return
 	),
-	
+
 	/** Get property string
 	 */
-	function _getPropertyString key =
+	function _getPropertyString property =
 	(
-		id + "." + key as string  --return
+		id + "." + property as string  --return
 	),
 
 	/** Check if required properties are defined
@@ -95,12 +62,11 @@ struct Property_v
 	),
 	on create do
 	(
-		--print "------------\nRolloutProperty.create()"
-		
+		--print "------------\nProperty.create()"
+
 		--format "Parent_roll.getId()	= % \n" (Parent_roll.getId())
-		
+
 		this._checkConstctructProperties()
 	)
-	
-	
+
 )

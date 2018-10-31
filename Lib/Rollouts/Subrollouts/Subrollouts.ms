@@ -1,4 +1,4 @@
-/** Create List
+/** Create Rollouts
   *
   */
 struct Subrollouts_v
@@ -13,13 +13,15 @@ struct Subrollouts_v
 	/* properties */
 	definition = "", -- used in "rolloutCreator.addText( definition )"
 	
-	List	= #(),
+	Rollouts	= #(),
 	
 	/** Add
 	 */
 	function add _subrollout =
 	(
-		append List _subrollout  
+		--format "Rollouts = % \n" Rollouts
+		--format "classof Rollouts = % \n" (classof Rollouts)
+		append Rollouts _subrollout  
 	),
 	
 	/** Create Subrollouts and generate definition
@@ -30,7 +32,7 @@ struct Subrollouts_v
 		if not ( this._anySubrolloutExists() ) then
 			return()
 			
-		for _rollout in List do
+		for _rollout in Rollouts do
 			_rollout._createRollout()
 		
 		this._setDefinition()
@@ -55,7 +57,7 @@ struct Subrollouts_v
 	 */
 	function _setDefinition =
 	(
-		--for subrollout in List do
+		--for subrollout in Rollouts do
 			--definition += "\n subrollout " + subrollout.id + " \"Subrollouts\""s
 			
 		definition = "\n subrollout " + slot + " \"Subrollouts\""
@@ -85,7 +87,7 @@ struct Subrollouts_v
 			
 		add_subrollouts = ""
 		
-		for subrollout in List do
+		for subrollout in Rollouts do
 			--add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollout.id +  " " + subrollout.id
 			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
 
@@ -100,7 +102,7 @@ struct Subrollouts_v
 	 */
 	function _anySubrolloutExists =
 	(
-		List.count > 0 --return
+		Rollouts.count > 0 --return
 	),
 
 	/*------------------------------------------------------------------------------
