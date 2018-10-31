@@ -1,6 +1,7 @@
 /** Include all files needed 
  */
-script_files = #(
+script_files =
+#(
 	
 	/*---------------------------------------
 		VENDOR
@@ -75,31 +76,45 @@ script_files = #(
 )
 
 
-current_dir = getFilenamePath(getSourceFileName())
 
-/*---------------------------------------
-	SET INCLUDE PATH TO CURRENT DIRECTORY
------------------------------------------*/
-userscripts_path_default = getDir #userscripts 	-- save $userscripts path
-SetDir #userscripts (getFilenamePath(getSourceFileName()))	-- set current dir as $userscripts path for including
-
-
-for i = 1 to script_files.count do
+/** Set user scripts path
+ */
+function setUserScriptsPath path =
 (
-	filein_path = current_dir + script_files[i]
-	
-	try
+	SetDir #userscripts path
+)
+/** File in script files
+ */
+function fileInScriptFiles path_root =
+(
+	for i = 1 to script_files.count do
 	(
-		filein(filein_path)
+		filein_path = path_root + script_files[i]
 		
-		SetDir #userscripts userscripts_path_default -- revert default path back
-	)
-	catch
-	(
-		format "\n************ EXCEPTION ************\nFile: %\n%\n***********************************\n" filein_path (getCurrentException())
-	
-		SetDir #userscripts userscripts_path_default -- revert default path back
+		try
+		(
+			filein(filein_path)
+			
+		)
+		catch
+		(
+			format "\n************ EXCEPTION ************\nFile: %\n%\n***********************************\n" filein_path (getCurrentException())
+			--SetDir #userscripts userscripts_path_default -- revert default path back
+		)
 	)
 )
-	
-format "getDir #userscripts = % \n" (getDir #userscripts)
+
+
+
+
+/* GET PATHS */
+userscripts_path_default	= getDir #userscripts 	-- save $userscripts path
+current_dir	= getFilenamePath(getSourceFileName())
+
+/* FILE IN FILES */
+setUserScriptsPath	current_dir -- set current dir as $userscripts path for including
+
+fileInScriptFiles	current_dir
+
+setUserScriptsPath	userscripts_path_default -- revert default path back
+
