@@ -115,7 +115,7 @@ struct RolloutProperty_v
 		
 		--format "Parent_roll.getId()	= % \n" (Parent_roll.getId())
 		
-		_checkConstctructProperties()
+		this._checkConstctructProperties()
 	)
 	
 	

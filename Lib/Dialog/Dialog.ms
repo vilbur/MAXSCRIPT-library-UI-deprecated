@@ -180,7 +180,7 @@ struct Dialog_v
 	function _setProperty =
 	(
 		--Property	= RolloutMain.Property
-		Property	= DialogProperty_v id:RolloutMain.id
+		Property	= DialogProperty_v id:RolloutMain.id subrollouts_slot:RolloutMain.subrollouts_slot
 	),
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
@@ -248,7 +248,7 @@ struct Dialog_v
 	),
 	on create do
 	(
-		_checkConstctructProperties()
+		this._checkConstctructProperties()
 		
 		this._setMainRollout()
 		

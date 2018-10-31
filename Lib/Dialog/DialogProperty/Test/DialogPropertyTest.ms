@@ -1,6 +1,6 @@
 clearListener();
 
-filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
 --filein( "c:\\GoogleDrive\\Programs\\CG\\3DsMax\\scripts\\Library\\_UI\\includes.ms" )
 
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
@@ -16,7 +16,7 @@ controls_B1 = Rollout_B.Controls.box()
 /* CONTROLS DEFINITION */
 controls_A1.button "Test 1"
 
-for i = 1 to 10 do
+for i = 1 to 5 do
 	controls_B1.button ("Test "+i as string )
 
 
@@ -25,7 +25,7 @@ Dialog.create()	-- create with default params
 
 
 
-Dialog.Property.height 256
+Dialog.Property.height 320
 
 
 

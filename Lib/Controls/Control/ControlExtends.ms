@@ -236,7 +236,7 @@
 	(
 		this._setType()
 		
-		_checkConstctructProperties()
+		this._checkConstctructProperties()
 		
 		this._setCaption()
 		

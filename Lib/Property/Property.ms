@@ -49,19 +49,17 @@ struct Property_v
 			this._setProperty property_keys[i] properties_values[i] relative
 	),
 	
-	private
-	
 	/** Set property
 	 */
 	function _setProperty key value relative =
 	(
 		print ("------------\nRolloutProperty._setProperty() " + key as string )
-		--format "property string = % \n" (this._getPropertyString key)
-		--format "value = % \n" (this._getValue key value relative:relative)
 
 		execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )
 	),
 
+	private
+	
 	/** Get value
 	 */
 	function _getValue key value relative:false =
@@ -83,29 +81,9 @@ struct Property_v
 	 */
 	function _getPropertyString key =
 	(
-		--Parent_roll.getId() + "." + key as string  --return
 		id + "." + key as string  --return
 	),
-	/** Get\set value of property 
-	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
-	  * @param	string|#get value	Value of property
-	  *
-	  * @return	string|self Value or self
-	  *
-	  * @example this._getSetProp "foo" "bar" -- SET "bar" to property "foo"
-	  * @example this._getSetProp #foo  #get  -- GET value of property "foo"
-	  */
-	--function _getSetProp key value =
-	--(
-	--	if( value != #get ) then
-	--	(
-	--		if( value != undefined ) then
-	--			setProperty  this ( key as string ) value
-	--		this --return
-	--	) else
-	--		getProperty this ( key as string ) --return
-	--),
-	
+
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
 	  * @param	construct_properties this.properties required for initialization of struct
@@ -121,7 +99,7 @@ struct Property_v
 		
 		--format "Parent_roll.getId()	= % \n" (Parent_roll.getId())
 		
-		_checkConstctructProperties()
+		this._checkConstctructProperties()
 	)
 	
 	

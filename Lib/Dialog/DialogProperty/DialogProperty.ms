@@ -2,13 +2,16 @@
  */
 struct DialogProperty_v
 (
-	__construct = #( #id ),
+	__construct = #( #id, #subrollouts_slot ),
 	
 	/* reference */
 	--Parent_roll,
 	/* required */
-	id, -- id of element to set property
+	id,	-- id of element to set property
+	subrollouts_slot,	-- inherit by Rollout_v.subrollouts_slot
 	/* dependency */
+	Property_Dialog,
+	Property_RollMain,
 	/* properties */	
 	
 	private
@@ -21,15 +24,18 @@ struct DialogProperty_v
 	 */
 	function height height relative:false =
 	(
-		print "------------\nRolloutProperty.height()"
-		this._setProperty #height height relative
+		print "------------\nDialogProperty.height()"
+		--this._setProperty #height height relative
+		Property_Dialog._setProperty	#height height relative
+		Property_RollMain._setProperty	#height height relative
+		
 	),
 	/** Width 
 	 */
 	function width width relative:false =
 	(
-		print "------------\nRolloutProperty.width()"
-		this._setProperty #width width relative
+		print "------------\nDialogProperty.width()"
+		--this._setProperty #width width relative
 	),
 	/** Pos
 	 */
@@ -42,7 +48,7 @@ struct DialogProperty_v
 	 */
 	function all width: height: pos: relative:false =
 	(
-		--print "------------\nRolloutProperty.all()" 
+		--print "------------\nDialogProperty.all()" 
 		properties_values = #( width, height, pos )
 		--format " properties_values	= % \n" properties_values
 		for i = 1 to property_keys.count where properties_values[i] != unsupplied do
@@ -50,37 +56,52 @@ struct DialogProperty_v
 	),
 	private
 	
-	/** Set property
+	--/** Set property
+	-- */
+	--function _setProperty key value relative =
+	--(
+	--	print ("------------\nDialogProperty._setProperty() " + key as string )
+	--	--format "property string = % \n" (this._getPropertyString key)
+	--	--format "value = % \n" (this._getValue key value relative:relative)
+	--	--format "this._getMainRollPropertyString key = % \n" (this._getMainRollPropertyString key)
+	--	execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )
+	--	execute ( this._getMainRollPropertyString key + " = " + this._getValue key value relative:relative  )
+	--	
+	--),
+	--/** Get property string
+	-- */
+	--function _getPropertyString key =
+	--(
+	--	id + "." + key as string  --return
+	--),
+	--/** Get property string
+	-- */
+	--function _getMainRollPropertyString key =
+	--(
+	--	id + ".subrollouts." + key as string  --return
+	--),
+	--/** Get value
+	-- */
+	--function _getValue key value relative:false =
+	--(
+	--	if( relative ) then 
+	--		value += this._getProperty key
+	--	
+	--	value as string --return
+	--),
+	--/** Get property
+	-- */
+	--function _getProperty key =
+	--(
+	--	execute ( this._getPropertyString key ) --return
+	--),
+	
+	/** _set property
 	 */
-	function _setProperty key value relative =
+	function _setProperty =
 	(
-		print ("------------\nRolloutProperty._setProperty() " + key as string )
-		--format "property string = % \n" (this._getPropertyString key)
-		--format "value = % \n" (this._getValue key value relative:relative)
-
-		execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )
-		
-	),
-	/** Get property string
-	 */
-	function _getPropertyString key =
-	(
-		id + "." + key as string  --return
-	),
-	/** Get value
-	 */
-	function _getValue key value relative:false =
-	(
-		if( relative ) then 
-			value += this._getProperty key
-		
-		value as string --return
-	),
-	/** Get property
-	 */
-	function _getProperty key =
-	(
-		execute ( this._getPropertyString key ) --return
+		Property_Dialog	= Property_v id:id
+		Property_RollMain	= Property_v id:(id + "." + subrollouts_slot)
 	),
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
@@ -93,11 +114,14 @@ struct DialogProperty_v
 	),
 	on create do
 	(
-		--print "------------\nRolloutProperty.create()"
+		--print "------------\nDialogProperty.create()"
 		
 		--format "Parent_roll.getId()	= % \n" (Parent_roll.getId())
 		
-		_checkConstctructProperties()
+		this._checkConstctructProperties()
+		
+		this._setProperty()
+		
 	)
 	
 	

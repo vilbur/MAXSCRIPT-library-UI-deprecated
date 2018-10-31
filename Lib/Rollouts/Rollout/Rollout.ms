@@ -283,7 +283,7 @@ struct Rollout_v
 	on create do
 	(
 		--print "------------\nRollout.on create ()"
-		_checkConstctructProperties()
+		this._checkConstctructProperties()
 		
 		this._setId()
 

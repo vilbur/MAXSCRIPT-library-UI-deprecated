@@ -67,7 +67,7 @@ struct RolloutPropertySetter_v
 	 */
 	on create do
 	(
-		_checkConstctructProperties()
+		this._checkConstctructProperties()
 	)
 	
 	
