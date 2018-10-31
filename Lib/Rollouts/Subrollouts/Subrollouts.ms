@@ -35,7 +35,7 @@ struct Subrollouts_v
 		for _rollout in Rollouts do
 			_rollout._createRollout()
 		
-		this._setDefinition()
+		--this._setDefinition()
 		
 		--if( height==undefined ) then
 			--height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
@@ -55,13 +55,13 @@ struct Subrollouts_v
 	  *
 	  * @return	string|undefined If any subrollout is defined, otherwise undefined
 	 */
-	function _setDefinition =
-	(
-		--for subrollout in Rollouts do
-			--definition += "\n subrollout " + subrollout.id + " \"Subrollouts\""s
-			
-		definition = "\n subrollout " + slot + " \"Subrollouts\""
-	),
+	--function _setDefinition =
+	--(
+	--	--for subrollout in Rollouts do
+	--		--definition += "\n subrollout " + subrollout.id + " \"Subrollouts\""s
+	--		
+	--	definition = "\n subrollout " + slot + " \"Subrollouts\""
+	--),
 
 	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
 	  *

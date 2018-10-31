@@ -94,7 +94,8 @@ struct Rollout_v
 		--this._addControlsToRollout()
 		this.Controls._addControlsToRollout()
 		
-		this._createSubrollouts()
+		--this._createSubrollouts()
+		Subrollouts.createSubRollouts()
 
 		this._addEventHandlers()
 
@@ -230,15 +231,15 @@ struct Rollout_v
 	--	--for Controls in Controls do
 	--		--Controls._addControlsToRollout()
 	--),
-	/** _create subrollouts
-	 */
-	function _createSubrollouts =
-	(
-		Subrollouts.createSubRollouts()
-
-		if( Subrollouts.definition != "" ) then
-			_rolloutCreator.addText ( Subrollouts.definition  )
-	),
+	--/** _create subrollouts
+	-- */
+	--function _createSubrollouts =
+	--(
+	--	Subrollouts.createSubRollouts()
+	--
+	--	--if( Subrollouts.definition != "" ) then
+	--		--_rolloutCreator.addText ( Subrollouts.definition  )
+	--),
 	/*------------------------------------------------------------------------------
 		EVENTS
 	--------------------------------------------------------------------------------*/

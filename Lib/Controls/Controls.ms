@@ -19,7 +19,7 @@ struct Controls_v
 	 */
 	function box groupbox: =
 	(
-		print "------------\nControls.box()"
+		--print "------------\nControls.box()"
 		ControlBox 	= ControlBox_v groupbox:groupbox
 		--format " ControlBox	= % \n" ControlBox
 		append ControlBoxes ControlBox
@@ -47,17 +47,28 @@ struct Controls_v
 		--print "------------\nControls._addControls()"
 		--format "controls = % \n" controls
 		for Control in controls do
-			this._addControl Control
+			if( Control.type != #rollout ) then 
+				this._addControl Control
+			else
+				this._addRollout Control
+			
 	),
 	/** Add each control to rollout
 	  * @param	[Control_v]	controls	Array of Control_v
 	 */
 	function _addControl Control =
 	(
-		--print "------------\nControls._addControl()"
-		--format "Control = % \n" Control
 		Parent_roll._rolloutCreator.addControl Control.type Control.id Control.caption
 	),
+	/** _add rollout
+	 */
+	function _addRollout _rollout =
+	(
+		print "------------\nControls._addRollout()"
+		Parent_roll._rolloutCreator.addText "subrollout subrollouts \"Subrollouts\""
+		
+	),
+	
 	--/** Get Controls for rollout
 	--  * @param	string	[groupbox]	Title of group box
 	--  * @return [Controls](../../Controls)

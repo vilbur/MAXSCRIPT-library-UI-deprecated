@@ -27,7 +27,13 @@ struct ControlBox_v
 		CONTROLS TYPES
 	
 	-----------------------------------------*/
-	
+	/** Add RolloutControl
+	 */
+	function RolloutControl caption id: add:true =
+	(
+		--print "------------\nControlBox.button()"
+		this.newControl (Button_RolloutControl_test caption:caption ) id:id add:add
+	),	
 	/** Add Button
 	 */
 	function button caption id: add:true =

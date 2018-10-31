@@ -21,7 +21,7 @@ struct DialogProperty_v
 	 */
 	function _callProperty property value relative =
 	(
-		print ("------------\nDialogProperty._callProperty #" + property as string)
+		--print ("------------\nDialogProperty._callProperty #" + property as string)
 		Property_Dialog.setProp	property value relative 
 		Property_RollMain.setProp	property value relative 
 	),

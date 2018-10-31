@@ -20,8 +20,7 @@ struct Property_v
 	 */
 	function setProp property value relative =
 	(
-		print ("------------\nProperty.setProp() " + property as string )
-
+		--print ("------------\nProperty.setProp() " + property as string )
 		execute ( this._getPropertyString property + " = " + this._getValue property value relative:relative  )
 	),
 
@@ -41,7 +40,7 @@ struct Property_v
 	 */
 	function _getProperty property =
 	(
-		execute ( this._getPropertyString property ) --return
+		execute ( this._getPropertyString property ) --returns
 	),
 
 	/** Get property string

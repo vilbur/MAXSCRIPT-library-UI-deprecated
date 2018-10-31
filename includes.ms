@@ -50,6 +50,7 @@ script_files =
 	"/Lib/Controls/Control/Props/Props.ms", 
 	
 	
+	"/Lib/Controls/Control/ControlTypes/RolloutControl/RolloutControl.ms",
 	"/Lib/Controls/Control/ControlTypes/Checkbox/Checkbox.ms",
 	"/Lib/Controls/Control/ControlTypes/Button/Button.ms",
 	"/Lib/Controls/Control/ControlTypes/EditText/EditText.ms",
@@ -68,7 +69,7 @@ script_files =
 	--"/Lib/Rollouts/RolloutProperty/RolloutProperty.ms",
 	"/Lib/Rollouts/Subrollouts/Subrollouts.ms",
 	"/Lib/Rollouts/Rollout/Rollout.ms", 
-	"/Lib/Rollouts/Rollouts.ms", 
+	--"/Lib/Rollouts/Rollouts.ms", 
 	
 	/*---------------------------------------
 		DIALOG
