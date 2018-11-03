@@ -1,3 +1,7 @@
+clearListener()
+
+format "inlcude files in % \n##########################################################################\n" "C:\GoogleDrive\Programs\CG\3DsMax\scripts\Library\_UI\includes.ms"
+
 /** Include all files needed 
  */
 script_files =
@@ -91,7 +95,7 @@ function fileInScriptFiles path_root =
 (
 	for i = 1 to script_files.count do
 	(
-		filein_path = path_root + script_files[i]
+		filein_path = ( dotNetObject "System.Text.RegularExpressions.Regex" "[\\\/]+" ).Replace (path_root + script_files[i]) "\\" -- escaoe full path to script file
 		
 		try
 		(
@@ -100,14 +104,11 @@ function fileInScriptFiles path_root =
 		)
 		catch
 		(
-			format "\n************ EXCEPTION ************\nFile: %\n%\n***********************************\n" filein_path (getCurrentException())
+			format "\n**************** EXCEPTION File: % ****************\n\n%\n\n**************************************************************************************************************************************\n" filein_path (getCurrentException())
 			--SetDir #userscripts userscripts_path_default -- revert default path back
 		)
 	)
 )
-
-
-
 
 /* GET PATHS */
 userscripts_path_default	= getDir #userscripts 	-- save $userscripts path

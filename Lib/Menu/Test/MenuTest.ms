@@ -1,6 +1,6 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../MenuItem.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/../Menu.ms" );
-clearListener();
+
 
 /** CREATE MENU 
  */

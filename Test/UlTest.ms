@@ -1,6 +1,6 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../UI.ms" );
 
-clearListener();
+
 
 --function UIRollTest =
 --(

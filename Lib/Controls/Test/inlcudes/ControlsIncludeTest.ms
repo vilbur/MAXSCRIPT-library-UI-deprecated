@@ -1,4 +1,4 @@
-clearListener()
+
 
 filein ( getFilenamePath(getSourceFileName()) + "/../../../Rollouts/Rollout/Test/includes/RolloutIncludeTest.ms" )
 print "------------\nInclude	ControlsIncludeTest.ms"

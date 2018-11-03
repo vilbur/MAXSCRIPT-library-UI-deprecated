@@ -1,6 +1,6 @@
 /**  Define controls in ControlBox_v and add them to Rollout
  */
-clearListener();
+
 
 filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
 

@@ -1,7 +1,7 @@
 
 /** Button
  */
-struct Button_RolloutControl_test 
+struct RolloutControl_v
 (
 	include "Lib/Controls/Control/ControlExtends.ms"
 	

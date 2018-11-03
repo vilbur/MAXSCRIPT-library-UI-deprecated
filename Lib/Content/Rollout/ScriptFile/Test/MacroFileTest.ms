@@ -3,7 +3,7 @@
 
 filein ( getFilenamePath(getSourceFileName()) + "/../MacroFile.ms" );
 filein ( getFilenamePath(getSourceFileName()) + "/../Macro/Macro.ms" );
-clearListener()
+
 
 
 macro_file =getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr";

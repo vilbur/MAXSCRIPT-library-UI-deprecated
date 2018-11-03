@@ -1,4 +1,4 @@
-clearListener();
+
 
 filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
 --filein( "c:\\GoogleDrive\\Programs\\CG\\3DsMax\\scripts\\Library\\_UI\\includes.ms" )
@@ -41,7 +41,7 @@ try
 	--rollout_controls_dialogtest.rollout_subrollout_b.pos += [0,100]
 	
 	--Dialog.RolloutMain.property.height 512
-	--clearListener()
+	--
 	--Dialog.property.height 512	-- set property of RolloutMain
 	--Dialog.property.width 512
 	--rollout_controls_dialogtest.subrollouts.height = 256

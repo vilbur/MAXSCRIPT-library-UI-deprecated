@@ -1,7 +1,7 @@
 
 filein ( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
 
-clearListener();
+
 
 
 /** DEFINE FLOATER  */

@@ -1,6 +1,6 @@
 filein ( getFilenamePath(getSourceFileName()) + "/../List.ms" );
 
-clearListener()
+
 
 
 -- create a list

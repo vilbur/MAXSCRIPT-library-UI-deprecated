@@ -2,8 +2,6 @@
  *	
  */
 
-clearListener();
-
 filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
 
 /* ROLLOUT DEFINITION */

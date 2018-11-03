@@ -34,8 +34,8 @@ struct Controls_v
 	 */ 
 	function _addControlsToRollout =
 	(
-		--print "------------\nControls._addControlsToRollout()"
-		--format " ControlBoxes	= % \n" ControlBoxes
+		print "------------\nControls._addControlsToRollout()"
+		format " ControlBoxes	= % \n" ControlBoxes
 		for ControlBox in ControlBoxes do
 			this._addControls ControlBox.controls
 	),
@@ -44,13 +44,13 @@ struct Controls_v
 	 */
 	function _addControls controls =
 	(
-		--print "------------\nControls._addControls()"
-		--format "controls = % \n" controls
+		print "------------\nControls._addControls()"
+		format "controls = % \n" controls
 		for Control in controls do
-			if( Control.type != #rollout ) then 
+			if( Control.type != #rolloutcontrol ) then 
 				this._addControl Control
-			else
-				this._addRollout Control
+			--else
+				--this._addRollout Control
 			
 	),
 	/** Add each control to rollout

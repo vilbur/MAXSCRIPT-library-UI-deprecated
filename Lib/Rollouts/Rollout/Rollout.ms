@@ -38,7 +38,7 @@ struct Rollout_v
 	_rolloutCreator,
 	
  	Controls	= Controls_v	Parent_roll:this,
-	Property	= RolloutProperty_v	Parent_roll:this,
+	--Property	= RolloutProperty_v	Parent_roll:this,
 	Subrollouts	= Subrollouts_v slot:subrollouts_slot,
 	Layout	= Layout_v(),
 
@@ -73,22 +73,15 @@ struct Rollout_v
 		
 		--this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
-		Subrollouts.addSubRollouts id
+		--Subrollouts.addSubRollouts id
 		--_rolloutCreator --return
 	),
-	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
-	 */
-	function _setRolloutCreator =
-	(
-		_rolloutCreator = rolloutCreator id title
-		
-		_rolloutCreator.begin()
-	),
+
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
 	 */
 	function _createRollout =
 	(
-		--print ("------------\nRollout._createRollout() "+id)
+		print ("------------\nRollout._createRollout() "+id)
 		--_rolloutCreator.begin()
 		
 		--this._addControlsToRollout()
@@ -103,6 +96,8 @@ struct Rollout_v
 
 		--print ("------------\nRollout._createRollout() rollout " + id + " created")
 		_rolloutCreator.end()
+		--format "_rolloutCreator.def = % \n" _rolloutCreator.def
+		
 	),
 	/** Subrollout
 	  * @return	object new instance of this
@@ -184,7 +179,14 @@ struct Rollout_v
 	--),
 	
 	private
-	
+	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
+	 */
+	function _setRolloutCreator =
+	(
+		_rolloutCreator = rolloutCreator id title
+		
+		_rolloutCreator.begin()
+	),
 	/*---------------------------------------
 		ROLLOUT NEW
 	-----------------------------------------*/

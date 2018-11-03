@@ -19,8 +19,10 @@ struct Subrollouts_v
 	 */
 	function add _subrollout =
 	(
-		--format "Rollouts = % \n" Rollouts
-		--format "classof Rollouts = % \n" (classof Rollouts)
+		print "------------\nSubrollouts.add()"
+		format "_subrollout = % \n" _subrollout
+		format "Rollouts = % \n" Rollouts
+		format "classof Rollouts = % \n" (classof Rollouts)
 		append Rollouts _subrollout  
 	),
 	
@@ -35,7 +37,7 @@ struct Subrollouts_v
 		for _rollout in Rollouts do
 			_rollout._createRollout()
 		
-		--this._setDefinition()
+		this._setDefinition()
 		
 		--if( height==undefined ) then
 			--height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
@@ -77,8 +79,8 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts parrent_rollout_id =
 	(
-		--print "------------\nSubrollouts.addSubRollouts()"
-		--format " this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
+		print "------------\nSubrollouts.addSubRollouts()"
+		format " this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
 		if not ( this._anySubrolloutExists() ) then
 			return()
 
@@ -92,7 +94,7 @@ struct Subrollouts_v
 			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
 
 			
-		--format "Subrollouts_v._getAddSubrolloutString() Added subrollouts: % \n" add_subrollouts
+		format "\n-----------\nSubrollouts_v._getAddSubrolloutString()\n ADDED SUBROLLOUTS: %\n\n" add_subrollouts
 		execute (add_subrollouts)
 	),
 	
