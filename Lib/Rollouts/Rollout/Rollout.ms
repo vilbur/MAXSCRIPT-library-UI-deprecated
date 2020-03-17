@@ -1,8 +1,8 @@
 /** Create Rollout
-  * Rollout has generated global variable by id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
+  * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
   *
   * @property	string	title	Title of rollout
-  * @property	string	id	Id of rollout, if not defined then sanitized title is used E.G.: title="Foo Rollout" >>> id="foo_rollout"
+  * @property	string	id	Id of rollout, if not defined then sanitized title is used E.G.: title="Foo Roll" >>> id="fooroll"
   * @property	int	height	Height of rollout
   *
   *
@@ -10,7 +10,6 @@
   *
   * @method	void	onOpen(  @param	string	callback[, @param	string	tooltip] )	
   * @method	void	onClose( @param	string	callback[, @param	string	tooltip] )	
-  *
   *
   * -------------------------------------------------------------------------------------
   * Class structure:
@@ -34,28 +33,31 @@ struct Rollout_v
 
 	/* properties */
 	ini, -- inherit by Dialog_v
-	subrollouts_slot = "subrollouts",
+	subrollouts_slot = "subrollouts_slot",
 	_rolloutCreator,
 	
- 	Controls	= Controls_v	Parent_roll:this,
+ 	--Controls	= Controls_v	Parent_roll:this,
 	--Property	= RolloutProperty_v	Parent_roll:this,
 	Subrollouts	= Subrollouts_v slot:subrollouts_slot,
-	Layout	= Layout_v(),
+	--Layout	= Layout_v(),
+	
+	--_Containers	= Containers_v(),
+	definition = "", -- used in "rolloutCreator.addText( definition )"
 
 	private
 	
 	/* options */
 
 	/* lists */
-	RolloutEvent	= RolloutEvent_v parent_control:this,
-	
-	_controls_ids	= #(),	-- store ids of added controls in rollout
+	--RolloutEvent	= RolloutEvent_v parent_control:this,
+
+	_controls_ids = #(),	-- store ids of added controls in rollout
 	
 	type	= #rollout, -- reference for this.RolloutEvent._bindDefaultEvent()
 
 	/*------ EXTENDED METHODS ------*/
-	onOpen	= RolloutEvent.onOpen,
-	onClose	= RolloutEvent.onClose,
+	--onOpen	= RolloutEvent.onOpen,
+	--onClose	= RolloutEvent.onClose,
 
 	public	
 
@@ -65,11 +67,11 @@ struct Rollout_v
 	 */
     function dialogCreate width: height: pos: =
 	(
-		--print "------------\nRollout.dialogCreate()"
+		format "------------\nRollout_v.dialogCreate()"
 		this._createRollout()
 		
-		CreateDialog (_rolloutCreator.def)
-		--CreateDialog (_rolloutCreator.def) height:512
+		--CreateDialog (_rolloutCreator.def)
+		CreateDialog (_rolloutCreator.def) height:height
 		
 		--this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
@@ -77,41 +79,43 @@ struct Rollout_v
 		--_rolloutCreator --return
 	),
 
-	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
-	 */
-	function _createRollout =
-	(
-		print ("------------\nRollout._createRollout() "+id)
-		--_rolloutCreator.begin()
-		
-		--this._addControlsToRollout()
-		this.Controls._addControlsToRollout()
-		
-		--this._createSubrollouts()
-		Subrollouts.createSubRollouts()
-
-		this._addEventHandlers()
-
-		this._addSaveIniFunction()
-
-		--print ("------------\nRollout._createRollout() rollout " + id + " created")
-		_rolloutCreator.end()
-		--format "_rolloutCreator.def = % \n" _rolloutCreator.def
-		
-	),
-	/** Subrollout
-	  * @return	object new instance of this
+	/** Add subrollout
+	  *
+	  * @return	object new instance of Rollout_v
 	 */
 	function subrollout title id: =
 	(
-		--print "------------\nRollout.subrollout()"
+		--print "------------\nRollout_v.subrollout()"
 		_subrollout = Rollout_v title:title id:id Parent_roll:this
 		
 		Subrollouts.add _subrollout
 		--format " _subrollout.id	= % \n" _subrollout.id
 		_subrollout --return 
 	),
-
+	
+	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
+	  * Used for creation of subrollout
+	 */
+	function _createRollout =
+	(
+		format "\n------------\n%._createRollout()" id
+		
+		--this.Controls._addControlsToRollout()
+		
+		Subrollouts.createSubRollouts()
+		--this.createSubRollouts()
+		
+		if( Subrollouts.definition != "" ) then 
+			_rolloutCreator.addText( Subrollouts.definition )
+			
+		--this._addEventHandlers()
+	
+		--this._addSaveIniFunction()
+	
+		--print ("------------\nRollout_v._createRollout() rollout " + id + " created")
+		_rolloutCreator.end()
+		--format "_rolloutCreator.def = % \n" _rolloutCreator.def
+	),
 	/** Get id of rollout or get full id with parent rollout if subrullout
 	  *
 	  * @return	string	"rollout_id|parent_rollout_id.rollout_id"
@@ -143,40 +147,6 @@ struct Rollout_v
 		try( execute("cui.UnRegisterDialogBar " +id) )catch()
 		try( execute("DestroyDialog "           +id) )catch()
 	),
-	/*---------------------------------------
-		CONTROLS 
-	-----------------------------------------*/
-	--/** Get Controls for rollout
-	--  * @param	string	[groupbox]	Title of group box
-	--  * @return [Controls](../../Controls)
-	-- */
-	--function controls groupbox:undefined =
-	--(
-	--	--print "------------\nRollout.controls()"
-	--	Controls_new 	= Controls_v Parent_roll:this groupbox:groupbox
-	--	--format " Controls_new	= % \n" Controls_new
-	--	append this.Controls Controls_new
-	--
-	--	Controls_new --return
-	--),
-	--/** Add control id to array controls
-	-- */
-	--function addControl Control =
-	--(
-	--	print "------------\nRollout.addControl()"
-	--	appendIfUnique _controls_ids Control.id.id
-	--	--format " _controls_ids	= % \n" _controls_ids
-	--),
-	--/** Has control
-	-- */
-	--function hasControl id =
-	--(
-	--	--print "------------\nRollout.hasControl()"
-	--	has_control = findItem _controls_ids id > 0
-	--	--format " id	= % \n has_control	= % \n\n" id has_control
-	--	has_control --return
-	--	--findItem _controls_ids id > 0 --return
-	--),
 	
 	private
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
@@ -205,7 +175,7 @@ struct Rollout_v
 	),
 
 	/** Declare rollout global variable
-	  * Global variable is id with prefix "rollout" E.G.: "foo_rollout" >>> "rollout_foo_rollout"
+	  * Global variable is id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
 	  *
 	  * Declared as undefined, because of reset rollout when script is restarted
 	  *
@@ -222,26 +192,7 @@ struct Rollout_v
 		if( ini != undefined ) then 
 			this.RolloutEvent.setDefaultEvents()
 	),
-	/*---------------------------------------
-		CREATE ROLLOUT
-	-----------------------------------------*/
-	--/**  Add controls to UI on rollout creation
-	--*/
-	--function _addControlsToRollout =
-	--(
-	--	print "------------\nRollout._addControlsToRollout()"
-	--	--for Controls in Controls do
-	--		--Controls._addControlsToRollout()
-	--),
-	--/** _create subrollouts
-	-- */
-	--function _createSubrollouts =
-	--(
-	--	Subrollouts.createSubRollouts()
-	--
-	--	--if( Subrollouts.definition != "" ) then
-	--		--_rolloutCreator.addText ( Subrollouts.definition  )
-	--),
+
 	/*------------------------------------------------------------------------------
 		EVENTS
 	--------------------------------------------------------------------------------*/
@@ -285,16 +236,16 @@ struct Rollout_v
 	 */
 	on create do
 	(
-		--print "------------\nRollout.on create ()"
-		this._checkConstctructProperties()
+		print "------------\nRollout_v.on create()"
+		--this._checkConstctructProperties()
 		
 		this._setId()
-
-		this.destroy()
+		
+		--this.destroy()
 		
 		this._setRolloutGlobalVariable()
 		
-		this.setDefaultEvents()
+		--this.setDefaultEvents()
 		
 		this._setRolloutCreator()
 	)

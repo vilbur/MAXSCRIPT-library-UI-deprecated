@@ -1,7 +1,7 @@
 filein ( getFilenamePath(getSourceFileName()) + "/includes.ms" )
 
 
-/** Ui
+/** UI
  */
 struct UI_v
 (
@@ -12,7 +12,7 @@ struct UI_v
 	 */
 	function loadContent =
 	(
-		--format " Content	= % \n" Content	
+		format " Content	= % \n" Content	
 		Content.load()
 		
 		Content.setControlsToUI Dialog

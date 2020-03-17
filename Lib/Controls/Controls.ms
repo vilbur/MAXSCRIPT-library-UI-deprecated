@@ -49,8 +49,8 @@ struct Controls_v
 		for Control in controls do
 			if( Control.type != #rolloutcontrol ) then 
 				this._addControl Control
-			--else
-				--this._addRollout Control
+			else
+				this._addRollout Control
 			
 	),
 	/** Add each control to rollout
