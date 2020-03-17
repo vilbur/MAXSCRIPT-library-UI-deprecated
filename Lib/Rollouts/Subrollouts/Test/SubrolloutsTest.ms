@@ -10,7 +10,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
 
 Rollout_main	= Rollout_v title:(getFilenameFile(getSourceFileName())) id:"optionable_id"
 Rollout_A	= Rollout_main.subrollout "Subrollout A"
-Rollout_B	= Rollout_main.subrollout "Subrollout B"
+-- Rollout_B	= Rollout_main.subrollout "Subrollout B"
 
 --controls_A1 = Rollout_A.Controls.box()
 --controls_B1 = Rollout_B.Controls.box()

@@ -73,14 +73,13 @@ script_files =
 	--,"/Lib/Rollouts/RolloutProperty/RolloutPropertySetter/RolloutPropertySetter.ms",
 	--"/Lib/Rollouts/RolloutProperty/RolloutProperty.ms",
 	"/Lib/Rollouts/Subrollouts/Subrollouts.ms",
-	"/Lib/Rollouts/Rollout/Rollout.ms",
+	"/Lib/Rollouts/Rollout/Rollout.ms"
 	
 	/*---------------------------------------
 		DIALOG
 	-----------------------------------------*/
-	--"/Lib/Dialog/Dialog.ms"
+	-- "/Lib/Dialog/Dialog.ms"
 	
-	"/FileInTest.ms"
 	
 )
 

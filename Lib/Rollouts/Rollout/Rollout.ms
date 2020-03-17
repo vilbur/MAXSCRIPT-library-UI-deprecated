@@ -33,7 +33,7 @@ struct Rollout_v
 
 	/* properties */
 	ini, -- inherit by Dialog_v
-	subrollouts_slot = "subrollouts_slot",
+	subrollouts_slot = "default_slot",
 	_rolloutCreator,
 	
  	--Controls	= Controls_v	Parent_roll:this,
@@ -42,7 +42,7 @@ struct Rollout_v
 	--Layout	= Layout_v(),
 	
 	--_Containers	= Containers_v(),
-	definition = "", -- used in "rolloutCreator.addText( definition )"
+	definition = " ", -- used in "rolloutCreator.addText( definition )", !!! NOTE: empty string must has whitespace, otherwise is threated as undefined 
 
 	private
 	
@@ -67,15 +67,17 @@ struct Rollout_v
 	 */
     function dialogCreate width: height: pos: =
 	(
-		format "------------\nRollout_v.dialogCreate()"
+		format "\n------------\nRollout_v.dialogCreate()"
 		this._createRollout()
 		
-		--CreateDialog (_rolloutCreator.def)
-		CreateDialog (_rolloutCreator.def) height:height
+		format "\n------------\n_rolloutCreator.def\n%" _rolloutCreator.def
+
+		CreateDialog ( _rolloutCreator.def ) height:height
 		
 		--this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		
-		--Subrollouts.addSubRollouts id
+		Subrollouts.addSubRollouts id
+		
 		--_rolloutCreator --return
 	),
 
@@ -94,7 +96,7 @@ struct Rollout_v
 	),
 	
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
-	  * Used for creation of subrollout
+	  * Used for creation of rollout and subrollout subrollout
 	 */
 	function _createRollout =
 	(
@@ -103,11 +105,12 @@ struct Rollout_v
 		--this.Controls._addControlsToRollout()
 		
 		Subrollouts.createSubRollouts()
-		--this.createSubRollouts()
+		Subrollouts.setSubrolloutSlot()
 		
-		if( Subrollouts.definition != "" ) then 
-			_rolloutCreator.addText( Subrollouts.definition )
-			
+		
+		_rolloutCreator.addText( Subrollouts.subrollouts_slot )
+		format "\n------------\nSubrollouts.subrollouts_slot:\n%" Subrollouts.subrollouts_slot
+
 		--this._addEventHandlers()
 	
 		--this._addSaveIniFunction()
@@ -116,7 +119,7 @@ struct Rollout_v
 		_rolloutCreator.end()
 		--format "_rolloutCreator.def = % \n" _rolloutCreator.def
 	),
-	/** Get id of rollout or get full id with parent rollout if subrullout
+	/** Get id of rollout or get full id with parent rollout if subrollout
 	  *
 	  * @return	string	"rollout_id|parent_rollout_id.rollout_id"
 	 */
@@ -236,7 +239,7 @@ struct Rollout_v
 	 */
 	on create do
 	(
-		print "------------\nRollout_v.on create()"
+		--print "------------\nRollout_v.on create()"
 		--this._checkConstctructProperties()
 		
 		this._setId()

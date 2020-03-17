@@ -11,7 +11,7 @@ struct Subrollouts_v
 	/* dependency */
 	/* reference */
 	/* properties */
-	definition = "", -- used in "rolloutCreator.addText( definition )"
+	subrollouts_slot = " ", -- used in "rolloutCreator.addText( subrollouts_slot )", !!! NOTE: empty string must has whitespace, otherwise is threated as undefined 
 	
 	Rollouts	= #(),
 	
@@ -19,33 +19,30 @@ struct Subrollouts_v
 	 */
 	function add _subrollout =
 	(
-		print "\n------------\nSubrollouts.add()"
-		format "_subrollout = % \n" _subrollout
-		format "Rollouts = % \n" Rollouts
-		format "classof Rollouts = % \n" (classof Rollouts)
+		--print "\n------------\nSubrollouts.add()"
+		--format "_subrollout = % \n" _subrollout
+		--format "Rollouts = % \n" Rollouts
+		--format "classof Rollouts = % \n" (classof Rollouts)
 		append Rollouts _subrollout  
 	),
 	
-	/** Create Subrollouts and generate definition
+	/** Create Subrollouts and generate subrollouts_slot
 	 */
 	function createSubRollouts =
 	(
-		print "------------\nSubrollouts.createSubRollouts() "
+		print "\n------------\nSubrollouts.createSubRollouts() "
 		format " this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
 		if not ( this._anySubrolloutExists() ) then
 			return()
 			
 		for _rollout in Rollouts do
 			_rollout._createRollout()
-		
-		this._setDefinition()
-		
+				
 		--if( height==undefined ) then
 			--height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
 			
-		"definition" --return
 	),
-	/** [ Get definition of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
+	/** [ Get subrollouts_slot of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
 	  *
 	  * This definitions is added to with "rolloutCreator.addText( getSubrolloutsDefinition() )"
 	  *
@@ -59,13 +56,13 @@ struct Subrollouts_v
 	  *
 	  * @return	string|undefined If any subrollout is defined, otherwise undefined
 	 */
-	function _setDefinition =
+	function setSubrolloutSlot =
 	(
 		for subrollout in Rollouts do
-			definition += "\n subrollout " + subrollout.id + " \"subrollouts_slot\""
-			--definition = "\n subrollout " + slot + " \"subrollouts\""
+			subrollouts_slot += "\n subrollout " + subrollout.id + " \""+ subrollouts_slot +"\""
+			--subrollouts_slot = "\n subrollout " + slot + " \"subrollouts\""
 			
-		--format "\n-----------\nSubrollouts_v.definition = %" definition
+		--format "\n-----------\nSubrollouts_v.subrollouts_slot = %" subrollouts_slot
 	),
 
 	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
@@ -82,7 +79,7 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts parrent_rollout_id =
 	(
-		print "------------\nSubrollouts.addSubRollouts()"
+		print "\n------------\nSubrollouts.addSubRollouts()"
 		format " this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
 		if not ( this._anySubrolloutExists() ) then
 			return()
@@ -90,15 +87,15 @@ struct Subrollouts_v
 		----if not ( this._anySubroullotsAreCreated() ) then
 		--	--messageBox "✖ ERROR:\n\nBefore method:\n    Subrollouts_v.addSubRollouts()\n\nMust be executed:\n    Subrollouts_v._createSubrollouts()" beep:true
 			
-		add_subrollouts = ""
+		add_subrollouts = " "
 		
 		for subrollout in Rollouts do
 			--add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollout.id +  " " + subrollout.id
 			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
 		
 			
-		format "\n-----------\nSubrollouts_v._getAddSubrolloutString()\n ADDED SUBROLLOUTS: %\n\n" add_subrollouts
-		execute (add_subrollouts)
+		format "\n-----------\nSubrollouts_v._getAddSubrolloutString()\nADDED SUBROLLOUTS: %\n\n" add_subrollouts
+		--execute (add_subrollouts)
 	),
 	/** Any subrollout exists
 	 */
