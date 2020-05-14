@@ -107,9 +107,8 @@ struct Rollout_v
 		Subrollouts.createSubRollouts()
 		Subrollouts.setSubrolloutSlot()
 		
-		
-		_rolloutCreator.addText( Subrollouts.subrollouts_slot )
-		format "\n------------\nSubrollouts.subrollouts_slot:\n%" Subrollouts.subrollouts_slot
+		_rolloutCreator.addText( Subrollouts.slot_string )
+		format "\n------------\nSubrollouts.slot_string:\n%" Subrollouts.slot_string
 
 		--this._addEventHandlers()
 	
@@ -255,4 +254,3 @@ struct Rollout_v
 
 
 )
-

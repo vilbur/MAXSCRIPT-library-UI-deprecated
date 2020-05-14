@@ -11,7 +11,7 @@ struct Subrollouts_v
 	/* dependency */
 	/* reference */
 	/* properties */
-	subrollouts_slot = " ", -- used in "rolloutCreator.addText( subrollouts_slot )", !!! NOTE: empty string must has whitespace, otherwise is threated as undefined 
+	slot_string = " ", -- used in "rolloutCreator.addText( slot_string )", !!! NOTE: empty string must has whitespace, otherwise is threated as undefined 
 	
 	Rollouts	= #(),
 	
@@ -26,12 +26,12 @@ struct Subrollouts_v
 		append Rollouts _subrollout  
 	),
 	
-	/** Create Subrollouts and generate subrollouts_slot
+	/** Create Subrollouts and generate slot_string
 	 */
 	function createSubRollouts =
 	(
-		print "\n------------\nSubrollouts.createSubRollouts() "
-		format " this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
+		print "\n------------\nSubrollouts.createSubRollouts()"
+		format "this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
 		if not ( this._anySubrolloutExists() ) then
 			return()
 			
@@ -42,7 +42,7 @@ struct Subrollouts_v
 			--height = (getMAXWindowSize()).y - 256 -- SIZE_OF_DIALOG
 			
 	),
-	/** [ Get subrollouts_slot of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
+	/** [ Get slot_string of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
 	  *
 	  * This definitions is added to with "rolloutCreator.addText( getSubrolloutsDefinition() )"
 	  *
@@ -58,11 +58,14 @@ struct Subrollouts_v
 	 */
 	function setSubrolloutSlot =
 	(
-		for subrollout in Rollouts do
-			subrollouts_slot += "\n subrollout " + subrollout.id + " \""+ subrollouts_slot +"\""
-			--subrollouts_slot = "\n subrollout " + slot + " \"subrollouts\""
+		--slot_string = "subrollout default_slot \"slot_name\" height:256"
+		slot_string = "subrollout "+slot+" \"slot_name\" height:256"
+
+		--for subrollout in Rollouts do
+			--slot_string += "\nSubrollout " + slot + " \""+ slot +"\"" + " height:256"
+			--slot_string += "\nSubrollout " + subrollout.id + " \""+ slot +"\"" + " height:256"
 			
-		--format "\n-----------\nSubrollouts_v.subrollouts_slot = %" subrollouts_slot
+		--format "\n-----------\nSubrollouts_v.slot_string = %" slot_string
 	),
 
 	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
@@ -91,11 +94,12 @@ struct Subrollouts_v
 		
 		for subrollout in Rollouts do
 			--add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollout.id +  " " + subrollout.id
-			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
+			--add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
+			add_subrollouts += "\n AddSubRollout optionable_id.default_slot " + subrollout.id
 		
 			
 		format "\n-----------\nSubrollouts_v._getAddSubrolloutString()\nADDED SUBROLLOUTS: %\n\n" add_subrollouts
-		--execute (add_subrollouts)
+		execute (add_subrollouts)
 	),
 	/** Any subrollout exists
 	 */
