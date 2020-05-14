@@ -1,7 +1,3 @@
-
-
-
-
 rollout roll "roll"
 (
   spinner spinner_main_1 "spinner_main_1"
@@ -13,18 +9,18 @@ rollout roll "roll"
   --subrollout slot_2 "subrollout2"
 )
 
-rollout subrollout1 "subrollout1"
+rollout subrollout1 "subrollout 1 title"
 (
-  spinner spinner_1 "spinner_1"
+  --spinner spinner_1 "spinner_1"
   --spinner spinner_12 "spinner_1"
 )
 
-rollout subrollout2 "subrollout2"
+rollout subrollout2 "subrollout 2  title"
 (
   spinner spinner_2 "spinner_2"
 )
 
-rollout subrollout3 "subrollout3"
+rollout subrollout3 "subrollout 3  title"
 (
   spinner spinner_3 "spinner_3"
 )
