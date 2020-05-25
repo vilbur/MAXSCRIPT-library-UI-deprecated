@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/../Subrollouts/Subrollouts.ms" )
+
 /** Create Rollout
   * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
   *
@@ -170,10 +172,12 @@ struct Rollout_v
 			return()
 			
 		title_no_whitespace = substituteString title " " "_" -- replace whitespace
-
+		print ( title_no_whitespace as String )
 		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
 		
 		id = "rollout_" + id_by_title
+		
+		print ( "------ID = "+id as String )	
 	),
 
 	/** Declare rollout global variable

@@ -1,6 +1,8 @@
+clearListener()
 
+filein( getFilenamePath(getSourceFileName()) + "/../Dialog.ms" )
 
-filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
+--filein( getFilenamePath(getSourceFileName()) + "/includes/DialogIncludeTest.ms" )
 
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 

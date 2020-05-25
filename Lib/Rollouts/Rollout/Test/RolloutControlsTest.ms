@@ -1,4 +1,4 @@
-filein( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
+
 
 /* ROLLOUT DEFINITION */
 struct Control_mock(type = #button, id="", caption="Test button")

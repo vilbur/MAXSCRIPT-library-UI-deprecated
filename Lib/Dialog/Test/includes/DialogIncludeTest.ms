@@ -2,12 +2,14 @@
  *	
  */
 print "------------\nInclude	DialogIncludeTest.ms"
-filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
+ filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
+
+
 
 --dialog_name	= filenameFromPath(getSourceFileName())
 --format " dialog_name	= % \n" dialog_name
-if( dialog_name == undefined ) then
-	messageBox "Variable dialog_name is undefinded.\nPlease set dialog_name before inlcude \"DialogIncludeTest.ms\" " beep:true
+-- if( dialog_name == undefined ) then
+	-- messageBox "Variable dialog_name is undefined.\nPlease set dialog_name before include \"DialogIncludeTest.ms\" " beep:true
 
 Dialog	= Dialog_v title:dialog_name
 

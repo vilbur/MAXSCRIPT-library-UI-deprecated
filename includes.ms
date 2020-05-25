@@ -21,9 +21,8 @@ script_files =
 	/*---------------------------------------
 		PROPERTY
 	-----------------------------------------*/
-	--"/Lib/Property/PropertyMethods.ms",
-	--"/Lib/Property/Property.ms",
-	--"/Lib/Dialog/DialogProperty/DialogProperty.ms",
+	"/Lib/Property/PropertyMethods.ms",
+	"/Lib/Property/Property.ms",
 
 	/*---------------------------------------
 		EVENTS
@@ -43,9 +42,9 @@ script_files =
 	--"/Lib/Content/Rollout/Rollout.ms", 
 	--"/Lib/Content/Content.ms", 
 	
-	--"/Lib/Ini/Ini.ms", 
-	--"/Lib/Menu/MenuItem.ms", 
-	--"/Lib/Menu/Menu.ms", 
+	"/Lib/Ini/Ini.ms", 
+	"/Lib/Menu/MenuItem.ms", 
+	"/Lib/Menu/Menu.ms", 
 	
 	/*---------------------------------------
 		CONTROLS 
@@ -73,12 +72,13 @@ script_files =
 	--,"/Lib/Rollouts/RolloutProperty/RolloutPropertySetter/RolloutPropertySetter.ms",
 	--"/Lib/Rollouts/RolloutProperty/RolloutProperty.ms",
 	"/Lib/Rollouts/Subrollouts/Subrollouts.ms",
-	"/Lib/Rollouts/Rollout/Rollout.ms"
+	"/Lib/Rollouts/Rollout/Rollout.ms",
 	
 	/*---------------------------------------
 		DIALOG
 	-----------------------------------------*/
-	-- "/Lib/Dialog/Dialog.ms"
+	"/Lib/Dialog/DialogProperty/DialogProperty.ms",
+	"/Lib/Dialog/Dialog.ms"
 	
 	
 )

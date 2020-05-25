@@ -1,4 +1,6 @@
-filein( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" )
+clearListener()
+
+filein( getFilenamePath(getSourceFileName()) + "/../Rollout.ms" )
 
 
 /* ROLLOUT DEFINITION */

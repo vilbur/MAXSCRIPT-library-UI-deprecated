@@ -93,9 +93,8 @@ struct Subrollouts_v
 		add_subrollouts = " "
 		
 		for subrollout in Rollouts do
-			--add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + subrollout.id +  " " + subrollout.id
-			--add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
-			add_subrollouts += "\n AddSubRollout optionable_id.default_slot " + subrollout.id
+			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
+			--add_subrollouts += "\n AddSubRollout optionable_id.default_slot " + subrollout.id -- debug
 		
 			
 		format "\n-----------\nSubrollouts_v._getAddSubrolloutString()\nADDED SUBROLLOUTS: %\n\n" add_subrollouts

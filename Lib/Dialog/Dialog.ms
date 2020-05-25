@@ -1,3 +1,6 @@
+filein( getFilenamePath(getSourceFileName()) + "/../Rollouts/Rollout/Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../Ini/Ini.ms" )
+
 /** Globals
  */
 struct Globals_v
@@ -5,7 +8,7 @@ struct Globals_v
 	Dialog
 )
 --format " __GLOBAL__v	= % \n" __GLOBAL__v
-if( __GLOBAL__v==undefined ) then
+if( __GLOBAL__v == undefined ) then
 	global __GLOBAL__v = Globals_v()
 	
 /** Dialog dialog
@@ -21,9 +24,9 @@ struct Dialog_v
 	title,
 
 	/* dependency */
-	RolloutMain,
-	Property,
-	Menu	= Menu_v(),
+	_RolloutMain,
+	--Property,
+	--Menu	= Menu_v(),
 	Ini	= Ini_v(),
 	
 	/* config */	
@@ -36,15 +39,16 @@ struct Dialog_v
 	Dialog,
 	size_init, -- size of dialog after creation
 		
+	
 	/** Create Dialog
 	  * Same parameters as __[ Rollout.create() ](../Rollouts/Rollout)__
 	 */
 	function create width: height: pos: =
-	(
-		RolloutMain.dialogCreate height:height width:width pos:pos
-		RolloutMain.dialogCreate()
-		
-		Dialog = RolloutMain._rolloutCreator.def
+	(		
+		--_RolloutMain.dialogCreate height:height width:width pos:pos
+		_RolloutMain.dialogCreate()
+
+		Dialog = _RolloutMain._rolloutCreator.def
 	),
 
 	/** Set rollout in Dialog
@@ -59,16 +63,17 @@ struct Dialog_v
 	  */
 	function roll title id:  =
 	(
-		_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
+
+		--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
 		
-		RolloutMain.subrollout title id:id --return
+		_RolloutMain.subrollout title id:id --return
 	),
 	
 	/** Get Rollouts of main roll
 	 */
 	function rollouts =
 	(
-		RolloutMain.Subrollouts.Rollouts --return
+		_RolloutMain.Subrollouts.Rollouts --return
 	),
 	
 	/** Dock\Undock sidebar to window
@@ -177,18 +182,18 @@ struct Dialog_v
 	 */
 	function _setMainRollout =
 	(
-		RolloutMain	= Rollout_v title:title id:id
+		_RolloutMain	= Rollout_v title:title id:id
 	),
 	/** Set access shortcut to properties
 	  *
 	  * @example 
 	  * 	Dialog.property.height	512	-- THIS METHOD ALLOW USE THIS
-	  * 	Dialog.RolloutMain.property.height	512	-- INSTEAD OF THIS
+	  * 	Dialog._RolloutMain.property.height	512	-- INSTEAD OF THIS
 	 */
 	function _setProperty =
 	(
-		--Property	= RolloutMain.Property
-		Property	= DialogProperty_v id:RolloutMain.id subrollouts_slot:RolloutMain.subrollouts_slot
+		--Property	= _RolloutMain.Property
+		Property	= DialogProperty_v id:_RolloutMain.id subrollouts_slot:_RolloutMain.subrollouts_slot
 	),
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
@@ -205,8 +210,8 @@ struct Dialog_v
 	--(
 	--	for _rollout_id in Rollouts.keys do
 	--	(
-	--		_Rollout	= Rollouts.getVal _rollout_id
-	--		_Rollout.open ( Ini.load _Rollout.id #open default:true )
+	--		_RolloutMain	= Rollouts.getVal _rollout_id
+	--		_RolloutMain.open ( Ini.load _RolloutMain.id #open default:true )
 	--	)
 	--),
 	
@@ -256,15 +261,15 @@ struct Dialog_v
 	),
 	on create do
 	(
-		this._checkConstctructProperties()
-		
+		--this._checkConstctructProperties()
+		--
 		this._setMainRollout()
 		
-		this._setProperty()
-		
-		this.destroy()
-		
-		this._setDialogGlobal()
+		--this._setProperty()
+		--
+		--this.destroy()
+		--
+		--this._setDialogGlobal()
 		
 		--this._setIniDefaults() -- DIABLED FOR DEBUGGING
 	)
