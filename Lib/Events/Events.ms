@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/../List/List.ms" )
+
 /** Events
   *
   * @property	array	event_types	Allowed types of events, E.G.: for button event_types = #("pressed", "changed")

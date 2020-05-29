@@ -1,10 +1,18 @@
 
+
+
+
 /** Button
  */
 struct Button_v 
 (
-	include "Lib/Controls/Control/ControlExtends.ms"
+	
 
+	include "Library/_UI/Lib/Controls/Control/ControlExtends.ms"
+
+	--include "/../../ControlExtends.ms"
+	--include "c:/GoogleDrive/Programs/CG/3DsMax/scripts/Library/_UI/Lib/Controls/Control/ControlExtends.ms"
+	--include( getFilenamePath(getSourceFileName()) + "/../../ControlExtends.ms" )
 	
 	/*------------------------------------------------------------------------------
 		PRIVATE
@@ -17,7 +25,7 @@ struct Button_v
 	--(
 	--	
 	--),	
-	--/** Get\set value of property 
+	--/** Get/set value of property 
 	--  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
 	--  * @param	string|#get value	Value of property
 	--  *

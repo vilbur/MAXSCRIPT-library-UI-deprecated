@@ -1,3 +1,12 @@
+--filein( getFilenamePath(getSourceFileName()) + "/../../Events/Events.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/../Control/ControlId/ControlId.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../Control/ControlEvents/ControlEvents.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../Control/Props/Props.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/../Control/ControlTypes/Button/Button.ms" )
+
+
 /** Section box of controls, can be groupbox if "ControlBox_v.groupbox" is definded
   *
   * @property	string	groupbox	Store name of [ groupbox ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
@@ -38,7 +47,7 @@ struct ControlBox_v
 	 */
 	function button caption id: add:true =
 	(
-		--print "------------\nControlBox.button()"
+		print "------------\nControlBox.button()"
 		this.newControl (Button_v caption:caption ) id:id add:add
 	),
 	/** Add Check button

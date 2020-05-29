@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/../../../Events/Events.ms" )
+
 /** Control
  *
  *	====================================================================

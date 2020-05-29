@@ -1,4 +1,5 @@
 filein( getFilenamePath(getSourceFileName()) + "/../Subrollouts/Subrollouts.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../Controls/Controls.ms" )
 
 /** Create Rollout
   * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
@@ -38,7 +39,7 @@ struct Rollout_v
 	subrollouts_slot = "default_slot",
 	_rolloutCreator,
 	
- 	--Controls	= Controls_v	Parent_roll:this,
+ 	Controls	= Controls_v	Parent_roll:this,
 	--Property	= RolloutProperty_v	Parent_roll:this,
 	Subrollouts	= Subrollouts_v slot:subrollouts_slot,
 	--Layout	= Layout_v(),
@@ -104,7 +105,7 @@ struct Rollout_v
 	(
 		format "\n------------\n%._createRollout()" id
 		
-		--this.Controls._addControlsToRollout()
+		this.Controls._addControlsToRollout()
 		
 		Subrollouts.createSubRollouts()
 		Subrollouts.setSubrolloutSlot()

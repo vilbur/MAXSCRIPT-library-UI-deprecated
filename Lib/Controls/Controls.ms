@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/ControlBox/ControlBox.ms" )
+
 /** Controls
  */
 struct Controls_v
@@ -13,8 +15,10 @@ struct Controls_v
 	ControlBoxes	= #(),
 	
 
-	/** Get new set of controls
+	/** Get new groupbox of controls
+	 *
 	 * @param	string	[groupbox]	Title of group box
+	 *
 	 * @return [Controls](/ControlsBox/ControlsBox)
 	 */
 	function box groupbox: =
@@ -40,6 +44,7 @@ struct Controls_v
 			this._addControls ControlBox.controls
 	),
 	/** Add each control to rollout
+	  *
 	  * @param	[Control_v]	controls	Array of Control_v
 	 */
 	function _addControls controls =
@@ -54,7 +59,8 @@ struct Controls_v
 			
 	),
 	/** Add each control to rollout
-	  * @param	[Control_v]	controls	Array of Control_v
+	 *
+	 * @param	[Control_v]	controls	Array of Control_v
 	 */
 	function _addControl Control =
 	(
