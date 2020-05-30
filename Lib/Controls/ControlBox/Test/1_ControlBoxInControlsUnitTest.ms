@@ -1,8 +1,6 @@
-/**  Define controls in ControlBox_v and add them to Rollout
- */
+clearListener()
 
-
-filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../../Rollouts/Rollout/Rollout.ms" )
 
 /* ROLLOUT DEFINITION */
 struct Control_mock(type = #button, id="", caption="Test button")

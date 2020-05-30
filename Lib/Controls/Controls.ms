@@ -14,7 +14,17 @@ struct Controls_v
 	/* properties */
 	ControlBoxes	= #(),
 	
-
+	/** Get new groupbox of controls
+	 *
+	 * @param	string	[groupbox]	Title of group box
+	 *
+	 * @return [Controls](/ControlsBox/ControlsBox)
+	 */
+	function new groupbox: =
+	(
+		this.box groupbox:groupbox --return
+	),
+	
 	/** Get new groupbox of controls
 	 *
 	 * @param	string	[groupbox]	Title of group box

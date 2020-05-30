@@ -50,6 +50,7 @@ AddSubRollout roll.slot_1 subrollout1
 roll.height = 512
 
 roll.slot_1.height = 128
+--roll.slot_1.height = 512
 
 roll.spinner_main_2.pos += [0, 128]
 

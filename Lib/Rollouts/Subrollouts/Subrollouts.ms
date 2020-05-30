@@ -58,6 +58,9 @@ struct Subrollouts_v
 	 */
 	function setSubrolloutSlot =
 	(
+		if not ( this._anySubrolloutExists() ) then
+			return()
+			
 		--slot_string = "subrollout default_slot \"slot_name\" height:256"
 		slot_string = "subrollout "+slot+" \"slot_name\" height:256"
 

@@ -22,5 +22,6 @@ Button_B1	= controls_B1.button "Test 1"
 
 
 /* CREATE ROLLOUT */
- Rollout_main.dialogCreate()	-- create with default params
+ --Rollout_main.dialogCreate()	-- create with default params
+Rollout_main.dialogCreate height:320
 --Rollout_main.dialogCreate height:320 width:520 pos:[0,0]
