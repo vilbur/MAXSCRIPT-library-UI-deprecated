@@ -1,14 +1,34 @@
-filein ( getFilenamePath(getSourceFileName()) + "/../../../../includes.ms" );
+clearListener()
 
+filein( getFilenamePath(getSourceFileName()) + "/../../Rollout/Rollout.ms" )
 
 
 /* ROLLOUT DEFINITION */
-rollout_1	= Rollout_v title:"Test Subrollouts" 
+Roll_main	= Rollout_v title:"Property test" 
 
-subroll_A	= rollout_1.subrollout "Subrollout A" id:"subrollout_a"
-subroll_B	= rollout_1.subrollout "Subrollout B"
+Rollout_A	= Roll_main.subrollout "Subrollout A"
+--Rollout_B	= Roll_main.subrollout "Subrollout B"
 
 /* CREATE ROLLOUT */
-rollout_1.dialogCreate() 
---rollout_1.dialogCreate height:512
+Roll_main.dialogCreate() 
+--Roll_main.dialogCreate height:512
 
+
+--Rollout_A.open false
+--Rollout_B.open true
+
+/* Test properties with default maxscript
+  
+*/
+print ( rollout_property_test.title as String )
+
+--rollout_property_test.default_slot.rollout_subrollout_a.title  = "Renamed rollout manually"
+
+--Rollout_A.Property.title "Renamed rollout"
+
+--print ( (Rollout_A.Property._getPropertyString #title) as String )
+
+--Rollout_A.Property.title "New title"
+
+--rollout_property_test.default_slot.rollout_subrollout_a.title = "New title" 
+--execute ( "rollout_property_test.default_slot.rollout_subrollout_a.title = \"New title\"")
