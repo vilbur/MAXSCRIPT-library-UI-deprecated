@@ -1,4 +1,10 @@
+
+filein( getFilenamePath(getSourceFileName()) + "/Control/ControlId/ControlId.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Control/ControlEvents/ControlEvents.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Control/Props/Props.ms" )
+
 filein( getFilenamePath(getSourceFileName()) + "/ControlBox/ControlBox.ms" )
+
 
 /** Controls
  */
@@ -20,7 +26,7 @@ struct Controls_v
 	 *
 	 * @return [Controls](/ControlsBox/ControlsBox)
 	 */
-	function new groupbox: =
+	function new groupbox =
 	(
 		this.box groupbox:groupbox --return
 	),
@@ -37,9 +43,6 @@ struct Controls_v
 		ControlBox 	= ControlBox_v groupbox:groupbox
 		--format " ControlBox	= % \n" ControlBox
 		append ControlBoxes ControlBox
-		--format " ControlBoxes	= % \n" ControlBoxes
-		--format "ControlBox = % \n" ControlBox
-		--format "ControlBoxes = % \n" ControlBoxes
 		
 		ControlBox --return
 	),
@@ -48,8 +51,8 @@ struct Controls_v
 	 */ 
 	function _addControlsToRollout =
 	(
-		print "------------\nControls._addControlsToRollout()"
-		format " ControlBoxes	= % \n" ControlBoxes
+		--print "------------\nControls._addControlsToRollout()"
+		--format " ControlBoxes	= % \n" ControlBoxes
 		for ControlBox in ControlBoxes do
 			this._addControls ControlBox.controls
 	),
@@ -59,11 +62,11 @@ struct Controls_v
 	 */
 	function _addControls controls =
 	(
-		print "------------\nControls._addControls()"
-		format "controls = % \n" controls
+		--print "------------\nControls._addControls()"
+		--format "controls = % \n" controls
 		for Control in controls do
 			if( Control.type != #rolloutcontrol ) then 
-				this._addControl Control
+				this._addControlToUi Control
 			else
 				this._addRollout Control
 			
@@ -72,17 +75,18 @@ struct Controls_v
 	 *
 	 * @param	[Control_v]	controls	Array of Control_v
 	 */
-	function _addControl Control =
+	function _addControlToUi Control =
 	(
+		format "Control.type = %\nControl.id   = %\nControl.caption = %\n"  Control.type Control.id Control.caption
+		
 		Parent_roll._rolloutCreator.addControl Control.type Control.id Control.caption
 	),
 	/** _add rollout
 	 */
 	function _addRollout _rollout =
 	(
-		print "------------\nControls._addRollout()"
+		--print "------------\nControls._addRollout()"
 		Parent_roll._rolloutCreator.addText "subrollout subrollouts \"Subrollouts\""
-		
 	),
 	
 	--/** Get Controls for rollout

@@ -1,9 +1,12 @@
+--filein( getFilenamePath(getSourceFileName()) + "/ControlId/ControlId.ms" )
+--filein( getFilenamePath(getSourceFileName()) + "/ControlEvents/ControlEvents.ms" )
+--filein( getFilenamePath(getSourceFileName()) + "/Props/Props.ms" )
 
 /** Control
  */
 struct Control_v 
 (
-	include "Lib/Controls/Control/ControlExtends.ms"
+	include "Library/_UI/Lib/Controls/Control/ControlExtends.ms"
 	
 	/*------------------------------------------------------------------------------
 		INTERFACE METHODS

@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/../../Property/Property.ms" )
+
 /** Dialog properties
  */
 struct DialogProperty_v
@@ -15,7 +17,7 @@ struct DialogProperty_v
 	
 	public
 	
-	include "Lib/Property/PropertyMethods.ms"
+	include "Library/_UI/Lib/Property/PropertyMethods.ms"
 
 	/** _call setters
 	 */

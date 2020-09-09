@@ -1,5 +1,13 @@
 filein( getFilenamePath(getSourceFileName()) + "/../Subrollouts/Subrollouts.ms" )
+
+
+--filein( getFilenamePath(getSourceFileName()) + "/../../Controls/Control/ControlId/ControlId.ms" )
+--filein( getFilenamePath(getSourceFileName()) + "/../../Controls/Control/ControlEvents/ControlEvents.ms" )
+
+
 filein( getFilenamePath(getSourceFileName()) + "/../../Controls/Controls.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/../RolloutProperty/RolloutProperty.ms" )
 
 /** Create Rollout
   * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
@@ -40,8 +48,8 @@ struct Rollout_v
 	_rolloutCreator,
 	
  	Controls	= Controls_v	Parent_roll:this,
-	--Property	= RolloutProperty_v	Parent_roll:this,
-	Subrollouts	= Subrollouts_v slot:subrollouts_slot,
+	Property	= RolloutProperty_v	Parent_roll:this,
+	Subrollouts	= Subrollouts_v     slot:subrollouts_slot,
 	--Layout	= Layout_v(),
 	
 	--_Containers	= Containers_v(),
@@ -70,15 +78,13 @@ struct Rollout_v
 	 */
     function dialogCreate width: height: pos: =
 	(
-		format "\n------------\nRollout_v.dialogCreate()"
+		--format "\n------------\nRollout_v.dialogCreate()"
 		this._createRollout()
-		
-		format "\n------------\n_rolloutCreator.def\n%" _rolloutCreator.def
+		--format "\n------------\n_rolloutCreator.def\n%" _rolloutCreator.def
 
 		CreateDialog ( _rolloutCreator.def ) height:height
 		
 		--this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
-		
 		Subrollouts.addSubRollouts id
 		
 		--_rolloutCreator --return
@@ -103,7 +109,7 @@ struct Rollout_v
 	 */
 	function _createRollout =
 	(
-		format "\n------------\n%._createRollout()" id
+		--format "\n------------\n%._createRollout()" id
 		
 		this.Controls._addControlsToRollout()
 		
@@ -111,7 +117,7 @@ struct Rollout_v
 		Subrollouts.setSubrolloutSlot()
 		
 		_rolloutCreator.addText( Subrollouts.slot_string )
-		format "\n------------\nSubrollouts.slot_string:\n%" Subrollouts.slot_string
+		--format "\n------------\nSubrollouts.slot_string:\n%" Subrollouts.slot_string
 
 		--this._addEventHandlers()
 	
@@ -123,15 +129,19 @@ struct Rollout_v
 	),
 	/** Get id of rollout or get full id with parent rollout if subrollout
 	  *
-	  * @return	string	"rollout_id|parent_rollout_id.rollout_id"
+	  * @return	string	"rollout_id|parent_rollout_id.subrollouts_slot.rollout_id"
 	 */
 	function getId =
 	(
 		--if( this._isSubrollout() ) then id else Parent_roll.id + "." + id
 		--if( this._isSubrollout() ) then Parent_roll.id + "." + id else id
-		if( this._isSubrollout() ) then Parent_roll.id + "." + subrollouts_slot else id
+		if( this._isSubrollout() ) then Parent_roll.id + "." + subrollouts_slot + "." + id else id
 	),
+	
+	
 	/** Open close rollout
+	  *
+	  * @property	boolean	state	open\close state of rollout
 	 */
 	function open state =
 	(
@@ -149,8 +159,8 @@ struct Rollout_v
 	 */
 	function destroy =
 	(
-		try( execute("cui.UnRegisterDialogBar " +id) )catch()
-		try( execute("DestroyDialog "           +id) )catch()
+		try( execute("cui.UnRegisterDialogBar " +i d) )catch()
+		try( execute("DestroyDialog "           + id) )catch()
 	),
 	
 	private
@@ -248,7 +258,7 @@ struct Rollout_v
 		
 		this._setId()
 		
-		--this.destroy()
+		this.destroy()
 		
 		this._setRolloutGlobalVariable()
 		

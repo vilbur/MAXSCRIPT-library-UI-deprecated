@@ -1,13 +1,9 @@
---filein( getFilenamePath(getSourceFileName()) + "/../../Events/Events.ms" )
-
-filein( getFilenamePath(getSourceFileName()) + "/../Control/ControlId/ControlId.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/../Control/ControlEvents/ControlEvents.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/../Control/Props/Props.ms" )
-
 filein( getFilenamePath(getSourceFileName()) + "/../Control/ControlTypes/Button/Button.ms" )
 
 
-/** Section box of controls, can be groupbox if "ControlBox_v.groupbox" is definded
+/** Section of controls, can be groupbox if "ControlBox_v.groupbox" is definded
+  *
+  * Control types: http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
   *
   * @property	string	groupbox	Store name of [ groupbox ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
   *
@@ -41,32 +37,32 @@ struct ControlBox_v
 	function RolloutControl caption id: add:true =
 	(
 		--print "------------\nControlBox.button()"
-		this.newControl (Button_RolloutControl_test caption:caption ) id:id add:add
+		this._newControl (Button_RolloutControl_test caption:caption ) id:id add:add
 	),	
 	/** Add Button
 	 */
 	function button caption id: add:true =
 	(
-		print "------------\nControlBox.button()"
-		this.newControl (Button_v caption:caption ) id:id add:add
+		--print "------------\nControlBox.button()"
+		this._newControl (Button_v caption:caption ) id:id add:add
 	),
 	/** Add Check button
 	 */
 	function checkbutton caption id: add:true =
 	(
-		this.newControl (Control_v type:#checkbutton caption:caption ) id:id add:add
+		this._newControl (Control_v type:#checkbutton caption:caption ) id:id add:add
 	),
 	/** Add Checkbox
 	 */
 	function checkbox caption id: checked: add:true =
 	(
-		this.newControl (Checkbox_v caption:caption ) id:id add:add
+		this._newControl (Checkbox_v caption:caption ) id:id add:add
 	),
 	/** Add Edit text control
 	 */
 	function edit caption id: value: add:true =
 	(
-		this.newControl (EditText_v caption:caption value:value ) id:id add:add
+		this._newControl (EditText_v caption:caption value:value ) id:id add:add
 	),
 	/** Browse Path control
 	 */
@@ -95,7 +91,7 @@ struct ControlBox_v
 	 * 
 	 *  @return	[Control](../../Control)
 	 */
-	function newControl _Control add:true =
+	function _newControl _Control add:true =
 	(
 		if( add ) then
 			this.add _Control

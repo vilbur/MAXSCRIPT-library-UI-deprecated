@@ -7,7 +7,7 @@ struct Control_mock(type = #button, id="", caption="Test button")
 
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
-controls_1 = _Rollout.Controls.new groupbox:"Groupbox 1"
+controls_1 = _Rollout.Controls.new "Groupbox 1"
 controls_1.button "Button before before subrollout 1"
 
 

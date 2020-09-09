@@ -30,8 +30,8 @@ struct Subrollouts_v
 	 */
 	function createSubRollouts =
 	(
-		print "\n------------\nSubrollouts.createSubRollouts()"
-		format "this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
+		--print "\n------------\nSubrollouts.createSubRollouts()"
+		--format "this._anySubrolloutExists()	= % \n" (this._anySubrolloutExists())
 		if not ( this._anySubrolloutExists() ) then
 			return()
 			

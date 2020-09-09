@@ -4,19 +4,19 @@ struct Props_v
 (
 	Control,
 
-	List	= List_v(),
+	Props	= List_v(),
 
 	/** Add value
 	 */
 	function add param value force:true =
 	(
-		--print "------------\nProps.add()"
+		print "------------\nProps.add()"
 
-		if( force == true or this.get param == undefined ) then  
-			List.setVal param value
-		
-		if ( Control.exists() ) then
-			this.setProp param value
+		--if( force == true or this.get param == undefined ) then  
+		--	Props.setVal param value
+		--
+		--if ( Control.exists() ) then
+			--this.applyProp param value
 		
 		this --return
 	), 
@@ -29,7 +29,7 @@ struct Props_v
 		--format " Control.exists()	= % \n" (Control.exists())
 		
 		if not ( Control.exists() ) then
-			List.getVal param -- return
+			Props.getVal param -- return
 			
 		else
 			this.getProp param 
@@ -38,19 +38,19 @@ struct Props_v
 	 */
 	function remove param =
 	(
-		List.delete param
+		Props.delete param
 		
 		this
 	),
-	/** Join
+	/** Join array
 	 */
 	function join =
 	(
 		--print "------------\nProps.join()"
 		params = ""
 
-		for k=1 to List.keys.count do
-			params = params + " " + List.keys[k] +":"+ List.values[k] as string
+		for k=1 to Props.keys.count do
+			params = params + " " + Props.keys[k] +":"+ Props.values[k] as string
 
 		--format " params	= % \n" params
 		params --return
@@ -59,18 +59,11 @@ struct Props_v
 	/*------------------------------------------------------------------------------
 		PRIVATE
 	--------------------------------------------------------------------------------*/
-	/** Get prop path
+	/** Apply prop to UI control
 	 */
-	function propPath prop_name =
+	function applyProp prop_name _value =
 	(
-		--print "------------\nProps.propPath()"
-		Control.id.full + "." + (prop_name as string ) --return
-	),
-	/** Set prop
-	 */
-	function setProp prop_name _value =
-	(
-		--print "------------\nProps.setProp()"
+		print "------------\nProps.applyProp()"
 		if( classOf _value == String ) then 
 			_value = "\""+_value as string +"\""
 		
@@ -78,6 +71,15 @@ struct Props_v
 		
 		this --return	
 	),
+
+	/** Get prop path
+	 */
+	function propPath prop_name =
+	(
+		--print "------------\nProps.propPath()"
+		Control.id.full + "." + (prop_name as string ) --return
+	),
+
 	/** Get prop
 	 */
 	function getProp prop_name =

@@ -1,5 +1,6 @@
 filein( getFilenamePath(getSourceFileName()) + "/../Rollouts/Rollout/Rollout.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/../Ini/Ini.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/DialogProperty/DialogProperty.ms" )
 
 /** Globals
  */
@@ -25,7 +26,7 @@ struct Dialog_v
 
 	/* dependency */
 	_RolloutMain,
-	--Property,
+	Property,
 	--Menu	= Menu_v(),
 	Ini	= Ini_v(),
 	
@@ -265,7 +266,7 @@ struct Dialog_v
 		--
 		this._setMainRollout()
 		
-		--this._setProperty()
+		this._setProperty()
 		--
 		--this.destroy()
 		--

@@ -1,3 +1,4 @@
+
 	public
 	
 	/* required properties */
@@ -160,7 +161,7 @@
 		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
 
 		Props.add #pos	dimensions[1] force:true
-		Props.add #width	dimensions[2] force:true
+		Props.add #width 	dimensions[2] force:true
 		Props.add #height dimensions[3] force:true
 	),
 
