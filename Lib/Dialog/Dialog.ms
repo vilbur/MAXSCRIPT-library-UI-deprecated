@@ -11,7 +11,9 @@ struct Globals_v
 --format " __GLOBAL__v	= % \n" __GLOBAL__v
 if( __GLOBAL__v == undefined ) then
 	global __GLOBAL__v = Globals_v()
-	
+
+
+
 /** Dialog dialog
   *
   * Rollout dialog with subroullouts is used as "Dialog" instead of using regular [RolloutDialog](https://help.autodesk.com/view/3DSMAX/2018/ENU/?guid=__files_GUID_A72112A6_BDFB_47A6_88FB_8D49C4CBD049_htm)
@@ -39,7 +41,7 @@ struct Dialog_v
 	/* store */
 	Dialog,
 	size_init, -- size of dialog after creation
-		
+
 	
 	/** Create Dialog
 	  * Same parameters as __[ Rollout.create() ](../Rollouts/Rollout)__
@@ -64,7 +66,6 @@ struct Dialog_v
 	  */
 	function roll title id:  =
 	(
-
 		--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
 		
 		_RolloutMain.subrollout title id:id --return
@@ -116,7 +117,9 @@ struct Dialog_v
 		--print "------------\nDialog.destroy()"
 		this.unregister()
 
-		try(DestroyDialog Dialog)catch()
+		--try(DestroyDialog Dialog)catch()
+		try(DestroyDialog Dialog )catch()
+		
 	),
 	/** Set position of dialog relative 3Ds Max window
 	 */
@@ -151,6 +154,14 @@ struct Dialog_v
 	function unregister =
 	(
 		try(cui.UnRegisterDialogBar Dialog)catch() --try to unregister if already registered
+		--try(cui.UnRegisterDialogBar __GLOBAL__v.Dialog)catch() --try to unregister if already registered
+	),
+	/** Close
+	 */
+	function destroyOldDialog =
+	(
+		if not (classOf __GLOBAL__v.Dialog == UndefinedClass ) then
+			__GLOBAL__v.Dialog.unregister()
 	),
 	
 	/** _is registered
@@ -212,7 +223,7 @@ struct Dialog_v
 	--	for _rollout_id in Rollouts.keys do
 	--	(
 	--		_RolloutMain	= Rollouts.getVal _rollout_id
-	--		_RolloutMain.open ( Ini.load _RolloutMain.id #open default:true )
+			--_RolloutMain.open ( Ini.load _RolloutMain.id #open default:true )
 	--	)
 	--),
 	
@@ -261,16 +272,15 @@ struct Dialog_v
 			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
 	on create do
-	(
-		--this._checkConstctructProperties()
-		--
+	(		
+		
+		this.destroyOldDialog()
+		
 		this._setMainRollout()
 		
 		this._setProperty()
-		--
-		--this.destroy()
-		--
-		--this._setDialogGlobal()
+				
+		this._setDialogGlobal()
 		
 		--this._setIniDefaults() -- DIABLED FOR DEBUGGING
 	)
