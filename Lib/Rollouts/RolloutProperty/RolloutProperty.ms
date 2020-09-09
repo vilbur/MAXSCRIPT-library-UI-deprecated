@@ -1,4 +1,6 @@
 /** Rollout properties
+  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+  *
  */
 struct RolloutProperty_v
 (
@@ -7,28 +9,45 @@ struct RolloutProperty_v
 	/* reference */
 	Parent_roll,
 	
-	private
 	
-	property_keys	=  #(#width, #height, #pos),
+	/** Height
+	 */
+	function title value =
+	(
+		--print ( "!!! TEST !!!" as String )
+		this._setProperty #title value
+	),
 	
-	--public
-	 
-	--include "Lib/Property/PropertyMethods.ms"
+	
+	--property_keys	=  #(#width, #height, #pos),
+	include "Library/_UI/Lib/Property/PropertyMethods.ms"
 	
 	--private
+
+	--/** _call setters
+	-- */
+	--function _callProperty property value relative =
+	--(
+	--	--print ("------------\nDialogProperty._callProperty #" + property as string)
+	--	Parent_roll.setProp	property value relative 
+	--),
 	
+	--public
+
+	--private
+
 	/** Set property
 	 */
-	function _setProperty key value relative =
+	function _setProperty key value =
 	(
 		print ("------------\nRolloutProperty._setProperty() " + key as string )
-		--format "property string = % \n" (this._getPropertyString key)
-		--format "value = % \n" (this._getValue key value relative:relative)
-
-		execute ( this._getPropertyString key + " = " + this._getValue key value relative:relative  )
+		--print ( this._getPropertyString key + " = " + this._getValue key value )
 		
+		execute ( this._getPropertyString key + " = " + this._getValue key value )
 	),
 	/** Get property string
+	  *
+	  * Return string element_id.property_name
 	 */
 	function _getPropertyString key =
 	(
@@ -40,6 +59,9 @@ struct RolloutProperty_v
 	(
 		if( relative ) then 
 			value += this._getProperty key
+		
+		if( classOf value == String ) then 
+			value = "\"" + value + "\""
 		
 		value as string --return
 	),
