@@ -14,3 +14,8 @@ Dialog.create()	-- create with default params
 
 
 Dialog.dock #right
+
+sleep 1
+
+Dialog.undock()
+

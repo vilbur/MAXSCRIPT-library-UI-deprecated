@@ -101,14 +101,13 @@ struct Dialog_v
 	function undock =
 	(
 		print "------------\nDialog.undock()"
-		--format " _isRegistered()	= % \n" (this._isRegistered())
-		--format " _isDocked()	= % \n" (this._isDocked())
+
 		if ( this._isRegistered() and this._isDocked() ) then 
-			this.dock "undock" --return
+			this.dock "" --return
 		
 		--format " cui.getDockState Dialog	= % \n" (cui.getDockState Dialog)
 		
-		--this.unregister()
+		this.unregister()
 	),
 	/** Close
 	 */
@@ -158,7 +157,7 @@ struct Dialog_v
 	),
 	/** Close
 	 */
-	function destroyOldDialog =
+	function unregisterOldDialog =
 	(
 		if not (classOf __GLOBAL__v.Dialog == UndefinedClass ) then
 			__GLOBAL__v.Dialog.unregister()
@@ -273,8 +272,7 @@ struct Dialog_v
 	),
 	on create do
 	(		
-		
-		this.destroyOldDialog()
+		this.unregisterOldDialog()
 		
 		this._setMainRollout()
 		
