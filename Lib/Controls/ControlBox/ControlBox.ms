@@ -1,4 +1,7 @@
+filein( getFilenamePath(getSourceFileName()) + "/../Control/Control.ms" )
+
 filein( getFilenamePath(getSourceFileName()) + "/../Control/ControlTypes/Button/Button.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../Control/ControlTypes/Checkbox/Checkbox.ms" )
 
 
 /** Section of controls, can be groupbox if "ControlBox_v.groupbox" is definded

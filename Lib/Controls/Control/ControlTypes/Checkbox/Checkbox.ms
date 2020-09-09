@@ -2,8 +2,8 @@
  */
 struct Checkbox_v
 (
-	include "Lib/Controls/Control/ControlExtends.ms"
-	
+	include "Library/_UI/Lib/Controls/Control/ControlExtends.ms"
+
 	checked,
 
 	/** Toggle checkbox
