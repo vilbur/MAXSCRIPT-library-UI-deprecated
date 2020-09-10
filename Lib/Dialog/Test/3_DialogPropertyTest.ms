@@ -3,9 +3,6 @@ clearListener()
 filein( getFilenamePath(getSourceFileName()) + "/../Dialog.ms" )
 
 
---filein( getFilenamePath(getSourceFileName()) + "/../../../includes.ms" )
---filein( "c:\\GoogleDrive\\Programs\\CG\\3DsMax\\scripts\\Library\\_UI\\includes.ms" )
-
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
 /* ROLLOUT DEFINITION */
@@ -25,7 +22,6 @@ for i = 1 to 10 do
 
 /* CREATE DIALOG */
 Dialog.create()	-- create with default params
-
 
 
 Dialog.Property.height 1024

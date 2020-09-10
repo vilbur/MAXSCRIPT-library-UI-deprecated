@@ -8,7 +8,6 @@
 	
 	/* dependency */
 	ControlId	= ControlId_v	Parent_control:this,
-	--ControlId,
 	Events	= ControlEvents_v	Parent_control:this,
 	Props	= Props_v	Control:this,
 
