@@ -12,16 +12,13 @@ Rollout_A	= Dialog.roll "Subrollout A"
 /* CREATE DIALOG */
 Dialog.create()	-- create with default params
 
+/* DIALOG POSITION */
+messageBox "Dialog has default position" beep:false
 
-/* DOCKING DIALOG */
-Dialog.dock #right
+Dialog.position 0 0
 
-messageBox "Dialog is docked right" beep:false
+messageBox "Dialog position is 0,0 " beep:false
 
-Dialog.dock #left
+Dialog.position 256 256
 
-messageBox "Dialog is docked left" beep:false
-
-Dialog.undock()
-
-messageBox "Dialog is undocked" beep:false
+messageBox "Dialog position is 256 256 " beep:false
