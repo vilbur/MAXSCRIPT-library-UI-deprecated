@@ -19,3 +19,6 @@ sleep 1
 
 Dialog.undock()
 
+sleep 1
+
+Dialog.dock #left
