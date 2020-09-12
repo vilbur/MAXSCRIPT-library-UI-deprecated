@@ -77,7 +77,7 @@ struct Props_v
 	function propPath prop_name =
 	(
 		--print "------------\nProps.propPath()"
-		Control.id.full + "." + (prop_name as string ) --return
+		Control.id.full + "." + ( prop_name as string ) --return
 	),
 
 	/** Get prop

@@ -37,12 +37,13 @@ struct RolloutProperty_v
 	--private
 
 	/** Set property
+	  *
+	  * @property	name	key	of property E.G.: #height
+	  * @property	mixed	value	of property
 	 */
 	function _setProperty key value =
 	(
-		print ("------------\nRolloutProperty._setProperty() " + key as string )
-		--print ( this._getPropertyString key + " = " + this._getValue key value )
-		
+		--print ("------------\nRolloutProperty._setProperty() " + key as string )
 		execute ( this._getPropertyString key + " = " + this._getValue key value )
 	),
 	/** Get property string

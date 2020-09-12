@@ -33,35 +33,40 @@ function rollouts =
 	_RolloutMain.Subrollouts.Rollouts --return
 ),
 
-
 /** Close
  */
 function destroy =
 (
-	--print "------------\nDialog.destroy()"
 	this._unregister()
 
-	--try(DestroyDialog Dialog)catch()
-	try(DestroyDialog Dialog )catch()
-	
+	try( DestroyDialog Dialog )catch()
 ),
+
 /** Set position of dialog relative 3Ds Max window
  */
 function position x y =
 (
 	this.undock()
 	
+	/**  COMMENTED CODE IS PREPARED FOR SETTING OF PROPERTIES BEFORE DIALOG CREATION
+	 */
 	--Dialog.pos = [ x, y ]
-	if not( this._isRegistered() ) then 
+	--if not( this._isRegistered() ) then 
 		SetDialogPos Dialog ( getMAXWindowPos() + [ x, y ] )
-	else
-		Dialog.pos = [ x, y ]
+	--else
+		--Dialog.pos = [ x, y ]
 ),
+
 /** Set size of dialog
  */
-function size width height =
+function width value =
 (
-	this.undock()
-	
-	Dialog.size = [ width, height ]
+	_RolloutMain.Property._setProperty #width value
+),
+
+/** Set size of dialog
+ */
+function height value =
+(
+	_RolloutMain.Property._setProperty #height value
 ),
