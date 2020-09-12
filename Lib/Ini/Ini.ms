@@ -8,16 +8,17 @@ struct Ini_v
 	_file,	-- *.ini filename
 	_path,	-- full pah to *.ini file
 	
-	/** Dir
+	/** Set path to dir which contains *.ini fie
+	  * @property	string	_path	path to dir
 	 */
 	function dir _path =
 	(
-		--print ( "Ini_v.dir() = " + _path as string )
 		_path = this._normalizePath _path
 		
 		this._getSetProp #_dir _path --return
 	),
-	/** File
+	/** Set filename of *.ini file
+	  * @property	string	filename	of *.ini file E.G.: "foo.ini" 
 	 */
 	function file filename =
 	(
@@ -40,17 +41,19 @@ struct Ini_v
 		this._getSetProp #_path _path --return
 	),
 	/** Ini save control state
+	  * @property	string|name	section
+	  * @property	string|name	key
+	  * @property	mixed	value
 	 */
 	function save section key value =
 	(
-		--print "------------\nIni.save()"
-		setINISetting _path section key ( value as string )
+		setINISetting _path ( section as string ) ( key as string ) ( value as string )
 	),
 	/** Ini save control state
 	 */
 	function load section key default:undefined =
-	(
-		--print "------------\nIni.load()"
+		(
+	--print "------------\nIni.load()"
 		section	= section	as string
 		key	= key	as string
 		value	= default
@@ -66,9 +69,9 @@ struct Ini_v
 		--format " value	= % \n" value
 		value --return
 	),
-	/*---------------------------------------
-		PRIVATE
-	-----------------------------------------*/
+	
+	private
+	
 	/** Get\set value of property 
 	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
 	  * @param	string|#get value	Value of property

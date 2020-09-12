@@ -1,6 +1,6 @@
 filein( getFilenamePath(getSourceFileName()) + "/../Rollouts/Rollout/Rollout.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/../Ini/Ini.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/DialogProperty/DialogProperty.ms" )
+--filein( getFilenamePath(getSourceFileName()) + "/DialogProperty/DialogProperty.ms" )
 
 /** Globals
  */
@@ -8,7 +8,6 @@ struct Globals_v
 (
 	Dialog
 )
---format " __GLOBAL__v	= % \n" __GLOBAL__v
 if( __GLOBAL__v == undefined ) then
 	global __GLOBAL__v = Globals_v()
 
@@ -28,7 +27,7 @@ struct Dialog_v
 
 	/* dependency */
 	_RolloutMain,
-	Property,
+	--Property,
 	--Menu	= Menu_v(),
 	Ini	= Ini_v(),
 	
@@ -55,17 +54,7 @@ struct Dialog_v
 	(
 		_RolloutMain	= Rollout_v title:title id:id
 	),
-	/** Set access shortcut to properties
-	  *
-	  * @example 
-	  * 	Dialog.property.height	512	-- THIS METHOD ALLOW USE THIS
-	  * 	Dialog._RolloutMain.property.height	512	-- INSTEAD OF THIS
-	 */
-	function _setProperty =
-	(
-		--Property	= _RolloutMain.Property
-		Property	= DialogProperty_v id:_RolloutMain.id subrollouts_slot:_RolloutMain.subrollouts_slot
-	),
+
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
@@ -101,27 +90,38 @@ struct Dialog_v
 			Ini.file ( (getFilenameFile id) + ".ini" )
 	), 
 
+	--/** Set access shortcut to properties
+	--  *
+	--  * @example 
+	--  * 	Dialog.property.height	512	-- THIS METHOD ALLOW USE THIS
+	--  * 	Dialog._RolloutMain.property.height	512	-- INSTEAD OF THIS
+	-- */
+	--function _setProperty =
+	--(
+	--	--Property	= _RolloutMain.Property
+	--	Property	= DialogProperty_v id:_RolloutMain.id subrollouts_slot:_RolloutMain.subrollouts_slot
+	--),
 
-	/** Get\set value of property 
-	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
-	  * @param	string|#get value	Value of property
-	  *
-	  * @return	string|self Value or self
-	  *
-	  * @example this._getSetProp "foo" "bar" -- SET "bar" to property "foo"
-	  * @example this._getSetProp #foo  #get  -- GET value of property "foo"
-	  */
-	function _getSetProp key value =
-	(
-		if( value != #get ) then
-		(
-			if( value != undefined ) then
-				setProperty this ( key as string ) value
-			
-			this --return
-		) else
-			getProperty this ( key as string ) --return
-	),
+	--/** Get\set value of property 
+	--  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
+	--  * @param	string|#get value	Value of property
+	--  *
+	--  * @return	string|self Value or self
+	--  *
+	--  * @example this._getSetProp "foo" "bar" -- SET "bar" to property "foo"
+	--  * @example this._getSetProp #foo  #get  -- GET value of property "foo"
+	--  */
+	--function _getSetProp key value =
+	--(
+	--	if( value != #get ) then
+	--	(
+	--		if( value != undefined ) then
+	--			setProperty this ( key as string ) value
+	--		
+	--		this --return
+	--	) else
+	--		getProperty this ( key as string ) --return
+	--),
 	/** Check if required properties are defined
 	  * Names of required props are defined in __construct array
 	 */
@@ -136,7 +136,7 @@ struct Dialog_v
 		
 		this._setMainRollout()
 		
-		this._setProperty()
+		--this._setProperty()
 				
 		this._setDialogGlobal()
 		

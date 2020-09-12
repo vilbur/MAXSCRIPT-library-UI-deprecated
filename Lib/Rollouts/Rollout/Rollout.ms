@@ -127,17 +127,6 @@ struct Rollout_v
 		_rolloutCreator.end()
 		--format "_rolloutCreator.def = % \n" _rolloutCreator.def
 	),
-	/** Get id of rollout or get full id with parent rollout if subrollout
-	  *
-	  * @return	string	"rollout_id|parent_rollout_id.subrollouts_slot.rollout_id"
-	 */
-	function getId =
-	(
-		--if( this._isSubrollout() ) then id else Parent_roll.id + "." + id
-		--if( this._isSubrollout() ) then Parent_roll.id + "." + id else id
-		if( this._isSubrollout() ) then Parent_roll.id + "." + subrollouts_slot + "." + id else id
-	),
-	
 	
 	/** Open close rollout
 	  *
@@ -161,6 +150,17 @@ struct Rollout_v
 	(
 		try( execute("cui.UnRegisterDialogBar " +i d) )catch()
 		try( execute("DestroyDialog "           + id) )catch()
+	),
+	
+	/** Get id of rollout or get full id with parent rollout if subrollout
+	  *
+	  * @return	string	"rollout_id|parent_rollout_id.subrollouts_slot.rollout_id"
+	 */
+	function getId =
+	(
+		--if( this._isSubrollout() ) then id else Parent_roll.id + "." + id
+		--if( this._isSubrollout() ) then Parent_roll.id + "." + id else id
+		if( this._isSubrollout() ) then Parent_roll.id + "." + subrollouts_slot + "." + id else id
 	),
 	
 	private
@@ -254,7 +254,7 @@ struct Rollout_v
 	on create do
 	(
 		--print "------------\nRollout_v.on create()"
-		--this._checkConstctructProperties()
+		this._checkConstctructProperties()
 		
 		this._setId()
 		
