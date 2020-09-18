@@ -80,7 +80,7 @@ struct Dialog_v
 	  * Default dir:	"#temp\ini-files\"
 	  * Default file:	"%dialog_id%.ini"
 	 */
-	function _setIniDefaults =
+	function _setIniFile =
 	(
 		if( Ini.dir #get == undefined ) then
 			Ini.dir (( pathConfig.GetDir #temp ) + "\ini-files")
@@ -140,6 +140,6 @@ struct Dialog_v
 				
 		this._setDialogGlobal()
 		
-		--this._setIniDefaults() -- DIABLED FOR DEBUGGING
+		this._setIniFile() -- DISABLED FOR DEBUGGING
 	)
 )

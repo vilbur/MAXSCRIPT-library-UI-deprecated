@@ -33,18 +33,20 @@ struct RolloutEvent_v
 	 */
 	function setDefaultEvents =
 	(
-		rollout_id_split	= filterString parent_control.id "."
+		print (parent_control.id + ".setDefaultEvents()")
+		--rollout_id_split	= filterString parent_control.id "."
+		--save_to_ini_method	= parent_control.id + ".saveIni @"+rollout_id_split[1]+"@ @open@ ( val as string )"
 		save_to_ini_method	= parent_control.id + ".saveIni @"+rollout_id_split[1]+"@ @open@ ( val as string )"
-
-		--print ( "RolloutEvent_v._bindDefaultEvents() save_to_ini_method = " + save_to_ini_method as string )
+		--
+		----print ( "RolloutEvent_v._bindDefaultEvents() save_to_ini_method = " + save_to_ini_method as string )
 		this.Events.setDefaultEvent ( Event_v type:"onOpen"	code:save_to_ini_method )
-		this.Events.setDefaultEvent ( Event_v type:"onClose"	code:save_to_ini_method )
+		--this.Events.setDefaultEvent ( Event_v type:"onClose"	code:save_to_ini_method )
 	),
 	/** Bind events handlers to rollout 
 	 */
 	function _addHandlers =
 	(
-		parent_control._rolloutCreator.addText ("on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")" )
+		--parent_control._rolloutCreator.addText ("on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")" )
 	),
 	/** Get callback on rollout open\close
 	 */

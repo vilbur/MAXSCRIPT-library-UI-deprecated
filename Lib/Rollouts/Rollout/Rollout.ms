@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
+
 filein( getFilenamePath(getSourceFileName()) + "/../Subrollouts/Subrollouts.ms" )
 
 
@@ -8,6 +10,9 @@ filein( getFilenamePath(getSourceFileName()) + "/../Subrollouts/Subrollouts.ms" 
 filein( getFilenamePath(getSourceFileName()) + "/../../Controls/Controls.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/../RolloutProperty/RolloutProperty.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/RolloutEvent/RolloutEvent.ms" )
+
 
 /** Create Rollout
   * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
@@ -60,11 +65,11 @@ struct Rollout_v
 	/* options */
 
 	/* lists */
-	--RolloutEvent	= RolloutEvent_v parent_control:this,
+	RolloutEvent	= RolloutEvent_v parent_control:this,
 
 	_controls_ids = #(),	-- store ids of added controls in rollout
 	
-	type	= #rollout, -- reference for this.RolloutEvent._bindDefaultEvent()
+	type	= #rollout,     -- reference for this.RolloutEvent._bindDefaultEvent()
 
 	/*------ EXTENDED METHODS ------*/
 	--onOpen	= RolloutEvent.onOpen,
@@ -82,7 +87,7 @@ struct Rollout_v
 		this._createRollout()
 		--format "\n------------\n_rolloutCreator.def\n%" _rolloutCreator.def
 
-		CreateDialog ( _rolloutCreator.def ) height:height
+		CreateDialog ( _rolloutCreator.getDefinition() ) height:height
 		
 		--this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		Subrollouts.addSubRollouts id
@@ -116,16 +121,11 @@ struct Rollout_v
 		Subrollouts.createSubRollouts()
 		Subrollouts.setSubrolloutSlot()
 		
-		_rolloutCreator.addText( Subrollouts.slot_string )
-		--format "\n------------\nSubrollouts.slot_string:\n%" Subrollouts.slot_string
-
-		--this._addEventHandlers()
-	
-		--this._addSaveIniFunction()
+		this._addText()
 	
 		--print ("------------\nRollout_v._createRollout() rollout " + id + " created")
-		_rolloutCreator.end()
-		--format "_rolloutCreator.def = % \n" _rolloutCreator.def
+		_rolloutCreator.endOfCreation()
+		--format "_rolloutCreendOfCreationator.def = % \n" _rolloutCreator.def
 	),
 	
 	/** Open close rollout
@@ -164,14 +164,14 @@ struct Rollout_v
 	),
 	
 	private
-	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
-	 */
-	function _setRolloutCreator =
-	(
-		_rolloutCreator = rolloutCreator id title
-		
-		_rolloutCreator.begin()
-	),
+	--/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
+	-- */
+	--function _setRolloutCreator =
+	--(
+	--	_rolloutCreator = rolloutCreator id title
+	--	
+	--	_rolloutCreator.begin()
+	--),
 	/*---------------------------------------
 		ROLLOUT NEW
 	-----------------------------------------*/
@@ -206,37 +206,31 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		if( ini != undefined ) then 
-			this.RolloutEvent.setDefaultEvents()
+		--print (  " Rollout_v.setDefaultEvents()" + ( classof ini == undefined ) )
+		print (  " Rollout_v.setDefaultEvents()"  )
+
+		--if( ini != undefined ) then 
+			--this.RolloutEvent.setDefaultEvents()
 	),
 
-	/*------------------------------------------------------------------------------
-		EVENTS
-	--------------------------------------------------------------------------------*/
-	/** Bind events to rollout 
-	 */
-	function _addEventHandlers =
+	function _addText =
 	(
-		this.RolloutEvent._addHandlers()
+		/*  */ 
+		--_rolloutCreator.addText( Subrollouts.slot_string )
+
+			
+		/** Bind events to rollout 
+		 */
+		--if( ini != undefined ) then 
+			--_rolloutCreator.addText ("on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")" )
+
+
+		/** Add saveIni() function to rollout
+		  * This function is called before user callback
+		  */
+		--_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
 	),
-	/** Add saveIni() function to rollout
-	  * This function is called before user callback
-	  */
-	function _addSaveIniFunction =
-	(
-		if( ini != undefined ) then
-			_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
-	),
-	
-	/*------------------------------------------------------------------------------
-		HELPERS
-	--------------------------------------------------------------------------------*/
-	/** Test if this rollout is subrollout
-	 */
-	function _isSubrollout =
-	(
-		Parent_roll != undefined --return
-	),
+
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
@@ -262,10 +256,10 @@ struct Rollout_v
 		
 		this._setRolloutGlobalVariable()
 		
-		--this.setDefaultEvents()
+		this.setDefaultEvents()
 		
-		this._setRolloutCreator()
+		--this._setRolloutCreator
+		_rolloutCreator = RolloutCreator_v id:id title:title
 	)
-
 
 )
