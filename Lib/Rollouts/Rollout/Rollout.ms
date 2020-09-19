@@ -50,7 +50,7 @@ struct Rollout_v
 	/* properties */
 	ini, -- inherit by Dialog_v
 	subrollouts_slot = "default_slot",
-	_rolloutCreator,
+	RolloutCreator,
 	
  	Controls	= Controls_v	Parent_roll:this,
 	Property	= RolloutProperty_v	Parent_roll:this,
@@ -85,14 +85,14 @@ struct Rollout_v
 	(
 		--format "\n------------\nRollout_v.dialogCreate()"
 		this._createRollout()
-		--format "\n------------\n_rolloutCreator.def\n%" _rolloutCreator.def
+		--format "\n------------\n_rolloutCreator.def\n%" RolloutCreator.def
 
-		CreateDialog ( _rolloutCreator.getDefinition() ) height:height
+		CreateDialog ( RolloutCreator.getDefinition() ) height:height
 		
 		--this.Property.all width:width height:height pos:pos -- SET PROPERTIES WITH RolloutProperties_v CLASS
 		Subrollouts.addSubRollouts id
 		
-		--_rolloutCreator --return
+		--RolloutCreator --return
 	),
 
 	/** Add subrollout
@@ -102,11 +102,11 @@ struct Rollout_v
 	function subrollout title id: =
 	(
 		--print "------------\nRollout_v.subrollout()"
-		_subrollout = Rollout_v title:title id:id Parent_roll:this
+		new_subrollout = Rollout_v title:title id:id Parent_roll:this
 		
-		Subrollouts.add _subrollout
-		--format " _subrollout.id	= % \n" _subrollout.id
-		_subrollout --return 
+		Subrollouts.add new_subrollout
+		--format " new_subrollout.id	= % \n" new_subrollout.id
+		new_subrollout --return 
 	),
 	
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
@@ -121,11 +121,11 @@ struct Rollout_v
 		Subrollouts.createSubRollouts()
 		Subrollouts.setSubrolloutSlot()
 		
-		this._addText()
+		RolloutCreator.addSubrolloutSlot( Subrollouts.slot_string )
 	
 		--print ("------------\nRollout_v._createRollout() rollout " + id + " created")
-		_rolloutCreator.endOfCreation()
-		--format "_rolloutCreendOfCreationator.def = % \n" _rolloutCreator.def
+		RolloutCreator.endOfCreation()
+		--format "_rolloutCreendOfCreationator.def = % \n" RolloutCreator.def
 	),
 	
 	/** Open close rollout
@@ -164,14 +164,7 @@ struct Rollout_v
 	),
 	
 	private
-	--/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
-	-- */
-	--function _setRolloutCreator =
-	--(
-	--	_rolloutCreator = rolloutCreator id title
-	--	
-	--	_rolloutCreator.begin()
-	--),
+
 	/*---------------------------------------
 		ROLLOUT NEW
 	-----------------------------------------*/
@@ -212,25 +205,16 @@ struct Rollout_v
 		--if( ini != undefined ) then 
 			--this.RolloutEvent.setDefaultEvents()
 	),
-
-	function _addText =
+	
+	/*------------------------------------------------------------------------------
+		HELPERS
+	--------------------------------------------------------------------------------*/
+	/** Test if this rollout is subrollout
+	 */
+	function _isSubrollout =
 	(
-		/*  */ 
-		--_rolloutCreator.addText( Subrollouts.slot_string )
-
-			
-		/** Bind events to rollout 
-		 */
-		--if( ini != undefined ) then 
-			--_rolloutCreator.addText ("on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")" )
-
-
-		/** Add saveIni() function to rollout
-		  * This function is called before user callback
-		  */
-		--_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
+		Parent_roll != undefined --return
 	),
-
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
@@ -258,8 +242,7 @@ struct Rollout_v
 		
 		this.setDefaultEvents()
 		
-		--this._setRolloutCreator
-		_rolloutCreator = RolloutCreator_v id:id title:title
+		RolloutCreator = RolloutCreator_v id:id title:title
 	)
 
 )
