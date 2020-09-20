@@ -16,7 +16,7 @@ struct RolloutCreator_v
 	--_Containers	= Containers_v(),
 	definition = " ", -- used in "rolloutCreator.addText( definition )", !!! NOTE: empty string must has whitespace, otherwise is threated as undefined 
 
-	public	
+	public
 	/** Add subrollout slot
 	 */
 	function addSubrolloutSlot slot_string =
@@ -33,28 +33,28 @@ struct RolloutCreator_v
 
 	/** 
 	 */
-	function endOfCreation =
+	function endOfDefinition =
 	(
 		_rolloutCreator.end()
 	),
-	--
-	--function _addText =
-	--(
-	--	/*  */ 
-	--
-	--		
+	/** Add saveIni() function to rollout
+	  * This function is called before user callback
+	  */
+	function addSaveIniFunction text_to_write =
+	(
+		_rolloutCreator.addText ( text_to_write )
+		
 	--	/** Bind events to rollout 
 	--	 */
 	--	--if( ini != undefined ) then 
-	--		--_rolloutCreator.addText ("on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")" )
-	--
-	--
-	--	/** Add saveIni() function to rollout
-	--	  * This function is called before user callback
-	--	  */
-	--	--_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
-	--),
-		
+	--		--_rolloutCreator.addText ()
+	),
+	/** Add default events to rollout
+	 */
+	function addDefaultEvents =
+	(
+		_rolloutCreator.addText ( text_to_write )
+	),	
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/

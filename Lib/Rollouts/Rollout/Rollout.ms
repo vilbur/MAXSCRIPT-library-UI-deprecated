@@ -122,9 +122,11 @@ struct Rollout_v
 		Subrollouts.setSubrolloutSlot()
 		
 		RolloutCreator.addSubrolloutSlot( Subrollouts.slot_string )
+		--RolloutCreator.addSaveIniFunction( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
+		--RolloutCreator.addDefaultEvents( "on "+parent_control.id+" rolledUp val do ("+ this._getCallback() + ")"  )
 	
 		--print ("------------\nRollout_v._createRollout() rollout " + id + " created")
-		RolloutCreator.endOfCreation()
+		RolloutCreator.endOfDefinition()
 		--format "_rolloutCreendOfCreationator.def = % \n" RolloutCreator.def
 	),
 	
